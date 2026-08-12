@@ -2,7 +2,7 @@ import Link from "next/link";
 import {
   LayoutDashboard, Newspaper, Calendar, Images, Building2, Archive, Mic2,
   Crown, Users, Globe2, Mail, FileText, FolderKanban, Users2, Shield,
-  Settings, ClipboardList, HeartHandshake,
+  Settings, ClipboardList, HeartHandshake, Landmark,
 } from "lucide-react";
 
 const sections: { heading: string; items: { label: string; href: string; icon: React.ComponentType<{ className?: string }> }[] }[] = [
@@ -27,6 +27,7 @@ const sections: { heading: string; items: { label: string; href: string; icon: R
       { label: "Traditional Leaders", href: "/admin/traditional-institution", icon: Crown },
       { label: "Families & Oríkì", href: "/admin/families", icon: HeartHandshake },
       { label: "Community Profiles", href: "/admin/people", icon: Users },
+      { label: "TIPU", href: "/admin/tipu", icon: Landmark },
     ],
   },
   {
