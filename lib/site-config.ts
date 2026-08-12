@@ -41,6 +41,9 @@ export const heritageNav: NavItem[] = [
   { label: "Families & Oríkì", href: "/families", description: "Family names, compounds and praise poetry" },
   { label: "Oríkì Archive", href: "/oriki", description: "Listen to and read Oríkì" },
   { label: "Voices of Takete-Ide", href: "/archive/oral-history", description: "Oral history recordings" },
+  { label: "Agado Festival", href: "/heritage/agado", description: "Community video footage" },
+  { label: "Ate — Egungun Heritage", href: "/heritage/ate", description: "One of the Egungun traditions" },
+  { label: "Traditional Marriage", href: "/heritage/traditional-marriage", description: "Ceremonial items and gatherings" },
 ];
 
 export const moreNav: NavItem[] = [

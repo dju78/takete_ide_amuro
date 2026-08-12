@@ -15,8 +15,8 @@ const statusOptions = [
 ];
 
 const categoryOptions = [
-  "Community Life", "Traditional Institution", "Takete-Ide Day", "Development",
-  "Historical Archive", "People", "Education", "Events",
+  "Community Life", "Traditional Institution", "Takete-Ide Day", "Children & Cultural Heritage",
+  "Development", "Historical Archive", "People", "Education", "Events",
 ].map((c) => ({ value: c, label: c }));
 
 interface Props {

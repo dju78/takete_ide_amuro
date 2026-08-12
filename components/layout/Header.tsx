@@ -23,7 +23,7 @@ export function Header({ weatherSlot }: { weatherSlot?: React.ReactNode }) {
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         <Logo />
 
-        <nav aria-label="Primary" className="hidden items-center gap-1.5 xl:flex">
+        <nav aria-label="Primary" className="hidden items-center gap-1.5 min-[1320px]:flex">
           <Link
             key={beforeDay.href}
             href={beforeDay.href}
@@ -58,7 +58,7 @@ export function Header({ weatherSlot }: { weatherSlot?: React.ReactNode }) {
           <Link
             href="/search"
             aria-label="Search the site"
-            className="hidden rounded-full p-2 text-charcoal/70 hover:bg-purple-50 hover:text-purple-600 xl:inline-flex"
+            className="hidden rounded-full p-2 text-charcoal/70 hover:bg-purple-50 hover:text-purple-600 min-[1320px]:inline-flex"
           >
             <Search className="h-5 w-5" aria-hidden="true" />
           </Link>
@@ -69,7 +69,7 @@ export function Header({ weatherSlot }: { weatherSlot?: React.ReactNode }) {
             type="button"
             onClick={() => setMobileOpen(true)}
             aria-label="Open menu"
-            className="rounded-full p-2 text-purple-600 hover:bg-purple-50 xl:hidden"
+            className="rounded-full p-2 text-purple-600 hover:bg-purple-50 min-[1320px]:hidden"
           >
             <Menu className="h-6 w-6" aria-hidden="true" />
           </button>

@@ -36,7 +36,7 @@ export function NewsCard({ article }: { article: NewsArticle }) {
             {formatDate(article.published_at)}
           </time>
         )}
-        {article.excerpt && <p className="mt-3 flex-1 text-sm text-charcoal/70">{truncate(article.excerpt, 120)}</p>}
+        {article.excerpt && <p className="mt-3 flex-1 text-[15px] text-charcoal/70">{truncate(article.excerpt, 120)}</p>}
         <span className="mt-4 text-sm font-semibold text-community-green">Read More →</span>
       </div>
     </Link>

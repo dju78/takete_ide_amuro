@@ -52,6 +52,36 @@ decision and the reasoning.
 - **Social icons**: Facebook/Instagram render in a visibly disabled "coming soon" state — no real
   URLs were supplied, and the brief forbids inventing them. WhatsApp/Email icons route to `/contact`.
 
+## Third Pass — Authentic Cultural Media Replacement
+
+- **1280px header overflow, fixed**: visually verifying at the requested breakpoints (1440/1280/
+  1024/768/430/375) found a genuine ~10px horizontal overflow at exactly 1280px — the header's
+  desktop nav switch used Tailwind's `xl:` (1280px) breakpoint with no margin, so at precisely that
+  width the full nav, weather indicator, search icon and "Get Involved" button all had to fit with
+  zero slack. Replaced `xl:` with a custom `min-[1320px]:` breakpoint across
+  `Header.tsx`/`MobileNav.tsx`/`HeaderWeatherIndicator.tsx` so there's real headroom at the boundary.
+
+- **Image identity resolved by hash, not guesswork**: the project owner supplied files named
+  `Takete Ide Day.jpg` and `Takete Ide Logo.png`. Byte-for-byte comparison (`md5sum`) confirmed these
+  are identical to files already in the project (previously labelled `community-life.jpg` and
+  `tipu-emblem.png`). Rather than guess which of two ambiguous "festival tent" photographs was
+  "Takete-Ide Day" vs. "marriage celebration," the owner's own filenames were treated as
+  authoritative and used directly — no visual-similarity guessing was needed once the real files were
+  located.
+- **Living Heritage section**: added as a new, image-forward homepage section (Agado Festival, Ate —
+  Egungun Heritage, Traditional Marriage, Passing Heritage Forward) per explicit instruction, each
+  linking to a dedicated `/heritage/*` page. "Ate" is described only as *one* Egungun tradition, never
+  as a synonym for "masquerade" or "Agado" generally, per instruction.
+- **Conservative captioning for marriage imagery**: per instruction, the marriage-celebration
+  photographs are captioned as "ceremonial items associated with marriage celebrations" — no specific
+  ritual meaning is asserted, since it hasn't been verified with community sources.
+- **No invented Agado history**: `/heritage/agado` presents only the supplied video and a note that
+  historical/cultural context is being compiled with elders — no dates, origins or significance are
+  stated.
+- **Video captions**: `Agado.mp4` has no caption/transcript track supplied. It is presented with
+  native player controls and a visible note that captions aren't yet available, rather than blocking
+  the authentic footage from being shown or fabricating a transcript.
+
 ## Second Pass — Full Admin CRUD, Search, Structured Data
 
 - **Navigation**: "Heritage" became a header dropdown (Heritage Overview, Traditional Institution,
