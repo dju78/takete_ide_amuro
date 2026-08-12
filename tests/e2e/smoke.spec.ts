@@ -1,11 +1,21 @@
 import { test, expect } from "@playwright/test";
 
 test.describe("Public site smoke tests", () => {
-  test("homepage renders with brand and hero", async ({ page }) => {
+  test("homepage renders with brand and hero (desktop composition)", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto("/");
     await expect(page).toHaveTitle(/Takete-Ide Amuro/);
     await expect(page.getByRole("heading", { name: "Takete-Ide Amuro", level: 1 })).toBeVisible();
-    await expect(page.getByText("Heritage • Unity • Progress").first()).toBeVisible();
+    // Desktop and mobile hero markups both exist in the DOM (CSS-toggled); at
+    // this viewport the mobile one is display:none, so scope to the visible one.
+    await expect(page.locator("text=Heritage • Unity • Progress >> visible=true")).toBeVisible();
+  });
+
+  test("homepage renders with brand and hero (mobile composition)", async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto("/");
+    await expect(page.getByRole("heading", { name: "Takete-Ide Amuro", level: 1 })).toBeVisible();
+    await expect(page.locator("text=Heritage • Unity • Progress >> visible=true")).toBeVisible();
   });
 
   test("Home link and mega-menu group links resolve", async ({ page }) => {

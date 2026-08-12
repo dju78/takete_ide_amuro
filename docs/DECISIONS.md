@@ -74,6 +74,43 @@ decision and the reasoning.
 - **NavDropdown.tsx removed**: superseded by `MegaMenuGroup.tsx`, which additionally supports the
   featured-item highlighting and multi-column layout NavDropdown didn't have.
 
+## Fifth Pass — Mobile-First Cleanup
+
+- **Problem being fixed**: prior passes made mobile *not overflow*, but the layout was still the
+  desktop composition scaled down — same grids, same section rhythm, same image crops, just narrower.
+  Instruction was explicit: "Do not make the desktop website smaller to fit a phone. Redesign the
+  presentation for the phone." This pass treats 375–430px as its own design problem, not a compressed
+  breakpoint of the 1440px layout.
+- **Dual-markup pattern**: rather than trying to make one grid serve both a 4-column desktop
+  composition and a single-column mobile one via responsive utility classes alone, sections with a
+  materially different mobile shape (Hero, homepage Takete-Ide Day, homepage Gallery strip, the
+  standalone `/takete-ide-day` page) now render two separate DOM blocks — `lg:hidden` for the mobile
+  composition and `hidden lg:grid`/`hidden lg:flex` for the unchanged desktop one — rather than one
+  block trying to be both. This is more DOM than a single responsive block, but it lets each viewport
+  have a genuinely different, purpose-built layout (e.g. the mobile hero puts the photo below a
+  full-width stacked button pair rather than beside a two-column grid).
+- **Global mobile spacing baseline**: `Container` padding raised from `px-4` to `px-5` (16px → 20px)
+  on mobile so content isn't flush against the edge; several homepage sections' vertical padding
+  changed from a flat `py-20` to `py-16 sm:py-20` so mobile gets slightly less vertical padding than
+  desktop while staying generous (64px, not cramped) — confirmed via computed-style checks that no
+  section fell below that floor.
+- **Weather widget**: added a `compact` prop to `WeatherCard` so the homepage's embedded card shows
+  one summary metric (rain) instead of the full 4-metric grid used on `/weather` itself — the full
+  grid was the single biggest source of cramped, tiny text on the homepage at 375px.
+- **Footer accordion on mobile**: `FooterAccordion.tsx` (new) mirrors `MobileNav`'s single-open-group
+  accordion pattern instead of dumping every footer link flat, matching the "calmer, more spacious"
+  instruction; desktop keeps the existing condensed group-heading row.
+- **Tap targets**: mobile drawer and footer accordion buttons/links set to a `min-h-11`/`min-h-12`
+  (44–48px) floor per standard mobile touch-target guidance.
+- **Verification method**: the sandboxed browser tool cannot composite screenshots
+  (`computer{action:"screenshot"}` fails with "Browser pane is not displayed"), so visual review was
+  done via `javascript_exec` — computed `getBoundingClientRect()` geometry, `scrollWidth`/overflow
+  sweeps, and section-by-section padding/order checks — at 375, 390, 430 and 768px, across the
+  homepage and a representative sample of inner pages (gallery, families, heritage/agado, development,
+  weather, contact, diaspora, archive, archive/oral-history, our-people, tipu, our-story, heritage).
+  No horizontal overflow was found at any breakpoint; the 768px check confirmed the `lg:` dual-markup
+  switch point (1024px) correctly keeps the mobile composition active through tablet width.
+
 ## Third Pass — Authentic Cultural Media Replacement
 
 - **1280px header overflow, fixed**: visually verifying at the requested breakpoints (1440/1280/
