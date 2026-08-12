@@ -8,6 +8,7 @@ import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { NewsCard } from "@/components/cards/NewsCard";
 import { formatDate } from "@/lib/utils";
 import { getNewsBySlug, getLatestNews } from "@/lib/data/news";
+import { siteConfig } from "@/lib/site-config";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -29,8 +30,24 @@ export default async function NewsArticlePage({ params }: Props) {
   const [article, related] = await Promise.all([getNewsBySlug(slug), getLatestNews(3)]);
   if (!article) notFound();
 
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: article.title,
+    description: article.excerpt ?? undefined,
+    image: article.featured_image ? [article.featured_image] : undefined,
+    datePublished: article.published_at ?? undefined,
+    author: { "@type": "Organization", name: siteConfig.name },
+    publisher: { "@type": "Organization", name: siteConfig.name },
+    mainEntityOfPage: `${siteConfig.url}/news/${article.slug}`,
+  };
+
   return (
     <div className="bg-ivory">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
       <Container className="py-16">
         <Breadcrumb items={[{ label: "News", href: "/news" }, { label: article.title }]} />
 

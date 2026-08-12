@@ -5,7 +5,7 @@ import Link from "next/link";
 import { X } from "lucide-react";
 import { Logo } from "@/components/layout/Logo";
 import { ButtonLink } from "@/components/ui/Button";
-import { primaryNav, moreNav } from "@/lib/site-config";
+import { primaryNav, heritageNav, moreNav } from "@/lib/site-config";
 
 export function MobileNav({ onClose }: { onClose: () => void }) {
   useEffect(() => {
@@ -15,7 +15,7 @@ export function MobileNav({ onClose }: { onClose: () => void }) {
     };
   }, []);
 
-  const allItems = [...primaryNav, ...moreNav];
+  const [home, ...restPrimary] = primaryNav;
 
   return (
     <div className="fixed inset-0 z-50 flex flex-col bg-white xl:hidden" role="dialog" aria-modal="true">
@@ -31,19 +31,31 @@ export function MobileNav({ onClose }: { onClose: () => void }) {
         </button>
       </div>
       <nav aria-label="Mobile" className="flex-1 overflow-y-auto px-4 py-6">
-        <ul className="flex flex-col gap-1">
-          {allItems.map((item) => (
+        <Link href={home.href} onClick={onClose} className="block rounded-xl px-4 py-3 text-base font-medium text-charcoal hover:bg-purple-50 hover:text-purple-600">
+          {home.label}
+        </Link>
+
+        <p className="mt-4 px-4 text-xs font-semibold uppercase tracking-wide text-charcoal/40">Heritage</p>
+        <ul className="mt-1 flex flex-col gap-0.5">
+          {heritageNav.map((item) => (
             <li key={item.href}>
-              <Link
-                href={item.href}
-                onClick={onClose}
-                className="block rounded-xl px-4 py-3 text-base font-medium text-charcoal hover:bg-purple-50 hover:text-purple-600"
-              >
+              <Link href={item.href} onClick={onClose} className="block rounded-xl px-4 py-3 text-base font-medium text-charcoal hover:bg-purple-50 hover:text-purple-600">
                 {item.label}
               </Link>
             </li>
           ))}
         </ul>
+
+        <ul className="mt-4 flex flex-col gap-0.5">
+          {[...restPrimary, ...moreNav].map((item) => (
+            <li key={item.href}>
+              <Link href={item.href} onClick={onClose} className="block rounded-xl px-4 py-3 text-base font-medium text-charcoal hover:bg-purple-50 hover:text-purple-600">
+                {item.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+
         <ButtonLink href="/get-involved" onClick={onClose} className="mt-6 w-full justify-center">
           Get Involved
         </ButtonLink>

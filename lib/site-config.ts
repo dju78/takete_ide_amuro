@@ -23,7 +23,6 @@ export type NavItem = {
 export const primaryNav: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "Our Story", href: "/our-story" },
-  { label: "Heritage", href: "/heritage" },
   { label: "Takete-Ide Day", href: "/takete-ide-day" },
   { label: "Development", href: "/development" },
   { label: "News", href: "/news" },
@@ -31,15 +30,27 @@ export const primaryNav: NavItem[] = [
   { label: "Weather", href: "/weather" },
 ];
 
+/**
+ * "Heritage" is a dropdown, not a plain link, so Families & Oríkì is one click
+ * from the top-level nav rather than nested inside the generic "More" menu —
+ * see docs/DECISIONS.md.
+ */
+export const heritageNav: NavItem[] = [
+  { label: "Heritage Overview", href: "/heritage", description: "Culture, customs and living heritage" },
+  { label: "Traditional Institution", href: "/heritage/traditional-institution", description: "The Olude and the traditional council" },
+  { label: "Families & Oríkì", href: "/families", description: "Family names, compounds and praise poetry" },
+  { label: "Oríkì Archive", href: "/oriki", description: "Listen to and read Oríkì" },
+  { label: "Voices of Takete-Ide", href: "/archive/oral-history", description: "Oral history recordings" },
+];
+
 export const moreNav: NavItem[] = [
   { label: "Our People", href: "/our-people", description: "Community leaders, achievers and profiles" },
-  { label: "Families & Oríkì", href: "/families", description: "Family names, compounds and praise poetry" },
   { label: "Diaspora", href: "/diaspora", description: "Takete-Ide people around the world" },
   { label: "Digital Archive", href: "/archive", description: "Historical documents, photographs and records" },
-  { label: "Voices of Takete-Ide", href: "/archive/oral-history", description: "Oral history recordings" },
   { label: "TIPU", href: "/tipu", description: "Takete-Ide Progressive Union" },
   { label: "Get Involved", href: "/get-involved", description: "Volunteer, contribute, partner" },
   { label: "Contact", href: "/contact" },
+  { label: "Search", href: "/search", description: "Search the whole site" },
 ];
 
 export const footerNav: { heading: string; items: NavItem[] }[] = [

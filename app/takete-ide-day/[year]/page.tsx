@@ -8,6 +8,7 @@ import { GalleryLightbox } from "@/components/gallery/GalleryLightbox";
 import { EventWeather } from "@/components/weather/EventWeather";
 import { getEventByYear } from "@/lib/data/events";
 import { formatDate } from "@/lib/utils";
+import { siteConfig } from "@/lib/site-config";
 
 interface Props {
   params: Promise<{ year: string }>;
@@ -47,8 +48,37 @@ export default async function TaketeIdeDayYearPage({ params }: Props) {
     );
   }
 
+  const eventJsonLd = event.event_date
+    ? {
+        "@context": "https://schema.org",
+        "@type": "Event",
+        name: `Takete-Ide Day ${event.year}${event.theme ? ` — ${event.theme}` : ""}`,
+        description: event.description ?? undefined,
+        startDate: event.event_date,
+        eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+        eventStatus: "https://schema.org/EventScheduled",
+        location: {
+          "@type": "Place",
+          name: siteConfig.location.community,
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: siteConfig.location.community,
+            addressRegion: siteConfig.location.state,
+            addressCountry: siteConfig.location.country,
+          },
+        },
+        organizer: { "@type": "Organization", name: siteConfig.name, url: siteConfig.url },
+      }
+    : null;
+
   return (
     <div className="bg-ivory">
+      {eventJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(eventJsonLd) }}
+        />
+      )}
       <div className="bg-purple-700 py-14 text-white">
         <Container>
           <Breadcrumb items={[{ label: "Takete-Ide Day", href: "/takete-ide-day" }, { label: String(event.year) }]} />
