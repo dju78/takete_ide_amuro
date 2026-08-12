@@ -1,0 +1,148 @@
+@import "tailwindcss";
+
+:root {
+  /* Brand colours — Takete-Ide Amuro */
+  --color-takete-purple: #321357;
+  --color-takete-purple-dark: #23103d;
+  --color-takete-purple-light: #4a2178;
+  --color-heritage-gold: #d4a72c;
+  --color-heritage-gold-dark: #a9840f;
+  --color-heritage-gold-light: #e8c766;
+  --color-community-green: #245c3a;
+  --color-community-green-dark: #163d26;
+  --color-warm-ivory: #fff9ef;
+  --color-charcoal: #202124;
+
+  --background: var(--color-warm-ivory);
+  --foreground: var(--color-charcoal);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-purple-50: #f3effa;
+  --color-purple-100: #e2d6f0;
+  --color-purple-400: #4a2178;
+  --color-purple-600: #321357;
+  --color-purple-700: #2a0f49;
+  --color-purple-900: #170a29;
+
+  --color-gold-100: #f8ecc9;
+  --color-gold-300: #e8c766;
+  --color-gold-500: #d4a72c;
+  --color-gold-700: #a9840f;
+
+  --color-green-600: #245c3a;
+  --color-green-700: #163d26;
+
+  --color-ivory: #fff9ef;
+  --color-ivory-100: #fffdf8;
+  --color-charcoal: #202124;
+
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-playfair);
+
+  --animate-fade-in: fade-in 0.5s ease-out;
+  --animate-marquee: marquee 40s linear infinite;
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+::selection {
+  background: var(--color-heritage-gold);
+  color: var(--color-takete-purple);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-heritage-gold);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: var(--color-takete-purple);
+  color: white;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0 0 0.5rem 0;
+}
+
+.skip-link:focus {
+  left: 0;
+}
+
+.prose-heritage {
+  max-width: 68ch;
+}
+
+.prose-heritage p + p {
+  margin-top: 1.1em;
+}
+
+.prose-heritage h2 {
+  font-family: var(--font-serif);
+  color: var(--color-takete-purple);
+  margin-top: 2em;
+  margin-bottom: 0.6em;
+}
+
+.prose-heritage h3 {
+  font-family: var(--font-serif);
+  color: var(--color-takete-purple);
+  margin-top: 1.6em;
+  margin-bottom: 0.5em;
+}
+
+.prose-heritage ul,
+.prose-heritage ol {
+  margin: 1em 0;
+  padding-left: 1.4em;
+}
+
+.prose-heritage li {
+  margin: 0.35em 0;
+}
+
+.prose-heritage a {
+  color: var(--color-community-green);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
