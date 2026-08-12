@@ -42,7 +42,7 @@ export default async function OralHistoryPage() {
               <article key={history.id} className="grid gap-6 rounded-2xl border border-purple-600/10 bg-white p-6 sm:grid-cols-[140px_1fr]">
                 <div className="relative aspect-square overflow-hidden rounded-xl bg-purple-50">
                   {history.photo_url ? (
-                    <Image src={history.photo_url} alt={history.interviewee} fill className="object-cover" />
+                    <Image src={history.photo_url} alt={history.interviewee} fill sizes="140px" className="object-cover" />
                   ) : (
                     <div className="flex h-full items-center justify-center text-purple-600/30">
                       <User className="h-10 w-10" aria-hidden="true" />

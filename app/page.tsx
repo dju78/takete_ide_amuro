@@ -1,5 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
+import { HeritageImage } from "@/components/ui/HeritageImage";
 import {
   BookOpen,
   Calendar,
@@ -26,9 +26,9 @@ import { getLatestEvent } from "@/lib/data/events";
 import { formatDate } from "@/lib/utils";
 
 const fallbackGallery = [
-  { src: "/images/source/photo-chieftaincy-1.jpg", alt: "Traditional chieftaincy ceremony at Takete-Ide Amuro" },
-  { src: "/images/source/photo-community-2.jpg", alt: "Community members gathered for a Takete-Ide event" },
-  { src: "/images/source/news-takete-ide-day-2025.jpg", alt: "News coverage of Takete-Ide Day 2025" },
+  { src: "/images/takete-ide/traditional-ceremony.jpg", alt: "Traditional chieftaincy ceremony at Takete-Ide Amuro" },
+  { src: "/images/takete-ide/community-life.jpg", alt: "Community members gathered for a Takete-Ide event" },
+  { src: "/images/takete-ide/takete-ide-day-2025.jpg", alt: "News coverage of Takete-Ide Day 2025" },
 ];
 
 export default async function HomePage() {
@@ -41,12 +41,12 @@ export default async function HomePage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden bg-purple-700">
-        <Container className="relative z-10 grid gap-10 py-16 lg:grid-cols-2 lg:items-center lg:py-24">
-          <div className="text-white">
+      <section className="relative overflow-hidden bg-purple-700 lg:min-h-[650px]">
+        <div className="mx-auto grid min-h-[560px] w-full max-w-7xl lg:min-h-[650px] lg:grid-cols-[45%_55%] lg:items-stretch">
+          <div className="relative z-10 flex flex-col justify-center px-4 py-14 text-white sm:px-6 lg:px-8 lg:py-0">
             <h1 className="font-serif text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl">Takete-Ide Amuro</h1>
             <p className="mt-3 text-xl font-semibold text-gold-300 sm:text-2xl">Heritage &bull; Unity &bull; Progress</p>
-            <p className="mt-5 max-w-lg text-base text-white/85 sm:text-lg">
+            <p className="mt-5 max-w-lg text-base leading-relaxed text-white/85 sm:text-lg">
               A historic community in Mopamuro Local Government Area, Kogi State, Nigeria.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
@@ -58,17 +58,21 @@ export default async function HomePage() {
               </ButtonLink>
             </div>
           </div>
-          <div className="relative aspect-[4/3] overflow-hidden rounded-3xl shadow-2xl ring-1 ring-white/10 lg:aspect-[5/4]">
-            <Image
-              src="/images/source/photo-chieftaincy-1.jpg"
+          <div className="relative min-h-[320px] lg:min-h-0">
+            <HeritageImage
+              src="/images/takete-ide/traditional-ceremony.jpg"
               alt="A traditional ceremony at Takete-Ide Amuro, with chiefs in full regalia"
+              label="Traditional Ceremony, Takete-Ide Amuro"
               fill
               priority
-              sizes="(min-width: 1024px) 45vw, 100vw"
-              className="object-cover"
+              sizes="(min-width: 1024px) 55vw, 100vw"
+              className="object-cover object-[center_20%]"
             />
+            {/* Purple-to-transparent wash so the text panel reads as one continuous scene with the photo. */}
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-purple-700 via-purple-700/50 to-transparent lg:w-1/4" />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-purple-900/30 via-transparent to-transparent" />
           </div>
-        </Container>
+        </div>
         <div className="absolute inset-x-0 bottom-0 h-3 bg-gradient-to-r from-gold-500 via-community-green to-gold-500" />
       </section>
 
@@ -98,9 +102,10 @@ export default async function HomePage() {
         <Container>
           <div className="grid gap-10 lg:grid-cols-[1fr_1.4fr] lg:items-center">
             <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
-              <Image
-                src="/images/source/photo-chieftaincy-1.jpg"
+              <HeritageImage
+                src="/images/takete-ide/traditional-ceremony.jpg"
                 alt="The traditional institution of Takete-Ide Amuro"
+                label="Traditional Institution, Takete-Ide Amuro"
                 fill
                 sizes="(min-width: 1024px) 35vw, 100vw"
                 className="object-cover"
@@ -157,10 +162,10 @@ export default async function HomePage() {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="relative aspect-square overflow-hidden rounded-2xl">
-                <Image src="/images/source/graphic-takete-ide-day-2024.jpg" alt="Takete-Ide Day 2024 celebration graphic" fill className="object-cover" />
+                <HeritageImage src="/images/takete-ide/takete-ide-day-2024.jpg" alt="Takete-Ide Day 2024 celebration graphic" label="Takete-Ide Day 2024" fill sizes="(min-width: 1024px) 22vw, 50vw" className="object-cover" />
               </div>
               <div className="relative aspect-square overflow-hidden rounded-2xl">
-                <Image src="/images/source/news-takete-ide-day-2025.jpg" alt="News coverage: Kogi celebrates Takete-Ide Day 2025" fill className="object-cover" />
+                <HeritageImage src="/images/takete-ide/takete-ide-day-2025.jpg" alt="News coverage: Kogi celebrates Takete-Ide Day 2025" label="Takete-Ide Day 2025" fill sizes="(min-width: 1024px) 22vw, 50vw" className="object-cover" />
                 <Link
                   href="/takete-ide-day/2025"
                   className="absolute bottom-2 left-2 rounded-full bg-purple-900/80 px-3 py-1 text-xs font-semibold"
@@ -222,7 +227,7 @@ export default async function HomePage() {
               : fallbackGallery
             ).map((img, i) => (
               <div key={i} className="relative aspect-square overflow-hidden rounded-xl">
-                <Image src={img.src} alt={img.alt} fill sizes="(min-width: 1024px) 25vw, 50vw" className="object-cover" />
+                <HeritageImage src={img.src} alt={img.alt} fill sizes="(min-width: 1024px) 25vw, 50vw" className="object-cover" />
               </div>
             ))}
           </div>

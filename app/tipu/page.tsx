@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { FileText, MapPinned } from "lucide-react";
+import { HeritageImage } from "@/components/ui/HeritageImage";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -30,7 +30,14 @@ export default async function TipuPage() {
           <Breadcrumb items={[{ label: "TIPU" }]} />
           <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-center">
             <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-full bg-white ring-4 ring-gold-500/40">
-              <Image src="/images/source/tipu-emblem.jpg" alt="Takete-Ide Progressive Union emblem" fill className="object-cover" />
+              <HeritageImage
+                src="/images/takete-ide/tipu-emblem.png"
+                alt="Takete-Ide Progressive Union emblem"
+                label="TIPU Emblem"
+                fill
+                sizes="96px"
+                className="object-contain p-1"
+              />
             </div>
             <div>
               <h1 className="font-serif text-4xl font-bold sm:text-5xl">Takete-Ide Progressive Union</h1>

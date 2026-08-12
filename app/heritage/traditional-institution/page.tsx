@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { Crown, Users } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { EmptyState } from "@/components/ui/EmptyState";
+import { HeritageImage } from "@/components/ui/HeritageImage";
 import { VerificationBadge } from "@/components/ui/Badge";
 import { getTraditionalRulers, getTraditionalCouncil } from "@/lib/data/people";
 import { formatDate } from "@/lib/utils";
@@ -34,7 +34,7 @@ export default async function TraditionalInstitutionPage() {
       <Container className="py-16">
         <section className="grid gap-10 lg:grid-cols-2 lg:items-center">
           <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
-            <Image src="/images/source/photo-chieftaincy-1.jpg" alt="A traditional ceremony of the Takete-Ide traditional institution" fill className="object-cover" />
+            <HeritageImage src="/images/takete-ide/traditional-ceremony.jpg" alt="A traditional ceremony of the Takete-Ide traditional institution" label="Traditional Institution" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
           </div>
           <div>
             <h2 className="font-serif text-2xl font-bold text-purple-600">The Olude of Takete-Ide Amuro</h2>
@@ -57,7 +57,7 @@ export default async function TraditionalInstitutionPage() {
               <div className="flex flex-col gap-4 rounded-2xl border border-purple-600/10 bg-white p-6 sm:flex-row sm:items-center">
                 {currentRuler.photo_url && (
                   <div className="relative h-28 w-28 shrink-0 overflow-hidden rounded-full">
-                    <Image src={currentRuler.photo_url} alt={currentRuler.full_name} fill className="object-cover" />
+                    <HeritageImage src={currentRuler.photo_url} alt={currentRuler.full_name} label={currentRuler.full_name} fill sizes="112px" className="object-cover" />
                   </div>
                 )}
                 <div>

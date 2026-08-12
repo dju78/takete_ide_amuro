@@ -1,5 +1,10 @@
 # Project Audit
 
+> File paths below are as originally supplied. Current, permanent asset locations and filenames are
+> tracked in `docs/IMAGE_MANIFEST.md` — imagery now lives under `public/images/takete-ide/` with
+> descriptive names; reference-only material (the mockup, source-document screenshots) lives under
+> `docs/reference/`.
+
 ## What Was Supplied
 
 | Asset | Description | Used as |

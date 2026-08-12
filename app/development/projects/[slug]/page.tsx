@@ -43,7 +43,7 @@ export default async function ProjectPage({ params }: Props) {
         <div className="flex flex-col gap-10">
           {project.images[0] && (
             <div className="relative aspect-[16/9] overflow-hidden rounded-2xl">
-              <Image src={project.images[0].image_url} alt={project.images[0].caption ?? ""} fill className="object-cover" />
+              <Image src={project.images[0].image_url} alt={project.images[0].caption ?? ""} fill sizes="(min-width: 1024px) 66vw, 100vw" className="object-cover" />
             </div>
           )}
 

@@ -32,7 +32,7 @@ export default async function CompoundsPage() {
               <div key={c.id} className="overflow-hidden rounded-2xl border border-purple-600/10 bg-white shadow-sm">
                 {c.photo_url && (
                   <div className="relative aspect-[16/10]">
-                    <Image src={c.photo_url} alt={c.name} fill className="object-cover" />
+                    <Image src={c.photo_url} alt={c.name} fill sizes="(min-width: 1024px) 33vw, 50vw" className="object-cover" />
                   </div>
                 )}
                 <div className="p-5">

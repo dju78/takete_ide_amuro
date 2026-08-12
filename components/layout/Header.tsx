@@ -22,14 +22,14 @@ export function Header({ weatherSlot }: { weatherSlot?: React.ReactNode }) {
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         <Logo />
 
-        <nav aria-label="Primary" className="hidden items-center gap-1 lg:flex">
+        <nav aria-label="Primary" className="hidden items-center gap-1.5 xl:flex">
           {primaryNav.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               className={cn(
-                "rounded-full px-3 py-2 text-sm font-medium text-charcoal/80 transition-colors hover:bg-purple-50 hover:text-purple-600",
-                isActive(item.href) && "text-purple-600 font-semibold",
+                "flex items-center rounded-full px-3.5 py-2 text-sm font-medium text-charcoal/80 transition-colors hover:bg-purple-50 hover:text-purple-600",
+                isActive(item.href) && "bg-purple-50 text-purple-600 font-semibold",
               )}
             >
               {item.label}
@@ -45,7 +45,7 @@ export function Header({ weatherSlot }: { weatherSlot?: React.ReactNode }) {
               type="button"
               onClick={() => setMoreOpen((v) => !v)}
               aria-expanded={moreOpen}
-              className="flex items-center gap-1 rounded-full px-3 py-2 text-sm font-medium text-charcoal/80 transition-colors hover:bg-purple-50 hover:text-purple-600"
+              className="flex items-center gap-1 rounded-full px-3.5 py-2 text-sm font-medium text-charcoal/80 transition-colors hover:bg-purple-50 hover:text-purple-600"
             >
               More
               <ChevronDown className={cn("h-4 w-4 transition-transform", moreOpen && "rotate-180")} aria-hidden="true" />
@@ -78,7 +78,7 @@ export function Header({ weatherSlot }: { weatherSlot?: React.ReactNode }) {
             type="button"
             onClick={() => setMobileOpen(true)}
             aria-label="Open menu"
-            className="rounded-full p-2 text-purple-600 hover:bg-purple-50 lg:hidden"
+            className="rounded-full p-2 text-purple-600 hover:bg-purple-50 xl:hidden"
           >
             <Menu className="h-6 w-6" aria-hidden="true" />
           </button>

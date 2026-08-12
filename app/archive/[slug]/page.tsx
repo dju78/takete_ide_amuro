@@ -30,7 +30,7 @@ export default async function ArchiveItemPage({ params }: Props) {
         <div className="mt-8 grid gap-10 lg:grid-cols-[1fr_1fr]">
           <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-purple-50">
             {(item.thumbnail_url || item.file_url) && (
-              <Image src={item.thumbnail_url ?? item.file_url!} alt={item.title} fill className="object-contain" />
+              <Image src={item.thumbnail_url ?? item.file_url!} alt={item.title} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-contain" />
             )}
           </div>
           <div>

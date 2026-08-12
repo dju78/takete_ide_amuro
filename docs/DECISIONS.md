@@ -29,9 +29,14 @@ decision and the reasoning.
 
 ## Brand & Design
 
-- **Site logo**: a custom abstract purple/gold mark (`components/layout/Logo.tsx`), not the supplied
-  TIPU emblem. The brief explicitly says not to use the TIPU emblem as the whole-site logo unless
-  documentation authorises it — it wasn't, so TIPU's emblem is used only on `/tipu`.
+- **Site logo — provisional**: `components/layout/Logo.tsx` renders a custom abstract purple/gold
+  leaf mark, not the supplied TIPU emblem — the brief explicitly says not to use the TIPU emblem as
+  the whole-site logo unless documentation authorises it, and it wasn't, so TIPU's emblem is used
+  only on `/tipu`. This mark is a **placeholder website identity only** — it must not be presented
+  to the community, traditional institution, or TIPU as an official Takete-Ide Amuro crest. If/when
+  the community or traditional council supplies or approves an official crest, it should replace
+  this mark in `components/layout/Logo.tsx` (the file is the single point of change — it's used in
+  the header, footer, mobile nav, and admin sidebar/login).
 - **Two mottos preserved distinctly**: the site-wide tagline is "Heritage • Unity • Progress" (per
   the brief's positioning), while TIPU's own motto "Faith, Unity and Progress" (read directly off the
   supplied emblem image) is used only within the `/tipu` page, since TIPU ≠ the whole community.
@@ -47,6 +52,17 @@ decision and the reasoning.
   Involved"). Rendering it twice back-to-back would read as a mistake, not a feature.
 - **Social icons**: Facebook/Instagram render in a visibly disabled "coming soon" state — no real
   URLs were supplied, and the brief forbids inventing them. WhatsApp/Email icons route to `/contact`.
+
+## Image Asset Structure (post-launch fix)
+
+Images were initially organised under `public/images/source/` with source-tracing filenames
+(`photo-chieftaincy-1.jpg`, etc). This was reorganised to `public/images/takete-ide/` with
+descriptive, purpose-named files (`traditional-ceremony.jpg`, `tipu-emblem.png`, …) — see
+`docs/IMAGE_MANIFEST.md`. Non-rendered reference material (the landing-page mockup, source-document
+screenshots) moved to `docs/reference/` since it was never meant to be web-servable. A
+`components/ui/HeritageImage.tsx` wrapper was added around every content photograph so a failed load
+(missing file, broken admin-supplied URL) renders a labelled placeholder instead of a browser
+broken-image icon.
 
 ## Content & Historical Accuracy
 

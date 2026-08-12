@@ -18,7 +18,7 @@ export function MobileNav({ onClose }: { onClose: () => void }) {
   const allItems = [...primaryNav, ...moreNav];
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col bg-white lg:hidden" role="dialog" aria-modal="true">
+    <div className="fixed inset-0 z-50 flex flex-col bg-white xl:hidden" role="dialog" aria-modal="true">
       <div className="flex h-20 items-center justify-between border-b border-purple-600/10 px-4">
         <Logo />
         <button

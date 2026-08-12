@@ -47,7 +47,7 @@ export default async function NewsArticlePage({ params }: Props) {
 
           {article.featured_image && (
             <div className="relative mt-8 aspect-[16/9] overflow-hidden rounded-2xl">
-              <Image src={article.featured_image} alt={article.featured_image_alt ?? ""} fill className="object-cover" priority />
+              <Image src={article.featured_image} alt={article.featured_image_alt ?? ""} fill sizes="(min-width: 768px) 768px, 100vw" className="object-cover" priority />
             </div>
           )}
 

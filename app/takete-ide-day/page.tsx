@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { Calendar } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { EmptyState } from "@/components/ui/EmptyState";
+import { HeritageImage } from "@/components/ui/HeritageImage";
 import { getPublishedEvents } from "@/lib/data/events";
 import { formatDate } from "@/lib/utils";
 
@@ -46,10 +46,10 @@ export default async function TaketeIdeDayPage() {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="relative aspect-square overflow-hidden rounded-2xl">
-              <Image src="/images/source/graphic-takete-ide-day-2024.jpg" alt="Takete-Ide Day 2024 celebration graphic" fill className="object-cover" />
+              <HeritageImage src="/images/takete-ide/takete-ide-day-2024.jpg" alt="Takete-Ide Day 2024 celebration graphic" label="Takete-Ide Day 2024" fill sizes="(min-width: 1024px) 22vw, 50vw" className="object-cover" />
             </div>
             <div className="relative aspect-square overflow-hidden rounded-2xl">
-              <Image src="/images/source/news-takete-ide-day-2025.jpg" alt="News coverage of Takete-Ide Day 2025" fill className="object-cover" />
+              <HeritageImage src="/images/takete-ide/takete-ide-day-2025.jpg" alt="News coverage of Takete-Ide Day 2025" label="Takete-Ide Day 2025" fill sizes="(min-width: 1024px) 22vw, 50vw" className="object-cover" />
             </div>
           </div>
         </section>

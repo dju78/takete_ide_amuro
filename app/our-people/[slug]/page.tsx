@@ -31,7 +31,7 @@ export default async function PersonPage({ params }: Props) {
           <div>
             <div className="relative aspect-square overflow-hidden rounded-2xl bg-purple-50">
               {person.photo_url ? (
-                <Image src={person.photo_url} alt={person.name} fill className="object-cover" />
+                <Image src={person.photo_url} alt={person.name} fill sizes="280px" className="object-cover" />
               ) : (
                 <div className="flex h-full items-center justify-center text-purple-600/30">
                   <User className="h-16 w-16" aria-hidden="true" />

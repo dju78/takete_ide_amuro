@@ -43,7 +43,7 @@ export default async function FamilyPage({ params }: Props) {
       <Container className="max-w-4xl py-16">
         {photos[0] && (
           <div className="relative mb-12 aspect-[16/9] overflow-hidden rounded-2xl">
-            <Image src={photos[0].url} alt={photos[0].caption ?? family.name} fill className="object-cover" />
+            <Image src={photos[0].url} alt={photos[0].caption ?? family.name} fill sizes="(min-width: 768px) 768px, 100vw" className="object-cover" />
           </div>
         )}
 
@@ -106,7 +106,7 @@ export default async function FamilyPage({ params }: Props) {
             <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
               {photos.slice(1).map((p) => (
                 <div key={p.id} className="relative aspect-square overflow-hidden rounded-xl">
-                  <Image src={p.url} alt={p.caption ?? ""} fill className="object-cover" />
+                  <Image src={p.url} alt={p.caption ?? ""} fill sizes="(min-width: 640px) 33vw, 50vw" className="object-cover" />
                 </div>
               ))}
             </div>
