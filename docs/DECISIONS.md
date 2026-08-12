@@ -52,6 +52,28 @@ decision and the reasoning.
 - **Social icons**: Facebook/Instagram render in a visibly disabled "coming soon" state — no real
   URLs were supplied, and the brief forbids inventing them. WhatsApp/Email icons route to `/contact`.
 
+## Fourth Pass — Mega-Menu Navigation Redesign
+
+- **Single source of truth**: `lib/site-config.ts` now exports one `navGroups` array (Community,
+  Heritage, Development, Resources, Connect — matching the footer's original structure exactly) used
+  by both the header mega-menu (`MegaMenuGroup`) and the simplified footer, replacing the old
+  `primaryNav` / `heritageNav` / `moreNav` split. This guarantees the header and footer can never list
+  different things for the same section again.
+- **Featured items in Heritage**: `Families & Oríkì` and `Oríkì Archive` are marked `featured: true`
+  and rendered in a highlighted gold-bordered box at the top of the Heritage panel (desktop) and with
+  a star icon in the accordion (mobile), per instruction that they must be "clearly visible."
+- **Breakpoint**: kept the `min-[1320px]:` custom breakpoint established in the previous pass (rather
+  than reverting to `lg`/`xl`) since it was already proven to avoid header overflow, and re-verified
+  clean at 1440/1320/1280/1024/768/430/375px with the new, lighter 5-group nav (down from 7 primary
+  links + 2 dropdowns).
+- **Footer simplified to two rows**: group headings only (linking to each section's overview page) on
+  the first row, and a flat secondary "utility links" row (Home, Families & Oríkì, Get Involved,
+  Contact, legal pages) below — no more 5-column full-item-list dump. The footer keeps every link the
+  header has (nothing lost for SEO/accessibility), just de-emphasised so the header mega-menu is
+  visitors' primary way to discover site sections, per instruction.
+- **NavDropdown.tsx removed**: superseded by `MegaMenuGroup.tsx`, which additionally supports the
+  featured-item highlighting and multi-column layout NavDropdown didn't have.
+
 ## Third Pass — Authentic Cultural Media Replacement
 
 - **1280px header overflow, fixed**: visually verifying at the requested breakpoints (1440/1280/

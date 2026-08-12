@@ -20,6 +20,34 @@ test.describe("Heritage navigation prominence", () => {
     await expect(primaryNav.getByRole("link", { name: "Oríkì Archive" })).toBeVisible();
     await expect(primaryNav.getByRole("link", { name: "Voices of Takete-Ide" })).toBeVisible();
   });
+
+  test("all five mega-menu groups open and reflect the footer's information architecture", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto("/");
+    const primaryNav = page.getByRole("navigation", { name: "Primary" });
+    for (const [group, sampleItem] of [
+      ["Community", "Our People"],
+      ["Development", "Development Projects"],
+      ["Resources", "Digital Archive"],
+      ["Connect", "Accessibility"],
+    ] as const) {
+      await primaryNav.getByRole("button", { name: group, exact: true }).hover();
+      await expect(primaryNav.getByRole("link", { name: sampleItem })).toBeVisible();
+    }
+  });
+
+  test("mobile accordion drawer expands a group and navigates to an item", async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto("/");
+    await page.getByRole("button", { name: "Open menu" }).click();
+    const dialog = page.getByRole("dialog", { name: "Site navigation" });
+    await expect(dialog).toBeVisible();
+    await dialog.getByRole("button", { name: "Development" }).click();
+    const link = dialog.getByRole("link", { name: "Weather" });
+    await expect(link).toBeVisible();
+    await link.click();
+    await expect(page).toHaveURL(/\/weather$/);
+  });
 });
 
 test.describe("Search", () => {

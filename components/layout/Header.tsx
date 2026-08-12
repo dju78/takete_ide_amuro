@@ -6,51 +6,33 @@ import { usePathname } from "next/navigation";
 import { Menu, Search } from "lucide-react";
 import { Logo } from "@/components/layout/Logo";
 import { MobileNav } from "@/components/layout/MobileNav";
-import { NavDropdown } from "@/components/layout/NavDropdown";
+import { MegaMenuGroup } from "@/components/layout/MegaMenuGroup";
 import { ButtonLink } from "@/components/ui/Button";
-import { primaryNav, heritageNav, moreNav } from "@/lib/site-config";
+import { navGroups } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
 
 export function Header({ weatherSlot }: { weatherSlot?: React.ReactNode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
 
-  const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
-  const [beforeDay, ...afterDay] = primaryNav;
-
   return (
     <header className="sticky top-0 z-40 border-b border-purple-600/10 bg-white/95 backdrop-blur">
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         <Logo />
 
-        <nav aria-label="Primary" className="hidden items-center gap-1.5 min-[1320px]:flex">
+        <nav aria-label="Primary" className="hidden items-center gap-1 min-[1320px]:flex">
           <Link
-            key={beforeDay.href}
-            href={beforeDay.href}
+            href="/"
             className={cn(
               "flex items-center rounded-full px-3.5 py-2 text-sm font-medium text-charcoal/80 transition-colors hover:bg-purple-50 hover:text-purple-600",
-              isActive(beforeDay.href) && "bg-purple-50 text-purple-600 font-semibold",
+              pathname === "/" && "bg-purple-50 text-purple-600 font-semibold",
             )}
           >
-            {beforeDay.label}
+            Home
           </Link>
-
-          <NavDropdown label="Heritage" items={heritageNav} />
-
-          {afterDay.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={cn(
-                "flex items-center rounded-full px-3.5 py-2 text-sm font-medium text-charcoal/80 transition-colors hover:bg-purple-50 hover:text-purple-600",
-                isActive(item.href) && "bg-purple-50 text-purple-600 font-semibold",
-              )}
-            >
-              {item.label}
-            </Link>
+          {navGroups.map((group) => (
+            <MegaMenuGroup key={group.heading} group={group} isActive={pathname.startsWith(group.href) || group.items.some((i) => pathname.startsWith(i.href))} />
           ))}
-
-          <NavDropdown label="More" items={moreNav} align="right" />
         </nav>
 
         <div className="flex items-center gap-3">

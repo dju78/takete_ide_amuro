@@ -18,85 +18,72 @@ export type NavItem = {
   label: string;
   href: string;
   description?: string;
+  featured?: boolean;
 };
 
-export const primaryNav: NavItem[] = [
-  { label: "Home", href: "/" },
-  { label: "Our Story", href: "/our-story" },
-  { label: "Takete-Ide Day", href: "/takete-ide-day" },
-  { label: "Development", href: "/development" },
-  { label: "News", href: "/news" },
-  { label: "Gallery", href: "/gallery" },
-  { label: "Weather", href: "/weather" },
-];
+export type NavGroup = {
+  heading: string;
+  href: string;
+  items: NavItem[];
+};
 
 /**
- * "Heritage" is a dropdown, not a plain link, so Families & Oríkì is one click
- * from the top-level nav rather than nested inside the generic "More" menu —
- * see docs/DECISIONS.md.
+ * Single source of truth for site information architecture — used to render
+ * both the desktop mega-menu / mobile accordion (Header) and the simplified
+ * secondary footer, so the two never drift apart. Each group's `href` is
+ * where its heading links (an overview page), separate from its `items`.
+ * See docs/DECISIONS.md for the mega-menu redesign rationale.
  */
-export const heritageNav: NavItem[] = [
-  { label: "Heritage Overview", href: "/heritage", description: "Culture, customs and living heritage" },
-  { label: "Traditional Institution", href: "/heritage/traditional-institution", description: "The Olude and the traditional council" },
-  { label: "Families & Oríkì", href: "/families", description: "Family names, compounds and praise poetry" },
-  { label: "Oríkì Archive", href: "/oriki", description: "Listen to and read Oríkì" },
-  { label: "Voices of Takete-Ide", href: "/archive/oral-history", description: "Oral history recordings" },
-  { label: "Agado Festival", href: "/heritage/agado", description: "Community video footage" },
-  { label: "Ate — Egungun Heritage", href: "/heritage/ate", description: "One of the Egungun traditions" },
-  { label: "Traditional Marriage", href: "/heritage/traditional-marriage", description: "Ceremonial items and gatherings" },
-];
-
-export const moreNav: NavItem[] = [
-  { label: "Our People", href: "/our-people", description: "Community leaders, achievers and profiles" },
-  { label: "Diaspora", href: "/diaspora", description: "Takete-Ide people around the world" },
-  { label: "Digital Archive", href: "/archive", description: "Historical documents, photographs and records" },
-  { label: "TIPU", href: "/tipu", description: "Takete-Ide Progressive Union" },
-  { label: "Get Involved", href: "/get-involved", description: "Volunteer, contribute, partner" },
-  { label: "Contact", href: "/contact" },
-  { label: "Search", href: "/search", description: "Search the whole site" },
-];
-
-export const footerNav: { heading: string; items: NavItem[] }[] = [
+export const navGroups: NavGroup[] = [
   {
     heading: "Community",
+    href: "/our-story",
     items: [
-      { label: "Our Story", href: "/our-story" },
-      { label: "Our People", href: "/our-people" },
-      { label: "Diaspora", href: "/diaspora" },
-      { label: "TIPU", href: "/tipu" },
+      { label: "Our Story", href: "/our-story", description: "Origins, settlement and how we became Takete-Ide" },
+      { label: "Our People", href: "/our-people", description: "Community leaders, achievers and profiles" },
+      { label: "Diaspora", href: "/diaspora", description: "Takete-Ide people around the world" },
+      { label: "TIPU", href: "/tipu", description: "Takete-Ide Progressive Union" },
     ],
   },
   {
     heading: "Heritage",
+    href: "/heritage",
     items: [
-      { label: "Heritage Overview", href: "/heritage" },
-      { label: "Traditional Institution", href: "/heritage/traditional-institution" },
-      { label: "Families & Oríkì", href: "/families" },
-      { label: "Oríkì Archive", href: "/oriki" },
-      { label: "Takete-Ide Day", href: "/takete-ide-day" },
+      { label: "Heritage Overview", href: "/heritage", description: "Culture, customs and living heritage" },
+      { label: "Families & Oríkì", href: "/families", description: "Family names, compounds and praise poetry", featured: true },
+      { label: "Oríkì Archive", href: "/oriki", description: "Listen to and read Oríkì", featured: true },
+      { label: "Traditional Institution", href: "/heritage/traditional-institution", description: "The Olude and the traditional council" },
+      { label: "Takete-Ide Day", href: "/takete-ide-day", description: "Our annual homecoming festival" },
+      { label: "Voices of Takete-Ide", href: "/archive/oral-history", description: "Oral history recordings" },
+      { label: "Agado Festival", href: "/heritage/agado", description: "Community video footage" },
+      { label: "Ate — Egungun Heritage", href: "/heritage/ate", description: "One of the Egungun traditions" },
+      { label: "Traditional Marriage", href: "/heritage/traditional-marriage", description: "Ceremonial items and gatherings" },
     ],
   },
   {
     heading: "Development",
+    href: "/development",
     items: [
-      { label: "Development Projects", href: "/development" },
-      { label: "Get Involved", href: "/get-involved" },
-      { label: "Weather", href: "/weather" },
+      { label: "Development Projects", href: "/development", description: "Roads, education, health, water and more" },
+      { label: "Get Involved", href: "/get-involved", description: "Volunteer, contribute, partner" },
+      { label: "Weather", href: "/weather", description: "Local conditions and forecasts" },
     ],
   },
   {
     heading: "Resources",
+    href: "/news",
     items: [
-      { label: "News", href: "/news" },
-      { label: "Gallery", href: "/gallery" },
-      { label: "Digital Archive", href: "/archive" },
-      { label: "Oral History", href: "/archive/oral-history" },
+      { label: "News", href: "/news", description: "Community news and announcements" },
+      { label: "Gallery", href: "/gallery", description: "Photographs from community life" },
+      { label: "Digital Archive", href: "/archive", description: "Historical documents and records" },
+      { label: "Search", href: "/search", description: "Search the whole site" },
     ],
   },
   {
     heading: "Connect",
+    href: "/contact",
     items: [
-      { label: "Contact", href: "/contact" },
+      { label: "Contact", href: "/contact", description: "Get in touch" },
       { label: "Privacy Policy", href: "/privacy" },
       { label: "Terms", href: "/terms" },
       { label: "Accessibility", href: "/accessibility" },

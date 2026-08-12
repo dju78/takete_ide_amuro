@@ -8,18 +8,16 @@ test.describe("Public site smoke tests", () => {
     await expect(page.getByText("Heritage • Unity • Progress").first()).toBeVisible();
   });
 
-  test("primary navigation links resolve", async ({ page }) => {
+  test("Home link and mega-menu group links resolve", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto("/");
+    await page.goto("/development");
     const primaryNav = page.getByRole("navigation", { name: "Primary" });
-    for (const [label, path] of [
-      ["Our Story", "/our-story"],
-      ["Development", "/development"],
-    ] as const) {
-      await primaryNav.getByRole("link", { name: label, exact: true }).click();
-      await expect(page).toHaveURL(new RegExp(path.replace("/", "\\/") + "$"));
-      await page.goBack();
-    }
+    await primaryNav.getByRole("link", { name: "Home", exact: true }).click();
+    await expect(page).toHaveURL(/\/$/);
+
+    await primaryNav.getByRole("button", { name: "Development" }).hover();
+    await primaryNav.getByRole("link", { name: "Development Projects" }).click();
+    await expect(page).toHaveURL(/\/development$/);
   });
 
   test("mobile menu opens and closes", async ({ page }) => {

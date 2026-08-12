@@ -1,10 +1,23 @@
 import Link from "next/link";
 import { Mail, MessageCircle } from "lucide-react";
 import { FacebookGlyph, InstagramGlyph } from "@/components/layout/BrandGlyphs";
-import { footerNav, siteConfig } from "@/lib/site-config";
+import { navGroups, siteConfig } from "@/lib/site-config";
 import { Container } from "@/components/ui/Container";
 import { ButtonLink } from "@/components/ui/Button";
 import { Logo } from "@/components/layout/Logo";
+
+// Secondary utility links — the footer's job now is quick access, not primary
+// discovery (that's the header mega-menu). See docs/DECISIONS.md.
+const utilityLinks = [
+  { label: "Home", href: "/" },
+  { label: "Families & Oríkì", href: "/families" },
+  { label: "Get Involved", href: "/get-involved" },
+  { label: "Contact", href: "/contact" },
+  { label: "Privacy Policy", href: "/privacy" },
+  { label: "Terms", href: "/terms" },
+  { label: "Accessibility", href: "/accessibility" },
+  { label: "Cookie Policy", href: "/cookies" },
+];
 
 export function Footer() {
   return (
@@ -26,13 +39,15 @@ export function Footer() {
         </Container>
       </div>
 
-      <Container className="grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-6">
-        <div className="sm:col-span-2 lg:col-span-1">
-          <Logo dark />
+      <Container className="flex flex-col gap-10 py-12 lg:flex-row lg:items-start lg:justify-between">
+        <div className="text-center lg:text-left">
+          <div className="flex justify-center lg:justify-start">
+            <Logo dark />
+          </div>
           <p className="mt-4 text-sm text-white/70">
             {siteConfig.location.lga}, {siteConfig.location.state}, {siteConfig.location.country}
           </p>
-          <div className="mt-5 flex gap-3">
+          <div className="mt-5 flex justify-center gap-3 lg:justify-start">
             <SocialIcon href="#" label="Facebook" Icon={FacebookGlyph} disabled />
             <SocialIcon href="#" label="Instagram" Icon={InstagramGlyph} disabled />
             <SocialIcon href="/contact" label="Contact via WhatsApp" Icon={MessageCircle} />
@@ -40,28 +55,30 @@ export function Footer() {
           </div>
         </div>
 
-        {footerNav.map((group) => (
-          <div key={group.heading}>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-gold-300">{group.heading}</h3>
-            <ul className="mt-4 space-y-2.5">
-              {group.items.map((item) => (
-                <li key={item.href}>
-                  <Link href={item.href} className="text-sm text-white/75 hover:text-white">
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+        <nav aria-label="Footer sections" className="flex flex-wrap justify-center gap-x-8 gap-y-3 lg:justify-end">
+          {navGroups.map((group) => (
+            <Link key={group.heading} href={group.href} className="text-sm font-semibold uppercase tracking-wide text-gold-300 hover:text-gold-100">
+              {group.heading}
+            </Link>
+          ))}
+        </nav>
       </Container>
 
       <div className="border-t border-white/10 py-6">
-        <Container className="flex flex-col items-center justify-between gap-3 text-xs text-white/60 sm:flex-row">
-          <p>
-            &copy; {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
-          </p>
-          <p>Preserving Our Heritage. Building Our Future.</p>
+        <Container>
+          <nav aria-label="Footer utility links" className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-xs text-white/60">
+            {utilityLinks.map((link) => (
+              <Link key={link.href} href={link.href} className="hover:text-white">
+                {link.label}
+              </Link>
+            ))}
+          </nav>
+          <div className="mt-4 flex flex-col items-center justify-between gap-3 text-xs text-white/50 sm:flex-row">
+            <p>
+              &copy; {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
+            </p>
+            <p>Preserving Our Heritage. Building Our Future.</p>
+          </div>
         </Container>
       </div>
     </footer>
