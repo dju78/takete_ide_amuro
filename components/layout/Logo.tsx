@@ -1,21 +1,20 @@
 import Link from "next/link";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 export function Logo({ dark = false, className }: { dark?: boolean; className?: string }) {
   return (
     <Link href="/" className={cn("flex items-center gap-3 shrink-0", className)}>
-      <svg
-        viewBox="0 0 48 48"
-        aria-hidden="true"
-        className="h-11 w-11 shrink-0"
-      >
-        <circle cx="24" cy="24" r="23" fill={dark ? "#FFF9EF" : "#321357"} stroke="#D4A72C" strokeWidth="2" />
-        <path
-          d="M24 11c-4 4-9 6-9 12s4 11 9 14c5-3 9-8 9-14s-5-8-9-12Z"
-          fill={dark ? "#321357" : "#D4A72C"}
+      <span className="relative h-11 w-11 shrink-0 overflow-hidden rounded-full bg-white ring-2 ring-gold-500/60">
+        <Image
+          src="/images/takete-ide/tipu-emblem.png"
+          alt=""
+          aria-hidden="true"
+          fill
+          sizes="44px"
+          className="object-contain p-0.5"
         />
-        <circle cx="24" cy="24" r="3.2" fill={dark ? "#FFF9EF" : "#321357"} />
-      </svg>
+      </span>
       <span className="flex flex-col leading-tight">
         <span className={cn("font-serif text-lg font-bold sm:text-xl", dark ? "text-white" : "text-purple-600")}>
           Takete-Ide Amuro

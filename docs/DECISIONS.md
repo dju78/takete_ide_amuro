@@ -29,14 +29,13 @@ decision and the reasoning.
 
 ## Brand & Design
 
-- **Site logo — provisional**: `components/layout/Logo.tsx` renders a custom abstract purple/gold
-  leaf mark, not the supplied TIPU emblem — the brief explicitly says not to use the TIPU emblem as
-  the whole-site logo unless documentation authorises it, and it wasn't, so TIPU's emblem is used
-  only on `/tipu`. This mark is a **placeholder website identity only** — it must not be presented
-  to the community, traditional institution, or TIPU as an official Takete-Ide Amuro crest. If/when
-  the community or traditional council supplies or approves an official crest, it should replace
-  this mark in `components/layout/Logo.tsx` (the file is the single point of change — it's used in
-  the header, footer, mobile nav, and admin sidebar/login).
+- **Site logo — the TIPU emblem, explicitly authorised**: `components/layout/Logo.tsx` initially
+  rendered a custom abstract placeholder mark rather than the supplied TIPU emblem, because the
+  original brief said not to use the TIPU emblem as the whole-site logo without documented
+  authorisation. The project owner subsequently gave that authorisation directly in chat and asked
+  for the placeholder to be replaced with the TIPU emblem image, so `components/layout/Logo.tsx` now
+  renders `/images/takete-ide/tipu-emblem.png` site-wide (header, footer, mobile nav, admin
+  sidebar/login) — the single point of change if this is revisited later.
 - **Two mottos preserved distinctly**: the site-wide tagline is "Heritage • Unity • Progress" (per
   the brief's positioning), while TIPU's own motto "Faith, Unity and Progress" (read directly off the
   supplied emblem image) is used only within the `/tipu` page, since TIPU ≠ the whole community.
@@ -52,6 +51,33 @@ decision and the reasoning.
   Involved"). Rendering it twice back-to-back would read as a mistake, not a feature.
 - **Social icons**: Facebook/Instagram render in a visibly disabled "coming soon" state — no real
   URLs were supplied, and the brief forbids inventing them. WhatsApp/Email icons route to `/contact`.
+
+## Second Pass — Full Admin CRUD, Search, Structured Data
+
+- **Navigation**: "Heritage" became a header dropdown (Heritage Overview, Traditional Institution,
+  Families & Oríkì, Oríkì Archive, Voices of Takete-Ide) instead of a plain link, so Families & Oríkì
+  is one click from the top-level nav on every page rather than nested inside "More". This didn't add
+  a nav slot (still 8 top-level positions), so it carries no regression risk for the 1024px overflow
+  fixed earlier.
+- **File uploads**: `components/admin/FileUploadField.tsx` uploads directly from the browser to
+  Supabase Storage using the same cookie-based session as the rest of the admin (no new auth
+  mechanism). This was chosen over a server-side upload proxy because Storage RLS already restricts
+  writes to authenticated staff at the database layer — a proxy would only add latency, not security.
+- **Oríkì consent**: added a dedicated `consent_confirmed` column (migration `0011`), separate from
+  `publication_permission`. These answer different questions — "may we keep this recording at all"
+  vs. "may we show it publicly" — and conflating them would make it impossible to archive a
+  performer's Oríkì privately (e.g. for future family review) without also implicitly agreeing to
+  publish it.
+- **Admin CRUD scope boundary**: every top-level content entity has full create/edit/delete. Two
+  sub-resources — event speeches/awards/fundraising, and the TIPU project pipeline — remain
+  Supabase Studio-managed, since they're low-frequency data entry one level below an entity that
+  already has full CRUD (Events, TIPU). Documented in `docs/ADMIN_GUIDE.md` with the exact pattern
+  to extend either if usage later justifies it.
+- **Search**: implemented as parallel `ilike` queries across seven tables rather than Postgres full-
+  text search (`tsvector`/`pg_trgm` ranking) — the dataset size for a single-community site doesn't
+  need ranked relevance search, and `ilike` needs no schema migration or index maintenance. If the
+  archive grows very large, `pg_trgm` (already enabled in migration `0001`) is available to upgrade
+  this without changing the calling code in `lib/data/search.ts`.
 
 ## Image Asset Structure (post-launch fix)
 
