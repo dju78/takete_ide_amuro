@@ -1,35 +1,46 @@
 # Image Manifest
 
-Permanent, web-servable Takete-Ide imagery lives at `public/images/takete-ide/`. Nothing under
-`public/` references a local Windows path or a temporary upload path — every image is a checked-in
-file resolved by Next.js at a stable `/images/takete-ide/...` URL that works identically in dev and
-after Vercel deployment.
+Permanent, web-servable Takete-Ide imagery lives at `public/images/takete-ide/`; video at
+`public/videos/takete-ide/`. Nothing under `public/` references a local Windows path or a temporary
+upload path — every asset is a checked-in file resolved at a stable URL that works identically in dev
+and after Vercel deployment.
 
-| File | Used on | Description | Source |
-|---|---|---|---|
-| `traditional-ceremony.jpg` | Homepage hero, Heritage, Traditional Institution | A traditional chieftaincy ceremony — an elder crowning a chief in full regalia | Supplied community photograph |
-| `community-life.jpg` | Gallery fallback | Community members with a ceremonial object, drum, and community hall | Supplied community photograph |
-| `takete-ide-day-2025.jpg` | Homepage, Takete-Ide Day | News Central broadcast still: "Kogi Celebrates Takete-Ide Day 2025" | Supplied press screenshot |
-| `takete-ide-day-2024.jpg` | Homepage, Takete-Ide Day | Branded event graphic: "Takete Ide DAY 2024 Celebration" | Supplied event graphic |
-| `tipu-emblem.png` | `/tipu` only | Official Takete-Ide Progressive Union circular emblem, motto "Faith, Unity and Progress" | Supplied emblem artwork (high-resolution version) |
+## Current Assets
 
-Reference-only material that informed the build but is never rendered on the live site (design
-mockups, source document screenshots) lives under `docs/reference/` instead of `public/`, so it
-isn't shipped to visitors or counted against the app bundle.
+| File | Used on | Description |
+|---|---|---|
+| `children-traditional-attire.jpg` | Homepage hero | Two children in traditional blue Takete-Ide attire, caps and beaded necklaces |
+| `takete-ide-day.jpg` | Homepage, Takete-Ide Day, Traditional Institution | Community members (with drums) preparing for a Takete-Ide Day celebration |
+| `takete-ide-day-2025.jpg` | Homepage, `/takete-ide-day/2025` | News Central broadcast still: "Kogi Celebrates Takete-Ide Day 2025" |
+| `cultural-procession.jpg` | Homepage Living Heritage ("Passing Heritage Forward"), Gallery | Children in a cultural procession — Children & Cultural Heritage |
+| `ate-egungun.jpg` | Homepage, `/heritage/ate` | Ate, one of the Egungun (masquerade) traditions of Takete-Ide |
+| `marriage-celebration-1.jpg`, `marriage-celebration-2.jpg` | Homepage, `/heritage/traditional-marriage` | Ceremonial items and a gathering associated with marriage celebrations |
+| `tipu-emblem.png` | Site logo (header/footer/mobile nav/admin), `/tipu` | Official TIPU emblem, motto "Faith, Unity and Progress" |
+| `agado-festival.mp4` (video) | `/heritage/agado`, homepage Living Heritage preview | Community video footage of the Agado Festival |
 
-## Adding a New Image
+## Removed
 
-1. Drop the file into `public/images/takete-ide/` with a descriptive, kebab-case name.
-2. Reference it as `/images/takete-ide/<filename>` via `next/image`'s `<Image>` — never an absolute
-   filesystem path.
+`traditional-ceremony.jpg` (a crowning/chieftaincy photograph) and `takete-ide-day-2024.jpg` (a
+cropped Takete-Ide Day artwork graphic) were removed at the project owner's explicit request and no
+longer exist anywhere in `public/`, code, docs, or seed data. Do not reintroduce them.
+
+## Adding a New Image or Video
+
+1. Drop the file into `public/images/takete-ide/` (or `public/videos/takete-ide/`) with a descriptive,
+   kebab-case name.
+2. Reference it as `/images/takete-ide/<filename>` (or `/videos/...`) via `next/image` / a `<video>`
+   — never an absolute filesystem path.
 3. Add a row to the table above.
-4. If the image might legitimately be missing at runtime (e.g. admin-managed content), wrap it in
-   `components/ui/HeritageImage.tsx` rather than a bare `<Image>`, so a failed load falls back to a
-   labelled placeholder instead of a broken-image icon.
+4. Wrap it in `components/ui/HeritageImage.tsx` / `HeritageVideo.tsx` rather than a bare
+   `<Image>`/`<video>`, so a failed load falls back to a labelled placeholder instead of a broken-media
+   icon.
 
-## Quality Notes
+## Quality & Authenticity Notes
 
-Several supplied source photographs are modest-resolution community photography, not studio
-photography. They are displayed at `object-fit: cover` with deliberate, content-safe cropping —
-never stretched beyond their native resolution, and never edited to alter what's depicted (spec
-§41/§11 of the Families & Oríkì rules apply equally to community photography in general).
+Every photograph and the Agado video are genuine community-supplied media — nothing on this list is
+AI-generated or stock photography standing in for a specific cultural claim. Captions describe only
+what is visibly confirmable (e.g. "ceremonial items associated with marriage celebrations") rather
+than asserting ritual meaning that hasn't been verified with community sources — see
+`docs/HISTORICAL_VERIFICATION.md`. Source photography is modest-resolution community photography, not
+studio photography; it is displayed at `object-fit: cover` with content-safe cropping, never stretched
+or altered.

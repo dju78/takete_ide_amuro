@@ -18,6 +18,25 @@
 | `graphic-takete-ide-day-2024.jpg` | Branded event graphic: "Takete Ide DAY 2024 Celebration" | Homepage Takete-Ide Day section |
 | `doc-summary-location.jpg`, `doc-summary-origins.jpg` | Screenshots of an AI-search-engine summary of Takete-Ide's location, culture, origins, governance and modern development (citing Wikipedia, Facebook, YouTube news channels, "Kogi Reports") | Source for the hedged, verification-badged content on `/our-story` |
 
+### Second Batch (authentic cultural media, supplied later)
+
+Supplied via `Desktop/Takete File/` and used as the exact filenames given, renamed professionally per
+the project owner's instructions:
+
+| Original filename | Renamed to | Used as |
+|---|---|---|
+| `be in the landing page at uper.jpg` | `children-traditional-attire.jpg` | Homepage hero |
+| `Takete Ide Day.jpg` | `takete-ide-day.jpg` | Takete-Ide Day imagery site-wide |
+| `Ate, one one the egungun.jpg` | `ate-egungun.jpg` | `/heritage/ate` |
+| `symbol of mariadge celebration.jpg` / `...2.jpg` | `marriage-celebration-1.jpg` / `-2.jpg` | `/heritage/traditional-marriage` |
+| `this should be in the galary.jpg` | `cultural-procession.jpg` | Gallery — Children & Cultural Heritage |
+| `Agado.mp4` | `agado-festival.mp4` | `/heritage/agado` |
+| `Takete Ide Logo.png` | (byte-identical to the already-saved `tipu-emblem.png`) | Site logo, `/tipu` |
+
+**Removed at explicit instruction**: `photo-chieftaincy-1.jpg` (the crowning/traditional-ceremony
+photo) and `graphic-takete-ide-day-2024.jpg` (the cropped Takete-Ide Day artwork) were deleted from
+`public/` and every code/doc/seed reference — see `docs/IMAGE_MANIFEST.md`.
+
 ## What Was Implemented
 
 A full Next.js 16 + Supabase application: public site (homepage + 25 routes), an authenticated

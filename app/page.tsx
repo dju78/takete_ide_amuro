@@ -5,9 +5,6 @@ import {
   Calendar,
   Users,
   Globe2,
-  Crown,
-  Landmark,
-  History,
   Route,
   GraduationCap,
   HeartPulse,
@@ -17,8 +14,8 @@ import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ButtonLink } from "@/components/ui/Button";
 import { IconCard } from "@/components/cards/IconCard";
+import { LivingHeritageCard } from "@/components/cards/LivingHeritageCard";
 import { NewsCard } from "@/components/cards/NewsCard";
-import { EmptyState } from "@/components/ui/EmptyState";
 import { WeatherHomeSection } from "@/components/weather/WeatherCard";
 import { getLatestNews } from "@/lib/data/news";
 import { getGalleryHighlights } from "@/lib/data/gallery";
@@ -26,9 +23,13 @@ import { getLatestEvent } from "@/lib/data/events";
 import { formatDate } from "@/lib/utils";
 
 const fallbackGallery = [
-  { src: "/images/takete-ide/traditional-ceremony.jpg", alt: "Traditional chieftaincy ceremony at Takete-Ide Amuro" },
-  { src: "/images/takete-ide/community-life.jpg", alt: "Community members gathered for a Takete-Ide event" },
+  { src: "/images/takete-ide/children-traditional-attire.jpg", alt: "Two children in traditional Takete-Ide attire" },
+  { src: "/images/takete-ide/cultural-procession.jpg", alt: "Children in a cultural procession at a Takete-Ide celebration" },
+  { src: "/images/takete-ide/takete-ide-day.jpg", alt: "Community members preparing for a Takete-Ide Day celebration" },
   { src: "/images/takete-ide/takete-ide-day-2025.jpg", alt: "News coverage of Takete-Ide Day 2025" },
+  { src: "/images/takete-ide/ate-egungun.jpg", alt: "Ate, one of the Egungun traditions of Takete-Ide" },
+  { src: "/images/takete-ide/marriage-celebration-1.jpg", alt: "Ceremonial items associated with a marriage celebration" },
+  { src: "/images/takete-ide/marriage-celebration-2.jpg", alt: "A marriage celebration gathering in Takete-Ide" },
 ];
 
 export default async function HomePage() {
@@ -58,17 +59,16 @@ export default async function HomePage() {
               </ButtonLink>
             </div>
           </div>
-          <div className="relative min-h-[320px] lg:min-h-0">
+          <div className="relative min-h-[360px] lg:min-h-0">
             <HeritageImage
-              src="/images/takete-ide/traditional-ceremony.jpg"
-              alt="A traditional ceremony at Takete-Ide Amuro, with chiefs in full regalia"
-              label="Traditional Ceremony, Takete-Ide Amuro"
+              src="/images/takete-ide/children-traditional-attire.jpg"
+              alt="Two children in traditional Takete-Ide attire, wearing beaded necklaces and matching caps"
+              label="Children in Traditional Attire, Takete-Ide Amuro"
               fill
               priority
               sizes="(min-width: 1024px) 55vw, 100vw"
-              className="object-cover object-[center_20%]"
+              className="object-cover object-top"
             />
-            {/* Purple-to-transparent wash so the text panel reads as one continuous scene with the photo. */}
             <div className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-purple-700 via-purple-700/50 to-transparent lg:w-1/4" />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-purple-900/30 via-transparent to-transparent" />
           </div>
@@ -97,42 +97,42 @@ export default async function HomePage() {
         </Container>
       </section>
 
-      {/* Heritage */}
+      {/* Living Heritage — the visual centrepiece of the homepage */}
       <section className="bg-white py-20">
         <Container>
-          <div className="grid gap-10 lg:grid-cols-[1fr_1.4fr] lg:items-center">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
-              <HeritageImage
-                src="/images/takete-ide/traditional-ceremony.jpg"
-                alt="The traditional institution of Takete-Ide Amuro"
-                label="Traditional Institution, Takete-Ide Amuro"
-                fill
-                sizes="(min-width: 1024px) 35vw, 100vw"
-                className="object-cover"
-              />
-            </div>
-            <div className="grid gap-4 sm:grid-cols-3">
-              <IconCard
-                icon={Crown}
-                title="Traditional Institution"
-                description="Our community is traditionally led by the Olude of Takete-Ide Amuro, the custodian of our customs, values and heritage."
-                href="/heritage/traditional-institution"
-              />
-              <IconCard
-                icon={Landmark}
-                title="Cultural Heritage"
-                description="From age-long traditions to shared celebrations, our heritage shapes our identity and keeps us united as one people."
-                href="/heritage"
-                tone="gold"
-              />
-              <IconCard
-                icon={History}
-                title="Our History"
-                description="Part of the Amuro confederation in Kogi West, with a rich Christian heritage and strong ties to the Yagba people."
-                href="/our-story"
-                tone="green"
-              />
-            </div>
+          <SectionHeading
+            eyebrow="Culture in Motion"
+            title="Living Heritage of Takete-Ide"
+            description="Authentic moments from our traditions — captured, preserved and shared."
+          />
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <LivingHeritageCard
+              href="/heritage/agado"
+              title="Agado Festival"
+              description="Community video footage from the Agado Festival."
+              isVideo
+            />
+            <LivingHeritageCard
+              href="/heritage/ate"
+              title="Ate — Egungun Heritage"
+              description="Ate, one of the Egungun traditions observed in Takete-Ide."
+              image="/images/takete-ide/ate-egungun.jpg"
+              imageAlt="Ate, one of the Egungun traditions of Takete-Ide, in full masquerade dress"
+            />
+            <LivingHeritageCard
+              href="/heritage/traditional-marriage"
+              title="Traditional Marriage"
+              description="Ceremonial items and gatherings associated with marriage celebrations."
+              image="/images/takete-ide/marriage-celebration-1.jpg"
+              imageAlt="Ceremonial items associated with a marriage celebration in Takete-Ide"
+            />
+            <LivingHeritageCard
+              href="/gallery"
+              title="Passing Heritage Forward"
+              description="Children of Takete-Ide carrying our traditions into the next generation."
+              image="/images/takete-ide/cultural-procession.jpg"
+              imageAlt="Children in a cultural procession at a Takete-Ide celebration"
+            />
           </div>
         </Container>
       </section>
@@ -162,10 +162,24 @@ export default async function HomePage() {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="relative aspect-square overflow-hidden rounded-2xl">
-                <HeritageImage src="/images/takete-ide/takete-ide-day-2024.jpg" alt="Takete-Ide Day 2024 celebration graphic" label="Takete-Ide Day 2024" fill sizes="(min-width: 1024px) 22vw, 50vw" className="object-cover" />
+                <HeritageImage
+                  src="/images/takete-ide/takete-ide-day.jpg"
+                  alt="Community members preparing for a Takete-Ide Day celebration"
+                  label="Takete-Ide Day"
+                  fill
+                  sizes="(min-width: 1024px) 22vw, 50vw"
+                  className="object-cover"
+                />
               </div>
               <div className="relative aspect-square overflow-hidden rounded-2xl">
-                <HeritageImage src="/images/takete-ide/takete-ide-day-2025.jpg" alt="News coverage: Kogi celebrates Takete-Ide Day 2025" label="Takete-Ide Day 2025" fill sizes="(min-width: 1024px) 22vw, 50vw" className="object-cover" />
+                <HeritageImage
+                  src="/images/takete-ide/takete-ide-day-2025.jpg"
+                  alt="News coverage: Kogi celebrates Takete-Ide Day 2025"
+                  label="Takete-Ide Day 2025"
+                  fill
+                  sizes="(min-width: 1024px) 22vw, 50vw"
+                  className="object-cover"
+                />
                 <Link
                   href="/takete-ide-day/2025"
                   className="absolute bottom-2 left-2 rounded-full bg-purple-900/80 px-3 py-1 text-xs font-semibold"
@@ -191,16 +205,18 @@ export default async function HomePage() {
         </Container>
       </section>
 
-      {/* Latest News */}
-      <section className="bg-white py-20">
+      {/* Latest News — kept deliberately compact while empty; expands once real articles exist */}
+      <section className="bg-white py-12">
         <Container>
-          <div className="flex flex-wrap items-end justify-between gap-4">
+          <div className="flex flex-wrap items-center justify-between gap-4">
             <SectionHeading eyebrow="Newsroom" title="Latest News" align="left" className="mx-0" />
-            <ButtonLink href="/news" variant="outline" size="sm">
-              View All News
-            </ButtonLink>
+            {news.length > 0 && (
+              <ButtonLink href="/news" variant="outline" size="sm">
+                View All News
+              </ButtonLink>
+            )}
           </div>
-          <div className="mt-10">
+          <div className="mt-6">
             {news.length > 0 ? (
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {news.map((article) => (
@@ -208,10 +224,12 @@ export default async function HomePage() {
                 ))}
               </div>
             ) : (
-              <EmptyState
-                title="News is being prepared"
-                message="Community news and announcements will appear here once published by the editorial team."
-              />
+              <p className="text-sm text-charcoal/60">
+                Community news and announcements will appear here once published.{" "}
+                <Link href="/news" className="font-semibold text-community-green hover:underline">
+                  Visit the newsroom →
+                </Link>
+              </p>
             )}
           </div>
         </Container>

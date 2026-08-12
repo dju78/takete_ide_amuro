@@ -46,7 +46,7 @@ export default async function TaketeIdeDayPage() {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="relative aspect-square overflow-hidden rounded-2xl">
-              <HeritageImage src="/images/takete-ide/takete-ide-day-2024.jpg" alt="Takete-Ide Day 2024 celebration graphic" label="Takete-Ide Day 2024" fill sizes="(min-width: 1024px) 22vw, 50vw" className="object-cover" />
+              <HeritageImage src="/images/takete-ide/takete-ide-day.jpg" alt="Community members preparing for a Takete-Ide Day celebration" label="Takete-Ide Day" fill sizes="(min-width: 1024px) 22vw, 50vw" className="object-cover" />
             </div>
             <div className="relative aspect-square overflow-hidden rounded-2xl">
               <HeritageImage src="/images/takete-ide/takete-ide-day-2025.jpg" alt="News coverage of Takete-Ide Day 2025" label="Takete-Ide Day 2025" fill sizes="(min-width: 1024px) 22vw, 50vw" className="object-cover" />

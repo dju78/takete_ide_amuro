@@ -34,7 +34,7 @@ export default async function TraditionalInstitutionPage() {
       <Container className="py-16">
         <section className="grid gap-10 lg:grid-cols-2 lg:items-center">
           <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
-            <HeritageImage src="/images/takete-ide/traditional-ceremony.jpg" alt="A traditional ceremony of the Takete-Ide traditional institution" label="Traditional Institution" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+            <HeritageImage src="/images/takete-ide/takete-ide-day.jpg" alt="A community gathering in Takete-Ide Amuro" label="Community Gathering, Takete-Ide Amuro" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
           </div>
           <div>
             <h2 className="font-serif text-2xl font-bold text-purple-600">The Olude of Takete-Ide Amuro</h2>
