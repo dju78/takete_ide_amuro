@@ -68,7 +68,9 @@ See `docs/DEPLOYMENT.md` (target: Vercel).
 | Doc | Covers |
 |---|---|
 | `docs/PROJECT_AUDIT.md` | What was supplied vs. built |
+| `docs/IMPLEMENTATION_STATUS.md` | Feature-by-feature status against the full spec |
 | `docs/DECISIONS.md` | Every assumption/decision made |
+| `docs/IMAGE_MANIFEST.md` | Where every site image lives and what it's used for |
 | `docs/ARCHITECTURE.md` | Folder structure, data flow, provider abstractions |
 | `docs/DATABASE.md` | Migrations, RLS model, types |
 | `docs/ADMIN_GUIDE.md` | Roles, first-admin setup, CRUD scope, extending it |

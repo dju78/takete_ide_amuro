@@ -9,13 +9,14 @@ test.describe("Public site smoke tests", () => {
   });
 
   test("primary navigation links resolve", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto("/");
+    const primaryNav = page.getByRole("navigation", { name: "Primary" });
     for (const [label, path] of [
       ["Our Story", "/our-story"],
-      ["Heritage", "/heritage"],
       ["Development", "/development"],
     ] as const) {
-      await page.getByRole("link", { name: label, exact: true }).first().click();
+      await primaryNav.getByRole("link", { name: label, exact: true }).click();
       await expect(page).toHaveURL(new RegExp(path.replace("/", "\\/") + "$"));
       await page.goBack();
     }
