@@ -24,7 +24,7 @@ export function LivingHeritageCard({ href, title, description, image, imageAlt, 
             alt={imageAlt ?? ""}
             label={title}
             fill
-            sizes="(min-width: 1024px) 25vw, 50vw"
+            sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
             className="object-cover transition-transform duration-300 group-hover:scale-105"
           />
         )}
@@ -36,7 +36,7 @@ export function LivingHeritageCard({ href, title, description, image, imageAlt, 
       </div>
       <div className="flex flex-1 flex-col p-6">
         <h3 className="font-serif text-xl font-bold text-purple-600 group-hover:text-purple-400">{title}</h3>
-        <p className="mt-2 flex-1 text-[15px] leading-relaxed text-charcoal/75">{description}</p>
+        <p className="mt-3 flex-1 text-base leading-relaxed text-charcoal/75">{description}</p>
         <span className="mt-4 text-sm font-semibold text-community-green">Explore →</span>
       </div>
     </Link>

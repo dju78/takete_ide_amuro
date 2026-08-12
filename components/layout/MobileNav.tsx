@@ -20,50 +20,50 @@ export function MobileNav({ onClose }: { onClose: () => void }) {
 
   return (
     <div className="fixed inset-0 z-50 flex flex-col bg-white min-[1320px]:hidden" role="dialog" aria-modal="true" aria-label="Site navigation">
-      <div className="flex h-20 shrink-0 items-center justify-between border-b border-purple-600/10 px-4">
+      <div className="flex h-16 shrink-0 items-center justify-between border-b border-purple-600/10 px-5">
         <Logo />
         <button
           type="button"
           onClick={onClose}
           aria-label="Close menu"
-          className="rounded-full p-2 text-purple-600 hover:bg-purple-50"
+          className="flex h-11 w-11 items-center justify-center rounded-full text-purple-600 hover:bg-purple-50"
         >
           <X className="h-6 w-6" aria-hidden="true" />
         </button>
       </div>
 
-      <nav aria-label="Mobile" className="flex-1 overflow-y-auto px-4 py-4">
+      <nav aria-label="Mobile" className="flex-1 overflow-y-auto px-5 py-6">
         <Link
           href="/"
           onClick={onClose}
-          className="block rounded-xl px-3 py-3 text-base font-semibold text-purple-600 hover:bg-purple-50"
+          className="flex min-h-11 items-center rounded-xl px-3 text-base font-semibold text-purple-600 hover:bg-purple-50"
         >
           Home
         </Link>
 
-        <div className="mt-2 divide-y divide-purple-600/10 border-y border-purple-600/10">
+        <div className="mt-4 flex flex-col gap-1">
           {navGroups.map((group) => {
             const isOpen = openGroup === group.heading;
             return (
-              <div key={group.heading}>
+              <div key={group.heading} className="border-b border-purple-600/8 last:border-0">
                 <button
                   type="button"
                   onClick={() => setOpenGroup(isOpen ? null : group.heading)}
                   aria-expanded={isOpen}
-                  className="flex w-full items-center justify-between px-3 py-3.5 text-left text-base font-semibold text-charcoal"
+                  className="flex min-h-12 w-full items-center justify-between px-3 py-3 text-left text-base font-semibold text-charcoal"
                 >
                   {group.heading}
-                  <ChevronDown className={cn("h-5 w-5 text-charcoal/50 transition-transform", isOpen && "rotate-180")} aria-hidden="true" />
+                  <ChevronDown className={cn("h-5 w-5 text-charcoal/40 transition-transform", isOpen && "rotate-180")} aria-hidden="true" />
                 </button>
                 {isOpen && (
-                  <ul className="flex flex-col gap-0.5 pb-3">
+                  <ul className="flex flex-col gap-1 pb-4 pl-1">
                     {group.items.map((item) => (
                       <li key={item.href}>
                         <Link
                           href={item.href}
                           onClick={onClose}
                           className={cn(
-                            "flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm text-charcoal/80 hover:bg-purple-50",
+                            "flex min-h-11 items-center gap-2 rounded-xl px-3 text-[15px] text-charcoal/75 hover:bg-purple-50",
                             item.featured && "font-semibold text-purple-600",
                           )}
                         >
@@ -79,7 +79,7 @@ export function MobileNav({ onClose }: { onClose: () => void }) {
           })}
         </div>
 
-        <ButtonLink href="/get-involved" onClick={onClose} className="mt-6 w-full justify-center">
+        <ButtonLink href="/get-involved" onClick={onClose} className="mt-8 w-full justify-center">
           Get Involved
         </ButtonLink>
       </nav>

@@ -29,7 +29,7 @@ export function IconCard({ icon: Icon, title, description, href, tone = "purple"
         <Icon className="h-5 w-5" aria-hidden="true" />
       </span>
       <h3 className="mt-4 font-serif text-lg font-bold text-purple-600 sm:text-xl">{title}</h3>
-      <p className="mt-2 text-[15px] leading-relaxed text-charcoal/70 sm:text-base">{description}</p>
+      <p className="mt-3 text-base leading-relaxed text-charcoal/70">{description}</p>
       {href && <span className="mt-4 text-sm font-semibold text-community-green">Learn more →</span>}
     </div>
   );

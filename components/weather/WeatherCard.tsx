@@ -20,7 +20,7 @@ export async function WeatherHomeSection() {
         />
         <div className="mx-auto mt-10 max-w-xl">
           {current ? (
-            <WeatherCard current={current} highC={today?.highC} lowC={today?.lowC} precipitation={today?.precipitationProbability} />
+            <WeatherCard current={current} highC={today?.highC} lowC={today?.lowC} precipitation={today?.precipitationProbability} compact />
           ) : (
             <WeatherUnavailable />
           )}
@@ -35,11 +35,14 @@ export function WeatherCard({
   highC,
   lowC,
   precipitation,
+  compact = false,
 }: {
   current: NonNullable<Awaited<ReturnType<typeof getCurrentWeather>>>;
   highC?: number;
   lowC?: number;
   precipitation?: number;
+  /** Homepage widget: only temperature, condition, high/low, rain and a CTA — everything else lives on /weather. */
+  compact?: boolean;
 }) {
   const mood = weatherBackgroundMood(current.icon, current.isDayTime);
   const iconUrl = accuweatherIconUrl(current.icon);
@@ -69,12 +72,21 @@ export function WeatherCard({
         )}
       </div>
 
-      <div className="grid grid-cols-4 gap-2 border-t border-white/15 px-4 py-4 text-center text-xs">
-        <Metric icon={Droplets} label="Rain" value={precipitation !== undefined ? `${precipitation}%` : "—"} />
-        <Metric icon={Droplets} label="Humidity" value={current.humidity !== undefined ? `${current.humidity}%` : "—"} />
-        <Metric icon={Wind} label="Wind" value={current.windSpeedKmh !== undefined ? `${current.windSpeedKmh} km/h` : "—"} />
-        <Metric icon={Sun} label="UV" value={current.uvIndex !== undefined ? String(current.uvIndex) : "—"} />
-      </div>
+      {compact ? (
+        precipitation !== undefined && (
+          <div className="flex items-center justify-center gap-2 border-t border-white/15 px-4 py-4 text-sm">
+            <Droplets className="h-4 w-4 text-white/70" aria-hidden="true" />
+            <span>Rain {precipitation}%</span>
+          </div>
+        )
+      ) : (
+        <div className="grid grid-cols-4 gap-2 border-t border-white/15 px-4 py-4 text-center text-xs">
+          <Metric icon={Droplets} label="Rain" value={precipitation !== undefined ? `${precipitation}%` : "—"} />
+          <Metric icon={Droplets} label="Humidity" value={current.humidity !== undefined ? `${current.humidity}%` : "—"} />
+          <Metric icon={Wind} label="Wind" value={current.windSpeedKmh !== undefined ? `${current.windSpeedKmh} km/h` : "—"} />
+          <Metric icon={Sun} label="UV" value={current.uvIndex !== undefined ? String(current.uvIndex) : "—"} />
+        </div>
+      )}
 
       <div className="border-t border-white/15 px-6 py-4 text-center">
         <ButtonLink href="/weather" variant="primary" size="sm" className="w-full justify-center sm:w-auto">

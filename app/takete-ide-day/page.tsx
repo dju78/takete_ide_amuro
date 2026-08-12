@@ -29,11 +29,14 @@ export default async function TaketeIdeDayPage() {
         </Container>
       </div>
 
-      <Container className="py-16">
+      <Container className="py-14 sm:py-16">
         <section className="grid gap-10 lg:grid-cols-2 lg:items-center">
+          <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl shadow-lg lg:hidden">
+            <HeritageImage src="/images/takete-ide/takete-ide-day.jpg" alt="Community members preparing for a Takete-Ide Day celebration" label="Takete-Ide Day" fill sizes="100vw" className="object-cover" />
+          </div>
           <div>
-            <h2 className="font-serif text-2xl font-bold text-purple-600">A Homecoming and a Fundraiser</h2>
-            <p className="mt-4 text-charcoal/80">
+            <h2 className="mt-8 font-serif text-2xl font-bold text-purple-600 lg:mt-0">A Homecoming and a Fundraiser</h2>
+            <p className="mt-4 leading-relaxed text-charcoal/80">
               Takete-Ide Day is the community&rsquo;s major annual socio-cultural festival, bringing together
               indigenes at home and in the diaspora. It typically takes place between October and November
               each year, serving both as a homecoming celebration of shared culture and as a vehicle for
@@ -44,12 +47,12 @@ export default async function TaketeIdeDayPage() {
               details of each celebration.
             </p>
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="hidden grid-cols-2 gap-4 lg:grid">
             <div className="relative aspect-square overflow-hidden rounded-2xl">
-              <HeritageImage src="/images/takete-ide/takete-ide-day.jpg" alt="Community members preparing for a Takete-Ide Day celebration" label="Takete-Ide Day" fill sizes="(min-width: 1024px) 22vw, 50vw" className="object-cover" />
+              <HeritageImage src="/images/takete-ide/takete-ide-day.jpg" alt="Community members preparing for a Takete-Ide Day celebration" label="Takete-Ide Day" fill sizes="22vw" className="object-cover" />
             </div>
             <div className="relative aspect-square overflow-hidden rounded-2xl">
-              <HeritageImage src="/images/takete-ide/takete-ide-day-2025.jpg" alt="News coverage of Takete-Ide Day 2025" label="Takete-Ide Day 2025" fill sizes="(min-width: 1024px) 22vw, 50vw" className="object-cover" />
+              <HeritageImage src="/images/takete-ide/takete-ide-day-2025.jpg" alt="News coverage of Takete-Ide Day 2025" label="Takete-Ide Day 2025" fill sizes="22vw" className="object-cover" />
             </div>
           </div>
         </section>

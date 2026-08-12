@@ -41,13 +41,44 @@ export default async function HomePage() {
 
   return (
     <>
-      {/* Hero */}
-      <section className="relative overflow-hidden bg-purple-700 lg:min-h-[650px]">
-        <div className="mx-auto grid min-h-[560px] w-full max-w-7xl lg:min-h-[650px] lg:grid-cols-[45%_55%] lg:items-stretch">
-          <div className="relative z-10 flex flex-col justify-center px-4 py-14 text-white sm:px-6 lg:px-8 lg:py-0">
-            <h1 className="font-serif text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl">Takete-Ide Amuro</h1>
-            <p className="mt-3 text-xl font-semibold text-gold-300 sm:text-2xl">Heritage &bull; Unity &bull; Progress</p>
-            <p className="mt-5 max-w-lg text-base leading-relaxed text-white/85 sm:text-lg">
+      {/* Hero — deliberately two different compositions, not one squeezed into the other.
+          Mobile: stacked text -> buttons -> contained image, generous breathing room.
+          Desktop (lg+): cinematic edge-to-edge side-by-side, unchanged from before. */}
+      <section className="relative overflow-hidden bg-purple-700">
+        {/* Mobile / tablet composition */}
+        <div className="px-5 pb-12 pt-12 text-white lg:hidden">
+          <h1 className="font-serif text-[2.25rem] font-bold leading-[1.1]">Takete-Ide Amuro</h1>
+          <p className="mt-3 text-xl font-semibold text-gold-300">Heritage &bull; Unity &bull; Progress</p>
+          <p className="mt-4 text-base leading-relaxed text-white/85">
+            A historic community in Mopamuro Local Government Area, Kogi State, Nigeria.
+          </p>
+          <div className="mt-8 flex flex-col gap-4">
+            <ButtonLink href="/our-story" size="lg" className="w-full justify-center">
+              Explore Our History
+            </ButtonLink>
+            <ButtonLink href="/takete-ide-day" variant="secondary" size="lg" className="w-full justify-center">
+              Takete-Ide Day
+            </ButtonLink>
+          </div>
+          <div className="relative mt-10 aspect-[4/5] w-full overflow-hidden rounded-3xl shadow-xl">
+            <HeritageImage
+              src="/images/takete-ide/children-traditional-attire.jpg"
+              alt="Two children in traditional Takete-Ide attire, wearing beaded necklaces and matching caps"
+              label="Children in Traditional Attire, Takete-Ide Amuro"
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover object-top"
+            />
+          </div>
+        </div>
+
+        {/* Desktop composition */}
+        <div className="mx-auto hidden min-h-[650px] w-full max-w-7xl lg:grid lg:grid-cols-[45%_55%] lg:items-stretch">
+          <div className="relative z-10 flex flex-col justify-center px-8 text-white">
+            <h1 className="font-serif text-5xl font-bold leading-tight lg:text-6xl">Takete-Ide Amuro</h1>
+            <p className="mt-3 text-2xl font-semibold text-gold-300">Heritage &bull; Unity &bull; Progress</p>
+            <p className="mt-5 max-w-lg text-lg leading-relaxed text-white/85">
               A historic community in Mopamuro Local Government Area, Kogi State, Nigeria.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
@@ -59,17 +90,17 @@ export default async function HomePage() {
               </ButtonLink>
             </div>
           </div>
-          <div className="relative min-h-[360px] lg:min-h-0">
+          <div className="relative">
             <HeritageImage
               src="/images/takete-ide/children-traditional-attire.jpg"
               alt="Two children in traditional Takete-Ide attire, wearing beaded necklaces and matching caps"
               label="Children in Traditional Attire, Takete-Ide Amuro"
               fill
               priority
-              sizes="(min-width: 1024px) 55vw, 100vw"
+              sizes="55vw"
               className="object-cover object-top"
             />
-            <div className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-purple-700 via-purple-700/50 to-transparent lg:w-1/4" />
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-purple-700 via-purple-700/50 to-transparent" />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-purple-900/30 via-transparent to-transparent" />
           </div>
         </div>
@@ -77,7 +108,7 @@ export default async function HomePage() {
       </section>
 
       {/* Welcome */}
-      <section className="bg-ivory py-20">
+      <section className="bg-ivory py-16 sm:py-20">
         <Container>
           <div className="grid gap-10 lg:grid-cols-[1fr_1.4fr] lg:items-start">
             <SectionHeading
@@ -87,7 +118,7 @@ export default async function HomePage() {
               description="Takete-Ide Amuro is a proud community in Mopamuro Local Government Area of Kogi State, Nigeria. Across generations, its people have preserved a rich cultural heritage while promoting education, faith, enterprise, unity and community-led development."
               className="mx-0"
             />
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="grid gap-5 sm:grid-cols-2">
               <IconCard icon={BookOpen} title="Rich Heritage" description="Centuries of culture and tradition." tone="purple" />
               <IconCard icon={Calendar} title="Annual Festival" description="Takete-Ide Day brings us together." tone="gold" />
               <IconCard icon={Users} title="Community Development" description="Self-help projects for sustainable growth." tone="green" />
@@ -138,9 +169,46 @@ export default async function HomePage() {
       </section>
 
       {/* Takete-Ide Day */}
-      <section className="bg-purple-700 py-20 text-white">
+      <section className="bg-purple-700 py-16 text-white sm:py-20">
         <Container>
-          <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
+          {/* Mobile: one strong photograph, text below, historical years as a simple link list */}
+          <div className="lg:hidden">
+            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl shadow-lg">
+              <HeritageImage
+                src="/images/takete-ide/takete-ide-day.jpg"
+                alt="Community members preparing for a Takete-Ide Day celebration"
+                label="Takete-Ide Day"
+                fill
+                sizes="100vw"
+                className="object-cover"
+              />
+            </div>
+            <div className="mt-8">
+              <SectionHeading
+                eyebrow="Our Signature Event"
+                title="Takete-Ide Day"
+                align="left"
+                tone="light"
+                description="A vibrant annual festival that celebrates our culture, strengthens unity, and drives community development."
+                className="mx-0"
+              />
+              <ButtonLink href="/takete-ide-day" className="mt-6 w-full justify-center sm:w-auto">
+                Learn More About the Festival
+              </ButtonLink>
+              {latestEvent && (
+                <p className="mt-4 text-sm text-white/70">
+                  Most recent celebration on record: Takete-Ide Day {latestEvent.year}
+                  {latestEvent.event_date && ` — ${formatDate(latestEvent.event_date)}`}.
+                </p>
+              )}
+              <Link href="/takete-ide-day/2025" className="mt-3 inline-block text-sm font-semibold text-gold-300 hover:underline">
+                See the 2025 Celebration →
+              </Link>
+            </div>
+          </div>
+
+          {/* Desktop: side-by-side text + two-photo grid, unchanged */}
+          <div className="hidden lg:grid lg:grid-cols-2 lg:items-center lg:gap-10">
             <div>
               <SectionHeading
                 eyebrow="Our Signature Event"
@@ -167,7 +235,7 @@ export default async function HomePage() {
                   alt="Community members preparing for a Takete-Ide Day celebration"
                   label="Takete-Ide Day"
                   fill
-                  sizes="(min-width: 1024px) 22vw, 50vw"
+                  sizes="22vw"
                   className="object-cover"
                 />
               </div>
@@ -177,7 +245,7 @@ export default async function HomePage() {
                   alt="News coverage: Kogi celebrates Takete-Ide Day 2025"
                   label="Takete-Ide Day 2025"
                   fill
-                  sizes="(min-width: 1024px) 22vw, 50vw"
+                  sizes="22vw"
                   className="object-cover"
                 />
                 <Link
@@ -235,22 +303,42 @@ export default async function HomePage() {
         </Container>
       </section>
 
-      {/* Gallery strip */}
-      <section className="bg-ivory py-20">
+      {/* Gallery strip — mobile leads with one large featured photo rather than a wall of thumbnails */}
+      <section className="bg-ivory py-16 sm:py-20">
         <Container>
           <SectionHeading eyebrow="Gallery" title="Moments from Takete-Ide" />
-          <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-            {(gallery.length > 0
-              ? gallery.map((g) => ({ src: g.image_url, alt: g.alt_text }))
-              : fallbackGallery
-            ).map((img, i) => (
-              <div key={i} className="relative aspect-square overflow-hidden rounded-xl">
-                <HeritageImage src={img.src} alt={img.alt} fill sizes="(min-width: 1024px) 25vw, 50vw" className="object-cover" />
-              </div>
-            ))}
-          </div>
+          {(() => {
+            const items = gallery.length > 0 ? gallery.map((g) => ({ src: g.image_url, alt: g.alt_text })) : fallbackGallery;
+            const [featured, ...rest] = items;
+            return (
+              <>
+                <div className="mt-10 lg:hidden">
+                  {featured && (
+                    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl shadow-lg">
+                      <HeritageImage src={featured.src} alt={featured.alt} fill sizes="100vw" className="object-cover" />
+                    </div>
+                  )}
+                  <div className="mt-4 grid grid-cols-2 gap-3">
+                    {rest.slice(0, 4).map((img, i) => (
+                      <div key={i} className="relative aspect-square overflow-hidden rounded-2xl">
+                        <HeritageImage src={img.src} alt={img.alt} fill sizes="50vw" className="object-cover" />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="mt-10 hidden grid-cols-3 gap-3 lg:grid lg:grid-cols-4">
+                  {items.map((img, i) => (
+                    <div key={i} className="relative aspect-square overflow-hidden rounded-xl">
+                      <HeritageImage src={img.src} alt={img.alt} fill sizes="25vw" className="object-cover" />
+                    </div>
+                  ))}
+                </div>
+              </>
+            );
+          })()}
           <div className="mt-8 text-center">
-            <ButtonLink href="/gallery" variant="secondary">
+            <ButtonLink href="/gallery" variant="secondary" className="w-full justify-center sm:w-auto">
               View Gallery
             </ButtonLink>
           </div>

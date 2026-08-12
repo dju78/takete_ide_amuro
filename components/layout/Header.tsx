@@ -17,7 +17,7 @@ export function Header({ weatherSlot }: { weatherSlot?: React.ReactNode }) {
 
   return (
     <header className="sticky top-0 z-40 border-b border-purple-600/10 bg-white/95 backdrop-blur">
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-5 sm:px-6 min-[1320px]:h-20 lg:px-8">
         <Logo />
 
         <nav aria-label="Primary" className="hidden items-center gap-1 min-[1320px]:flex">
