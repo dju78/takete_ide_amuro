@@ -78,9 +78,11 @@ export function SelectField({
         aria-describedby={error ? `${name}-error` : undefined}
         className={inputClass(Boolean(error))}
       >
-        <option value="" disabled>
-          Select…
-        </option>
+        {required && (
+          <option value="" disabled>
+            Select…
+          </option>
+        )}
         {options.map((o) => (
           <option key={o.value} value={o.value}>
             {o.label}

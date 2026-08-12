@@ -49,3 +49,44 @@ export async function logAudit(userId: string | null, action: string, entityType
   if (!supabase) return;
   await supabase.from("audit_logs").insert({ user_id: userId, action, entity_type: entityType, entity_id: entityId, metadata: metadata ?? {} });
 }
+
+export interface SelectOption {
+  id: string;
+  name: string;
+}
+
+/** Every family/compound regardless of publish status — used to populate admin <select> fields. */
+export async function getFamilyOptions(): Promise<SelectOption[]> {
+  const supabase = await createClient();
+  if (!supabase) return [];
+  const { data } = await supabase.from("families").select("id, name").order("name");
+  return data ?? [];
+}
+
+export async function getCompoundOptions(): Promise<SelectOption[]> {
+  const supabase = await createClient();
+  if (!supabase) return [];
+  const { data } = await supabase.from("compounds").select("id, name").order("name");
+  return data ?? [];
+}
+
+export async function getNewsCategoryOptions(): Promise<SelectOption[]> {
+  const supabase = await createClient();
+  if (!supabase) return [];
+  const { data } = await supabase.from("news_categories").select("id, name").order("name");
+  return data ?? [];
+}
+
+export async function getAlbumOptions(): Promise<SelectOption[]> {
+  const supabase = await createClient();
+  if (!supabase) return [];
+  const { data } = await supabase.from("albums").select("id, name:title").order("title");
+  return data ?? [];
+}
+
+export async function getEventOptions(): Promise<{ id: string; year: number }[]> {
+  const supabase = await createClient();
+  if (!supabase) return [];
+  const { data } = await supabase.from("events").select("id, year").order("year", { ascending: false });
+  return data ?? [];
+}

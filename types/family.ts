@@ -65,5 +65,6 @@ export interface Oriki {
   performer: string | null;
   recording_date: string | null;
   verification_status: FamilyVerificationStatus;
+  consentConfirmed: boolean;
   media: { media_type: "audio" | "video"; url: string; transcript: string | null }[];
 }

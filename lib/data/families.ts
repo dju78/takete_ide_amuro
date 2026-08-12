@@ -73,6 +73,7 @@ function mapOriki(row: any): Oriki {
     performer: row.performer,
     recording_date: row.recording_date,
     verification_status: row.verification_status,
+    consentConfirmed: Boolean(row.consent_confirmed),
     media: row.oriki_media ?? [],
   };
 }
