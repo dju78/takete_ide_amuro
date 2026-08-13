@@ -111,6 +111,42 @@ decision and the reasoning.
   No horizontal overflow was found at any breakpoint; the 768px check confirmed the `lg:` dual-markup
   switch point (1024px) correctly keeps the mobile composition active through tablet width.
 
+## Sixth Pass — Dual-Markup Technical Audit
+
+A follow-up audit specifically checked every component with separate mobile/desktop DOM blocks
+(Hero, homepage Takete-Ide Day, homepage Gallery strip, `/takete-ide-day`, `FooterAccordion` +
+`Footer`'s desktop row, `MobileNav`, `MegaMenuGroup`) for duplicate `id`s, duplicate form-control
+IDs, duplicate ARIA targets, duplicated structured data, duplicate `priority` images, excessive
+payload, duplicate analytics, and accessibility fallout from having both compositions in the DOM.
+
+- **No duplicate `id`/`aria-controls`/`htmlFor` found**: none of the audited components use static
+  `id` attributes at all — expand/collapse state (`MobileNav`, `FooterAccordion`) is done with
+  conditional rendering (`{isOpen && ...}`) and `aria-expanded`, not `id`/`aria-controls` pairs, so
+  there was nothing for two simultaneously-mounted instances to collide on.
+- **No duplicated structured data**: JSON-LD (`app/news/[slug]`, `app/takete-ide-day/[year]`,
+  `Breadcrumb`) is only ever rendered by single-composition pages/components, never by anything with
+  a mobile/desktop DOM split.
+- **No duplicate analytics**: confirmed no analytics provider is wired up anywhere in the codebase
+  (consistent with the "Analytics" decision above), so there is nothing to double-fire.
+- **Two `<h1>Takete-Ide Amuro</h1>` exist in the hero's DOM** (mobile + desktop). Left as-is:
+  `hidden`/`lg:hidden` compile to `display:none`, which browsers exclude from the accessibility
+  tree, so screen readers and heading-navigation only ever see one `<h1>` at a time; this is a
+  standard, accepted pattern for CSS-driven responsive compositions and not a defect.
+- **Confirmed and fixed: duplicate `priority` hero images.** Both the mobile and desktop hero
+  `<Image>` used `priority` on the same source file (`children-traditional-attire.jpg`) with
+  different `sizes`. `priority` always injects an unconditional `<link rel="preload">` — Next.js
+  doesn't know about `display:none` — so the browser preloaded (and fetched) **both** compositions'
+  image variants on every load regardless of viewport, confirmed via network trace (4 separate byte
+  ranges of the same file downloaded on one page load). Fixed by removing `priority` from both
+  `<Image>`s (default lazy loading means the `display:none` instance never fetches at all — verified
+  empirically against the site's other non-priority dual-markup images, which never had this bug) and
+  adding two manual, media-scoped `<link rel="preload" as="image" imageSrcSet=... media="(max-width:
+  1023px)"/"(min-width: 1024px)">` tags built with `next/image`'s `getImageProps()`, matching the
+  same `lg` (1024px) breakpoint as the markup split. Verified post-fix: exactly one network request
+  for the hero photo per page load, at every breakpoint tested (390px and 1440px). Note: `href` was
+  deliberately omitted from these preload links (matching Next's own internal convention) — including
+  it caused React 19's resource-hoisting to emit a second, synthesized href-less copy of each link.
+
 ## Third Pass — Authentic Cultural Media Replacement
 
 - **1280px header overflow, fixed**: visually verifying at the requested breakpoints (1440/1280/

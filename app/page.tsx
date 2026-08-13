@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { getImageProps } from "next/image";
 import { HeritageImage } from "@/components/ui/HeritageImage";
 import {
   BookOpen,
@@ -32,6 +33,9 @@ const fallbackGallery = [
   { src: "/images/takete-ide/marriage-celebration-2.jpg", alt: "A marriage celebration gathering in Takete-Ide" },
 ];
 
+const heroImageSrc = "/images/takete-ide/children-traditional-attire.jpg";
+const heroImageAlt = "Two children in traditional Takete-Ide attire, wearing beaded necklaces and matching caps";
+
 export default async function HomePage() {
   const [news, gallery, latestEvent] = await Promise.all([
     getLatestNews(3),
@@ -39,8 +43,21 @@ export default async function HomePage() {
     getLatestEvent(),
   ]);
 
+  // The hero renders two <Image> instances (mobile + desktop compositions) of the
+  // same source file. next/image's `priority` prop always injects a <link rel="preload">
+  // regardless of CSS display, so marking both priority would preload — and fetch —
+  // both variants on every load. Instead, the two <Image>s stay non-priority (lazy;
+  // display:none instances never intersect, so they never fetch) and we manually
+  // preload only the variant matching the current viewport via a media-scoped <link>,
+  // using the same `lg` (1024px) breakpoint as the mobile/desktop markup split.
+  const { props: mobileHeroImg } = getImageProps({ src: heroImageSrc, alt: heroImageAlt, fill: true, sizes: "100vw" });
+  const { props: desktopHeroImg } = getImageProps({ src: heroImageSrc, alt: heroImageAlt, fill: true, sizes: "55vw" });
+
   return (
     <>
+      <link rel="preload" as="image" imageSrcSet={mobileHeroImg.srcSet} imageSizes="100vw" media="(max-width: 1023px)" fetchPriority="high" />
+      <link rel="preload" as="image" imageSrcSet={desktopHeroImg.srcSet} imageSizes="55vw" media="(min-width: 1024px)" fetchPriority="high" />
+
       {/* Hero — deliberately two different compositions, not one squeezed into the other.
           Mobile: stacked text -> buttons -> contained image, generous breathing room.
           Desktop (lg+): cinematic edge-to-edge side-by-side, unchanged from before. */}
@@ -61,12 +78,14 @@ export default async function HomePage() {
             </ButtonLink>
           </div>
           <div className="relative mt-10 aspect-[4/5] w-full overflow-hidden rounded-3xl shadow-xl">
+            {/* Not `priority` — see the manual media-scoped <link rel="preload"> above.
+                Default lazy loading also means the display:none instance (on lg+
+                viewports) never fetches at all. */}
             <HeritageImage
-              src="/images/takete-ide/children-traditional-attire.jpg"
-              alt="Two children in traditional Takete-Ide attire, wearing beaded necklaces and matching caps"
+              src={heroImageSrc}
+              alt={heroImageAlt}
               label="Children in Traditional Attire, Takete-Ide Amuro"
               fill
-              priority
               sizes="100vw"
               className="object-cover object-top"
             />
@@ -91,12 +110,12 @@ export default async function HomePage() {
             </div>
           </div>
           <div className="relative">
+            {/* Not `priority` — see the manual media-scoped <link rel="preload"> above. */}
             <HeritageImage
-              src="/images/takete-ide/children-traditional-attire.jpg"
-              alt="Two children in traditional Takete-Ide attire, wearing beaded necklaces and matching caps"
+              src={heroImageSrc}
+              alt={heroImageAlt}
               label="Children in Traditional Attire, Takete-Ide Amuro"
               fill
-              priority
               sizes="55vw"
               className="object-cover object-top"
             />
