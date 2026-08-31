@@ -133,7 +133,7 @@ export default function EducationPage() {
               A current directory of schools serving Takete-Ide has not yet been compiled for this site.
               If you can supply verified details, the archive team would like to hear from you.
             </p>
-            <Link href="/contact" className="mt-3 inline-block text-sm font-semibold text-community-green hover:underline">
+            <Link href="/contact" className="mt-3 inline-flex min-h-6 items-center text-sm font-semibold text-community-green hover:underline">
               Contribute what you know →
             </Link>
           </div>
@@ -146,7 +146,7 @@ export default function EducationPage() {
               Education remains one of the areas the union directs community support towards, alongside
               infrastructure, security and heritage.
             </p>
-            <Link href="/support" className="mt-3 inline-block text-sm font-semibold text-community-green hover:underline">
+            <Link href="/support" className="mt-3 inline-flex min-h-6 items-center text-sm font-semibold text-community-green hover:underline">
               Support Takete-Ide →
             </Link>
           </div>

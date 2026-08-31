@@ -71,8 +71,19 @@ test.describe("Search", () => {
     await expect(page.getByText("Start typing to search")).toBeVisible();
   });
 
-  test("searching gracefully shows no-results rather than erroring", async ({ page }) => {
-    await page.goto("/search?q=takete");
+  // This previously asserted that "takete" returned nothing — true only because
+  // search was a title-only ilike against an empty database. The intent was that
+  // searching never errors, so that is what it now checks, on both outcomes.
+  test("a term that matches renders results rather than erroring", async ({ page }) => {
+    const res = await page.goto("/search?q=takete");
+    expect(res?.status()).toBe(200);
+    await expect(page.getByText(/results? for/)).toBeVisible();
+    await expect(page.getByText(/No results for/)).toHaveCount(0);
+  });
+
+  test("a term that matches nothing shows the no-results state", async ({ page }) => {
+    const res = await page.goto("/search?q=qqzzxx-no-such-term");
+    expect(res?.status()).toBe(200);
     await expect(page.getByText(/No results for/)).toBeVisible();
   });
 

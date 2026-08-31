@@ -83,7 +83,7 @@ export default async function TaketeIdeDayPage() {
             </p>
             <Link
               href="/takete-ide-day/cultural-attire"
-              className="mt-6 self-start text-sm font-semibold text-community-green hover:underline"
+              className="mt-6 inline-flex min-h-6 items-center self-start text-sm font-semibold text-community-green hover:underline"
             >
               See the attire archive →
             </Link>

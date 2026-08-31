@@ -74,7 +74,12 @@ function mapOriki(row: any): Oriki {
     recording_date: row.recording_date,
     verification_status: row.verification_status,
     consentConfirmed: Boolean(row.consent_confirmed),
-    media: row.oriki_media ?? [],
+    // Recordings are withheld unless the performer/family confirmed consent for
+    // the recording to be archived at all (migration 0011). `publication_permission`
+    // governs whether the Oríkì text may appear publicly; `consent_confirmed` is
+    // the narrower, prior question about the recording itself — so the text can
+    // be published while the audio or video stays unavailable.
+    media: row.consent_confirmed ? (row.oriki_media ?? []) : [],
   };
 }
 
@@ -91,10 +96,24 @@ export async function getOrikiList(): Promise<Oriki[]> {
   return data.map(mapOriki);
 }
 
+/**
+ * A single Oríkì for the public detail page.
+ *
+ * `publication_permission` is checked here as well as in the listing. Without it
+ * an Oríkì the family had not permitted for publication was hidden from the index
+ * but still served in full at its own URL — the family's consent decision has to
+ * hold on every route that can reach the row, not just the one that lists it.
+ */
 export async function getOrikiBySlug(slug: string): Promise<Oriki | null> {
   const supabase = await createClient();
   if (!supabase) return null;
-  const { data, error } = await supabase.from("oriki").select(ORIKI_SELECT).eq("slug", slug).eq("status", "published").maybeSingle();
+  const { data, error } = await supabase
+    .from("oriki")
+    .select(ORIKI_SELECT)
+    .eq("slug", slug)
+    .eq("status", "published")
+    .eq("publication_permission", true)
+    .maybeSingle();
   if (error || !data) return null;
   return mapOriki(data);
 }

@@ -74,7 +74,7 @@ export function Footer() {
         <div className="mt-8 flex flex-col items-center gap-6 border-t border-white/10 pt-8 sm:flex-row sm:justify-between">
           <nav aria-label="Legal" className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm text-white/60">
             {legalLinks.map((link) => (
-              <Link key={link.href} href={link.href} className="hover:text-white">
+              <Link key={link.href} href={link.href} className="inline-flex min-h-6 items-center py-1 hover:text-white">
                 {link.label}
               </Link>
             ))}

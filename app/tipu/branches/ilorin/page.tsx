@@ -6,6 +6,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { HeritageImage } from "@/components/ui/HeritageImage";
 import { MediaGallery } from "@/components/media/MediaGallery";
 import { CommunityVideo } from "@/components/media/CommunityVideo";
+import { BranchActivity } from "@/components/tipu/BranchActivity";
 import { getCommunityMedia, mediaDateLabel } from "@/lib/data/community-media";
 import { EVENTS } from "@/lib/media/community-media";
 
@@ -127,6 +128,8 @@ export default async function IlorinBranchPage() {
             </div>
           </section>
         )}
+
+        <BranchActivity branchSlug="ilorin" />
 
         <p className="mt-14 text-xs text-charcoal/50">
           Photographs and video supplied by the Takete-Ide Progressive Union community archive. Individuals

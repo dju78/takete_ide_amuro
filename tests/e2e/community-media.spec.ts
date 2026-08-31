@@ -90,6 +90,57 @@ test.describe("Gallery after the archive import", () => {
     expect(alts.length).toBeGreaterThan(0);
     expect(alts.filter((a) => !a || a.trim().length < 3)).toEqual([]);
   });
+
+  test("First Baptist Church is deduplicated in Places of Worship", async ({ page }) => {
+    await page.goto("/gallery?category=Places+of+Worship");
+    const baptistCards = page.getByRole("button", { name: /First Baptist Church/ });
+    await expect(baptistCards).toHaveCount(1);
+  });
+
+  test("landmarks and placeholders are presented respectfully", async ({ page }) => {
+    await page.goto("/gallery?category=Landmarks");
+    await expect(page.getByText("Okuta Boro")).toBeVisible();
+    await expect(page.getByText("Takete-Ide Town Hall")).toBeVisible();
+    await expect(page.getByText("Authentic current photograph coming soon")).toBeVisible();
+    await expect(page.getByText("Authentic landmark photograph being verified")).toBeVisible();
+  });
+
+  test("verified-place placeholders render with correct categories and distinct identities", async ({ page }) => {
+    // 1. Nature & Waterways
+    await page.goto("/gallery?category=Nature");
+    await expect(page.getByRole("button", { name: /Obasoro Hill/i })).toBeVisible();
+    await expect(page.getByRole("button", { name: /bank of the Eba River/i })).toBeVisible();
+    await expect(page.getByRole("button", { name: /Eba River.*in flow/i })).toBeVisible();
+    await expect(page.getByText("Ighoruku River")).toBeVisible();
+    await expect(page.getByText("Owowo River")).toBeVisible();
+    const riverPlaceholders = page.getByText("Authentic river photograph coming soon");
+    await expect(riverPlaceholders).toHaveCount(2);
+
+    // 2. Places of Worship
+    await page.goto("/gallery?category=Places+of+Worship");
+    await expect(page.getByRole("button", { name: /First Baptist Church/i })).toBeVisible();
+    await expect(page.getByRole("button", { name: /Church of God in Christ/i })).toBeVisible();
+    await expect(page.getByRole("button", { name: /ECWA/i })).toBeVisible();
+    await expect(page.getByText("First Apostolic Church, Takete-Ide")).toBeVisible();
+    await expect(page.getByText("Authentic community photograph coming soon")).toBeVisible();
+
+    // 3. Education
+    await page.goto("/gallery?category=Education");
+    await expect(page.getByText("Takete-Ide Primary School")).toBeVisible();
+    await expect(page.getByText("Government Day Secondary School, Takete-Ide")).toBeVisible();
+    const schoolPlaceholders = page.getByText("Authentic school photograph coming soon");
+    await expect(schoolPlaceholders).toHaveCount(2);
+  });
+
+  test("no authentic place image is reused for another distinct place", async ({ page }) => {
+    await page.goto("/gallery");
+    // Verify each authentic place image appears at most once in the gallery buttons
+    const imgSources = await page.locator("main .grid button img").evaluateAll((imgs) =>
+      imgs.map((i) => (i as HTMLImageElement).src),
+    );
+    const uniqueSources = new Set(imgSources);
+    expect(imgSources.length).toBe(uniqueSources.size);
+  });
 });
 
 test.describe("Video delivery and accessibility", () => {
@@ -141,6 +192,57 @@ test.describe("Video delivery and accessibility", () => {
     await expect(page.getByRole("heading", { name: "Community Footage" })).toBeVisible();
     await expect(page.locator("video")).toHaveCount(0);
   });
+});
+
+test.describe("Digital archive and oral history presentation", () => {
+  test("archive index displays search, categories, and respectful empty states", async ({ page }) => {
+    await page.goto("/archive");
+    await expect(page.getByRole("heading", { name: "Digital Archive", level: 1 })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Voices of Takete-Ide" })).toBeVisible();
+    await expect(page.getByPlaceholder("Search the archive…")).toBeVisible();
+  });
+
+  test("oral history page preserves privacy and offers elder recommendation CTA", async ({ page }) => {
+    await page.goto("/archive/oral-history");
+    await expect(page.getByRole("heading", { name: "Voices of Takete-Ide", level: 1 })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Recommend an Elder to Interview" })).toBeVisible();
+    // Verify no audio autoplays
+    const audios = page.locator("audio");
+    if (await audios.count() > 0) {
+      const preload = await audios.first().getAttribute("preload");
+      expect(preload).toBe("none");
+    }
+  });
+});
+
+test.describe("Responsive viewport safety and layout integrity", () => {
+  const viewports = [
+    { name: "mobile-320", width: 320, height: 568 },
+    { name: "mobile-375", width: 375, height: 667 },
+    { name: "mobile-390", width: 390, height: 844 },
+    { name: "mobile-430", width: 430, height: 932 },
+    { name: "tablet-768", width: 768, height: 1024 },
+    { name: "desktop-1024", width: 1024, height: 768 },
+    { name: "desktop-1440", width: 1440, height: 900 },
+  ];
+
+  for (const vp of viewports) {
+    test(`no horizontal overflow on / at ${vp.name}`, async ({ page }) => {
+      await page.setViewportSize({ width: vp.width, height: vp.height });
+      await page.goto("/");
+      const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
+      const clientWidth = await page.evaluate(() => document.documentElement.clientWidth);
+      expect(scrollWidth).toBeLessThanOrEqual(clientWidth + 1);
+    });
+
+    test(`no horizontal overflow on /gallery at ${vp.name}`, async ({ page }) => {
+      await page.setViewportSize({ width: vp.width, height: vp.height });
+      await page.goto("/gallery");
+      const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
+      const clientWidth = await page.evaluate(() => document.documentElement.clientWidth);
+      expect(scrollWidth).toBeLessThanOrEqual(clientWidth + 1);
+    });
+  }
 });
 
 test.describe("Homepage media selection", () => {

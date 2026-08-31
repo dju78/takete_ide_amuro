@@ -1,21 +1,24 @@
 import { cn } from "@/lib/utils";
 import type { ContentStatus, ProjectStatus, VerificationStatus } from "@/types/content";
 import type { FamilyVerificationStatus } from "@/types/family";
-import { CheckCircle2, HelpCircle, BookOpen, FileText, AlertTriangle, Clock } from "lucide-react";
+import { CheckCircle2, HelpCircle, BookOpen, FileText, Clock } from "lucide-react";
 
 const verificationConfig: Record<
-  VerificationStatus | FamilyVerificationStatus,
+  string,
   { label: string; className: string; icon: React.ComponentType<{ className?: string }> }
 > = {
-  unverified: { label: "Unverified", className: "bg-charcoal/10 text-charcoal", icon: HelpCircle },
-  draft: { label: "Draft", className: "bg-charcoal/10 text-charcoal", icon: Clock },
-  family_submitted: { label: "Family Submitted", className: "bg-purple-50 text-purple-600", icon: FileText },
-  oral_history: { label: "Oral History", className: "bg-gold-100 text-gold-700", icon: BookOpen },
-  community_tradition: { label: "Community Tradition", className: "bg-gold-100 text-gold-700", icon: BookOpen },
-  documentary_evidence: { label: "Documentary Evidence", className: "bg-purple-50 text-purple-600", icon: FileText },
-  community_reviewed: { label: "Community Reviewed", className: "bg-green-600/10 text-green-700", icon: CheckCircle2 },
-  verified: { label: "Verified", className: "bg-green-600/10 text-green-700", icon: CheckCircle2 },
-  disputed: { label: "Disputed", className: "bg-red-100 text-red-700", icon: AlertTriangle },
+  unverified: { label: "Pending Verification", className: "bg-ivory text-charcoal/70 ring-1 ring-charcoal/15", icon: Clock },
+  pending_verification: { label: "Pending Verification", className: "bg-ivory text-charcoal/70 ring-1 ring-charcoal/15", icon: Clock },
+  draft: { label: "Draft Record", className: "bg-charcoal/5 text-charcoal/60 ring-1 ring-charcoal/10", icon: Clock },
+  family_submitted: { label: "Family Contributed", className: "bg-purple-50 text-purple-700 ring-1 ring-purple-600/20", icon: FileText },
+  oral_history: { label: "Oral History", className: "bg-gold-100/70 text-gold-900 ring-1 ring-gold-600/25", icon: BookOpen },
+  community_record: { label: "Community Record", className: "bg-purple-50 text-purple-700 ring-1 ring-purple-600/20", icon: BookOpen },
+  community_tradition: { label: "Community Tradition", className: "bg-purple-50 text-purple-700 ring-1 ring-purple-600/20", icon: BookOpen },
+  historical_archive: { label: "Historical Archive", className: "bg-blue-50 text-blue-800 ring-1 ring-blue-600/20", icon: FileText },
+  documentary_evidence: { label: "Documentary Evidence", className: "bg-blue-50 text-blue-800 ring-1 ring-blue-600/20", icon: FileText },
+  community_reviewed: { label: "Community Reviewed", className: "bg-emerald-50 text-emerald-800 ring-1 ring-emerald-600/20", icon: CheckCircle2 },
+  verified: { label: "Verified Record", className: "bg-emerald-50 text-emerald-800 ring-1 ring-emerald-600/20", icon: CheckCircle2 },
+  disputed: { label: "Under Review", className: "bg-amber-50 text-amber-800 ring-1 ring-amber-600/20", icon: HelpCircle },
 };
 
 export function VerificationBadge({
