@@ -223,6 +223,7 @@ test.describe("Responsive viewport safety and layout integrity", () => {
     { name: "mobile-430", width: 430, height: 932 },
     { name: "tablet-768", width: 768, height: 1024 },
     { name: "desktop-1024", width: 1024, height: 768 },
+    { name: "desktop-1280", width: 1280, height: 800 },
     { name: "desktop-1440", width: 1440, height: 900 },
   ];
 
@@ -246,6 +247,14 @@ test.describe("Responsive viewport safety and layout integrity", () => {
     test(`no horizontal overflow on /support at ${vp.name}`, async ({ page }) => {
       await page.setViewportSize({ width: vp.width, height: vp.height });
       await page.goto("/support");
+      const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
+      const clientWidth = await page.evaluate(() => document.documentElement.clientWidth);
+      expect(scrollWidth).toBeLessThanOrEqual(clientWidth + 1);
+    });
+
+    test(`no horizontal overflow on /support/payment/failed at ${vp.name}`, async ({ page }) => {
+      await page.setViewportSize({ width: vp.width, height: vp.height });
+      await page.goto("/support/payment/failed?reference=TIPU-TEST-REF");
       const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
       const clientWidth = await page.evaluate(() => document.documentElement.clientWidth);
       expect(scrollWidth).toBeLessThanOrEqual(clientWidth + 1);
