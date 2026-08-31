@@ -303,6 +303,25 @@ export default async function TipuPage() {
             </div>
           </div>
         </section>
+
+        {/* Community Learning Tool — Kogi Quest */}
+        <section className="mt-16 rounded-3xl border border-purple-600/10 bg-white p-8 shadow-sm sm:p-10">
+          <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
+            <div>
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-gold-100 px-3 py-1 text-xs font-semibold text-gold-800">
+                <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
+                Community Tool
+              </span>
+              <h2 className="mt-3 font-serif text-2xl font-bold text-purple-600">Kogi Quest</h2>
+              <p className="mt-2 max-w-xl text-sm leading-relaxed text-charcoal/75">
+                Test your knowledge and explore Kogi State through an interactive learning experience covering history, culture, places and community knowledge.
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center gap-3">
+              <ButtonLink href="/community/kogi-quest">Explore Kogi Quest</ButtonLink>
+            </div>
+          </div>
+        </section>
       </Container>
     </div>
   );
