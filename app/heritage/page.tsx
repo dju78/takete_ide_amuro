@@ -252,6 +252,13 @@ export default async function HeritagePage() {
             tone="green"
           />
           <IconCard
+            icon={Sparkles}
+            title="Agbagba Ide"
+            description="Sacred sanctuary, cultural memory and symbol of community resilience."
+            href="/heritage/agbagba-ide"
+            tone="purple"
+          />
+          <IconCard
             icon={Church}
             title="Our History"
             description="Origins, settlement, faith and the making of the community."

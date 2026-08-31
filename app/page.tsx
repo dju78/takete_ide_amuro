@@ -277,6 +277,59 @@ export default async function HomePage() {
         </Container>
       </section>
 
+      {/* History Preview — From the Hills to a Home of Peace */}
+      <section className="bg-purple-900 py-16 text-white sm:py-20">
+        <Container>
+          <div className="grid gap-8 lg:grid-cols-[1.4fr_1fr] lg:items-center">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gold-300">
+                Our History
+              </p>
+              <h2 className="mt-2 font-serif text-3xl font-bold sm:text-4xl">
+                From the Hills to a Home of Peace
+              </h2>
+              <p className="mt-4 max-w-xl text-base leading-relaxed text-white/85 sm:text-lg">
+                The story of Takete-Ide predates the present settlement. Community historical accounts
+                preserve a journey through earlier settlements and upland communities before the move to the
+                present site around 1926.
+              </p>
+              <div className="mt-8 flex flex-wrap items-center gap-4">
+                <ButtonLink href="/our-story" size="md">
+                  Explore Our Story
+                </ButtonLink>
+                <ButtonLink
+                  href="/heritage"
+                  variant="secondary"
+                  size="md"
+                  className="border-white/30 text-white hover:bg-white/10"
+                >
+                  Culture &amp; Heritage
+                </ButtonLink>
+              </div>
+            </div>
+
+            <div className="rounded-3xl border border-white/15 bg-white/10 p-6 sm:p-8 backdrop-blur-sm">
+              <span className="inline-block rounded-full bg-gold-500/20 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-gold-300">
+                Settlement Milestone
+              </span>
+              <p className="mt-3 font-serif text-xl font-bold text-white">
+                Takete-Idera (c.1926–Present)
+              </p>
+              <p className="mt-2 text-sm leading-relaxed text-white/80">
+                Named for separation to a place of comfort, our community descended from the upland settlement
+                of Ilu-Oke to the fertile plains in 1926 or thereabouts.
+              </p>
+              <Link
+                href="/our-story#journey"
+                className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-gold-300 hover:underline"
+              >
+                View the 5-stage migration timeline →
+              </Link>
+            </div>
+          </div>
+        </Container>
+      </section>
+
       {/* Culture & Heritage */}
       <section className="bg-white py-16 sm:py-20">
         <Container>

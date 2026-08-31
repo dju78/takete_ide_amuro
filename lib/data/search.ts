@@ -94,7 +94,19 @@ const PAGE_INDEX: { title: string; href: string; excerpt: string; keywords: stri
     title: "Our History",
     href: "/our-story",
     excerpt: "Origins, settlement, faith and the making of the community.",
-    keywords: "history origins settlement ilu-oke story heritage timeline past",
+    keywords: "history origins settlement ilu-oke takete-idera amuro-odo igbo ide okeata pa thomas ode c.1926 1926 present settlement migration timeline story heritage past obasoro eba river owowo river",
+  },
+  {
+    title: "Agbagba Ide — Symbol, Memory and Community Tradition",
+    href: "/heritage/agbagba-ide",
+    excerpt: "Sacred sanctuary, cultural memory and symbol of community resilience in Takete-Ide heritage.",
+    keywords: "agbagba ide sanctuary symbol cultural memory anthem oriki tradition history protection peace",
+  },
+  {
+    title: "Kogi Quest",
+    href: "/community/kogi-quest",
+    excerpt: "Interactive knowledge and learning experience exploring Kogi State history, culture and places.",
+    keywords: "kogi quest quiz learning trivia education community tool questions",
   },
   {
     title: "Culture & Heritage",
