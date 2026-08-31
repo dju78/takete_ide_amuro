@@ -242,6 +242,14 @@ test.describe("Responsive viewport safety and layout integrity", () => {
       const clientWidth = await page.evaluate(() => document.documentElement.clientWidth);
       expect(scrollWidth).toBeLessThanOrEqual(clientWidth + 1);
     });
+
+    test(`no horizontal overflow on /support at ${vp.name}`, async ({ page }) => {
+      await page.setViewportSize({ width: vp.width, height: vp.height });
+      await page.goto("/support");
+      const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
+      const clientWidth = await page.evaluate(() => document.documentElement.clientWidth);
+      expect(scrollWidth).toBeLessThanOrEqual(clientWidth + 1);
+    });
   }
 });
 

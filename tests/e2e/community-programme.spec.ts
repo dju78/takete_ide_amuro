@@ -66,6 +66,29 @@ test.describe("Support Takete-Ide", () => {
       page.getByText(/ongoing areas of work rather than active campaigns with targets/),
     ).toBeVisible();
   });
+
+  test("renders bank account details QR code with accessible alt text and scannable quiet zone", async ({ page }) => {
+    await page.goto("/support");
+    const qrImage = page.getByRole("img", {
+      name: "QR code containing Takete Ide Progressive Union First Bank account details",
+    });
+    await expect(qrImage).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Scan for account details" })).toBeVisible();
+    await expect(
+      page.getByText("Scan this code to view the official bank account details for manual transfer."),
+    ).toBeVisible();
+  });
+
+  test("QR wording clarifies manual transfer and does not claim instant payment or automatic debits", async ({ page }) => {
+    await page.goto("/support");
+    const text = (await page.locator("main").innerText()).replace(/\s+/g, " ");
+    // Confirms "Scan for account details" exists
+    expect(text).toMatch(/Scan for account details/i);
+    // Never claims "Scan to pay" or "Instant QR payment"
+    expect(text).not.toMatch(/scan to pay/i);
+    expect(text).not.toMatch(/pay by qr/i);
+    expect(text).not.toMatch(/instant qr payment/i);
+  });
 });
 
 test.describe("Centenary 2026", () => {

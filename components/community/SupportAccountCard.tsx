@@ -1,7 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
-import { Copy, Check, ShieldCheck, Info } from "lucide-react";
+import { Copy, Check, ShieldCheck, Info, QrCode } from "lucide-react";
 import { SUPPORT_BENEFICIARY_NOTICE, SUPPORT_SECURITY_NOTICE } from "@/lib/media/community-programme";
 import type { SupportAccount } from "@/lib/media/community-programme";
 
@@ -75,6 +76,36 @@ export function SupportAccountCard({ account }: { account: SupportAccount }) {
         <span role="status" aria-live="polite" className="sr-only">
           {copied ? "Account number copied" : ""}
         </span>
+
+        {/* QR Code for account details (manual transfer reference only) */}
+        <div className="mt-6 rounded-2xl border border-purple-600/10 bg-purple-50/50 p-5">
+          <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-center">
+            <div className="relative aspect-square w-32 shrink-0 overflow-hidden rounded-xl border border-purple-600/10 bg-white p-1.5 shadow-2xs sm:w-36">
+              <Image
+                src="/images/support/takete-account-details-qr.png"
+                alt="QR code containing Takete Ide Progressive Union First Bank account details"
+                width={144}
+                height={144}
+                priority
+                className="h-full w-full object-contain"
+              />
+            </div>
+            <div className="text-center sm:text-left">
+              <div className="flex items-center justify-center gap-1.5 sm:justify-start">
+                <QrCode className="h-4 w-4 text-purple-600" aria-hidden="true" />
+                <h3 className="text-xs font-bold uppercase tracking-wider text-purple-700">
+                  Scan for account details
+                </h3>
+              </div>
+              <p className="mt-1.5 text-sm leading-relaxed text-charcoal/80">
+                Scan this code to view the official bank account details for manual transfer.
+              </p>
+              <p className="mt-1 text-xs text-charcoal/60">
+                Use your camera or banking application to scan.
+              </p>
+            </div>
+          </div>
+        </div>
 
         <p className="mt-6 flex gap-3 rounded-2xl border border-gold-500/30 bg-gold-100/60 p-4 text-sm leading-relaxed text-charcoal/80">
           <Info className="mt-0.5 h-4 w-4 shrink-0 text-gold-700" aria-hidden="true" />
