@@ -6,6 +6,7 @@ import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { VerificationBadge } from "@/components/ui/Badge";
 import { getPersonBySlug } from "@/lib/data/people";
+import { siteConfig } from "@/lib/site-config";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -15,7 +16,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const person = await getPersonBySlug(slug);
   if (!person) return { title: "Profile not found" };
-  return { title: person.name, description: person.biography?.slice(0, 160) };
+  return {
+    title: person.name,
+    description: person.biography?.slice(0, 160),
+    alternates: { canonical: `${siteConfig.url}/our-people/${person.slug}` },
+  };
 }
 
 export default async function PersonPage({ params }: Props) {
@@ -23,8 +28,28 @@ export default async function PersonPage({ params }: Props) {
   const person = await getPersonBySlug(slug);
   if (!person) notFound();
 
+  // Only fields the community record actually holds. No birth date, no job
+  // title, no affiliation is emitted for a person whose profile does not state
+  // one — structured data is exactly where a guess becomes a machine-readable
+  // claim about a real person.
+  const personJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: person.name,
+    ...(person.biography ? { description: person.biography } : {}),
+    ...(person.photo_url ? { image: person.photo_url } : {}),
+    ...(person.external_links?.length
+      ? { sameAs: person.external_links.map((l) => l.url).filter(Boolean) }
+      : {}),
+    url: `${siteConfig.url}/our-people/${person.slug}`,
+  };
+
   return (
     <div className="bg-ivory">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+      />
       <Container className="py-16">
         <Breadcrumb items={[{ label: "Our People", href: "/our-people" }, { label: person.name }]} />
         <div className="mt-8 grid gap-10 lg:grid-cols-[280px_1fr]">

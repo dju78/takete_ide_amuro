@@ -17,10 +17,25 @@ export async function getArchiveItems(options?: { category?: string; search?: st
   return data;
 }
 
+/**
+ * A single archive item for the public detail page.
+ *
+ * The same two guards the listing uses are applied here deliberately. Without
+ * them a draft item — or one restricted to `community`/`admin_only` — stayed
+ * reachable at its own URL, file_url and all, simply because it was absent from
+ * the index. Filtering a list is not access control; the row fetch has to carry
+ * the same conditions.
+ */
 export async function getArchiveItemBySlug(slug: string): Promise<ArchiveItem | null> {
   const supabase = await createClient();
   if (!supabase) return null;
-  const { data, error } = await supabase.from("archive_items").select("*").eq("slug", slug).maybeSingle();
+  const { data, error } = await supabase
+    .from("archive_items")
+    .select("*")
+    .eq("slug", slug)
+    .eq("status", "published")
+    .eq("access_level", "public")
+    .maybeSingle();
   if (error || !data) return null;
   return data;
 }

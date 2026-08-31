@@ -76,6 +76,7 @@ export const navGroups: NavGroup[] = [
     href: "/news",
     items: [
       { label: "News", href: "/news", description: "Community news and announcements" },
+      { label: "Events", href: "/events", description: "Upcoming and past community events", featured: true },
       { label: "Takete-Ide Day", href: "/takete-ide-day", description: "Our annual homecoming festival" },
       { label: "Weather", href: "/weather", description: "Local conditions and forecasts" },
       { label: "Search", href: "/search", description: "Search the whole site" },
@@ -125,7 +126,7 @@ export const footerGroups: { heading: string; items: NavItem[] }[] = [
     heading: "Centenary",
     items: [
       { label: "Centenary 2026", href: "/centenary" },
-      { label: "Events", href: "/takete-ide-day" },
+      { label: "Events", href: "/events" },
       { label: "Support Takete-Ide", href: "/support" },
     ],
   },

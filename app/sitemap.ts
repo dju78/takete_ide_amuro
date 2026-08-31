@@ -3,10 +3,13 @@ import { siteConfig } from "@/lib/site-config";
 import { getAllNews } from "@/lib/data/news";
 import { getFamilies, getOrikiList } from "@/lib/data/families";
 import { getPublishedEvents } from "@/lib/data/events";
+import { getPeople } from "@/lib/data/people";
+import { getProjects } from "@/lib/data/projects";
+import { getArchiveItems } from "@/lib/data/archive";
 
 const staticRoutes = [
   "/", "/our-story", "/heritage", "/heritage/traditional-institution", "/takete-ide-day",
-  "/development", "/our-people", "/news", "/gallery", "/weather", "/diaspora", "/archive",
+  "/development", "/our-people", "/news", "/events", "/gallery", "/weather", "/diaspora", "/archive",
   "/archive/oral-history", "/tipu", "/tipu/branches", "/tipu/branches/lokoja",
   "/tipu/branches/ilorin", "/diaspora/uk-europe", "/takete-ide-day/cultural-attire", "/centenary", "/support",
   "/education", "/development/security-trust-fund",
@@ -15,9 +18,24 @@ const staticRoutes = [
   "/accessibility", "/cookies",
 ];
 
+/**
+ * Every entry comes from a data function that already filters to published,
+ * publicly accessible rows — getOrikiList also requires publication_permission,
+ * and getArchiveItems requires access_level = 'public'. Nothing unpublished can
+ * reach the sitemap without one of those guards being removed first.
+ *
+ * /search is deliberately absent: it is marked noindex, and query-string result
+ * pages would only dilute the canonical section pages.
+ */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [news, families, oriki, events] = await Promise.all([
-    getAllNews(), getFamilies(), getOrikiList(), getPublishedEvents(),
+  const [news, families, oriki, events, people, projects, archive] = await Promise.all([
+    getAllNews(),
+    getFamilies(),
+    getOrikiList(),
+    getPublishedEvents(),
+    getPeople(),
+    getProjects(),
+    getArchiveItems(),
   ]);
 
   const now = new Date();
@@ -28,5 +46,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...families.map((f) => ({ url: `${siteConfig.url}/families/${f.slug}`, lastModified: now })),
     ...oriki.map((o) => ({ url: `${siteConfig.url}/oriki/${o.slug}`, lastModified: now })),
     ...events.map((e) => ({ url: `${siteConfig.url}/takete-ide-day/${e.year}`, lastModified: now })),
+    ...people.map((p) => ({ url: `${siteConfig.url}/our-people/${p.slug}`, lastModified: now })),
+    ...projects.map((p) => ({ url: `${siteConfig.url}/development/projects/${p.slug}`, lastModified: now })),
+    ...archive.map((a) => ({ url: `${siteConfig.url}/archive/${a.slug}`, lastModified: now })),
   ];
 }
