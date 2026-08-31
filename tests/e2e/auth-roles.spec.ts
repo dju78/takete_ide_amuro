@@ -1,4 +1,4 @@
-﻿import { test, expect } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { roleRank, isFinancialAdmin, FINANCIAL_ROLES } from "@/lib/auth";
 
 test.describe("App-scoped Takete authorization & role isolation logic", () => {
@@ -52,6 +52,27 @@ test.describe("App-scoped Takete authorization & role isolation logic", () => {
   test("admin support account management route requires financial role and redirects unauthenticated visitors", async ({ page }) => {
     await page.goto("/admin/support");
     await expect(page).toHaveURL(/\/admin\/login/);
+  });
+
+  test("admin login page exposes no internal guide references or public registration", async ({ page }) => {
+    await page.goto("/admin/login");
+
+    // Admin Sign In controls remain available
+    await expect(page.getByRole("heading", { name: "Admin Sign In" })).toBeVisible();
+    await expect(page.locator('input[name="email"]')).toBeVisible();
+    await expect(page.locator('input[name="password"]')).toBeVisible();
+    await expect(page.getByRole("button", { name: "Sign In" })).toBeVisible();
+
+    // Internal developer documentation and guide references are removed
+    const bodyText = await page.locator("body").innerText();
+    expect(bodyText).not.toContain("ADMIN_GUIDE");
+    expect(bodyText).not.toContain("docs/ADMIN_GUIDE.md");
+    expect(bodyText).not.toContain("Need an account?");
+
+    // Public signup / self-registration is strictly not offered
+    expect(bodyText).not.toMatch(/sign\s*up/i);
+    expect(bodyText).not.toMatch(/register/i);
+    expect(bodyText).not.toMatch(/create\s*account/i);
   });
 });
 
