@@ -9,6 +9,8 @@ import { ButtonLink } from "@/components/ui/Button";
 import { SupportAccountCard } from "@/components/community/SupportAccountCard";
 import { FundProgress } from "@/components/community/FundProgress";
 import { getSupportAccount, getSecurityTrustFund } from "@/lib/data/community-programme";
+import { ContributionForm } from "@/components/community/ContributionForm";
+import { env, isPaystackConfigured, paystackMode } from "@/lib/env";
 import { SUPPORT_PURPOSES } from "@/lib/media/community-programme";
 
 export const metadata: Metadata = {
@@ -34,8 +36,61 @@ export default async function SupportPage() {
       </div>
 
       <Container className="py-14 sm:py-16">
-        <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
+        {/* Pay Online — hidden entirely when Paystack is unconfigured, rather than
+            shown as a form that cannot work. Direct Bank Transfer below is
+            unaffected either way, so the page always offers a way to give. */}
+        {isPaystackConfigured ? (
+          <section className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
+            <div className="rounded-3xl border border-purple-600/10 bg-white p-6 shadow-sm sm:p-8">
+              <h2 className="font-serif text-2xl font-bold text-purple-600">Make a Contribution</h2>
+              <p className="mt-2 text-sm leading-relaxed text-charcoal/70">
+                Contribute online in a few steps. Payment is completed securely on Paystack.
+              </p>
+              {paystackMode === "test" && (
+                <p
+                  role="status"
+                  className="mt-4 rounded-xl bg-gold-100 px-4 py-3 text-sm font-medium text-gold-700"
+                >
+                  Test mode — no live payment will be taken.
+                </p>
+              )}
+              <div className="mt-6">
+                <ContributionForm
+                  minAmount={env.contributionMinMajor}
+                  maxAmount={env.contributionMaxMajor}
+                />
+              </div>
+            </div>
+
+            <div className="prose-heritage">
+              <h2 className="mt-0">Where your contribution goes</h2>
+              <p>
+                Contributions support the areas the union has approved — community development, the
+                Centenary, education, security, roads and heritage. Choosing a purpose tells the union
+                where you would like your contribution directed.
+              </p>
+              <p className="text-sm text-charcoal/65">
+                These are areas of work rather than separately ring-fenced legal funds. The union reports
+                on major funds to its branches and at the annual general meeting.
+              </p>
+              <p className="text-sm text-charcoal/65">
+                Prefer to pay from your banking app? The union&rsquo;s account details are below.
+              </p>
+            </div>
+          </section>
+        ) : (
+          <section className="rounded-3xl border border-purple-600/10 bg-white p-6 shadow-sm sm:p-8">
+            <h2 className="font-serif text-2xl font-bold text-purple-600">Make a Contribution</h2>
+            <p className="mt-2 max-w-2xl leading-relaxed text-charcoal/75">
+              Online card and bank payment is being set up. In the meantime you can contribute directly to
+              the union&rsquo;s account using the details below — the account is verified and in active use.
+            </p>
+          </section>
+        )}
+
+        <div className="mt-16 grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
           <div>
+            <h2 className="mb-4 font-serif text-2xl font-bold text-purple-600">Direct Bank Transfer</h2>
             {account ? (
               <SupportAccountCard account={account} />
             ) : (
