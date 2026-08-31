@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Crown, Users } from "lucide-react";
+import { Crown, Users, Landmark, Info, ScrollText } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -10,9 +10,25 @@ import { getTraditionalRulers, getTraditionalCouncil } from "@/lib/data/people";
 import { formatDate } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Traditional Institution",
-  description: "The Olude of Takete-Ide Amuro, the traditional council, and the community's traditional leadership structure.",
+  title: "Traditional Institution | Takete-Ide Amuro",
+  description:
+    "Explore the supplied community historical account of the Olu’de, the Takete-Ide Traditional Council and the community’s place within the wider Amuro traditional structure.",
 };
+
+const MANUSCRIPT_OLUDE_REGISTER = [
+  "Olu’de Opalu",
+  "Olu’de Ide",
+  "Olu’de Oriko",
+  "Olu’de Atte Gbogori",
+  "Olu’de Orunmbe",
+  "Olu’de Obadofin Obere",
+  "Olu’de Obaba Omologun",
+  "Olu’de Obajemu Atepa",
+  "Olu’de Elewa",
+  "Olu’de Obajemu Ate",
+  "Olu’de Alufa Olukotun",
+  "Olu’de J.A. Fiki",
+];
 
 export default async function TraditionalInstitutionPage() {
   const [rulers, council] = await Promise.all([getTraditionalRulers(), getTraditionalCouncil()]);
@@ -21,43 +37,108 @@ export default async function TraditionalInstitutionPage() {
 
   return (
     <div className="bg-ivory">
-      <div className="bg-purple-700 py-14 text-white">
+      {/* Hero */}
+      <div className="bg-purple-700 py-16 text-white sm:py-20">
         <Container>
-          <Breadcrumb items={[{ label: "Heritage", href: "/heritage" }, { label: "Traditional Institution" }]} />
-          <h1 className="mt-4 font-serif text-4xl font-bold sm:text-5xl">Traditional Institution</h1>
-          <p className="mt-3 max-w-2xl text-white/80">
-            The Olude of Takete-Ide Amuro and the traditional council that safeguards our customs and heritage.
+          <Breadcrumb items={[{ label: "Culture & Heritage", href: "/heritage" }, { label: "Traditional Institution" }]} />
+          <p className="mt-4 inline-block rounded-full bg-gold-500/20 px-3.5 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-gold-300">
+            Governance &amp; Heritage
+          </p>
+          <h1 className="mt-3 font-serif text-4xl font-bold sm:text-5xl lg:text-6xl">Traditional Institution</h1>
+          <p className="mt-3 max-w-2xl text-lg text-white/85">
+            The Olu’de of Takete-Ide Amuro and the traditional council that safeguards our customs, unity, and heritage.
           </p>
         </Container>
       </div>
 
-      <Container className="py-16">
-        <section className="grid gap-10 lg:grid-cols-2 lg:items-center">
-          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
-            <HeritageImage src="/images/takete-ide/takete-ide-day.jpg" alt="A community gathering in Takete-Ide Amuro" label="Community Gathering, Takete-Ide Amuro" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
-          </div>
-          <div>
-            <h2 className="font-serif text-2xl font-bold text-purple-600">The Olude of Takete-Ide Amuro</h2>
-            <p className="mt-3 text-charcoal/80">
-              Takete-Ide is traditionally governed by its own monarch, the Olude of Takete-Ide Amuro, who
-              serves as custodian of the community&rsquo;s customs, values and heritage. Within the wider
-              Amuro confederation, the Olude&rsquo;s stool pays allegiance to the Alamuro of Amuro Land.
-            </p>
-            <p className="mt-3 text-sm text-charcoal/60">
-              The current holder of the title, palace history, and full list of past rulers will be
-              published here once confirmed by the traditional council.
-            </p>
+      <Container className="py-14 sm:py-16">
+        {/* Section 1: Introduction & Dignified Placeholder Cover */}
+        <section className="overflow-hidden rounded-3xl border border-purple-600/10 bg-white p-7 sm:p-10 shadow-sm lg:p-12">
+          <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
+            {/* Branded Palace Placeholder */}
+            <div className="relative flex aspect-[4/3] flex-col items-center justify-center overflow-hidden rounded-2xl border border-gold-500/30 bg-gradient-to-br from-purple-950 via-purple-900 to-purple-950 p-8 text-center text-white shadow-inner">
+              <div className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-gold-500/10 blur-xl" />
+              <div className="pointer-events-none absolute -bottom-10 -left-10 h-32 w-32 rounded-full bg-community-green/10 blur-xl" />
+              <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-gold-500/30 bg-gold-500/15 text-gold-300">
+                <Crown className="h-8 w-8" aria-hidden="true" />
+              </div>
+              <h3 className="mt-4 font-serif text-xl font-bold text-white">Traditional Institution</h3>
+              <div className="my-2 h-0.5 w-12 bg-gold-400/50" />
+              <p className="text-xs font-medium text-gold-300/90">
+                Authentic palace / traditional council photograph being verified
+              </p>
+              <p className="mt-3 text-[11px] text-white/60">
+                Official imagery will be published following traditional council confirmation
+              </p>
+            </div>
+
+            <div>
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-purple-100 px-3 py-0.5 text-xs font-semibold text-purple-800">
+                <Landmark className="h-3.5 w-3.5" aria-hidden="true" />
+                Community Leadership
+              </span>
+              <h2 className="mt-3 font-serif text-2xl font-bold text-purple-900 sm:text-3xl">
+                The Olu’de and the Takete-Ide Traditional Council
+              </h2>
+              <p className="mt-4 text-base leading-relaxed text-charcoal/85">
+                According to the supplied community historical account, traditional political leadership in
+                Takete-Ide resides in the Takete-Ide Traditional Council under the leadership of the Olu’de
+                and his Council of Chiefs.
+              </p>
+              <p className="mt-3 text-sm leading-relaxed text-charcoal/75">
+                As the custodian of native customs, communal values, and cultural heritage, the Olu’de
+                presides over traditional matters, fosters peace and cohesion, and represents Takete-Ide
+                within the wider traditional councils of the region.
+              </p>
+            </div>
           </div>
         </section>
 
+        {/* Section 2: Takete within the Wider Amuro Traditional Structure */}
+        <section className="mt-16 rounded-3xl border border-purple-600/10 bg-white p-7 sm:p-10 shadow-sm">
+          <SectionHeading
+            eyebrow="Regional Structure"
+            title="Takete-Ide within the Amuro Traditional Structure"
+            align="left"
+            className="mx-0"
+            description="The relationship between local chieftaincy and the wider Amuro traditional council."
+          />
+          <div className="mt-6 grid gap-6 md:grid-cols-2">
+            <div className="rounded-2xl border border-purple-100 bg-purple-50/50 p-6">
+              <h3 className="font-serif text-lg font-bold text-purple-950">Local Autonomy &amp; Town Council</h3>
+              <p className="mt-2 text-sm leading-relaxed text-charcoal/80">
+                The supplied community historical account states that each of the seven constituent
+                towns and villages of Amuro maintains its own traditional council presided over by an Oba,
+                overseeing internal cultural affairs and community harmony.
+              </p>
+            </div>
+            <div className="rounded-2xl border border-purple-100 bg-purple-50/50 p-6">
+              <h3 className="font-serif text-lg font-bold text-purple-950">The Alamuro of Amuro Land</h3>
+              <p className="mt-2 text-sm leading-relaxed text-charcoal/80">
+                The supplied account states that the Alamuro heads the wider Amuro Traditional Council.
+                According to the account, the creation of the Alamuro title is dated to 1934, with the stool
+                rotating among the seven Amuro settlements without a fixed tenure.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 3: Current Stool / Manuscript Identification */}
         <section className="mt-16">
-          <SectionHeading eyebrow="The Stool" title="Current Ruler" align="left" className="mx-0" />
+          <SectionHeading eyebrow="The Stool" title="Current Leadership Status" align="left" className="mx-0" />
           <div className="mt-6">
             {currentRuler ? (
               <div className="flex flex-col gap-4 rounded-2xl border border-purple-600/10 bg-white p-6 sm:flex-row sm:items-center">
                 {currentRuler.photo_url && (
                   <div className="relative h-28 w-28 shrink-0 overflow-hidden rounded-full">
-                    <HeritageImage src={currentRuler.photo_url} alt={currentRuler.full_name} label={currentRuler.full_name} fill sizes="112px" className="object-cover" />
+                    <HeritageImage
+                      src={currentRuler.photo_url}
+                      alt={currentRuler.full_name}
+                      label={currentRuler.full_name}
+                      fill
+                      sizes="112px"
+                      className="object-cover"
+                    />
                   </div>
                 )}
                 <div>
@@ -70,39 +151,90 @@ export default async function TraditionalInstitutionPage() {
                 </div>
               </div>
             ) : (
-              <EmptyState
-                icon={Crown}
-                title="Awaiting confirmation from the traditional council"
-                message="The current Olude's details will be published here once confirmed and authorised for release by the traditional institution."
-              />
+              <div className="rounded-2xl border border-gold-500/30 bg-gold-100/50 p-6 sm:p-8">
+                <div className="flex items-start gap-4">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gold-500/20 text-gold-800">
+                    <Info className="h-5 w-5" aria-hidden="true" />
+                  </div>
+                  <div>
+                    <span className="text-xs font-bold uppercase tracking-wider text-gold-800">
+                      Manuscript Identification
+                    </span>
+                    <h3 className="mt-1 font-serif text-lg font-bold text-purple-950">
+                      Oba Philip Ebilakun (Manuscript Record)
+                    </h3>
+                    <p className="mt-2 text-sm leading-relaxed text-charcoal/85">
+                      The supplied historical manuscript identifies Oba Philip Ebilakun as the thirteenth
+                      Olu’de of Takete-Ide. Awaiting confirmation from the traditional council.
+                    </p>
+                    <p className="mt-2 text-xs italic text-charcoal/60">
+                      Current-status confirmation with the traditional institution remains pending and live
+                      status will be updated upon official verification.
+                    </p>
+                  </div>
+                </div>
+              </div>
             )}
           </div>
         </section>
 
-        <section className="mt-16">
-          <SectionHeading eyebrow="History" title="Previous Rulers" align="left" className="mx-0" />
-          <div className="mt-6">
-            {pastRulers.length > 0 ? (
-              <ol className="space-y-4 border-l-2 border-gold-500/40 pl-6">
+        {/* Section 4: Historical Olu’de Register */}
+        <section className="mt-16 rounded-3xl border border-purple-600/10 bg-white p-7 sm:p-10 shadow-sm">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-purple-100 px-3 py-0.5 text-xs font-semibold text-purple-800">
+                <ScrollText className="h-3.5 w-3.5" aria-hidden="true" />
+                Preserved Manuscript Names
+              </span>
+              <h2 className="mt-2 font-serif text-2xl font-bold text-purple-900 sm:text-3xl">
+                Historical Olu’de Register
+              </h2>
+            </div>
+            <span className="text-xs text-charcoal/60">12 Rulers Recorded in Manuscript</span>
+          </div>
+
+          <p className="mt-4 text-xs italic leading-relaxed text-charcoal/70 sm:text-sm">
+            Names preserved in the supplied community historical manuscript. Sequence, spellings, family
+            associations and reign dates remain subject to traditional council/community verification.
+          </p>
+
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {MANUSCRIPT_OLUDE_REGISTER.map((name, index) => (
+              <div
+                key={index}
+                className="flex items-center gap-3.5 rounded-xl border border-purple-100 bg-purple-50/40 p-4 transition-all hover:bg-purple-50 hover:border-purple-200"
+              >
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gold-500/20 font-serif text-xs font-bold text-purple-950">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <div>
+                  <h3 className="font-serif text-sm font-bold text-purple-950">{name}</h3>
+                  <p className="text-[11px] text-charcoal/60">Historic Olu’de Stool</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {pastRulers.length > 0 && (
+            <div className="mt-10 border-t border-purple-100 pt-6">
+              <h3 className="font-serif text-lg font-bold text-purple-900">Verified Database Records</h3>
+              <ol className="mt-4 space-y-4 border-l-2 border-gold-500/40 pl-6">
                 {pastRulers.map((ruler) => (
                   <li key={ruler.id}>
                     <p className="font-semibold text-purple-600">{ruler.full_name}</p>
                     <p className="text-sm text-charcoal/60">
-                      {ruler.reign_start ? formatDate(ruler.reign_start) : "?"} – {ruler.reign_end ? formatDate(ruler.reign_end) : "?"}
+                      {ruler.reign_start ? formatDate(ruler.reign_start) : "?"} –{" "}
+                      {ruler.reign_end ? formatDate(ruler.reign_end) : "?"}
                     </p>
                     <VerificationBadge status={ruler.verification_status} className="mt-1" />
                   </li>
                 ))}
               </ol>
-            ) : (
-              <EmptyState
-                title="Palace history is being compiled"
-                message="A record of previous rulers will be added here as names, reign dates and biographies are confirmed with the traditional council and family sources. No names or dates are published until verified — see docs/HISTORICAL_VERIFICATION.md."
-              />
-            )}
-          </div>
+            </div>
+          )}
         </section>
 
+        {/* Section 5: Traditional Council Database Section */}
         <section className="mt-16">
           <SectionHeading eyebrow="Council" title="The Traditional Council" align="left" className="mx-0" />
           <div className="mt-6">
@@ -118,8 +250,8 @@ export default async function TraditionalInstitutionPage() {
             ) : (
               <EmptyState
                 icon={Users}
-                title="Council membership not yet published"
-                message="The chiefs and members of the traditional council will be listed here once confirmed."
+                title="Council membership is being documented and will be published after confirmation."
+                message="The chiefs and members of the traditional council will be listed here once verified with the traditional institution."
               />
             )}
           </div>

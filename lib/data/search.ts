@@ -94,7 +94,19 @@ const PAGE_INDEX: { title: string; href: string; excerpt: string; keywords: stri
     title: "Our History",
     href: "/our-story",
     excerpt: "Origins, settlement, faith and the making of the community.",
-    keywords: "history origins settlement ilu-oke takete-idera amuro-odo igbo ide okeata pa thomas ode c.1926 1926 present settlement migration timeline story heritage past obasoro eba river owowo river",
+    keywords: "history origins settlement ilu-oke takete-idera amuro-odo igbo ide okeata ileteju odo takete oke adan oke ako pa thomas ode pa george fiki c.1926 1926 present settlement migration timeline story heritage past obasoro eba river owowo river",
+  },
+  {
+    title: "Traditional Institution",
+    href: "/heritage/traditional-institution",
+    excerpt: "The Olu’de of Takete-Ide Amuro, the traditional council, and the community's traditional leadership structure.",
+    keywords: "traditional institution olude oba philip ebilakun council chiefs alamuro amuro leadership stool palace register",
+  },
+  {
+    title: "Digital Archive",
+    href: "/archive",
+    excerpt: "Historical documents, community records, manuscripts and archival accounts.",
+    keywords: "archive documents manuscript historical account records oral history ileteju",
   },
   {
     title: "Agbagba Ide — Symbol, Memory and Community Tradition",

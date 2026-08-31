@@ -133,12 +133,12 @@ export default function OurStoryPage() {
             <SourcedSection
               title="Takete within Amuro"
               status="community_tradition"
-              sourceNote="Administrative and traditional boundaries per community records and local government gazettes."
+              sourceNote="Administrative and traditional context according to the supplied community historical account."
             >
               <p>
-                Takete-Ide is the second largest of the seven historic towns and villages that comprise the{" "}
-                <strong>Amuro District</strong> in the MopAmuro Local Government Area of Kogi State.
-                The seven Amuro settlements are:
+                The supplied community historical account describes Takete-Ide as the second largest of the
+                seven historic towns and villages that comprise the <strong>Amuro District</strong> in the
+                MopAmuro Local Government Area of Kogi State. The seven Amuro settlements are:
               </p>
               <ul className="grid grid-cols-2 gap-2 font-medium text-purple-900 sm:grid-cols-3">
                 <li>• Takete-Ide</li>
@@ -151,14 +151,14 @@ export default function OurStoryPage() {
               </ul>
               <p>
                 Takete-Ide occupies a central geographical position in the district, sharing direct
-                boundaries with Otafun to the east, Ayedayo to the south, and Ayede to the west. This
-                centrality contributed to the establishment of an Area Office of the MopAmuro Local
-                Government in Takete-Ide following the creation of the council in 1991.
+                boundaries with Otafun to the east, Ayedayo to the south, and Ayede to the west. The
+                supplied account notes that this centrality contributed to the establishment of an Area
+                Office of the MopAmuro Local Government in Takete-Ide following the creation of the council in 1991.
               </p>
               <p>
                 Traditional leadership is vested in the{" "}
                 <Link href="/heritage/traditional-institution" className="text-community-green underline underline-offset-2">
-                  Olude of Takete-Ide
+                  Olu’de of Takete-Ide
                 </Link>{" "}
                 and the Takete-Ide Traditional Council, while community affairs at the district level
                 relate to the paramount stool of the Alamuro of Amuro.
@@ -215,7 +215,7 @@ export default function OurStoryPage() {
             <SourcedSection
               title="The Search for Peace & Regional Conflicts"
               status="community_tradition"
-              sourceNote="Preserved in the community historical account. Regional 19th-century warfare is corroborated by Nigerian historiography."
+              sourceNote="Historical account preserved in the supplied community manuscript."
             >
               <p>
                 During the eighteenth and nineteenth centuries, communities across the Niger-Benue
@@ -278,10 +278,10 @@ export default function OurStoryPage() {
               </div>
 
               <p className="mt-6">
-                According to oral tradition, the suitability and security of the low plain were surveyed
-                by revered hunter-explorers, among whom <strong>Pa Thomas Ode</strong> is remembered.
-                Consultations among hunters and community elders confirmed that the fertile land offered
-                lasting peace, water, and agricultural abundance.
+                Oral tradition remembers <strong>Pa Thomas Ode</strong>, a hunter, as an early figure in the
+                story of the present settlement. According to oral tradition, consultations among hunters and
+                community elders confirmed that the fertile low plain offered lasting peace, water, and
+                agricultural abundance.
               </p>
               <p>
                 In an orderly descent, the main quarters of the community—<strong>Odo Takete</strong>,{" "}
@@ -291,8 +291,8 @@ export default function OurStoryPage() {
                 their enduring arrival in a home of comfort and tranquility.
               </p>
               <p>
-                Community memory commemorates <strong>Pa George Fiki</strong> as the first child born at the
-                new settlement site. For nearly a century since, the community historical account remembers
+                Community historical memory identifies <strong>Pa George Fiki</strong> as the first child born at
+                the present settlement. For nearly a century since, the community historical account remembers
                 the period as one of sustained brotherhood and relative communal stability.
               </p>
             </SourcedSection>

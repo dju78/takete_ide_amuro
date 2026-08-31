@@ -195,7 +195,7 @@ export default async function HomePage() {
               className="mx-0"
             />
             <div className="grid gap-5 sm:grid-cols-2">
-              <IconCard icon={BookOpen} title="Rich Heritage" description="Centuries of culture and tradition." tone="purple" href="/heritage" />
+              <IconCard icon={BookOpen} title="Rich Heritage" description="Generations of culture and tradition." tone="purple" href="/heritage" />
               <IconCard icon={Calendar} title="Annual Festival" description="Takete-Ide Day brings us together." tone="gold" href="/takete-ide-day" />
               <IconCard icon={Users} title="Community Development" description="Self-help projects for sustainable growth." tone="green" href="/development" />
               <IconCard icon={Globe2} title="Diaspora Connection" description="Uniting indigenes across the world." tone="purple" href="/diaspora" />
@@ -312,12 +312,13 @@ export default async function HomePage() {
               <span className="inline-block rounded-full bg-gold-500/20 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-gold-300">
                 Settlement Milestone
               </span>
-              <p className="mt-3 font-serif text-xl font-bold text-white">
-                Takete-Idera (c.1926–Present)
-              </p>
+              <h3 className="mt-3 font-serif text-xl font-bold text-white">
+                Present Settlement — c.1926–Present
+              </h3>
               <p className="mt-2 text-sm leading-relaxed text-white/80">
-                Named for separation to a place of comfort, our community descended from the upland settlement
-                of Ilu-Oke to the fertile plains in 1926 or thereabouts.
+                The supplied historical account places the movement from Ilu-Oke and the surrounding uplands
+                to the present low-plain settlement in 1926 or thereabouts. The new site was initially
+                remembered as Ileteju before the Takete-Idera name was adopted in the community account.
               </p>
               <Link
                 href="/our-story#journey"
