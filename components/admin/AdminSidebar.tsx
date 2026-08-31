@@ -2,9 +2,15 @@ import Link from "next/link";
 import {
   LayoutDashboard, Newspaper, Calendar, Images, Building2, Archive, Mic2,
   Crown, Users, Globe2, Mail, FileText, FolderKanban, Users2, Shield,
-  Settings, ClipboardList, HeartHandshake, Landmark,
+  Settings, ClipboardList, HeartHandshake, Landmark, ImagePlay, Network,
+  Sparkles, ShieldCheck, BookOpen, Banknote,
 } from "lucide-react";
 
+/**
+ * Grouped by what an administrator is trying to do, not by database table.
+ * Financial screens sit in their own section because they carry a stricter
+ * permission (super admin or treasurer) — see lib/auth.ts.
+ */
 const sections: { heading: string; items: { label: string; href: string; icon: React.ComponentType<{ className?: string }> }[] }[] = [
   {
     heading: "Overview",
@@ -14,29 +20,51 @@ const sections: { heading: string; items: { label: string; href: string; icon: R
     heading: "Content",
     items: [
       { label: "News", href: "/admin/news", icon: Newspaper },
-      { label: "Takete-Ide Day Events", href: "/admin/events", icon: Calendar },
+      { label: "Events", href: "/admin/events", icon: Calendar },
       { label: "Gallery", href: "/admin/gallery", icon: Images },
-      { label: "Development Projects", href: "/admin/projects", icon: Building2 },
+      { label: "Community Media", href: "/admin/community-media", icon: ImagePlay },
+    ],
+  },
+  {
+    heading: "Community",
+    items: [
+      { label: "TIPU Branches", href: "/admin/tipu/branches", icon: Network },
+      { label: "TIPU Leadership", href: "/admin/tipu", icon: Landmark },
+      { label: "Diaspora", href: "/admin/diaspora", icon: Globe2 },
+      { label: "Community Profiles", href: "/admin/people", icon: Users },
+      { label: "Traditional Leaders", href: "/admin/traditional-institution", icon: Crown },
     ],
   },
   {
     heading: "Heritage",
     items: [
+      { label: "Families & Oríkì", href: "/admin/families", icon: HeartHandshake },
       { label: "Historical Archive", href: "/admin/archive", icon: Archive },
       { label: "Oral Histories", href: "/admin/oral-history", icon: Mic2 },
-      { label: "Traditional Leaders", href: "/admin/traditional-institution", icon: Crown },
-      { label: "Families & Oríkì", href: "/admin/families", icon: HeartHandshake },
-      { label: "Community Profiles", href: "/admin/people", icon: Users },
-      { label: "TIPU", href: "/admin/tipu", icon: Landmark },
+      { label: "Heritage Submissions", href: "/admin/heritage-submissions", icon: BookOpen },
     ],
+  },
+  {
+    heading: "Development",
+    items: [
+      { label: "Projects", href: "/admin/projects", icon: Building2 },
+      { label: "Security Trust Fund", href: "/admin/centenary", icon: ShieldCheck },
+    ],
+  },
+  {
+    heading: "Centenary",
+    items: [{ label: "Centenary 2026", href: "/admin/centenary", icon: Sparkles }],
+  },
+  {
+    heading: "Support",
+    items: [{ label: "Official Account", href: "/admin/support", icon: Banknote }],
   },
   {
     heading: "Inbox",
     items: [
-      { label: "Diaspora Submissions", href: "/admin/diaspora", icon: Globe2 },
       { label: "Contact Messages", href: "/admin/messages", icon: Mail },
-      { label: "Heritage Submissions", href: "/admin/heritage-submissions", icon: FolderKanban },
       { label: "Volunteer & Nominations", href: "/admin/volunteers", icon: ClipboardList },
+      { label: "Submissions", href: "/admin/heritage-submissions", icon: FolderKanban },
     ],
   },
   {
@@ -61,7 +89,7 @@ export function AdminSidebar() {
           <p className="px-2 text-xs font-semibold uppercase tracking-wide text-charcoal/40">{section.heading}</p>
           <ul className="mt-1 space-y-0.5">
             {section.items.map((item) => (
-              <li key={item.href}>
+              <li key={`${section.heading}-${item.href}`}>
                 <Link
                   href={item.href}
                   className="flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm text-charcoal/80 hover:bg-purple-50 hover:text-purple-600"

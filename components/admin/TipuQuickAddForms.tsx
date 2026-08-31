@@ -6,7 +6,6 @@ import { FileUploadField } from "@/components/admin/FileUploadField";
 import { SubmitButton } from "@/components/forms/SubmitButton";
 import {
   createTipuLeaderAction,
-  createTipuBranchAction,
   createTipuAnnouncementAction,
   createTipuDocumentAction,
 } from "@/lib/actions/admin-tipu";
@@ -24,19 +23,6 @@ export function AddTipuLeaderForm() {
       <TextField label="Branch" name="branch" hint="Optional" />
       <FileUploadField name="photo_url" label="Photo" bucket="tipu" accept="image/*" />
       <div className="sm:col-span-2"><SubmitButton>Add Leader</SubmitButton></div>
-    </form>
-  );
-}
-
-export function AddTipuBranchForm() {
-  const [state, formAction] = useActionState(createTipuBranchAction, initialState);
-  return (
-    <form action={formAction} className="grid gap-3 rounded-2xl border border-purple-600/10 bg-white p-4 sm:grid-cols-2" noValidate>
-      {state.message && <p className="sm:col-span-2 rounded-lg bg-red-100 p-2 text-xs text-red-700">{state.message}</p>}
-      <TextField label="Branch Name" name="name" required error={state.fieldErrors?.name} />
-      <TextField label="Region" name="region" hint="Optional" />
-      <div className="sm:col-span-2"><TextAreaField label="Description" name="description" rows={2} /></div>
-      <div className="sm:col-span-2"><SubmitButton>Add Branch</SubmitButton></div>
     </form>
   );
 }

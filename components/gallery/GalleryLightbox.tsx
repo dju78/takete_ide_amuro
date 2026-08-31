@@ -4,9 +4,25 @@ import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { GalleryCard } from "@/components/cards/GalleryCard";
+import { cn } from "@/lib/utils";
 import type { GalleryItem } from "@/types/content";
 
-export function GalleryLightbox({ items }: { items: GalleryItem[] }) {
+/**
+ * `variant` controls the grid only — the lightbox behaves identically either way.
+ *  - "grid"      — uniform thumbnails, used by the main /gallery page.
+ *  - "editorial" — the first photograph leads at 2x2, used by event story pages
+ *                  where one image carries the story and the rest support it.
+ */
+export function GalleryLightbox({
+  items,
+  variant = "grid",
+  columns = 4,
+}: {
+  items: GalleryItem[];
+  variant?: "grid" | "editorial";
+  /** Widest-breakpoint column count. Three suits a short set that would otherwise leave a hole. */
+  columns?: 3 | 4;
+}) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   const close = useCallback(() => setActiveIndex(null), []);
@@ -39,10 +55,30 @@ export function GalleryLightbox({ items }: { items: GalleryItem[] }) {
 
   return (
     <>
-      <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-        {items.map((item, i) => (
-          <GalleryCard key={item.id} item={item} onSelect={() => setActiveIndex(i)} />
-        ))}
+      <div
+        className={cn(
+          "mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3",
+          columns === 4 && "lg:grid-cols-4",
+        )}
+      >
+        {items.map((item, i) => {
+          const isLead = variant === "editorial" && i === 0;
+          return (
+            <GalleryCard
+              key={item.id}
+              item={item}
+              onSelect={() => setActiveIndex(i)}
+              className={isLead ? "col-span-2 row-span-2" : undefined}
+              sizes={
+                isLead
+                  ? "(min-width: 1024px) 50vw, 100vw"
+                  : columns === 4
+                    ? "(min-width: 1024px) 25vw, 50vw"
+                    : "(min-width: 640px) 33vw, 50vw"
+              }
+            />
+          );
+        })}
       </div>
 
       {active && (

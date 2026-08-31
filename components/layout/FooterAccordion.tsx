@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { ChevronDown } from "lucide-react";
-import { navGroups } from "@/lib/site-config";
+import { footerGroups } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
 
 /** Mobile-only footer accordion — desktop keeps the condensed heading row in Footer.tsx. */
@@ -12,7 +12,7 @@ export function FooterAccordion() {
 
   return (
     <div className="lg:hidden">
-      {navGroups.map((group) => {
+      {footerGroups.map((group) => {
         const isOpen = openGroup === group.heading;
         return (
           <div key={group.heading} className="border-b border-white/10 first:border-t">

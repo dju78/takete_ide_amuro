@@ -1,15 +1,16 @@
+import Link from "next/link";
+import { Network } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
+import { getBranchNetwork } from "@/lib/data/tipu-branches";
 import { DeleteButton } from "@/components/admin/DeleteButton";
 import { StatusBadge } from "@/components/ui/Badge";
 import {
   AddTipuLeaderForm,
-  AddTipuBranchForm,
   AddTipuAnnouncementForm,
   AddTipuDocumentForm,
 } from "@/components/admin/TipuQuickAddForms";
 import {
   deleteTipuLeaderAction,
-  deleteTipuBranchAction,
   deleteTipuAnnouncementAction,
   deleteTipuDocumentAction,
 } from "@/lib/actions/admin-tipu";
@@ -20,7 +21,7 @@ export default async function AdminTipuPage() {
   const supabase = await createClient();
   const [leadership, branches, announcements, documents] = await Promise.all([
     supabase ? supabase.from("tipu_leadership").select("id, full_name, position, branch").order("sort_order") : Promise.resolve({ data: [] }),
-    supabase ? supabase.from("tipu_branches").select("id, name, region").order("name") : Promise.resolve({ data: [] }),
+    getBranchNetwork({ includeInactive: true }),
     supabase ? supabase.from("tipu_announcements").select("id, title, status").order("published_at", { ascending: false }) : Promise.resolve({ data: [] }),
     supabase ? supabase.from("tipu_documents").select("id, title, document_type").order("published_at", { ascending: false }) : Promise.resolve({ data: [] }),
   ]);
@@ -44,16 +45,32 @@ export default async function AdminTipuPage() {
       </section>
 
       <section>
-        <h2 className="font-serif text-xl font-bold text-purple-600">Branches</h2>
-        <div className="mt-3"><AddTipuBranchForm /></div>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <h2 className="font-serif text-xl font-bold text-purple-600">Branches</h2>
+          <Link
+            href="/admin/tipu/branches"
+            className="flex items-center gap-1.5 rounded-full bg-purple-600 px-4 py-2 text-sm font-semibold text-white hover:bg-purple-400"
+          >
+            <Network className="h-4 w-4" aria-hidden="true" /> Manage the branch network
+          </Link>
+        </div>
+        <p className="mt-2 text-sm text-charcoal/70">
+          {branches.length} branches across the network, {branches.filter((b) => b.needsPlaceholder).length} of
+          them still awaiting a photograph. Photographs, descriptions, locations, news and events are all
+          edited from the branch manager.
+        </p>
         <ul className="mt-4 grid gap-2 sm:grid-cols-2">
-          {(branches.data ?? []).map((b) => (
-            <li key={b.id} className="flex items-center justify-between rounded-xl border border-purple-600/10 bg-white p-3 text-sm">
-              <span><strong>{b.name}</strong>{b.region && ` — ${b.region}`}</span>
-              <DeleteButton action={deleteTipuBranchAction.bind(null, b.id)} label="branch" />
+          {branches.map((b) => (
+            <li key={b.slug} className="flex items-center justify-between gap-3 rounded-xl border border-purple-600/10 bg-white p-3 text-sm">
+              <span>
+                <strong>{b.name}</strong>
+                {b.location && <span className="text-charcoal/60"> — {b.location}</span>}
+              </span>
+              <Link href={`/admin/tipu/branches/${b.slug}/edit`} className="shrink-0 font-medium text-purple-600 hover:underline">
+                Edit
+              </Link>
             </li>
           ))}
-          {(!branches.data || branches.data.length === 0) && <p className="text-sm text-charcoal/50">No branches listed yet.</p>}
         </ul>
       </section>
 

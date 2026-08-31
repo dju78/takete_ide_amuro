@@ -29,65 +29,112 @@ export type NavGroup = {
 
 /**
  * Single source of truth for site information architecture — used to render
- * both the desktop mega-menu / mobile accordion (Header) and the simplified
- * secondary footer, so the two never drift apart. Each group's `href` is
- * where its heading links (an overview page), separate from its `items`.
- * See docs/DECISIONS.md for the mega-menu redesign rationale.
+ * both the desktop mega-menu / mobile accordion (Header) and the footer, so the
+ * two never drift apart. Each group's `href` is where its heading links (an
+ * overview page), separate from its `items`.
+ *
+ * Deliberately six groups of manageable depth. Individual branches are never
+ * listed here: there are twenty of them and they belong on the network page,
+ * not in a dropdown. See docs/DECISIONS.md.
  */
 export const navGroups: NavGroup[] = [
   {
-    heading: "Community",
+    heading: "About",
     href: "/our-story",
     items: [
-      { label: "Our Story", href: "/our-story", description: "Origins, settlement and how we became Takete-Ide" },
+      { label: "Our History", href: "/our-story", description: "Origins, settlement and how we became Takete-Ide" },
+      { label: "Traditional Institution", href: "/heritage/traditional-institution", description: "The Olude and the traditional council" },
+      { label: "Education", href: "/education", description: "Schooling in Takete-Ide, in the community's own words" },
       { label: "Our People", href: "/our-people", description: "Community leaders, achievers and profiles" },
-      { label: "Diaspora", href: "/diaspora", description: "Takete-Ide people around the world" },
-      { label: "TIPU", href: "/tipu", description: "Takete-Ide Progressive Union" },
     ],
   },
   {
-    heading: "Heritage",
+    heading: "Explore",
     href: "/heritage",
     items: [
-      { label: "Heritage Overview", href: "/heritage", description: "Culture, customs and living heritage" },
-      { label: "Families & Oríkì", href: "/families", description: "Family names, compounds and praise poetry", featured: true },
-      { label: "Oríkì Archive", href: "/oriki", description: "Listen to and read Oríkì", featured: true },
-      { label: "Traditional Institution", href: "/heritage/traditional-institution", description: "The Olude and the traditional council" },
-      { label: "Takete-Ide Day", href: "/takete-ide-day", description: "Our annual homecoming festival" },
+      { label: "Culture & Heritage", href: "/heritage", description: "Festivals, dress, faith and the land", featured: true },
+      { label: "Gallery", href: "/gallery", description: "Photographs from community life" },
+      { label: "Families & Oríkì", href: "/families", description: "Family names, compounds and praise poetry" },
+      { label: "Oríkì Archive", href: "/oriki", description: "Listen to and read Oríkì" },
       { label: "Voices of Takete-Ide", href: "/archive/oral-history", description: "Oral history recordings" },
-      { label: "Agado Festival", href: "/heritage/agado", description: "Community video footage" },
-      { label: "Ate — Egungun Heritage", href: "/heritage/ate", description: "One of the Egungun traditions" },
-      { label: "Traditional Marriage", href: "/heritage/traditional-marriage", description: "Ceremonial items and gatherings" },
+      { label: "Digital Archive", href: "/archive", description: "Historical documents and records" },
     ],
   },
   {
-    heading: "Development",
-    href: "/development",
+    heading: "Community",
+    href: "/tipu",
     items: [
-      { label: "Development Projects", href: "/development", description: "Roads, education, health, water and more" },
+      { label: "TIPU", href: "/tipu", description: "The Takete-Ide Progressive Union" },
+      { label: "The TIPU Network", href: "/tipu/branches", description: "Every branch, at home and abroad", featured: true },
+      { label: "Diaspora", href: "/diaspora", description: "Takete-Ide people around the world" },
+      { label: "Development", href: "/development", description: "Roads, security, education and more" },
       { label: "Get Involved", href: "/get-involved", description: "Volunteer, contribute, partner" },
-      { label: "Weather", href: "/weather", description: "Local conditions and forecasts" },
     ],
   },
   {
-    heading: "Resources",
+    heading: "News & Events",
     href: "/news",
     items: [
       { label: "News", href: "/news", description: "Community news and announcements" },
-      { label: "Gallery", href: "/gallery", description: "Photographs from community life" },
-      { label: "Digital Archive", href: "/archive", description: "Historical documents and records" },
+      { label: "Takete-Ide Day", href: "/takete-ide-day", description: "Our annual homecoming festival" },
+      { label: "Weather", href: "/weather", description: "Local conditions and forecasts" },
       { label: "Search", href: "/search", description: "Search the whole site" },
     ],
   },
   {
-    heading: "Connect",
-    href: "/contact",
+    heading: "Centenary 2026",
+    href: "/centenary",
     items: [
+      { label: "Centenary 2026", href: "/centenary", description: "31 October 2026 — celebrating 100 years of heritage", featured: true },
+      { label: "Cultural Attire", href: "/takete-ide-day/cultural-attire", description: "The community's striped cloth" },
+      { label: "Takete-Ide Day Archive", href: "/takete-ide-day", description: "Past celebrations" },
+    ],
+  },
+  {
+    heading: "Support",
+    href: "/support",
+    items: [
+      { label: "Support Takete-Ide", href: "/support", description: "The union's official contribution account", featured: true },
+      { label: "Security Trust Fund", href: "/development/security-trust-fund", description: "The community security fund" },
       { label: "Contact", href: "/contact", description: "Get in touch" },
-      { label: "Privacy Policy", href: "/privacy" },
-      { label: "Terms", href: "/terms" },
-      { label: "Accessibility", href: "/accessibility" },
-      { label: "Cookie Policy", href: "/cookies" },
+    ],
+  },
+];
+
+/** Footer columns. Shorter and more task-oriented than the header's menu. */
+export const footerGroups: { heading: string; items: NavItem[] }[] = [
+  {
+    heading: "Takete-Ide",
+    items: [
+      { label: "About", href: "/our-story" },
+      { label: "History", href: "/our-story" },
+      { label: "Culture", href: "/heritage" },
+      { label: "Gallery", href: "/gallery" },
+    ],
+  },
+  {
+    heading: "Community",
+    items: [
+      { label: "TIPU", href: "/tipu" },
+      { label: "Branches", href: "/tipu/branches" },
+      { label: "Diaspora", href: "/diaspora" },
+      { label: "Development", href: "/development" },
+    ],
+  },
+  {
+    heading: "Centenary",
+    items: [
+      { label: "Centenary 2026", href: "/centenary" },
+      { label: "Events", href: "/takete-ide-day" },
+      { label: "Support Takete-Ide", href: "/support" },
+    ],
+  },
+  {
+    heading: "Connect",
+    items: [
+      { label: "Contact", href: "/contact" },
+      { label: "Get Involved", href: "/get-involved" },
+      { label: "News", href: "/news" },
     ],
   },
 ];

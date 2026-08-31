@@ -38,7 +38,7 @@ Full create/edit/delete now ships for **every** content entity in the schema:
 | Families | ✅ | |
 | **Oríkì** | ✅ | Original text, transliteration, English interpretation, audio/video upload, family/compound link, performer, source, **explicit consent (separate from publish permission)**, verification status |
 | Our People profiles | ✅ | |
-| TIPU leadership / branches / announcements / documents | ✅ | TIPU project pipeline remains Studio-managed (🟡, see below) |
+| TIPU leadership / branches / announcements / documents | ✅ | Branches have a full network page, branded placeholders and their own admin manager — see `docs/TIPU_BRANCH_NETWORK.md`. TIPU project pipeline remains Studio-managed (🟡, see below) |
 | Submission inboxes (contact, diaspora, volunteer, nominations, heritage) | ✅ | Status transitions |
 | **File/media uploads** | ✅ | `components/admin/FileUploadField.tsx` uploads directly to Supabase Storage from every form above — no more URL-pasting required |
 | Audit log | ✅ | |

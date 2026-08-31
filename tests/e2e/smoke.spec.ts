@@ -7,15 +7,18 @@ test.describe("Public site smoke tests", () => {
     await expect(page).toHaveTitle(/Takete-Ide Amuro/);
     await expect(page.getByRole("heading", { name: "Takete-Ide Amuro", level: 1 })).toBeVisible();
     // Desktop and mobile hero markups both exist in the DOM (CSS-toggled); at
-    // this viewport the mobile one is display:none, so scope to the visible one.
-    await expect(page.locator("text=Heritage • Unity • Progress >> visible=true")).toBeVisible();
+    // this viewport the mobile one is display:none. The footer carries the motto
+    // too, so scope to the hero rather than matching site-wide.
+    const hero = page.locator("section").first();
+    await expect(hero.locator("text=Heritage • Unity • Progress >> visible=true")).toBeVisible();
   });
 
   test("homepage renders with brand and hero (mobile composition)", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/");
     await expect(page.getByRole("heading", { name: "Takete-Ide Amuro", level: 1 })).toBeVisible();
-    await expect(page.locator("text=Heritage • Unity • Progress >> visible=true")).toBeVisible();
+    const hero = page.locator("section").first();
+    await expect(hero.locator("text=Heritage • Unity • Progress >> visible=true")).toBeVisible();
   });
 
   test("Home link and mega-menu group links resolve", async ({ page }) => {
@@ -25,8 +28,8 @@ test.describe("Public site smoke tests", () => {
     await primaryNav.getByRole("link", { name: "Home", exact: true }).click();
     await expect(page).toHaveURL(/\/$/);
 
-    await primaryNav.getByRole("button", { name: "Development" }).hover();
-    await primaryNav.getByRole("link", { name: "Development Projects" }).click();
+    await primaryNav.getByRole("button", { name: "Community" }).hover();
+    await primaryNav.getByRole("link", { name: /^Development/ }).first().click();
     await expect(page).toHaveURL(/\/development$/);
   });
 

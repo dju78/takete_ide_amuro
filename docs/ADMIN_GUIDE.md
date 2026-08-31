@@ -63,6 +63,55 @@ bucket from the browser (RLS restricts writes to authenticated staff — see
 `supabase/migrations/0010_storage_buckets.sql`) and writes the resulting public URL into the form.
 No admin workflow requires pasting a Storage URL by hand.
 
+## TIPU Branches (`/admin/tipu/branches`)
+
+The full branch network — every branch the community has documented, whether or not it has a
+photograph. Requires the `administrator` role. Administrators can:
+
+- add a branch, or edit any existing branch's name, display name, monogram, group and description
+- set the location as city / state / country separately — fill only the parts the record supports
+- set **status** (active / forming / inactive) and **verification** (verified / community record /
+  pending verification). These answer different questions: status is whether the branch operates,
+  verification is how well the community record attests it.
+- record an internal **source note** (which union communication documents the branch, and any
+  ambiguity to resolve) — never rendered publicly — and an optional public status note
+- **upload or replace the branch photograph** — this removes the branded placeholder immediately, with
+  no deploy. Alt text becomes required as soon as a photograph is attached.
+- record an established date (free text — leave blank unless it is verified)
+- set active/inactive, feature a branch in the homepage strip, and set sort order
+- enable a dedicated branch page once there is enough content to fill one, and set its address
+- add branch news and events: the card shows the latest published news item as "latest activity" and
+  the next future event as "upcoming event"
+
+**Reset** on a branch that ships with the site restores the details it was published with — it does
+not delete the branch. Only branches added here can be removed outright, so a documented branch cannot
+be lost by accident.
+
+Never upload stock photography or a generated image of a city in place of a branch photograph. A
+branch with no photograph is properly served by the placeholder; a fake one misleads. See
+`docs/TIPU_BRANCH_NETWORK.md`.
+
+## Community Media (`/admin/community-media`)
+
+Photographs and video imported from the TIPU community archive. The **files** are part of the website
+build and cannot be swapped from the admin area — to replace a file, drop the new one into `public/`
+and redeploy. Everything else about each item is editable here and takes effect immediately:
+
+- title, description/caption and alt text
+- category (shares the same list as the Gallery), event grouping and branch
+- event date (exact day) or event period (e.g. "August 2026"), and location
+- **Published** — untick to remove an item from the gallery and every story page at once
+- **Featured** — controls membership of the homepage photo strip
+- **Verification status** and a note explaining what is still unconfirmed. Only
+  `pending-verification` is visible to the public, as a short caveat under the item.
+- **Verified names** — leave blank unless the community has confirmed who is pictured *and* agreed
+  to publication. Nothing in the import identifies anybody.
+
+**Reset** on a row discards your edits to that item and restores the metadata it was imported with;
+it never deletes the media. Requires the `media_manager` role or above.
+
+Background on what was imported, what was excluded and why is in `docs/COMMUNITY_MEDIA_IMPORT.md`.
+
 ## What's Inbox/Review-Only Today
 
 `/admin/messages`, `/admin/diaspora`, `/admin/volunteers`, `/admin/heritage-submissions` — staff can

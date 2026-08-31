@@ -6,7 +6,7 @@ import { SourcedSection } from "@/components/heritage/SourcedSection";
 import { ResearchDisclaimer } from "@/components/heritage/ResearchDisclaimer";
 
 export const metadata: Metadata = {
-  title: "Our Story",
+  title: "Our History",
   description: "The origins, settlement history and evolution of Takete-Ide Amuro in Mopamuro LGA, Kogi State.",
 };
 
@@ -14,9 +14,11 @@ const toc = [
   "Location",
   "Origins",
   "Settlement History",
-  "Community Development",
+  "Traditional Institution",
   "Christianity and Education",
-  "Governance",
+  "TIPU and Community Development",
+  "Culture and Festivals",
+  "Oral History",
   "Modern Takete-Ide",
   "Historical Timeline",
 ];
@@ -26,10 +28,11 @@ export default function OurStoryPage() {
     <div className="bg-ivory">
       <div className="bg-purple-700 py-14 text-white">
         <Container>
-          <Breadcrumb items={[{ label: "Our Story" }]} />
-          <h1 className="mt-4 font-serif text-4xl font-bold sm:text-5xl">Our Story</h1>
-          <p className="mt-3 max-w-2xl text-white/80">
-            Welcome to Takete-Ide — the story of our origins, settlement and the community we have become.
+          <Breadcrumb items={[{ label: "Our History" }]} />
+          <h1 className="mt-4 font-serif text-4xl font-bold sm:text-5xl">Our History</h1>
+          <p className="mt-3 max-w-2xl text-white/85">
+            The story of our origins, settlement and the community we have become — recorded with the
+            status of each account shown, and open questions left open.
           </p>
         </Container>
       </div>
@@ -108,7 +111,7 @@ export default function OurStoryPage() {
           </SourcedSection>
 
           <SourcedSection
-            title="Community Development"
+            title="TIPU and Community Development"
             status="community_tradition"
             sourceNote="Reflects the community's own self-help narrative; infrastructure details should be verified against Development section records."
           >
@@ -119,8 +122,64 @@ export default function OurStoryPage() {
               roads and bridges connecting Takete-Ide to neighbouring communities.
             </p>
             <p>
+              Much of that effort has been organised through the{" "}
+              <Link href="/tipu" className="text-community-green underline underline-offset-2">
+                Takete-Ide Progressive Union
+              </Link>
+              , which coordinates contributions across its branches at home, across Nigeria and in the
+              diaspora. The union&rsquo;s annual general meeting has been the forum for major community
+              decisions — including, in December 1975, the resolution to build a community secondary school.
+            </p>
+            <p>
               See the <Link href="/development" className="text-community-green underline underline-offset-2">Development</Link>{" "}
-              section for project-by-project detail, each with its own verification and funding status.
+              section for project-by-project detail, each with its own verification and funding status, and{" "}
+              <Link href="/education" className="text-community-green underline underline-offset-2">
+                Education in Takete-Ide
+              </Link>{" "}
+              for the school&rsquo;s story.
+            </p>
+          </SourcedSection>
+
+          <SourcedSection
+            title="Culture and Festivals"
+            status="community_tradition"
+            sourceNote="Festival practice as observed and recorded in community media; ritual meaning and origins are not asserted here."
+          >
+            <p>
+              The community&rsquo;s calendar is marked by Takete-Ide Day, the annual homecoming festival,
+              alongside masquerade and harvest traditions including Agado, Ate and the New Yam celebrations
+              held by union branches. The striped community cloth is worn together at these gatherings.
+            </p>
+            <p>
+              See{" "}
+              <Link href="/heritage" className="text-community-green underline underline-offset-2">
+                Culture &amp; Heritage
+              </Link>{" "}
+              for photographs and footage, and{" "}
+              <Link href="/takete-ide-day" className="text-community-green underline underline-offset-2">
+                Takete-Ide Day
+              </Link>{" "}
+              for the festival archive.
+            </p>
+          </SourcedSection>
+
+          <SourcedSection
+            title="Oral History"
+            status="oral_history"
+            sourceNote="Recollections contributed by community members. Each carries its own attribution and is preserved as testimony."
+          >
+            <p>
+              Much of what is known about Takete-Ide&rsquo;s earlier history survives as testimony rather
+              than documents. The community archive holds first-person recollections — of the founding of
+              the secondary school, of church history, of settlement — preserved here as testimony and
+              marked as such rather than promoted to settled record.
+            </p>
+            <p>
+              Contribute a recollection, or listen to those already recorded, at{" "}
+              <Link href="/archive/oral-history" className="text-community-green underline underline-offset-2">
+                Voices of Takete-Ide
+              </Link>
+              .
             </p>
           </SourcedSection>
 
@@ -154,7 +213,7 @@ export default function OurStoryPage() {
           </SourcedSection>
 
           <SourcedSection
-            title="Governance"
+            title="Traditional Institution"
             status="community_tradition"
             sourceNote="Traditional-institution structure per community sources; individual rulers' names and reign dates are not published here until verified — see the Traditional Institution page."
           >
@@ -191,8 +250,17 @@ export default function OurStoryPage() {
               <li><strong>c. 1919</strong> — Christianity introduced to the community via the Sudan Interior Mission.</li>
               <li><strong>c. 1926</strong> — Community relocation from the Ilu-Oke hill settlement to the plains.</li>
               <li><strong>24 May 1939</strong> — Arrival of the church bell (&ldquo;agogo&rdquo;) associated with the Legend of the Agogo.</li>
+              <li><strong>26 December 1975</strong> — TIPU annual general meeting resolves to establish a community secondary school (community historical account).</li>
               <li><strong>Present day</strong> — Annual Takete-Ide Day celebrations continue to bring together indigenes at home and in the diaspora.</li>
+              <li><strong>31 October 2026</strong> — Takete-Ide Day and Centenary Celebration.</li>
             </ul>
+            <p className="text-sm italic text-charcoal/60">
+              What the 2026 centenary commemorates is an open question. Community accounts associate the
+              year 1926 with the relocation from the Ilu-Oke hill settlement to the plains, which would make
+              the centenary a hundred years of the present town — but that connection is stated nowhere in
+              the records available to this archive, and Takete-Ide is not claimed here to have been founded
+              in 1926.
+            </p>
           </SourcedSection>
         </div>
       </Container>

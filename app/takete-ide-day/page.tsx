@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Calendar } from "lucide-react";
+import { Calendar, Shirt } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -54,6 +54,39 @@ export default async function TaketeIdeDayPage() {
             <div className="relative aspect-square overflow-hidden rounded-2xl">
               <HeritageImage src="/images/takete-ide/takete-ide-day-2025.jpg" alt="News coverage of Takete-Ide Day 2025" label="Takete-Ide Day 2025" fill sizes="22vw" className="object-cover" />
             </div>
+          </div>
+        </section>
+
+        {/* Official attire — a 2026 centenary feature, given its own page. */}
+        <section className="mt-16 overflow-hidden rounded-3xl border border-purple-600/10 bg-white shadow-sm lg:grid lg:grid-cols-[1fr_1.1fr] lg:items-stretch">
+          <div className="relative aspect-[4/3] lg:aspect-auto lg:min-h-[20rem]">
+            <HeritageImage
+              src="/images/takete-ide/centenary-attire/attire-group.jpg"
+              alt="Community members wearing the official Takete-Ide attire"
+              label="Official Takete-Ide attire"
+              fill
+              sizes="(min-width: 1024px) 45vw, 100vw"
+              className="object-cover object-top"
+            />
+          </div>
+          <div className="flex flex-col justify-center p-8 lg:p-10">
+            <p className="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-gold-700">
+              <Shirt className="h-4 w-4" aria-hidden="true" />
+              Cultural Attire
+            </p>
+            <h2 className="mt-2 font-serif text-2xl font-bold text-purple-600 sm:text-3xl">
+              Takete-Ide Cultural Attire
+            </h2>
+            <p className="mt-4 leading-relaxed text-charcoal/80">
+              The community&rsquo;s striped cultural cloth — navy crossed with red, white and pale blue,
+              worn by women and men alike. The set held in the archive is from Takete-Ide Day 2025.
+            </p>
+            <Link
+              href="/takete-ide-day/cultural-attire"
+              className="mt-6 self-start text-sm font-semibold text-community-green hover:underline"
+            >
+              See the attire archive →
+            </Link>
           </div>
         </section>
 

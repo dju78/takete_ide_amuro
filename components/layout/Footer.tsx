@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Mail, MessageCircle } from "lucide-react";
 import { FacebookGlyph, InstagramGlyph } from "@/components/layout/BrandGlyphs";
-import { navGroups, siteConfig } from "@/lib/site-config";
+import { footerGroups, siteConfig } from "@/lib/site-config";
 import { Container } from "@/components/ui/Container";
 import { ButtonLink } from "@/components/ui/Button";
 import { Logo } from "@/components/layout/Logo";
@@ -49,11 +49,24 @@ export function Footer() {
         {/* Mobile: accordion. Desktop: condensed heading row. Same data, different presentation. */}
         <div className="mt-8">
           <FooterAccordion />
-          <nav aria-label="Footer sections" className="hidden lg:flex lg:flex-wrap lg:gap-x-8 lg:gap-y-3">
-            {navGroups.map((group) => (
-              <Link key={group.heading} href={group.href} className="text-sm font-semibold uppercase tracking-wide text-gold-300 hover:text-gold-100">
-                {group.heading}
-              </Link>
+          {/* Desktop: full columns. The footer is where people go looking for a
+              specific destination, so it lists them rather than just headings. */}
+          <nav aria-label="Footer sections" className="hidden lg:grid lg:grid-cols-4 lg:gap-8">
+            {footerGroups.map((group) => (
+              <div key={group.heading}>
+                <p className="text-sm font-semibold uppercase tracking-wide text-gold-300">
+                  {group.heading}
+                </p>
+                <ul className="mt-3 space-y-2">
+                  {group.items.map((item) => (
+                    <li key={`${group.heading}-${item.href}-${item.label}`}>
+                      <Link href={item.href} className="text-sm text-white/75 hover:text-white">
+                        {item.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             ))}
           </nav>
         </div>
@@ -80,7 +93,7 @@ export function Footer() {
           <p>
             &copy; {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
           </p>
-          <p>Preserving Our Heritage. Building Our Future.</p>
+          <p className="font-medium text-gold-300/80">Heritage &bull; Unity &bull; Progress</p>
         </Container>
       </div>
     </footer>
