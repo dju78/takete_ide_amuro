@@ -668,7 +668,7 @@ export const communityMedia: CommunityMediaItem[] = [
     featured: true,
     published: true,
     verificationStatus: "community-record",
-    source: COMMUNITY_SUPPLIED,
+    source: "Owner-identified authentic community photograph",
   },
   {
     id: "takete-ide-town-hall",
@@ -699,7 +699,7 @@ export const communityMedia: CommunityMediaItem[] = [
     featured: true,
     published: true,
     verificationStatus: "community-record",
-    source: COMMUNITY_SUPPLIED,
+    source: "Community-supplied photograph; building signage identifies the facility",
   },
   {
     id: "telecoms-mast",
@@ -730,7 +730,8 @@ export const communityMedia: CommunityMediaItem[] = [
     featured: true,
     published: true,
     verificationStatus: "community-record",
-    source: COMMUNITY_SUPPLIED,
+    source:
+      "Community-supplied frame from recorded event coverage; identified by the project owner as Egungun Festival; original production source to be confirmed.",
   },
   {
     id: "ogun-festival",
@@ -744,7 +745,8 @@ export const communityMedia: CommunityMediaItem[] = [
     featured: true,
     published: true,
     verificationStatus: "community-record",
-    source: COMMUNITY_SUPPLIED,
+    source:
+      "Community-supplied frame from recorded event coverage; identified by the project owner as Ogun Festival; original production source to be confirmed.",
   },
   {
     id: "traditional-dignitaries",
@@ -758,7 +760,8 @@ export const communityMedia: CommunityMediaItem[] = [
     featured: true,
     published: true,
     verificationStatus: "community-record",
-    source: COMMUNITY_SUPPLIED,
+    source:
+      "Community-supplied frame from recorded event coverage; traditional and community dignitaries at a Takete-Ide gathering; original production source to be confirmed.",
   },
   {
     id: "oba-philip-ebilakun-portrait",
@@ -773,7 +776,8 @@ export const communityMedia: CommunityMediaItem[] = [
     featured: false,
     published: true,
     verificationStatus: "community-record",
-    source: COMMUNITY_SUPPLIED,
+    source:
+      "Project-owner supplied portrait associated with the manuscript-identified thirteenth Olu’de; original production source to be confirmed.",
   },
   {
     id: "traditional-marriage-gifts-01",
@@ -787,7 +791,8 @@ export const communityMedia: CommunityMediaItem[] = [
     featured: true,
     published: true,
     verificationStatus: "community-record",
-    source: COMMUNITY_SUPPLIED,
+    source:
+      "Community-supplied media; marriage celebration in Takete-Ide; original production source to be confirmed.",
   },
   {
     id: "traditional-marriage-gifts-02",
@@ -801,7 +806,8 @@ export const communityMedia: CommunityMediaItem[] = [
     featured: true,
     published: true,
     verificationStatus: "community-record",
-    source: COMMUNITY_SUPPLIED,
+    source:
+      "Community-supplied media; marriage celebration in Takete-Ide; original production source to be confirmed.",
   },
   {
     id: "short-view-of-takete-ide",
@@ -813,11 +819,12 @@ export const communityMedia: CommunityMediaItem[] = [
     category: "Community Life",
     location: "Takete-Ide, Amuro, Kogi State",
     featured: false,
-    published: true,
+    published: false,
     durationLabel: "17s",
     orientation: "landscape",
-    verificationStatus: "community-record",
-    source: COMMUNITY_SUPPLIED,
+    verificationStatus: "pending-verification",
+    verificationNote: "Pending media preparation — video segment being trimmed for public display",
+    source: "Community-supplied video; original footage pending final editorial trimming and video hosting",
   },
 ];
 
