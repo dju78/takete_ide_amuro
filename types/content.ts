@@ -14,7 +14,9 @@ export type UserRole =
   | "editor"
   | "historian"
   | "project_manager"
-  | "media_manager";
+  | "media_manager"
+  // Financial administration only — see requireFinancialAdmin in lib/auth.ts.
+  | "treasurer";
 
 export type ProjectStatus = "proposed" | "planning" | "fundraising" | "in_progress" | "completed" | "on_hold";
 

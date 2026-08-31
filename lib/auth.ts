@@ -13,10 +13,16 @@ const roleRank: Record<UserRole, number> = {
   media_manager: 1,
   project_manager: 1,
   historian: 1,
+  // A treasurer's authority is financial, not editorial: ranked with the other
+  // specialists so the role grants no extra reach over ordinary content.
+  treasurer: 1,
   editor: 2,
   administrator: 3,
   super_admin: 4,
 };
+
+/** Roles permitted to change public financial information. */
+const FINANCIAL_ROLES: UserRole[] = ["super_admin", "treasurer"];
 
 /** Redirects to /admin/login if not authenticated as staff. Use at the top of every admin page/layout. */
 export async function requireStaff(minRole: UserRole = "editor"): Promise<StaffUser> {
@@ -36,4 +42,25 @@ export async function requireStaff(minRole: UserRole = "editor"): Promise<StaffU
   }
 
   return { id: user.id, email: user.email ?? "", full_name: profile.full_name, role: profile.role as UserRole };
+}
+
+/**
+ * Gate for screens that change publicly displayed financial information — the
+ * union's contribution account above all.
+ *
+ * Checked by explicit role membership rather than by rank: an administrator
+ * outranks a treasurer for content, but must not be able to alter banking
+ * details, so rank is the wrong test here.
+ */
+export async function requireFinancialAdmin(): Promise<StaffUser> {
+  const user = await requireStaff("editor");
+  if (!FINANCIAL_ROLES.includes(user.role)) {
+    redirect("/admin?error=financial_role_required");
+  }
+  return user;
+}
+
+/** Whether a signed-in user may edit financial information. */
+export function isFinancialAdmin(role: UserRole) {
+  return FINANCIAL_ROLES.includes(role);
 }

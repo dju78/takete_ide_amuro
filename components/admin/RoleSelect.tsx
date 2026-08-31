@@ -2,7 +2,7 @@
 
 import { updateUserRoleAction } from "@/lib/actions/admin-users";
 
-const roles = ["super_admin", "administrator", "editor", "historian", "project_manager", "media_manager"];
+const roles = ["super_admin", "administrator", "treasurer", "editor", "historian", "project_manager", "media_manager"];
 
 export function RoleSelect({ userId, currentRole }: { userId: string; currentRole: string }) {
   return (

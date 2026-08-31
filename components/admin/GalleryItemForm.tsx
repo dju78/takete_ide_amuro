@@ -6,6 +6,7 @@ import { FileUploadField } from "@/components/admin/FileUploadField";
 import { SubmitButton } from "@/components/forms/SubmitButton";
 import type { AdminFormState } from "@/lib/zod-helpers";
 import type { SelectOption } from "@/lib/data/admin";
+import { GALLERY_CATEGORIES } from "@/lib/media/gallery-categories";
 
 const statusOptions = [
   { value: "draft", label: "Draft" },
@@ -14,10 +15,9 @@ const statusOptions = [
   { value: "archived", label: "Archived" },
 ];
 
-const categoryOptions = [
-  "Community Life", "Traditional Institution", "Takete-Ide Day", "Children & Cultural Heritage",
-  "Development", "Historical Archive", "People", "Education", "Events",
-].map((c) => ({ value: c, label: c }));
+// Shared with the public filters and the community-media registry so the three
+// can't drift into near-duplicate category names.
+const categoryOptions = GALLERY_CATEGORIES.map((c) => ({ value: c, label: c }));
 
 interface Props {
   action: (prevState: AdminFormState, formData: FormData) => Promise<AdminFormState>;

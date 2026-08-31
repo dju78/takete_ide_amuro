@@ -279,3 +279,108 @@ into full CRUD using `lib/actions/admin-news.ts` and `components/admin/NewsForm.
 - **Domain**: no domain has been purchased. `NEXT_PUBLIC_SITE_URL` defaults to
   `https://taketeideamuro.org` as a placeholder and is fully overridable via environment variable at
   deploy time.
+
+## Community Media Import (August 2026)
+
+- **Metadata in code, overrides in the database.** The imported archive's baseline metadata lives in
+  `lib/media/community-media.ts` rather than only in `gallery_items`, so the media renders correctly
+  with no Supabase project connected — which is the state the site is usually developed in. Editor
+  changes go to `community_media_overrides` (migration `0012`) and are merged over the baseline at
+  read time, so fixing a caption never needs a deploy. Every override column is nullable and NULL
+  means "use the baseline", which makes "Reset" a single DELETE.
+- **The gallery reads from both sources.** `getGalleryItems` concatenates admin-uploaded
+  `gallery_items` with the imported library rather than choosing between them, so the import cannot
+  displace anything the media team has already published.
+- **Gallery categories are a shared constant.** `lib/media/gallery-categories.ts` is imported by the
+  public filters, the registry and the admin form, so "Community" / "Community Life" and
+  "Events" / "Culture & Events" cannot drift apart. New categories were *added*; nothing existing was
+  renamed, so no published gallery row was orphaned.
+- **The homepage is curated, not chronological, and never repeats a photograph.** Place gets its own
+  section ("The Land We Come From", `getHomepagePlaceMedia()`); the strip below it
+  (`getHomepageGallery()`) returns the remaining featured media in a fixed culture → diaspora →
+  dress → union → landmark order and explicitly excludes whatever the place section is showing. The
+  alternative — one "most recent eight" strip — made the homepage read as an event-photo album and
+  showed the same three photographs twice. Editors control membership of both with the `featured`
+  flag.
+- **Videos never preload.** Every player is `preload="none"` with a real extracted poster frame.
+  Two of the four clips are multi-megabyte, and a homepage or index page that pulled them
+  speculatively would be a serious regression on the mobile connections most visitors use. `/development`
+  therefore shows poster cards that link to the player rather than embedding it.
+- **Captions are declared unavailable, never generated.** No `<track>` element is emitted for a
+  recording nobody has transcribed; the player states plainly that captions are unavailable. Same
+  reasoning as the Agado footage.
+- **Nobody is named.** Alt text describes what is visible, never who. The award plaque legible in two
+  photographs and one video was not transcribed into metadata. A "Verified names" field exists in the
+  admin form for the day the community confirms identities and agrees to publication.
+- **AI-restyled imagery was rejected.** Several landmark photographs arrived in both authentic and
+  AI-re-rendered form; the AI versions invent details (a signboard, landscaping, a bell tower) that do
+  not exist. Publishing them would break the authenticity guarantee in `docs/IMAGE_MANIFEST.md`, so
+  the camera originals were used.
+- **A WhatsApp video-call screenshot was excluded** because it exposes WhatsApp display names and
+  faces in private settings. Recorded in `docs/COMMUNITY_MEDIA_IMPORT.md` rather than silently
+  dropped, so the chapter can decide.
+
+## TIPU Branch Network
+
+- **The network is the source of truth, not the photo archive.** Branches are published from a
+  documented list (`lib/media/tipu-branches.ts`), and a branch with no photograph gets a branded
+  placeholder rather than being filtered out. Listing only photographed branches would have shown
+  three of twelve and misrepresented the union as a third of its real size. A Playwright test asserts
+  all twelve render.
+- **The placeholder is a design, not a fallback.** Purple ground, woven gold texture echoing the
+  community cloth, the TIPU emblem, a gold monogram and a community-green footing — same frame and
+  aspect ratio as a photograph. No stock photography and no AI-generated skyline, because either
+  could be mistaken for a picture of the actual branch. Wording is "Community archive image coming
+  soon", never "No image".
+- **The placeholder does not repeat the card's own text.** `showLabel` defaults to true so the
+  component is self-describing anywhere it is used, but `BranchCard` switches it off: the card already
+  prints name, region and status immediately beneath, and printing them twice inside one card reads as
+  a bug rather than a design.
+- **Baseline in code, edits in the database — same pattern as the community media library.** Branch
+  rows in `tipu_branches` are merged over the shipped list by `slug`; a row with an unknown slug is
+  simply an extra branch an administrator created. Swapping a placeholder for a real photograph is an
+  upload, not a deploy.
+- **Only branches with real content get a route.** Lokoja, Ilorin and UK & Europe have pages; the rest
+  are complete on the network page. Creating nine near-empty routes would have been worse than not
+  having them, and administrators can enable a page per branch as content arrives.
+- **Nothing beyond existence is asserted.** No establishment dates, officers, addresses, phone
+  numbers, membership figures or branch histories — the source contains none of it. "TIPU North
+  America" stays continental because the record names no country or city, and Ore and Agbajogun carry
+  no state for the same reason. Open questions are listed in `docs/TIPU_BRANCH_NETWORK.md` rather than
+  resolved by guesswork.
+- **The old flat branch quick-add was removed** rather than left alongside the new manager: two ways
+  to create a branch, one of which writes no slug, would have produced rows the network page could not
+  merge.
+
+## TIPU Branch Network — WhatsApp archive expansion
+
+- **The WhatsApp archive is the authoritative branch source, not the master pack.** The original
+  source pack contains no branch list at all. Three union communications in the TIPU CONNECT archive
+  enumerate branches — a Dec 2024 dues notice, an Oct 2025 branch-chairman listing and an Aug 2026
+  Security Trust Fund levy table — and together they document twenty branches, not twelve.
+- **Evidence strength and operational status are separate fields.** `verification`
+  (verified / community-record / pending-verification) records how well attested a branch is;
+  `status` (active / forming / inactive) records whether it operates. Collapsing them would have
+  forced Kabba — well evidenced as *intended*, unevidenced as *running* — into one misleading value.
+  "Forming" therefore lives on `status` only.
+- **Ondo and Ore were not merged.** Ore is a town in Ondo State and the two may be one branch, but the
+  archive never says so. Merging would have destroyed a distinction the source maintains; both are
+  published, with the ambiguity recorded.
+- **Location split into city / state / country.** A single free-text field forced invention: "Ogun
+  State" has no city on record and "Ore" has no state on record. Three nullable parts let each branch
+  say exactly as much as the record supports.
+- **"Pending verification" is never styled as a warning.** Those cards carry a neutral purple note —
+  "Community record being updated" — because a branch whose paperwork is catching up is not a lesser
+  branch. A test asserts the words "unverified" and "not verified" never reach the page.
+- **A false positive was rejected.** The archive contains "Ejiba Branch" — in a news report about the
+  Okada Riders Association, not TIPU. Pattern-matching branch names without reading the surrounding
+  message would have added a fictional branch.
+- **No placeholder could be replaced.** Every Kaduna, Abuja and Ogun branch-event photograph in the
+  archive is `<Media omitted>`: the export carries 278 attached files against 2,771 omitted ones. The
+  honest outcome is that those branches keep their placeholders, which is exactly the situation the
+  placeholder was built for.
+- **Chairmen's names and phone numbers stay out.** The archive is full of both. A test scans the
+  public network page for phone-number patterns, WhatsApp handles, email addresses and the internal
+  provenance citations.
+- **Branch tests assert named branches, not a count.** The network grows as the archive is read; an
+  exact-count assertion would fail for the wrong reason every time a branch is added.

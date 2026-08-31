@@ -1,38 +1,53 @@
 import { test, expect } from "@playwright/test";
 
-test.describe("Heritage navigation prominence", () => {
-  test("Heritage dropdown surfaces Families & Oríkì at the top level", async ({ page }) => {
+test.describe("Primary navigation", () => {
+  test("Explore dropdown surfaces Families & Oríkì", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto("/");
     const primaryNav = page.getByRole("navigation", { name: "Primary" });
-    await primaryNav.getByRole("button", { name: "Heritage" }).hover();
+    await primaryNav.getByRole("button", { name: "Explore" }).hover();
     const familiesLink = primaryNav.getByRole("link", { name: /Families & Oríkì/ });
     await expect(familiesLink).toBeVisible();
     await familiesLink.click();
     await expect(page).toHaveURL(/\/families$/);
   });
 
-  test("Heritage dropdown also surfaces Oríkì Archive and Voices of Takete-Ide", async ({ page }) => {
+  test("Explore dropdown also surfaces Oríkì Archive and Voices of Takete-Ide", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto("/");
     const primaryNav = page.getByRole("navigation", { name: "Primary" });
-    await primaryNav.getByRole("button", { name: "Heritage" }).hover();
+    await primaryNav.getByRole("button", { name: "Explore" }).hover();
     await expect(primaryNav.getByRole("link", { name: "Oríkì Archive" })).toBeVisible();
     await expect(primaryNav.getByRole("link", { name: "Voices of Takete-Ide" })).toBeVisible();
   });
 
-  test("all five mega-menu groups open and reflect the footer's information architecture", async ({ page }) => {
+  test("every mega-menu group opens and reaches its section", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto("/");
     const primaryNav = page.getByRole("navigation", { name: "Primary" });
     for (const [group, sampleItem] of [
-      ["Community", "Our People"],
-      ["Development", "Development Projects"],
-      ["Resources", "Digital Archive"],
-      ["Connect", "Accessibility"],
+      ["About", "Our History"],
+      ["Explore", "Digital Archive"],
+      ["Community", "The TIPU Network"],
+      ["News & Events", "Takete-Ide Day"],
+      ["Centenary 2026", "Cultural Attire"],
+      ["Support", "Security Trust Fund"],
     ] as const) {
       await primaryNav.getByRole("button", { name: group, exact: true }).hover();
-      await expect(primaryNav.getByRole("link", { name: sampleItem })).toBeVisible();
+      await expect(
+        primaryNav.getByRole("link", { name: new RegExp(`^${sampleItem}`) }).first(),
+      ).toBeVisible();
+    }
+  });
+
+  test("individual branches are never listed in the primary navigation", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto("/");
+    const primaryNav = page.getByRole("navigation", { name: "Primary" });
+    await primaryNav.getByRole("button", { name: "Community", exact: true }).hover();
+    // Twenty branches belong on the network page, not in a dropdown.
+    for (const branch of ["Kaduna", "Port Harcourt", "Minna", "Osun"]) {
+      await expect(primaryNav.getByRole("link", { name: new RegExp(`^TIPU ${branch}`) })).toHaveCount(0);
     }
   });
 
@@ -42,7 +57,7 @@ test.describe("Heritage navigation prominence", () => {
     await page.getByRole("button", { name: "Open menu" }).click();
     const dialog = page.getByRole("dialog", { name: "Site navigation" });
     await expect(dialog).toBeVisible();
-    await dialog.getByRole("button", { name: "Development" }).click();
+    await dialog.getByRole("button", { name: "News & Events" }).click();
     const link = dialog.getByRole("link", { name: "Weather" });
     await expect(link).toBeVisible();
     await link.click();
@@ -76,9 +91,17 @@ test.describe("Archive & Gallery filters", () => {
     await expect(page).toHaveURL(/category=photograph/);
   });
 
-  test("gallery page renders with an empty state when no photographs are published", async ({ page }) => {
+  // The gallery is no longer empty without a database: the community media
+  // library ships with the application, so photographs render either way. The
+  // empty state now only appears for a category that genuinely has nothing.
+  test("gallery renders the imported community archive without a database", async ({ page }) => {
     await page.goto("/gallery");
     await expect(page.getByRole("heading", { name: "Gallery", level: 1 })).toBeVisible();
+    expect(await page.locator("main .grid button").count()).toBeGreaterThan(0);
+  });
+
+  test("a category with no photographs still shows the empty state", async ({ page }) => {
+    await page.goto("/gallery?category=Historical%20Archive");
     await expect(page.getByText(/gallery is being curated/)).toBeVisible();
   });
 });

@@ -85,41 +85,9 @@ export async function deleteTipuAnnouncementAction(id: string) {
   revalidatePath("/tipu");
 }
 
-const branchSchema = z.object({
-  name: z.string().trim().min(2, "Name is required."),
-  region: z.string().trim().optional(),
-  description: z.string().trim().optional(),
-});
-
-export async function createTipuBranchAction(_prev: AdminFormState, formData: FormData): Promise<AdminFormState> {
-  const user = await requireStaff("administrator");
-  const parsed = branchSchema.safeParse(Object.fromEntries(formData));
-  if (!parsed.success) return { status: "error", message: "Please fix the errors below.", fieldErrors: flattenZodError(parsed.error) };
-  const supabase = await createClient();
-  if (!supabase) return { status: "error", message: "Supabase is not configured." };
-
-  const { error } = await supabase.from("tipu_branches").insert({
-    name: parsed.data.name,
-    region: parsed.data.region || null,
-    description: parsed.data.description || null,
-  });
-  if (error) return { status: "error", message: `Could not add branch: ${error.message}` };
-
-  await logAudit(user.id, "create", "tipu_branch", undefined, { name: parsed.data.name });
-  revalidatePath("/admin/tipu");
-  revalidatePath("/tipu");
-  redirect("/admin/tipu");
-}
-
-export async function deleteTipuBranchAction(id: string) {
-  const user = await requireStaff("administrator");
-  const supabase = await createClient();
-  if (!supabase) return;
-  await supabase.from("tipu_branches").delete().eq("id", id);
-  await logAudit(user.id, "delete", "tipu_branch", id);
-  revalidatePath("/admin/tipu");
-  revalidatePath("/tipu");
-}
+// Branch create/update/delete moved to lib/actions/admin-tipu-branches.ts when
+// branches gained photographs, grouping, activity and dedicated pages — see
+// docs/TIPU_BRANCH_NETWORK.md.
 
 const documentSchema = z.object({
   title: z.string().trim().min(2, "Title is required."),

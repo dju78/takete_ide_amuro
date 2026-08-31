@@ -31,3 +31,13 @@ export function truncate(text: string, length = 160) {
   if (text.length <= length) return text;
   return `${text.slice(0, length).trimEnd()}…`;
 }
+
+/**
+ * Money for display. Naira renders with its own symbol; anything else falls back
+ * to the currency code, because a wrong symbol on a contribution figure is worse
+ * than a plain one.
+ */
+export function formatCurrency(amount: number, currency = "NGN") {
+  const value = new Intl.NumberFormat("en-NG", { maximumFractionDigits: 0 }).format(Math.round(amount));
+  return currency === "NGN" ? `₦${value}` : `${currency} ${value}`;
+}

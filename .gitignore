@@ -46,3 +46,8 @@ next-env.d.ts
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# temporary media upload staging — imported into public/ via docs/COMMUNITY_MEDIA_IMPORT.md;
+# the application never references these paths
+/takete_ide_web_media/
+/takete_ide_web_media.zip
