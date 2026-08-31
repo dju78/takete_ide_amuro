@@ -123,7 +123,7 @@ test.describe("Admin", () => {
     await page.locator("#email").fill("test@example.com");
     await page.locator("#password").fill("password123");
     await page.getByRole("button", { name: "Sign In" }).click();
-    await expect(page.getByRole("alert")).toBeVisible({ timeout: 10000 });
+    await expect(page.locator("form [role='alert']")).toBeVisible({ timeout: 10000 });
   });
 
   test("admin settings and news routes also redirect unauthenticated visitors", async ({ page }) => {
