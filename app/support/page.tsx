@@ -11,6 +11,7 @@ import { FundProgress } from "@/components/community/FundProgress";
 import { getSupportAccount, getSecurityTrustFund } from "@/lib/data/community-programme";
 import { ContributionForm } from "@/components/community/ContributionForm";
 import { env, isPaystackConfigured, paystackMode } from "@/lib/env";
+import { resolveCallbackOrigin } from "@/lib/payments/callback-url";
 import { SUPPORT_PURPOSES } from "@/lib/media/community-programme";
 
 export const metadata: Metadata = {
@@ -21,6 +22,13 @@ export const metadata: Metadata = {
 
 export default async function SupportPage() {
   const [account, fund] = await Promise.all([getSupportAccount(), getSecurityTrustFund()]);
+
+  // Checkout needs a key *and* a trustworthy origin to return contributors to.
+  // A deployment with one but not the other must not offer a form that would
+  // refuse on submit, so both are resolved here and the section is hidden as a
+  // whole. The webhook is deliberately not gated on this — an event can still
+  // arrive and be settled on a deploy that cannot itself start a payment.
+  const checkoutAvailable = isPaystackConfigured && resolveCallbackOrigin().ok;
 
   return (
     <div className="bg-ivory">
@@ -39,7 +47,7 @@ export default async function SupportPage() {
         {/* Pay Online — hidden entirely when Paystack is unconfigured, rather than
             shown as a form that cannot work. Direct Bank Transfer below is
             unaffected either way, so the page always offers a way to give. */}
-        {isPaystackConfigured ? (
+        {checkoutAvailable ? (
           <section className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
             <div className="rounded-3xl border border-purple-600/10 bg-white p-6 shadow-sm sm:p-8">
               <h2 className="font-serif text-2xl font-bold text-purple-600">Make a Contribution</h2>

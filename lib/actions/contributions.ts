@@ -4,6 +4,7 @@ import { z } from "zod";
 import { env, isPaystackConfigured } from "@/lib/env";
 import { generateReference, initializeTransaction } from "@/lib/payments/paystack";
 import { createPendingContribution } from "@/lib/payments/contributions";
+import { resolveCallbackUrl } from "@/lib/payments/callback-url";
 import { CONTRIBUTION_PURPOSES, toMinor } from "@/lib/payments/constants";
 
 export interface ContributionFormState {
@@ -62,6 +63,19 @@ export async function startContributionAction(
     return { status: "error", message: "Please check the details below.", fieldErrors };
   }
 
+  // Resolved before anything is written. If there is no trustworthy origin to
+  // return the contributor to, the payment must not start at all — taking money
+  // and then failing to bring someone back is worse than not taking it.
+  const callback = resolveCallbackUrl();
+  if (!callback.ok) {
+    console.error(`[contributions] refusing to initialize: ${callback.reason}`);
+    return {
+      status: "error",
+      message:
+        "Online payment is unavailable on this deployment. Please contribute by direct bank transfer using the details on this page.",
+    };
+  }
+
   const d = parsed.data;
   // NGN only for now. Additional currencies require the merchant account to have
   // them enabled, which cannot be assumed from here.
@@ -95,7 +109,7 @@ export async function startContributionAction(
     amountMinor,
     currency,
     reference,
-    callbackUrl: `${env.siteUrl}/support/payment/callback`,
+    callbackUrl: callback.url,
     // Operational context only — nothing here is sensitive, and it makes a
     // transaction identifiable in Paystack's dashboard during reconciliation.
     metadata: {
