@@ -37,52 +37,53 @@ end $$;
 do $$
 declare
   rec record;
-  published_tables text[][] := array[
-    array['news_categories', 'true'],
-    array['tags', 'true'],
-    array['news_articles', 'status = ''published'''],
-    array['news_article_tags', 'true'],
-    array['events', 'status = ''published'''],
-    array['event_media', 'true'],
-    array['event_speeches', 'true'],
-    array['event_awards', 'true'],
-    array['event_fundraising', 'true'],
-    array['albums', 'true'],
-    array['gallery_items', 'status = ''published'''],
-    array['projects', 'true'],
-    array['project_images', 'true'],
-    array['project_updates', 'true'],
-    array['project_documents', 'true'],
-    array['project_timeline_events', 'true'],
-    array['historical_people', 'status = ''published'''],
-    array['traditional_rulers', 'true'],
-    array['traditional_council_members', 'true'],
-    array['tipu_leadership', 'true'],
-    array['tipu_branches', 'true'],
-    array['tipu_projects', 'true'],
-    array['tipu_announcements', 'status = ''published'''],
-    array['tipu_documents', 'true'],
-    array['archive_sources', 'true'],
-    array['archive_items', 'status = ''published'' and access_level = ''public'''],
-    array['oral_histories', 'status = ''published'''],
-    array['documents', 'true'],
-    array['compounds', 'status = ''published'''],
-    array['families', 'status = ''published'''],
-    array['family_relationships', 'true'],
-    array['family_media', 'publication_permission = true'],
-    array['oriki', 'status = ''published'' and publication_permission = true'],
-    array['oriki_media', 'true'],
-    array['announcements', 'is_active = true and current_date between start_date and coalesce(end_date, current_date)']
-  ];
 begin
-  foreach rec in array published_tables loop
+  for rec in (
+    select * from (values
+      ('news_categories', 'true'),
+      ('tags', 'true'),
+      ('news_articles', 'status = ''published'''),
+      ('news_article_tags', 'true'),
+      ('events', 'status = ''published'''),
+      ('event_media', 'true'),
+      ('event_speeches', 'true'),
+      ('event_awards', 'true'),
+      ('event_fundraising', 'true'),
+      ('albums', 'true'),
+      ('gallery_items', 'status = ''published'''),
+      ('projects', 'true'),
+      ('project_images', 'true'),
+      ('project_updates', 'true'),
+      ('project_documents', 'true'),
+      ('project_timeline_events', 'true'),
+      ('historical_people', 'status = ''published'''),
+      ('traditional_rulers', 'true'),
+      ('traditional_council_members', 'true'),
+      ('tipu_leadership', 'true'),
+      ('tipu_branches', 'true'),
+      ('tipu_projects', 'true'),
+      ('tipu_announcements', 'status = ''published'''),
+      ('tipu_documents', 'true'),
+      ('archive_sources', 'true'),
+      ('archive_items', 'status = ''published'' and access_level = ''public'''),
+      ('oral_histories', 'status = ''published'''),
+      ('documents', 'true'),
+      ('compounds', 'status = ''published'''),
+      ('families', 'status = ''published'''),
+      ('family_relationships', 'true'),
+      ('family_media', 'publication_permission = true'),
+      ('oriki', 'status = ''published'' and publication_permission = true'),
+      ('oriki_media', 'true'),
+      ('announcements', 'is_active = true and current_date between start_date and coalesce(end_date, current_date)')
+    ) as t(tbl, cond)
+  ) loop
     execute format(
       'create policy "Public can view published %1$I" on %1$I for select using (%2$s or is_takete_staff())',
-      rec[1], rec[2]
+      rec.tbl, rec.cond
     );
     execute format(
       'create policy "Staff manage %1$I" on %1$I for all using (is_takete_staff()) with check (is_takete_staff())',
-      rec[1]
+      rec.tbl
     );
   end loop;
 end $$;
