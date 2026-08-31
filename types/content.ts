@@ -34,6 +34,14 @@ export interface NewsArticle {
   status: ContentStatus;
   published_at: string | null;
   tags: string[];
+  is_featured: boolean;
+  /** External attribution, where a story is reproduced with permission. */
+  source_name: string | null;
+  source_url: string | null;
+  /** Optional pointers to what the article is about (migration 0018). */
+  related_project: { title: string; slug: string } | null;
+  related_branch_slug: string | null;
+  related_event_year: number | null;
 }
 
 export interface TaketeIdeEvent {
