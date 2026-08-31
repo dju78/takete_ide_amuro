@@ -25,18 +25,18 @@ export const AGBAGBA_IDE_TRADITION: AgbagbaIdeTradition = {
   title: "Agbagba Ide",
   subtitle: "Symbol, Memory and Community Tradition",
   summary:
-    "In the cultural memory of Takete-Ide, Agbagba Ide is remembered as a sacred rock cave and natural haven that provided unfailing sanctuary during the turbulent regional warfare of the nineteenth century. Revered by community forebears as divine protection from Olorun (God), its legacy is embedded in community consciousness as an enduring emblem of resilience, survival, and peace.",
+    "In the cultural memory of Takete-Ide, Agbagba Ide is remembered as a sacred rock cave and place of refuge and protection during the turbulent regional conflicts of the nineteenth century. Within community belief, the sanctuary came to symbolise divine protection, resilience and unity, leaving a lasting legacy in community consciousness.",
   culturalSignificance: [
-    "Historic Haven: Associated with protective shelter for community members during 19th-century Nupe and regional conflicts.",
-    "Symbol of Divine Deliverance: Revered in local tradition as a manifestation of divine favor and protection in times of existential danger.",
+    "Historic Haven: Associated with protective shelter for community members during 19th-century regional conflicts.",
+    "Symbol of Divine Protection: Revered within community tradition as a manifestation of divine care in times of danger.",
     "Community Emblem: Served historically as a rallying symbol of courage and unity, inspiring portable cultural emblems.",
-    "Living Oral Heritage: Celebrated in the Takete-Ide Community Anthem and the ancient praise poetry of Oriki Agbagba Ide.",
+    "Living Oral Heritage: Celebrated in the preserved Takete-Ide Community Anthem and the praise poetry of Oriki Agbagba Ide.",
   ],
   associatedPraiseTraditions: {
     anthemMention: true,
     orikiMention: true,
     editorialNote:
-      "The full original Yoruba texts of the Takete-Ide Community Anthem and the Oriki Agbagba Ide are preserved within the source archive (takete-history-original.md). Future digital publication on public audio/archive pages will include authenticated recitations, verified transcriptions, and community-authorized contextual interpretations.",
+      "The full original Yoruba texts of the preserved Takete-Ide Community Anthem and the Oriki Agbagba Ide are retained within the source archive (takete-history-original.md). Future digital publication on public audio/archive pages will include authenticated recitations, verified transcriptions, and community-authorized contextual interpretations.",
   },
   editorialSafeguards:
     "Cultural and spiritual narratives surrounding Agbagba Ide are presented as living cultural heritage and collective memory. In accordance with editorial standards, sacred beliefs and oral traditions are treated with deep respect while maintaining a clear distinction from physical, scientific, or archival documentation.",

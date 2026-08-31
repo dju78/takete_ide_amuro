@@ -58,10 +58,9 @@ export default function AgbagbaIdePage() {
               </p>
               <p className="mt-3 text-base leading-relaxed text-charcoal/80">
                 During the nineteenth-century regional wars, when cavalry raids threatened communities
-                across the confluence uplands, community traditions describe Agbagba Ide as a rock
-                sanctuary that provided unfailing shelter. Our forebears concluded in their native wisdom
-                that the sanctuary was a profound gift of divine deliverance from <em>Olorun</em> (God),
-                inspiring sacred reverence and a enduring sense of communal security.
+                across the confluence uplands, community traditions describe Agbagba Ide as a place of
+                refuge and protection. Within community belief, the sanctuary came to symbolise divine
+                protection, resilience and unity, inspiring enduring communal solidarity.
               </p>
             </div>
 
@@ -119,7 +118,7 @@ export default function AgbagbaIdePage() {
                 Anthem &amp; Praise Traditions
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-charcoal/80">
-                The cultural memory of Agbagba Ide is immortalised in the ancient <strong>Takete-Ide
+                The cultural memory of Agbagba Ide is commemorated in the preserved <strong>Takete-Ide
                 Community Anthem</strong> and the celebrated <strong>Oríkì Agbagba Ide</strong>.
               </p>
               <p className="mt-3 text-sm leading-relaxed text-charcoal/75">

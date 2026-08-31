@@ -19,7 +19,7 @@ import { getLatestNews } from "@/lib/data/news";
 export const metadata: Metadata = {
   title: "Takete-Ide Day & Centenary Celebration 2026",
   description:
-    "Celebrating 100 years of heritage — the Takete-Ide Day and Centenary Celebration on Saturday, 31 October 2026 at the Takete-Ide Primary School Field.",
+    "Takete-Ide Day and Centenary Celebration 2026 — commemorating approximately a century at the present settlement while honouring a much older community history.",
 };
 
 export default async function CentenaryPage() {

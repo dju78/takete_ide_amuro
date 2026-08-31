@@ -271,7 +271,7 @@ export default function OurStoryPage() {
                       The supplied community historical account places the movement from the upland hill
                       settlement of Ilu-Oke to the present low plain in <strong>1926 or thereabouts</strong>.
                       The 2026 Centenary celebrates approximately a century of peace, unity, and growth at
-                      this present site, while honouring centuries of older heritage across earlier settlements.
+                      this present site, while honouring a much older heritage reaching well beyond the present settlement.
                     </p>
                   </div>
                 </div>
@@ -292,8 +292,8 @@ export default function OurStoryPage() {
               </p>
               <p>
                 Community memory commemorates <strong>Pa George Fiki</strong> as the first child born at the
-                new settlement site. For nearly a century since, the community has flourished in continuous
-                brotherhood, free from communal conflict.
+                new settlement site. For nearly a century since, the community historical account remembers
+                the period as one of sustained brotherhood and relative communal stability.
               </p>
             </SourcedSection>
           </section>
