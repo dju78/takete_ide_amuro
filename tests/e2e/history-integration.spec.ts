@@ -172,29 +172,31 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
     });
   });
 
-  test.describe("Traditional Institution deep integration", () => {
-    test("traditional institution renders Olu'de introduction, Amuro structure, 13th ruler manuscript identification, and confirmed 12-ruler register", async ({ page }) => {
+  test.describe("Traditional Institution & Authentic Media", () => {
+    test("traditional institution renders dignitaries image, Oba Philip Ebilakun portrait, and confirmed 12-ruler register", async ({ page }) => {
       const res = await page.goto("/heritage/traditional-institution");
       expect(res?.status()).toBe(200);
 
       // Olu'de introduction
       await expect(page.getByRole("heading", { name: "The Olu’de and the Takete-Ide Traditional Council" })).toBeVisible();
 
-      // Palace placeholder present (not misattributed event photo)
-      await expect(page.getByText("Authentic palace / traditional council photograph being verified")).toBeVisible();
+      // Authentic Traditional & Community Dignitaries image present
+      await expect(
+        page.getByAltText(/Traditional and community leaders seated together in ceremonial attire at a Takete-Ide gathering/i),
+      ).toBeVisible();
 
       // Amuro structure
       await expect(page.getByRole("heading", { name: "Takete-Ide within the Amuro Traditional Structure" })).toBeVisible();
       await expect(page.getByText(/Alamuro heads the wider Amuro Traditional Council/i)).toBeVisible();
 
-      // Manuscript identification of 13th Olu'de
+      // Manuscript identification of 13th Olu'de with authentic portrait
       await expect(page.getByText("Manuscript Identification")).toBeVisible();
       await expect(page.getByRole("heading", { name: "Oba Philip Ebilakun (Manuscript Record)" })).toBeVisible();
+      await expect(page.getByAltText(/Portrait of Oba Philip Ebilakun in royal attire/i)).toBeVisible();
 
       // Historical Olu'de Register (12 rulers with confirmed family & ward affiliations)
       await expect(page.getByRole("heading", { name: "Historical Olu’de Register" })).toBeVisible();
       
-      // Check individual confirmed entries
       const expectedRulers = [
         { name: "Olu’de Opalu", family: "Atemayi", ward: "Oke-Ako" },
         { name: "Olu’de Ide", family: "Eseyintelu", ward: "Ile-Nla" },
@@ -223,6 +225,39 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
     });
   });
 
+  test.describe("Authentic Community Media & Facilities", () => {
+    test("traditional marriage renders wedding gifts section with authentic photos", async ({ page }) => {
+      await page.goto("/heritage/traditional-marriage");
+      await expect(page.getByRole("heading", { name: "Gifts, Household Preparation & Celebration" })).toBeVisible();
+      await expect(
+        page.getByAltText(/Household items and gift presentations prepared for a traditional marriage ceremony/i),
+      ).toBeVisible();
+      await expect(
+        page.getByAltText(/Gift presentations and gathering of family members at a Takete-Ide traditional marriage celebration/i),
+      ).toBeVisible();
+    });
+
+    test("Ate page renders authentic Egungun festival gathering photo", async ({ page }) => {
+      await page.goto("/heritage/ate");
+      await expect(
+        page.getByAltText(/Community members gathered around an Egungun masquerade at a cultural celebration in Takete-Ide/i),
+      ).toBeVisible();
+    });
+
+    test("development page renders CVB Primary Health Centre facility image", async ({ page }) => {
+      await page.goto("/development");
+      await expect(page.getByRole("heading", { name: "Community Infrastructure & Facilities" })).toBeVisible();
+      await expect(page.getByText("CVB Primary Health Centre, Takete-Ide")).toBeVisible();
+      await expect(page.getByAltText(/Building facade and signboard of the CVB Primary Health Centre/i)).toBeVisible();
+    });
+
+    test("gallery landmarks renders authentic Okuta Gboro without placeholder tag", async ({ page }) => {
+      await page.goto("/gallery?category=Landmarks");
+      await expect(page.getByText("Okuta Gboro").first()).toBeVisible();
+      await expect(page.getByAltText(/Okuta Gboro, a prominent rock formation/i)).toBeVisible();
+    });
+  });
+
   test.describe("Site Search for historical topics", () => {
     test("finds key historical terms across public pages", async ({ page }) => {
       for (const term of [
@@ -233,6 +268,7 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
         "Ileteju",
         "Traditional Institution",
         "Takete-Ide Anthem",
+        "Ate",
       ]) {
         await page.goto(`/search?q=${encodeURIComponent(term)}`);
         await expect(page.getByText(/results? for/i)).toBeVisible();
@@ -249,7 +285,10 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
         "/heritage",
         "/heritage/agbagba-ide",
         "/heritage/traditional-institution",
+        "/heritage/traditional-marriage",
+        "/heritage/ate",
         "/heritage/takete-ide-anthem",
+        "/development",
         "/archive",
         "/archive/takete-history-original",
       ]) {
@@ -281,7 +320,10 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
           "/centenary",
           "/heritage/agbagba-ide",
           "/heritage/traditional-institution",
+          "/heritage/traditional-marriage",
+          "/heritage/ate",
           "/heritage/takete-ide-anthem",
+          "/development",
           "/archive/takete-history-original",
         ]) {
           await page.goto(route);

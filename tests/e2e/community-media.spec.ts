@@ -99,10 +99,9 @@ test.describe("Gallery after the archive import", () => {
 
   test("landmarks and placeholders are presented respectfully", async ({ page }) => {
     await page.goto("/gallery?category=Landmarks");
-    await expect(page.getByText("Okuta Boro")).toBeVisible();
+    await expect(page.getByText("Okuta Gboro").first()).toBeVisible();
     await expect(page.getByText("Takete-Ide Town Hall")).toBeVisible();
     await expect(page.getByText("Authentic current photograph coming soon")).toBeVisible();
-    await expect(page.getByText("Authentic landmark photograph being verified")).toBeVisible();
   });
 
   test("verified-place placeholders render with correct categories and distinct identities", async ({ page }) => {

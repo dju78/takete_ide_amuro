@@ -26,15 +26,27 @@ export default function AtePage() {
       <Container className="max-w-3xl py-16">
         <ResearchDisclaimer />
 
-        <div className="relative mt-10 aspect-[3/4] max-w-sm overflow-hidden rounded-3xl shadow-lg sm:mx-auto">
-          <HeritageImage
-            src="/images/takete-ide/ate-egungun.jpg"
-            alt="Ate, one of the Egungun traditions of Takete-Ide, in full masquerade dress"
-            label="Ate — Egungun Heritage"
-            fill
-            sizes="(min-width: 640px) 384px, 100vw"
-            className="object-cover"
-          />
+        <div className="mt-10 grid gap-6 sm:grid-cols-2">
+          <div className="relative aspect-[3/4] overflow-hidden rounded-3xl shadow-lg">
+            <HeritageImage
+              src="/images/takete-ide/ate-egungun.jpg"
+              alt="Ate, one of the Egungun traditions of Takete-Ide, in full masquerade dress"
+              label="Ate Masquerade Dress"
+              fill
+              sizes="(min-width: 640px) 384px, 100vw"
+              className="object-cover"
+            />
+          </div>
+          <div className="relative aspect-[3/4] overflow-hidden rounded-3xl shadow-lg">
+            <HeritageImage
+              src="/images/takete-ide/heritage/egungun-festival.png"
+              alt="Community members gathered around an Egungun masquerade at a cultural celebration in Takete-Ide"
+              label="Egungun Festival Gathering"
+              fill
+              sizes="(min-width: 640px) 384px, 100vw"
+              className="object-cover"
+            />
+          </div>
         </div>
 
         <section className="prose-heritage mt-10">

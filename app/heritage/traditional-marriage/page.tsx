@@ -49,10 +49,43 @@ export default function TraditionalMarriagePage() {
           </div>
         </div>
 
-        <section className="prose-heritage mt-10">
+        {/* Section: Gifts, Household Preparation & Celebration */}
+        <section className="mt-14">
+          <h2 className="font-serif text-2xl font-bold text-purple-900 sm:text-3xl">
+            Gifts, Household Preparation &amp; Celebration
+          </h2>
+          <p className="mt-2 text-sm leading-relaxed text-charcoal/75">
+            Household items and gifts presented as part of a Takete-Ide marriage celebration.
+          </p>
+
+          <div className="mt-6 grid gap-6 sm:grid-cols-2">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-md border border-purple-600/10">
+              <HeritageImage
+                src="/images/takete-ide/heritage/traditional-marriage-gifts-01.png"
+                alt="Household items and gift presentations prepared for a traditional marriage ceremony in Takete-Ide"
+                label="Marriage Preparation &amp; Gifts"
+                fill
+                sizes="(min-width: 640px) 50vw, 100vw"
+                className="object-cover"
+              />
+            </div>
+            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-md border border-purple-600/10">
+              <HeritageImage
+                src="/images/takete-ide/heritage/traditional-marriage-gifts-02.png"
+                alt="Gift presentations and gathering of family members at a Takete-Ide traditional marriage celebration"
+                label="Celebration &amp; Gift Presentation"
+                fill
+                sizes="(min-width: 640px) 50vw, 100vw"
+                className="object-cover"
+              />
+            </div>
+          </div>
+        </section>
+
+        <section className="prose-heritage mt-12">
           <h2>About These Photographs</h2>
           <p>
-            These photographs show ceremonial items and a community gathering associated with marriage
+            These photographs show ceremonial items and community gatherings associated with marriage
             celebrations in Takete-Ide. In keeping with this archive&rsquo;s approach to unverified
             detail, the specific meaning and ritual significance of the individual items shown has not
             been confirmed, so it is described here only in general terms rather than asserted as

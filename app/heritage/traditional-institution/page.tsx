@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Crown, Users, Landmark, Info, ScrollText } from "lucide-react";
+import { Users, Landmark, ScrollText } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -59,24 +59,19 @@ export default async function TraditionalInstitutionPage() {
       </div>
 
       <Container className="py-14 sm:py-16">
-        {/* Section 1: Introduction & Dignified Placeholder Cover */}
+        {/* Section 1: Introduction & Dignified Traditional Gathering Image */}
         <section className="overflow-hidden rounded-3xl border border-purple-600/10 bg-white p-7 sm:p-10 shadow-sm lg:p-12">
           <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
-            {/* Branded Palace Placeholder */}
-            <div className="relative flex aspect-[4/3] flex-col items-center justify-center overflow-hidden rounded-2xl border border-gold-500/30 bg-gradient-to-br from-purple-950 via-purple-900 to-purple-950 p-8 text-center text-white shadow-inner">
-              <div className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-gold-500/10 blur-xl" />
-              <div className="pointer-events-none absolute -bottom-10 -left-10 h-32 w-32 rounded-full bg-community-green/10 blur-xl" />
-              <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-gold-500/30 bg-gold-500/15 text-gold-300">
-                <Crown className="h-8 w-8" aria-hidden="true" />
-              </div>
-              <h3 className="mt-4 font-serif text-xl font-bold text-white">Traditional Institution</h3>
-              <div className="my-2 h-0.5 w-12 bg-gold-400/50" />
-              <p className="text-xs font-medium text-gold-300/90">
-                Authentic palace / traditional council photograph being verified
-              </p>
-              <p className="mt-3 text-[11px] text-white/60">
-                Official imagery will be published following traditional council confirmation
-              </p>
+            {/* Authentic Traditional & Community Dignitaries Image */}
+            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-purple-600/10 shadow-sm">
+              <HeritageImage
+                src="/images/takete-ide/heritage/traditional-dignitaries.png"
+                alt="Traditional and community leaders seated together in ceremonial attire at a Takete-Ide gathering"
+                label="Traditional &amp; Community Dignitaries"
+                fill
+                sizes="(min-width: 1024px) 45vw, 100vw"
+                className="object-cover"
+              />
             </div>
 
             <div>
@@ -159,9 +154,16 @@ export default async function TraditionalInstitutionPage() {
               </div>
             ) : (
               <div className="rounded-2xl border border-gold-500/30 bg-gold-100/50 p-6 sm:p-8">
-                <div className="flex items-start gap-4">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gold-500/20 text-gold-800">
-                    <Info className="h-5 w-5" aria-hidden="true" />
+                <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
+                  <div className="relative h-28 w-28 shrink-0 overflow-hidden rounded-2xl border border-gold-500/40 shadow-sm mx-auto sm:mx-0">
+                    <HeritageImage
+                      src="/images/takete-ide/heritage/oba-philip-ebilakun.png"
+                      alt="Portrait of Oba Philip Ebilakun in royal attire"
+                      label="Oba Philip Ebilakun"
+                      fill
+                      sizes="112px"
+                      className="object-cover"
+                    />
                   </div>
                   <div>
                     <span className="text-xs font-bold uppercase tracking-wider text-gold-800">

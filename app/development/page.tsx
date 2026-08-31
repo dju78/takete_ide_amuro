@@ -7,6 +7,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { ProjectCard } from "@/components/cards/ProjectCard";
 import { VideoPosterCard } from "@/components/media/VideoPosterCard";
+import { HeritageImage } from "@/components/ui/HeritageImage";
 import { getProjects } from "@/lib/data/projects";
 import { getCommunityMedia } from "@/lib/data/community-media";
 
@@ -37,9 +38,10 @@ interface Props {
 
 export default async function DevelopmentPage({ searchParams }: Props) {
   const { category } = await searchParams;
-  const [projects, footage] = await Promise.all([
+  const [projects, footage, facilities] = await Promise.all([
     getProjects(category),
     getCommunityMedia({ category: "Development", mediaType: "video" }),
+    getCommunityMedia({ category: "Development", mediaType: "image" }),
   ]);
 
   return (
@@ -108,6 +110,41 @@ export default async function DevelopmentPage({ searchParams }: Props) {
                   description={video.description}
                   durationLabel={video.durationLabel}
                 />
+              ))}
+            </div>
+          </section>
+        )}
+
+        {facilities.length > 0 && (
+          <section className="mt-16">
+            <SectionHeading
+              eyebrow="Facilities"
+              title="Community Infrastructure &amp; Facilities"
+              align="left"
+              className="mx-0"
+              description="Photographs of civic and healthcare facilities serving the Takete-Ide community."
+            />
+            <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {facilities.map((item) => (
+                <div
+                  key={item.id}
+                  className="overflow-hidden rounded-2xl border border-purple-600/10 bg-white shadow-sm"
+                >
+                  <div className="relative aspect-[4/3]">
+                    <HeritageImage
+                      src={item.src}
+                      alt={item.altText}
+                      label={item.title}
+                      fill
+                      sizes="(min-width: 1024px) 30vw, 50vw"
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="p-5">
+                    <h3 className="font-serif text-base font-bold text-purple-950">{item.title}</h3>
+                    <p className="mt-2 text-xs leading-relaxed text-charcoal/75">{item.description}</p>
+                  </div>
+                </div>
               ))}
             </div>
           </section>

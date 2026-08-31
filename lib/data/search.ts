@@ -130,7 +130,13 @@ const PAGE_INDEX: { title: string; href: string; excerpt: string; keywords: stri
     title: "Culture & Heritage",
     href: "/heritage",
     excerpt: "Festivals, cultural dress, places of worship, landscape and community life.",
-    keywords: "culture heritage festival attire cloth worship landscape tradition",
+    keywords: "culture heritage festival attire cloth worship landscape tradition egungun ogun okuta gboro",
+  },
+  {
+    title: "Ate — Egungun Heritage",
+    href: "/heritage/ate",
+    excerpt: "Ate, one of the Egungun (masquerade) traditions observed in Takete-Ide Amuro.",
+    keywords: "ate egungun masquerade tradition festival culture heritage",
   },
   {
     title: "Education in Takete-Ide",
