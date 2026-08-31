@@ -6,7 +6,7 @@ import { getPublishedEvents } from "@/lib/data/events";
 
 const staticRoutes = [
   "/", "/our-story", "/heritage", "/heritage/traditional-institution", "/takete-ide-day",
-  "/development", "/our-people", "/news", "/gallery", "/weather", "/diaspora", "/archive",
+  "/development", "/our-people", "/news", "/events", "/gallery", "/weather", "/diaspora", "/archive",
   "/archive/oral-history", "/tipu", "/tipu/branches", "/tipu/branches/lokoja",
   "/tipu/branches/ilorin", "/diaspora/uk-europe", "/takete-ide-day/cultural-attire", "/centenary", "/support",
   "/education", "/development/security-trust-fund",
