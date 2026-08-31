@@ -1,34 +1,27 @@
 -- 0019: Online contributions ledger and payment events.
 --
--- Additive and non-destructive: two new tables, one new function, no changes to
--- anything that already exists.
+-- Additive and non-destructive: two new tables, no changes to anything that
+-- already exists. Depends on the shared Takete authorization base in 0001.
 --
--- ── Why a stricter predicate than is_staff() ─────────────────────────────────
--- is_staff() returns true for *any* row in `profiles`, which is right for
--- editorial content and wrong for money: it would let a media manager or editor
--- read every contributor's name, email and amount. Contribution records are
--- therefore gated by is_financial_staff(), which mirrors FINANCIAL_ROLES in
--- lib/auth.ts ('super_admin', 'treasurer') at the database layer, so the
--- restriction holds even if an application-layer check is ever missed.
+-- ── Why is_takete_financial_staff() and not is_takete_staff() ───────────────
+-- is_takete_staff() is true for anyone holding an active Takete membership,
+-- which is right for editorial content and wrong for money: it would let a
+-- media manager or editor read every contributor's name, email and amount.
+-- Contribution records are gated by is_takete_financial_staff(), defined in
+-- 0001, which requires app_key = 'takete', status = 'active' and a role of
+-- 'super_admin' or 'treasurer'. The predicate is not redefined here — in a
+-- shared Supabase project the authorization rule must have exactly one
+-- definition, or the two copies drift and the weaker one wins.
 --
--- ── Why there is no anonymous insert policy ──────────────────────────────────
+-- ── Why there is no anonymous insert policy ─────────────────────────────
 -- A public INSERT policy would let anyone forge a contribution row and choose
 -- its amount, which is precisely the value the webhook later verifies against.
 -- Contributions are created only by server-side code using the service-role
 -- client, after validating amount, currency, purpose and email. The absence of a
 -- policy here is deliberate: with RLS enabled and no policy, anon and
 -- authenticated roles can do nothing at all with this table.
-
--- Financial-role predicate. SECURITY DEFINER so it can read `profiles` without
--- the caller needing access to it, matching the existing is_staff() pattern.
-create or replace function is_financial_staff()
-returns boolean language sql stable security definer set search_path = public as $$
-  select exists (
-    select 1 from profiles
-    where id = auth.uid()
-      and role in ('super_admin', 'treasurer')
-  );
-$$;
+--
+-- set_updated_at() is provided by 0001 and used by the trigger below.
 
 -- ---------------------------------------------------------------------------
 -- contributions
@@ -89,15 +82,15 @@ create trigger contributions_set_updated_at
 
 alter table contributions enable row level security;
 
--- Read: financial staff only. No public or general-staff read policy exists.
+-- Read: Takete financial staff only. No public or general-staff read policy exists.
 create policy "Financial staff read contributions"
-  on contributions for select using (is_financial_staff());
+  on contributions for select using (is_takete_financial_staff());
 
 -- Write: financial staff only, for manual review actions in the admin area.
 -- Automated writes from the payment routes use the service-role client, which
 -- bypasses RLS by design and is never exposed to the browser.
 create policy "Financial staff update contributions"
-  on contributions for update using (is_financial_staff()) with check (is_financial_staff());
+  on contributions for update using (is_takete_financial_staff()) with check (is_takete_financial_staff());
 
 -- ---------------------------------------------------------------------------
 -- payment_events
@@ -136,4 +129,4 @@ create index if not exists payment_events_received_idx on payment_events (receiv
 alter table payment_events enable row level security;
 
 create policy "Financial staff read payment_events"
-  on payment_events for select using (is_financial_staff());
+  on payment_events for select using (is_takete_financial_staff());

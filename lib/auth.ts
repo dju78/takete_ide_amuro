@@ -78,15 +78,33 @@ export async function requireStaff(minRole: UserRole = "editor"): Promise<StaffU
 }
 
 /**
+ * The lowest rank that must be able to reach a financial screen.
+ *
+ * A treasurer is a specialist, ranked with the other specialists rather than
+ * above an editor, because the role carries no editorial authority. That makes
+ * any rank floor above a treasurer's the wrong gate for financial screens — it
+ * would exclude the one role they exist for. Naming the floor after the role
+ * keeps the two in step if the ranking is ever revised.
+ */
+export const FINANCIAL_MIN_ROLE: UserRole = "treasurer";
+
+/**
  * Gate for screens that change publicly displayed financial information — the
  * union's contribution account above all.
  *
- * Checked by explicit role membership rather than by rank: an administrator
- * outranks a treasurer for content, but must not be able to alter banking
- * details, so rank is the wrong test here.
+ * Authorization here is the conjunction the shared database enforces in
+ * is_takete_financial_staff(): an authenticated user, holding an *active*
+ * membership for app_key 'takete', whose role is in FINANCIAL_ROLES. The first
+ * three come from requireStaff, which resolves app_memberships and admits
+ * nobody without one — so a Kogi Quest user, or a suspended Takete treasurer,
+ * never reaches the role test. The fourth is checked here.
+ *
+ * Membership, not rank, is the test. Rank would be wrong in both directions: an
+ * administrator outranks a treasurer editorially and still must not touch
+ * banking details, and a treasurer ranks below an editor and must.
  */
 export async function requireFinancialAdmin(): Promise<StaffUser> {
-  const user = await requireStaff("editor");
+  const user = await requireStaff(FINANCIAL_MIN_ROLE);
   if (!FINANCIAL_ROLES.includes(user.role)) {
     redirect("/admin?error=financial_role_required");
   }
