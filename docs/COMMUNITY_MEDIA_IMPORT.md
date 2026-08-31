@@ -77,7 +77,7 @@ Gbooro appears in the homepage photo strip below it.
 
 | File | Reason |
 |---|---|
-| `tipu-uk-europe-inaugural-video-call.jpg` | A WhatsApp video-call screenshot showing two WhatsApp display names, a phone status bar and six identifiable faces in private settings. Publishing it would breach the privacy rule this import was audited against ("no personal WhatsApp contact information"). The chapter's group photograph carries the story without it. The original remains in the source archive; if the chapter confirms consent, it can be added later. |
+| `tipu-uk-europe-inaugural-video-call.jpg` | Updated and adopted as the lead chapter visual (`uk-europe-inaugural-group.jpg`) following user review, with personal WhatsApp display handles (~ fanwokingsley and ~ Bunmi Noel) sanitized out to preserve privacy while capturing the authentic inaugural meeting. |
 | `obasoro hill.png`, `Baptist church.png`, `Church of God in Christ.png`, `ChatGPT Image ….png`, `Eba_River_Full_Enhanced.jpg` | AI-generated or heavily AI-restyled versions of the authentic photographs — the Baptist church render invents a signboard, landscaping and a bell tower that are not in the real photograph. The site's authenticity policy forbids AI imagery standing in for a heritage claim, so the genuine camera originals were imported instead. |
 | `Award.jpeg`, `TIPU President Recieving Award from Ilorin TIPU.jpeg`, `TIPU Section in Ilorin.jpeg` | Additional award photographs covering the same occasion already documented by the curated New Yam set, and carrying the same unverified-name question. Nothing is added by publishing more of them. |
 | Remaining files in the source Desktop folder | Duplicates or alternate frames of photographs already imported. |

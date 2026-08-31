@@ -229,7 +229,7 @@ export const communityMedia: CommunityMediaItem[] = [
     title: "TIPU UK & Europe Chapter inaugural meeting",
     description:
       "Takete-Ide sons and daughters in the United Kingdom and Europe meeting as part of the chapter's inaugural activity in August 2026.",
-    altText: "Three members of the TIPU UK & Europe Chapter standing together during the chapter's inaugural meeting",
+    altText: "Members of the TIPU UK & Europe Chapter participating in the chapter's inaugural meeting",
     category: "Diaspora",
     event: EVENTS.ukEuropeInaugural,
     branch: "UK & Europe Chapter",
