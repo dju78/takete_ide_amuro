@@ -2,15 +2,12 @@
 --
 -- Pattern used throughout:
 --  * Published/public content  -> anon + authenticated can SELECT rows that are
---    published (status = 'published' or access_level = 'public'); staff can
+--    published (status = 'published' or access_level = 'public'); Takete staff can
 --    SELECT everything.
---  * Staff (any row in profiles) can INSERT/UPDATE/DELETE content tables.
---    Finer-grained per-role write restrictions (e.g. only historians can mark
---    "verified") are enforced in the admin application layer for now — see
---    docs/SECURITY.md for the documented follow-up to move these into policies.
+--  * Takete Staff (active row in app_memberships for app_key = 'takete') can INSERT/UPDATE/DELETE content tables.
 --  * Submission/inbox tables (contact, diaspora, volunteer, nominations,
 --    heritage submissions) allow anonymous INSERT only; SELECT/UPDATE/DELETE
---    is staff-only, so submitted data is never publicly readable.
+--    is Takete staff-only, so submitted data is never publicly readable.
 --  * profiles, audit_logs, site_settings, verification_records are staff-only.
 
 -- ---------- helper: enable RLS on every relevant table ----------
@@ -80,22 +77,22 @@ declare
 begin
   foreach rec in array published_tables loop
     execute format(
-      'create policy "Public can view published %1$I" on %1$I for select using (%2$s or is_staff())',
+      'create policy "Public can view published %1$I" on %1$I for select using (%2$s or is_takete_staff())',
       rec[1], rec[2]
     );
     execute format(
-      'create policy "Staff manage %1$I" on %1$I for all using (is_staff()) with check (is_staff())',
+      'create policy "Staff manage %1$I" on %1$I for all using (is_takete_staff()) with check (is_takete_staff())',
       rec[1]
     );
   end loop;
 end $$;
 
 -- Media library and family/oriki sources: staff-only (not directly public-facing lists).
-create policy "Staff manage media" on media for all using (is_staff()) with check (is_staff());
-create policy "Staff manage family_sources" on family_sources for all using (is_staff()) with check (is_staff());
-create policy "Staff manage oriki_sources" on oriki_sources for all using (is_staff()) with check (is_staff());
-create policy "Staff manage family_representatives" on family_representatives for all using (is_staff()) with check (is_staff());
-create policy "Staff view verification_records" on verification_records for all using (is_staff()) with check (is_staff());
+create policy "Staff manage media" on media for all using (is_takete_staff()) with check (is_takete_staff());
+create policy "Staff manage family_sources" on family_sources for all using (is_takete_staff()) with check (is_takete_staff());
+create policy "Staff manage oriki_sources" on oriki_sources for all using (is_takete_staff()) with check (is_takete_staff());
+create policy "Staff manage family_representatives" on family_representatives for all using (is_takete_staff()) with check (is_takete_staff());
+create policy "Staff view verification_records" on verification_records for all using (is_takete_staff()) with check (is_takete_staff());
 
 -- ---------- submission / inbox tables: public insert, staff-only read/manage ----------
 do $$
@@ -107,15 +104,15 @@ begin
   ]
   loop
     execute format('create policy "Anyone can submit to %1$I" on %1$I for insert with check (true)', t);
-    execute format('create policy "Staff manage %1$I" on %1$I for select using (is_staff())', t);
-    execute format('create policy "Staff update %1$I" on %1$I for update using (is_staff())', t);
-    execute format('create policy "Staff delete %1$I" on %1$I for delete using (is_staff())', t);
+    execute format('create policy "Staff manage %1$I" on %1$I for select using (is_takete_staff())', t);
+    execute format('create policy "Staff update %1$I" on %1$I for update using (is_takete_staff())', t);
+    execute format('create policy "Staff delete %1$I" on %1$I for delete using (is_takete_staff())', t);
   end loop;
 end $$;
 
 -- ---------- system tables ----------
 create policy "Public can read site settings" on site_settings for select using (true);
-create policy "Admins update site settings" on site_settings for update using (is_admin_role());
+create policy "Admins update site settings" on site_settings for update using (is_takete_admin());
 
-create policy "Staff read audit logs" on audit_logs for select using (is_staff());
-create policy "System inserts audit logs" on audit_logs for insert with check (is_staff());
+create policy "Staff read audit logs" on audit_logs for select using (is_takete_staff());
+create policy "System inserts audit logs" on audit_logs for insert with check (is_takete_staff());

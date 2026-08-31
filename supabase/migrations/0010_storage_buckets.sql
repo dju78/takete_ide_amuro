@@ -1,48 +1,40 @@
--- 0010: Supabase Storage buckets for all uploaded media.
--- All buckets are public-read (site imagery/documents are meant to be viewed by
--- visitors) with writes restricted to authenticated staff. Swap for
--- Cloudinary/S3 later by re-implementing lib/storage.ts — the app never
--- references bucket internals directly outside that module.
+-- 0010: Supabase Storage buckets for all uploaded media with Takete-namespacing and privacy classification.
+--
+-- Public-media buckets: public = true (news, events, gallery, projects, tipu, site, people).
+-- Controlled/private-by-default buckets: public = false (archive, oral-history, families, oriki, documents).
 
 insert into storage.buckets (id, name, public)
 values
-  ('news', 'news', true),
-  ('events', 'events', true),
-  ('gallery', 'gallery', true),
-  ('projects', 'projects', true),
-  ('archive', 'archive', true),
-  ('oral-history', 'oral-history', true),
-  ('people', 'people', true),
-  ('families', 'families', true),
-  ('oriki', 'oriki', true),
-  ('tipu', 'tipu', true),
-  ('documents', 'documents', true),
-  ('site', 'site', true)
+  ('takete-news', 'takete-news', true),
+  ('takete-events', 'takete-events', true),
+  ('takete-gallery', 'takete-gallery', true),
+  ('takete-projects', 'takete-projects', true),
+  ('takete-tipu', 'takete-tipu', true),
+  ('takete-site', 'takete-site', true),
+  ('takete-people', 'takete-people', true),
+  ('takete-archive', 'takete-archive', false),
+  ('takete-oral-history', 'takete-oral-history', false),
+  ('takete-families', 'takete-families', false),
+  ('takete-oriki', 'takete-oriki', false),
+  ('takete-documents', 'takete-documents', false)
 on conflict (id) do nothing;
 
-do $$
-declare b text;
-begin
-  foreach b in array array[
-    'news','events','gallery','projects','archive','oral-history',
-    'people','families','oriki','tipu','documents','site'
-  ]
-  loop
-    execute format(
-      'create policy "Public read %1$I bucket" on storage.objects for select using (bucket_id = %2$L)',
-      b || '_read', b
-    );
-    execute format(
-      'create policy "Staff upload %1$I bucket" on storage.objects for insert to authenticated with check (bucket_id = %2$L and is_staff())',
-      b || '_write', b
-    );
-    execute format(
-      'create policy "Staff modify %1$I bucket" on storage.objects for update to authenticated using (bucket_id = %2$L and is_staff())',
-      b || '_update', b
-    );
-    execute format(
-      'create policy "Staff delete %1$I bucket" on storage.objects for delete to authenticated using (bucket_id = %2$L and is_staff())',
-      b || '_delete', b
-    );
-  end loop;
-end $$;
+-- Public read policy for public media buckets ONLY:
+create policy "Public read takete public buckets" on storage.objects for select
+  using (bucket_id in ('takete-news', 'takete-events', 'takete-gallery', 'takete-projects', 'takete-tipu', 'takete-site', 'takete-people'));
+
+-- Controlled / Staff-only read policy for private-by-default buckets:
+create policy "Staff read takete controlled buckets" on storage.objects for select
+  using (bucket_id in ('takete-archive', 'takete-oral-history', 'takete-families', 'takete-oriki', 'takete-documents') and is_takete_staff());
+
+-- Staff upload policy for all Takete buckets:
+create policy "Takete staff upload to takete buckets" on storage.objects for insert to authenticated
+  with check (bucket_id like 'takete-%' and is_takete_staff());
+
+-- Staff modify policy for all Takete buckets:
+create policy "Takete staff modify takete buckets" on storage.objects for update to authenticated
+  using (bucket_id like 'takete-%' and is_takete_staff());
+
+-- Staff delete policy for all Takete buckets:
+create policy "Takete staff delete from takete buckets" on storage.objects for delete to authenticated
+  using (bucket_id like 'takete-%' and is_takete_staff());

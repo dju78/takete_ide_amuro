@@ -46,4 +46,4 @@ create policy "Public can view community_media_overrides"
   on community_media_overrides for select using (true);
 
 create policy "Staff manage community_media_overrides"
-  on community_media_overrides for all using (is_staff()) with check (is_staff());
+  on community_media_overrides for all using (is_takete_staff()) with check (is_takete_staff());
