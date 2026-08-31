@@ -66,6 +66,33 @@ test.describe("Support Takete-Ide", () => {
       page.getByText(/ongoing areas of work rather than active campaigns with targets/),
     ).toBeVisible();
   });
+
+  test("renders bank account details QR code with accessible alt text and scannable quiet zone", async ({ page }) => {
+    await page.goto("/support");
+    const qrImage = page.getByAltText(/QR code to view Takete-Ide Progressive Union bank account details/i);
+    await expect(qrImage).toBeVisible();
+    await expect(qrImage).toHaveAttribute("src", /takete-account-details-qr\.png/);
+    await expect(page.getByRole("heading", { name: "Scan for account details" })).toBeVisible();
+    await expect(
+      page.getByText("Scan this code to view the official bank account details for manual transfer."),
+    ).toBeVisible();
+  });
+
+  test("QR wording clarifies manual transfer and does not claim instant payment or automatic debits", async ({ page }) => {
+    await page.goto("/support");
+    const mainText = await page.locator("main").innerText();
+    // Confirmed valid wording
+    expect(mainText).toContain("Scan for account details");
+    expect(mainText).toContain(OFFICIAL.bank);
+    expect(mainText).toContain(OFFICIAL.number);
+    expect(mainText).toContain(OFFICIAL.name);
+
+    // Forbidden misleading wording
+    expect(mainText).not.toMatch(/Scan to Pay/i);
+    expect(mainText).not.toMatch(/Pay by QR/i);
+    expect(mainText).not.toMatch(/QR Payment/i);
+    expect(mainText).not.toMatch(/Instant Payment/i);
+  });
 });
 
 test.describe("Centenary 2026", () => {
