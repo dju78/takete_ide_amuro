@@ -90,6 +90,18 @@ test.describe("Gallery after the archive import", () => {
     expect(alts.length).toBeGreaterThan(0);
     expect(alts.filter((a) => !a || a.trim().length < 3)).toEqual([]);
   });
+
+  test("First Baptist Church is deduplicated in Places of Worship", async ({ page }) => {
+    await page.goto("/gallery?category=Places+of+Worship");
+    const baptistCards = page.getByRole("button", { name: /First Baptist Church/ });
+    await expect(baptistCards).toHaveCount(1);
+  });
+
+  test("landmarks and placeholders are presented respectfully", async ({ page }) => {
+    await page.goto("/gallery?category=Landmarks");
+    await expect(page.getByText("Okuta Boro")).toBeVisible();
+    await expect(page.getByText("Authentic landmark photograph being verified")).toBeVisible();
+  });
 });
 
 test.describe("Video delivery and accessibility", () => {

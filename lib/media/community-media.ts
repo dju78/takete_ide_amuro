@@ -53,11 +53,12 @@ export interface CommunityMediaItem {
   verificationNote?: string;
   /** Approximate duration for videos, for the "Watch video" affordance. */
   durationLabel?: string;
-  /**
-   * Video frame shape. Phone-shot clips are portrait; forcing them into a 16:9
-   * box would letterbox them into a thin strip on mobile.
-   */
+  /** Video frame shape. */
   orientation?: "landscape" | "portrait";
+  /** CSS object-position for custom focal framing of landscapes and landmarks. */
+  objectPosition?: string;
+  /** When true, renders an intentional branded placeholder rather than an image asset. */
+  isPlaceholder?: boolean;
 }
 
 const TIPU_ARCHIVE = "Takete-Ide Progressive Union community archive";
@@ -115,8 +116,23 @@ export const communityMedia: CommunityMediaItem[] = [
     category: "Centenary",
     event: EVENTS.centenaryAttire,
     featured: false,
-    published: true,
+    published: false,
     verificationStatus: "community-record",
+    source: TIPU_ARCHIVE,
+  },
+  {
+    id: "centenary-archive-placeholder",
+    mediaType: "image",
+    src: "/images/takete-ide/places/first-baptist-church.jpg",
+    title: "Centenary Archive",
+    description: "Authentic community photograph being verified.",
+    altText: "Centenary archive placeholder - authentic community photograph being verified",
+    category: "Centenary",
+    event: EVENTS.centenaryAttire,
+    featured: false,
+    published: true,
+    isPlaceholder: true,
+    verificationStatus: "pending-verification",
     source: TIPU_ARCHIVE,
   },
   {
@@ -182,7 +198,7 @@ export const communityMedia: CommunityMediaItem[] = [
     eventDate: "2026-08-16",
     location: "Lokoja, Kogi State",
     featured: false,
-    published: true,
+    published: false,
     verificationStatus: "community-record",
     source: TIPU_ARCHIVE,
   },
@@ -199,7 +215,7 @@ export const communityMedia: CommunityMediaItem[] = [
     eventDate: "2026-08-16",
     location: "Lokoja, Kogi State",
     featured: false,
-    published: true,
+    published: false,
     verificationStatus: "community-record",
     source: TIPU_ARCHIVE,
   },
@@ -216,7 +232,7 @@ export const communityMedia: CommunityMediaItem[] = [
     eventDate: "2026-08-16",
     location: "Lokoja, Kogi State",
     featured: false,
-    published: true,
+    published: false,
     verificationStatus: "community-record",
     source: TIPU_ARCHIVE,
   },
@@ -226,10 +242,10 @@ export const communityMedia: CommunityMediaItem[] = [
     id: "tipu-uk-europe-inaugural-group",
     mediaType: "image",
     src: "/images/takete-ide/tipu-branches/uk-europe-inaugural-group.jpg",
-    title: "TIPU UK & Europe Chapter inaugural meeting",
+    title: "TIPU UK & Europe Chapter members",
     description:
-      "Takete-Ide sons and daughters in the United Kingdom and Europe meeting as part of the chapter's inaugural activity in August 2026.",
-    altText: "Members of the TIPU UK & Europe Chapter participating in the chapter's inaugural meeting",
+      "Members of the TIPU UK & Europe Chapter at the chapter's inaugural gathering in August 2026.",
+    altText: "Members of the TIPU UK & Europe Chapter standing together outdoors after the inaugural meeting",
     category: "Diaspora",
     event: EVENTS.ukEuropeInaugural,
     branch: "UK & Europe Chapter",
@@ -272,7 +288,7 @@ export const communityMedia: CommunityMediaItem[] = [
     eventDate: "2026-08-22",
     location: "Ilorin, Kwara State",
     featured: false,
-    published: true,
+    published: false,
     verificationStatus: "community-record",
     source: TIPU_ARCHIVE,
   },
@@ -288,8 +304,8 @@ export const communityMedia: CommunityMediaItem[] = [
     branch: "Ilorin Branch",
     eventDate: "2026-08-22",
     location: "Ilorin, Kwara State",
-    featured: true,
-    published: true,
+    featured: false,
+    published: false,
     verificationStatus: "community-record",
     source: TIPU_ARCHIVE,
   },
@@ -305,7 +321,7 @@ export const communityMedia: CommunityMediaItem[] = [
     branch: "Ilorin Branch",
     eventDate: "2026-08-22",
     location: "Ilorin, Kwara State",
-    featured: false,
+    featured: true,
     published: true,
     verificationStatus: "community-record",
     source: TIPU_ARCHIVE,
@@ -340,7 +356,7 @@ export const communityMedia: CommunityMediaItem[] = [
     eventDate: "2026-08-22",
     location: "Ilorin, Kwara State",
     featured: false,
-    published: true,
+    published: false,
     verificationStatus: "community-record",
     source: TIPU_ARCHIVE,
   },
@@ -357,7 +373,7 @@ export const communityMedia: CommunityMediaItem[] = [
     eventDate: "2026-08-22",
     location: "Ilorin, Kwara State",
     featured: false,
-    published: true,
+    published: false,
     verificationStatus: "community-record",
     source: TIPU_ARCHIVE,
   },
@@ -463,6 +479,7 @@ export const communityMedia: CommunityMediaItem[] = [
     location: "Takete-Ide, Amuro, Kogi State",
     featured: true,
     published: true,
+    objectPosition: "50% 15%",
     verificationStatus: "community-record",
     source: COMMUNITY_SUPPLIED,
   },
@@ -470,14 +487,15 @@ export const communityMedia: CommunityMediaItem[] = [
     id: "okuta-gbooro",
     mediaType: "image",
     src: "/images/takete-ide/places/okuta-gbooro.jpg",
-    title: "Okuta Gbooro",
-    description: "The wooded ridge of Okuta Gbooro seen across open grassland.",
-    altText: "A long wooded ridge seen across open green grassland under a heavy sky",
+    title: "Okuta Boro",
+    description: "Authentic landmark photograph being verified.",
+    altText: "Okuta Boro landmark placeholder - authentic photograph being verified",
     category: "Landmarks",
     location: "Takete-Ide, Amuro, Kogi State",
     featured: true,
     published: true,
-    verificationStatus: "community-record",
+    isPlaceholder: true,
+    verificationStatus: "pending-verification",
     source: COMMUNITY_SUPPLIED,
   },
   {
@@ -514,11 +532,12 @@ export const communityMedia: CommunityMediaItem[] = [
     src: "/images/takete-ide/places/first-baptist-church.jpg",
     title: "First Baptist Church, Takete-Ide",
     description: "The First Baptist Church building at Takete-Ide, with the hills behind it.",
-    altText: "A single-storey church building with a pitched roof at Takete-Ide, hills visible behind",
+    altText: "First Baptist Church building with a pitched roof at Takete-Ide, hills visible behind",
     category: "Places of Worship",
     location: "Takete-Ide, Amuro, Kogi State",
     featured: true,
     published: true,
+    objectPosition: "50% 40%",
     verificationStatus: "community-record",
     source: COMMUNITY_SUPPLIED,
   },
@@ -532,7 +551,7 @@ export const communityMedia: CommunityMediaItem[] = [
     category: "Places of Worship",
     location: "Takete-Ide, Amuro, Kogi State",
     featured: false,
-    published: true,
+    published: false,
     verificationStatus: "community-record",
     source: COMMUNITY_SUPPLIED,
   },
@@ -600,8 +619,7 @@ export const HOMEPAGE_PLACE_ORDER = ["obasoro-hill", "eba-river-bank", "first-ba
  */
 export const HOMEPAGE_MEDIA_ORDER = [
   "centenary-attire-group",
-  "new-yam-ilorin-community-group",
-  "okuta-gbooro",
+  "new-yam-ilorin-cultural-address",
   "church-of-god-in-christ",
   "eba-river",
 ] as const;

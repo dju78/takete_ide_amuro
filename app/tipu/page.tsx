@@ -81,6 +81,12 @@ export default async function TipuPage() {
             Connecting Takete-Ide people at home, across Nigeria and around the world in support of
             heritage, unity and community development.
           </p>
+          <div className="mt-8 flex flex-wrap items-center gap-4">
+            <ButtonLink href="/tipu/branches">Explore Our Branches</ButtonLink>
+            <ButtonLink href="/support" variant="secondary" className="border-white/30 text-white hover:bg-white/10">
+              Support Takete-Ide
+            </ButtonLink>
+          </div>
         </Container>
       </div>
 

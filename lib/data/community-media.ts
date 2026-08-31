@@ -108,6 +108,10 @@ export async function getCommunityGalleryItems(category?: string): Promise<Galle
     caption: m.description,
     category: m.category,
     event_year: m.eventDate ? Number(m.eventDate.slice(0, 4)) : null,
+    object_position: m.objectPosition,
+    is_placeholder: m.isPlaceholder,
+    placeholder_title: m.title,
+    placeholder_subtitle: m.description,
   }));
 }
 

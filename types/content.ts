@@ -61,6 +61,10 @@ export interface GalleryItem {
   caption: string | null;
   category: string;
   event_year: number | null;
+  object_position?: string;
+  is_placeholder?: boolean;
+  placeholder_title?: string;
+  placeholder_subtitle?: string;
 }
 
 export interface DevelopmentProject {
