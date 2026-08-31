@@ -176,14 +176,13 @@ export default async function HeritagePage() {
 
           <div>
             <SectionHeading
-              eyebrow="The land"
-              title="Landscape & Natural Heritage"
+              eyebrow="The Land"
+              title="Land, Water &amp; Memory"
               align="left"
               className="mx-0"
             />
             <p className="mt-3 text-sm leading-relaxed text-charcoal/70">
-              Obasoro Hill, the Eba River and the ridges around the town have shaped where Takete-Ide people
-              settled, farmed and drew water for generations.
+              The natural landscape of Takete-Ide is shaped by historic hills, life-giving rivers, and ancestral settlements preserved in community memory.
             </p>
             <div className="mt-5 grid grid-cols-2 gap-3">
               {nature.slice(0, 4).map((item) => (
@@ -198,6 +197,11 @@ export default async function HeritagePage() {
                   />
                 </div>
               ))}
+            </div>
+            <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-charcoal/70">
+              <span><strong>Hills:</strong> Obasoro, Oke Elegan, Oroke Agodi</span>
+              <span>•</span>
+              <span><strong>Waters:</strong> Eba, Owowo, Oga, Ibedo, Igan, Gboruku</span>
             </div>
             <Link
               href="/gallery?category=Nature"
@@ -250,6 +254,20 @@ export default async function HeritagePage() {
             description="Everyday moments and celebrations from across the community."
             href="/gallery"
             tone="green"
+          />
+          <IconCard
+            icon={Sparkles}
+            title="Agbagba Ide"
+            description="Sacred sanctuary, cultural memory and symbol of community resilience."
+            href="/heritage/agbagba-ide"
+            tone="purple"
+          />
+          <IconCard
+            icon={Music4}
+            title="Community Anthem"
+            description="The preserved Takete-Ide Anthem and Oríkì Agbagba Ide in original Yoruba."
+            href="/heritage/takete-ide-anthem"
+            tone="gold"
           />
           <IconCard
             icon={Church}

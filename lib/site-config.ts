@@ -68,6 +68,7 @@ export const navGroups: NavGroup[] = [
       { label: "The TIPU Network", href: "/tipu/branches", description: "Every branch, at home and abroad", featured: true },
       { label: "Diaspora", href: "/diaspora", description: "Takete-Ide people around the world" },
       { label: "Development", href: "/development", description: "Roads, security, education and more" },
+      { label: "Kogi Quest", href: "/community/kogi-quest", description: "Interactive knowledge and learning experience" },
       { label: "Get Involved", href: "/get-involved", description: "Volunteer, contribute, partner" },
     ],
   },
@@ -120,6 +121,7 @@ export const footerGroups: { heading: string; items: NavItem[] }[] = [
       { label: "Branches", href: "/tipu/branches" },
       { label: "Diaspora", href: "/diaspora" },
       { label: "Development", href: "/development" },
+      { label: "Kogi Quest", href: "/community/kogi-quest" },
     ],
   },
   {

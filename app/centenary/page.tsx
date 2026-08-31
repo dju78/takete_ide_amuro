@@ -19,7 +19,7 @@ import { getLatestNews } from "@/lib/data/news";
 export const metadata: Metadata = {
   title: "Takete-Ide Day & Centenary Celebration 2026",
   description:
-    "Celebrating 100 years of heritage — the Takete-Ide Day and Centenary Celebration on Saturday, 31 October 2026 at the Takete-Ide Primary School Field.",
+    "Takete-Ide Day and Centenary Celebration 2026 — commemorating approximately a century at the present settlement while honouring a much older community history.",
 };
 
 export default async function CentenaryPage() {
@@ -72,40 +72,56 @@ export default async function CentenaryPage() {
       </div>
 
       <Container className="py-14 sm:py-16">
-        {/* What the centenary marks — carefully worded. */}
-        <div className="grid gap-10 lg:grid-cols-[1.3fr_1fr] lg:items-start">
-          <div className="prose-heritage">
-            <h2 className="mt-0">A hundred years, marked together</h2>
-            <p>
-              Takete-Ide Day is the community&rsquo;s major annual socio-cultural festival, bringing
-              together indigenes at home and in the diaspora. In 2026 it is held as a Centenary
-              Celebration — a milestone gathering of families, friends and branches at the Takete-Ide
-              Primary School Field.
-            </p>
-            <p>
-              The day serves, as it always has, both as a homecoming and as the community&rsquo;s
-              principal moment of fundraising for its own development.
-            </p>
-          </div>
-
-          <aside className="flex gap-3 rounded-2xl border border-gold-500/30 bg-gold-100/60 p-5 text-sm leading-relaxed text-charcoal/80">
-            <Info className="mt-0.5 h-5 w-5 shrink-0 text-gold-700" aria-hidden="true" />
+        {/* Why 2026 Matters — A Century at the Present Settlement */}
+        <section className="mt-4 rounded-3xl border border-purple-600/10 bg-white p-8 shadow-sm sm:p-10 lg:p-12">
+          <div className="grid gap-8 lg:grid-cols-[1.3fr_1fr] lg:items-center">
             <div>
-              <p className="font-semibold text-charcoal">About the centenary date</p>
-              <p className="mt-1">
-                The celebration is named by the community as a centenary. Exactly which anniversary it
-                marks is not stated in the records available to this archive. Community accounts associate
-                the year 1926 with the relocation from the Ilu-Oke hill settlement to the plains — which
-                would make this a hundred years of the present town — while other accounts describe events
-                well before that. Takete-Ide is not claimed here to have been founded in 1926.{" "}
-                <Link href="/our-story" className="font-semibold underline underline-offset-2">
-                  Read our history
-                </Link>
-                .
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-gold-100 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-gold-800">
+                Why 2026 Matters
+              </span>
+              <h2 className="mt-4 font-serif text-2xl font-bold text-purple-600 sm:text-3xl">
+                A Century at the Present Settlement
+              </h2>
+              <p className="mt-3 text-base leading-relaxed text-charcoal/80">
+                The historical account preserved by the community places the movement from the upland
+                settlements to the present Takete-Ide site at <strong>around 1926</strong>. The 2026
+                Centenary therefore looks back on approximately a century at the present settlement while
+                recognising that Takete-Ide&rsquo;s history reaches much further back.
               </p>
+              <p className="mt-3 text-sm leading-relaxed text-charcoal/70">
+                Centenary 2026 celebrates a hundred years of peace, unity, and agricultural flourishing on the
+                plains—honouring the endurance of forebears who journeyed from earlier settlements to build the
+                vibrant community of today.
+              </p>
+              <div className="mt-6 flex flex-wrap items-center gap-4">
+                <Link
+                  href="/our-story"
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-community-green hover:underline"
+                >
+                  Explore the full migration journey in Our Story →
+                </Link>
+              </div>
             </div>
-          </aside>
-        </div>
+
+            <div className="rounded-2xl border border-gold-500/30 bg-gold-100/50 p-6 sm:p-7">
+              <div className="flex items-start gap-3">
+                <Info className="mt-1 h-5 w-5 shrink-0 text-gold-700" aria-hidden="true" />
+                <div>
+                  <h3 className="font-serif text-base font-bold text-purple-950">Historical Note</h3>
+                  <p className="mt-2 text-xs leading-relaxed text-charcoal/80">
+                    The 1926 milestone commemorates approximately a century at the present low-plain site
+                    following the descent from the historic upland settlement of Ilu-Oke. Takete-Ide is
+                    not claimed here to have been founded in 1926.
+                  </p>
+                  <p className="mt-2 text-xs italic text-charcoal/60">
+                    Historical interpretation based on the supplied community account and subject to
+                    continuing community documentation.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* Programme — a placeholder, not invented content. */}
         <section className="mt-16">
