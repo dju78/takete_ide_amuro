@@ -12,4 +12,4 @@
 -- check for it explicitly (requireFinancialAdmin) rather than by rank. That
 -- keeps a treasurer out of unrelated admin areas.
 
-alter type user_role add value if not exists 'treasurer';
+alter type takete_role add value if not exists 'treasurer';

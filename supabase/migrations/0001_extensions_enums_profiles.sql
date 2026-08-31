@@ -1,10 +1,10 @@
--- 0001: Extensions, shared enums, roles, and user profiles.
+-- 0001: Extensions, shared enums, roles, profiles, and app memberships.
 
 create extension if not exists "pgcrypto";
 create extension if not exists "pg_trgm";
 
--- Roles are additive to Supabase Auth users via a profile row.
-create type user_role as enum (
+-- Takete-scoped role enum (scoped to prevent collisions in a shared Supabase database).
+create type takete_role as enum (
   'super_admin',
   'administrator',
   'editor',
@@ -34,16 +34,30 @@ create type verification_status as enum (
 
 create type access_level as enum ('public', 'community', 'admin_only');
 
+-- Neutral universal user identity table (no global application role).
 create table profiles (
   id uuid primary key references auth.users (id) on delete cascade,
   full_name text,
   avatar_url text,
-  role user_role not null default 'editor',
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
 
-comment on table profiles is 'Extends auth.users with a display name, avatar and site role.';
+comment on table profiles is 'Neutral user identity table extending auth.users.';
+
+-- Application-scoped membership and role assignment table.
+create table app_memberships (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references profiles (id) on delete cascade,
+  app_key text not null default 'takete',
+  role takete_role not null default 'editor',
+  status text not null default 'active' check (status in ('active', 'suspended', 'invited')),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  constraint app_memberships_user_app_uniq unique (user_id, app_key)
+);
+
+comment on table app_memberships is 'Application-scoped membership and permissions (e.g. app_key = takete).';
 
 create or replace function set_updated_at()
 returns trigger language plpgsql as $$
@@ -57,13 +71,18 @@ create trigger profiles_set_updated_at
   before update on profiles
   for each row execute function set_updated_at();
 
--- Auto-create a profile (default role: editor) whenever a new auth user signs up.
--- The very first administrator must be promoted manually — see docs/ADMIN_GUIDE.md.
+create trigger app_memberships_set_updated_at
+  before update on app_memberships
+  for each row execute function set_updated_at();
+
+-- Auto-create a neutral profile whenever a new auth user signs up.
+-- Does NOT automatically grant Takete membership or permissions.
 create or replace function handle_new_user()
 returns trigger language plpgsql security definer set search_path = public as $$
 begin
   insert into public.profiles (id, full_name)
-  values (new.id, new.raw_user_meta_data ->> 'full_name');
+  values (new.id, new.raw_user_meta_data ->> 'full_name')
+  on conflict (id) do nothing;
   return new;
 end;
 $$;
@@ -72,31 +91,65 @@ create trigger on_auth_user_created
   after insert on auth.users
   for each row execute function handle_new_user();
 
-create or replace function current_user_role()
-returns user_role language sql stable security definer set search_path = public as $$
-  select role from profiles where id = auth.uid();
+-- Takete-scoped auth helper functions:
+create or replace function current_takete_role()
+returns takete_role language sql stable security definer set search_path = public as $$
+  select role from app_memberships
+  where user_id = auth.uid()
+    and app_key = 'takete'
+    and status = 'active'
+  limit 1;
 $$;
 
-create or replace function is_admin_role()
+create or replace function is_takete_admin()
 returns boolean language sql stable security definer set search_path = public as $$
   select coalesce(
-    (select role in ('super_admin', 'administrator') from profiles where id = auth.uid()),
+    (select role in ('super_admin', 'administrator')
+     from app_memberships
+     where user_id = auth.uid()
+       and app_key = 'takete'
+       and status = 'active'),
     false
   );
 $$;
 
-create or replace function is_staff()
+create or replace function is_takete_staff()
 returns boolean language sql stable security definer set search_path = public as $$
-  select exists (select 1 from profiles where id = auth.uid());
+  select exists (
+    select 1 from app_memberships
+    where user_id = auth.uid()
+      and app_key = 'takete'
+      and status = 'active'
+  );
+$$;
+
+create or replace function is_takete_financial_staff()
+returns boolean language sql stable security definer set search_path = public as $$
+  select coalesce(
+    (select role in ('super_admin', 'treasurer')
+     from app_memberships
+     where user_id = auth.uid()
+       and app_key = 'takete'
+       and status = 'active'),
+    false
+  );
 $$;
 
 alter table profiles enable row level security;
 
-create policy "Profiles are viewable by staff" on profiles
-  for select using (is_staff());
+create policy "Profiles are viewable by Takete staff" on profiles
+  for select using (is_takete_staff());
 
 create policy "Users can update their own profile" on profiles
   for update using (auth.uid() = id);
 
 create policy "Super admins manage all profiles" on profiles
-  for all using (current_user_role() = 'super_admin');
+  for all using (current_takete_role() = 'super_admin');
+
+alter table app_memberships enable row level security;
+
+create policy "Staff view their own membership or staff list" on app_memberships
+  for select using (is_takete_staff() or user_id = auth.uid());
+
+create policy "Super admins manage all memberships" on app_memberships
+  for all using (current_takete_role() = 'super_admin');

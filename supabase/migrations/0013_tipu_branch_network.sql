@@ -62,7 +62,7 @@ create index if not exists tipu_branch_updates_branch_idx
 alter table tipu_branch_updates enable row level security;
 
 create policy "Public can view published tipu_branch_updates"
-  on tipu_branch_updates for select using (status = 'published' or is_staff());
+  on tipu_branch_updates for select using (status = 'published' or is_takete_staff());
 
 create policy "Staff manage tipu_branch_updates"
-  on tipu_branch_updates for all using (is_staff()) with check (is_staff());
+  on tipu_branch_updates for all using (is_takete_staff()) with check (is_takete_staff());

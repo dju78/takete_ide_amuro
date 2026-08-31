@@ -41,8 +41,9 @@ export function FileUploadField({ name, label, bucket, accept, hint, defaultUrl,
 
     const ext = file.name.split(".").pop();
     const path = `${slugify(file.name.replace(/\.[^/.]+$/, ""))}-${Date.now()}.${ext}`;
+    const targetBucket = bucket.startsWith("takete-") ? bucket : `takete-${bucket}`;
 
-    const { error: uploadError } = await supabase.storage.from(bucket).upload(path, file, {
+    const { error: uploadError } = await supabase.storage.from(targetBucket).upload(path, file, {
       cacheControl: "3600",
       upsert: false,
     });
@@ -53,7 +54,7 @@ export function FileUploadField({ name, label, bucket, accept, hint, defaultUrl,
       return;
     }
 
-    const { data } = supabase.storage.from(bucket).getPublicUrl(path);
+    const { data } = supabase.storage.from(targetBucket).getPublicUrl(path);
     setUrl(data.publicUrl);
     setState("done");
   }

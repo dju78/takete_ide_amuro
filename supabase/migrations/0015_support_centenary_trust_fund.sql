@@ -35,10 +35,10 @@ alter table support_accounts enable row level security;
 -- Only active accounts are publicly readable: a deactivated account must not
 -- remain visible to visitors just because the row still exists.
 create policy "Public can view active support_accounts"
-  on support_accounts for select using (is_active or is_staff());
+  on support_accounts for select using (is_active or is_takete_financial_staff());
 
-create policy "Staff manage support_accounts"
-  on support_accounts for all using (is_staff()) with check (is_staff());
+create policy "Financial staff manage support_accounts"
+  on support_accounts for all using (is_takete_financial_staff()) with check (is_takete_financial_staff());
 
 -- ---------- Centenary / Takete-Ide Day 2026 ----------
 create table if not exists centenary_settings (
@@ -65,7 +65,7 @@ create trigger centenary_settings_set_updated_at
 alter table centenary_settings enable row level security;
 create policy "Public can view centenary_settings" on centenary_settings for select using (true);
 create policy "Staff manage centenary_settings"
-  on centenary_settings for all using (is_staff()) with check (is_staff());
+  on centenary_settings for all using (is_takete_staff()) with check (is_takete_staff());
 
 -- ---------- Security Trust Fund ----------
 -- `as_of` is not optional: these are figures from a dated community report, and
@@ -89,5 +89,5 @@ create trigger security_trust_fund_set_updated_at
 
 alter table security_trust_fund enable row level security;
 create policy "Public can view security_trust_fund" on security_trust_fund for select using (true);
-create policy "Staff manage security_trust_fund"
-  on security_trust_fund for all using (is_staff()) with check (is_staff());
+create policy "Financial staff manage security_trust_fund"
+  on security_trust_fund for all using (is_takete_financial_staff()) with check (is_takete_financial_staff());
