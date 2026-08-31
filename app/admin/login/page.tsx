@@ -32,10 +32,6 @@ export default function AdminLoginPage() {
           <TextField label="Password" name="password" type="password" required />
           <SubmitButton>Sign In</SubmitButton>
         </form>
-
-        <p className="mt-6 text-center text-xs text-charcoal/50">
-          Need an account? See <code>docs/ADMIN_GUIDE.md</code> for creating the first administrator.
-        </p>
       </div>
     </div>
   );
