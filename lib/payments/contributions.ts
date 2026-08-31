@@ -8,6 +8,7 @@ import {
   toMinor,
   type ContributionStatus,
 } from "@/lib/payments/constants";
+import { decideVerification } from "@/lib/payments/verification";
 
 // Re-exported so server callers have one import site for the whole payment API.
 export { CONTRIBUTION_PURPOSES, CONTRIBUTION_STATUSES, toMajor, toMinor };
@@ -120,9 +121,23 @@ export async function settleContribution(reference: string): Promise<SettleOutco
 
   const v = verification.data;
 
-  // Reference must match the row we are settling. Guards against a verification
-  // response for one transaction being applied to another.
-  if (v.reference !== contribution.reference) {
+  // The rules themselves live in verification.ts as a pure function, so each
+  // branch below is testable without a live provider or database.
+  const decision = decideVerification({
+    expected: {
+      reference: contribution.reference,
+      amountMinor: contribution.amount_minor,
+      currency: contribution.currency,
+    },
+    provider: {
+      reference: v.reference,
+      status: v.status,
+      amountMinor: v.amountMinor,
+      currency: v.currency,
+    },
+  });
+
+  if (decision.kind === "reference_mismatch") {
     await recordEvent({
       contributionId: contribution.id,
       eventType: "verification.reference_mismatch",
@@ -133,16 +148,10 @@ export async function settleContribution(reference: string): Promise<SettleOutco
     return { outcome: "failed", contribution, reason: "Payment could not be matched to this contribution." };
   }
 
-  if (v.status !== "success") {
-    // Paystack reports ongoing/pending states for some methods — notably a bank
-    // transfer the payer has not completed. Those are not failures, and telling
-    // someone to pay again would risk a duplicate payment.
-    const stillOpen = ["ongoing", "pending", "processing"].includes(v.status);
-    const next: ContributionStatus = stillOpen ? "pending" : v.status === "abandoned" ? "abandoned" : "failed";
-
+  if (decision.kind === "open" || decision.kind === "closed") {
     await supabase
       .from("contributions")
-      .update({ status: next, channel: v.channel, provider_reference: v.reference })
+      .update({ status: decision.status, channel: v.channel, provider_reference: v.reference })
       .eq("id", contribution.id)
       .neq("status", "successful");
 
@@ -158,14 +167,12 @@ export async function settleContribution(reference: string): Promise<SettleOutco
       note: v.gatewayResponse,
     });
 
-    return stillOpen
+    return decision.kind === "open"
       ? { outcome: "pending", contribution, reason: v.gatewayResponse ?? "Payment not yet completed." }
       : { outcome: "failed", contribution, reason: v.gatewayResponse ?? "Payment was not completed." };
   }
 
-  // Amount and currency must match exactly. A short payment is not a successful
-  // contribution, and a mismatch is worth recording for a treasurer to look at.
-  if (v.amountMinor !== contribution.amount_minor || v.currency !== contribution.currency) {
+  if (decision.kind === "amount_mismatch") {
     await recordEvent({
       contributionId: contribution.id,
       eventType: "verification.amount_mismatch",
@@ -174,7 +181,7 @@ export async function settleContribution(reference: string): Promise<SettleOutco
       amountMinor: v.amountMinor,
       currency: v.currency,
       status: v.status,
-      note: `Expected ${contribution.amount_minor} ${contribution.currency}, provider reported ${v.amountMinor} ${v.currency}.`,
+      note: decision.note,
     });
     return {
       outcome: "failed",

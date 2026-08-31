@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { verifyWebhookSignature } from "@/lib/payments/paystack";
 import { hasProcessedEvent, recordEvent, settleContribution } from "@/lib/payments/contributions";
+import { paymentEventKey } from "@/lib/payments/constants";
 import { isPaystackConfigured } from "@/lib/env";
 
 /**
@@ -12,16 +13,6 @@ import { isPaystackConfigured } from "@/lib/env";
  */
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
-
-/**
- * Paystack does not always include an event id, so idempotency is keyed on a
- * deterministic value derived from the event type and the transaction
- * reference. Two deliveries of the same charge.success therefore collide on the
- * unique constraint in `payment_events` and the second is a no-op.
- */
-function eventKey(eventType: string, reference: string, providerId: unknown) {
-  return providerId ? `pk-${providerId}` : `${eventType}:${reference}`;
-}
 
 export async function POST(request: Request) {
   // The raw body is required: HMAC is computed over the exact bytes Paystack
@@ -41,7 +32,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "invalid_signature" }, { status: 401 });
   }
 
-  let event: { event?: string; id?: unknown; data?: Record<string, unknown> };
+  let event: { event?: string; data?: Record<string, unknown> };
   try {
     event = JSON.parse(rawBody);
   } catch {
@@ -58,7 +49,12 @@ export async function POST(request: Request) {
     return NextResponse.json({ received: true, handled: false }, { status: 200 });
   }
 
-  const key = eventKey(eventType, reference, event.id);
+  // Keyed only on fields Paystack documents: the event name, the transaction id
+  // and the reference. A retried delivery of the same event produces the same
+  // key and collides on the unique constraint, so it cannot settle twice.
+  const transactionId =
+    typeof data.id === "string" || typeof data.id === "number" ? data.id : null;
+  const key = paymentEventKey({ eventType, transactionId, reference });
 
   // Fast path for a redelivery. The unique constraint is still the real guard —
   // this only avoids re-verifying with Paystack unnecessarily.
