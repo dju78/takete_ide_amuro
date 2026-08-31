@@ -100,7 +100,9 @@ test.describe("Gallery after the archive import", () => {
   test("landmarks and placeholders are presented respectfully", async ({ page }) => {
     await page.goto("/gallery?category=Landmarks");
     await expect(page.getByText("Okuta Boro")).toBeVisible();
-    await expect(page.getByText("Authentic landmark photograph being verified")).toBeVisible();
+    // More than one landmark placeholder now carries this caption, so scope to
+    // the first rather than asserting it is unique.
+    await expect(page.getByText("Authentic landmark photograph being verified").first()).toBeVisible();
   });
 });
 

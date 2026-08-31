@@ -17,7 +17,7 @@ export function GalleryCard({
     return (
       <div
         className={cn(
-          "relative flex aspect-square w-full flex-col items-center justify-center overflow-hidden rounded-xl bg-purple-700 p-4 text-center text-white shadow-sm",
+          "relative flex aspect-square w-full flex-col items-center justify-center overflow-hidden rounded-xl bg-purple-700 p-2 text-center text-white shadow-sm sm:p-4",
           className,
         )}
       >
@@ -42,25 +42,25 @@ export function GalleryCard({
         {/* Inset gold frame */}
         <div
           aria-hidden="true"
-          className="absolute inset-2.5 rounded-lg border border-gold-500/35"
+          className="absolute inset-2 rounded-lg border border-gold-500/35 sm:inset-2.5"
         />
         {/* Footing */}
         <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-1 bg-community-green" />
 
-        <div className="relative z-10 flex flex-col items-center gap-1.5 px-2">
-          <span className="relative h-8 w-8 shrink-0 overflow-hidden rounded-full bg-ivory/95 ring-1 ring-gold-500/50">
+        <div className="relative z-10 flex flex-col items-center gap-1 px-1 sm:gap-1.5 sm:px-2">
+          <span className="relative h-6 w-6 shrink-0 overflow-hidden rounded-full bg-ivory/95 ring-1 ring-gold-500/50 sm:h-8 sm:w-8">
             <Image
               src="/images/takete-ide/tipu-emblem.png"
               alt=""
               fill
-              sizes="32px"
+              sizes="(min-width: 640px) 32px, 24px"
               className="object-contain p-0.5"
             />
           </span>
-          <span className="font-serif text-sm font-bold leading-tight text-white sm:text-base">
+          <span className="line-clamp-2 font-serif text-xs font-bold leading-tight text-white sm:text-base">
             {item.placeholder_title ?? item.title ?? "Takete-Ide Archive"}
           </span>
-          <span className="rounded-full bg-ivory/10 px-2 py-0.5 text-[0.65rem] font-medium text-gold-300 ring-1 ring-inset ring-ivory/15">
+          <span className="max-w-full truncate rounded-full bg-ivory/10 px-1.5 py-0.5 text-[0.6rem] font-medium text-gold-300 ring-1 ring-inset ring-ivory/15 sm:px-2 sm:text-[0.65rem]">
             {item.placeholder_subtitle ?? "Authentic photograph coming soon"}
           </span>
         </div>

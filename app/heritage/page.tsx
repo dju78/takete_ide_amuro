@@ -99,7 +99,7 @@ export default async function HeritagePage() {
               </p>
               <Link
                 href="/tipu/branches/ilorin"
-                className="mt-6 self-start text-sm font-semibold text-community-green hover:underline"
+                className="mt-6 inline-flex min-h-6 items-center self-start text-sm font-semibold text-community-green hover:underline"
               >
                 See the photographs and video →
               </Link>
@@ -136,7 +136,7 @@ export default async function HeritagePage() {
               </p>
               <Link
                 href="/takete-ide-day/cultural-attire"
-                className="mt-5 self-start text-sm font-semibold text-community-green hover:underline"
+                className="mt-5 inline-flex min-h-6 items-center self-start text-sm font-semibold text-community-green hover:underline"
               >
                 View the attire archive →
               </Link>
@@ -168,7 +168,7 @@ export default async function HeritagePage() {
             </div>
             <Link
               href="/gallery?category=Places+of+Worship"
-              className="mt-4 inline-block text-sm font-semibold text-community-green hover:underline"
+              className="mt-4 inline-flex min-h-6 items-center text-sm font-semibold text-community-green hover:underline"
             >
               All places of worship →
             </Link>
@@ -201,7 +201,7 @@ export default async function HeritagePage() {
             </div>
             <Link
               href="/gallery?category=Nature"
-              className="mt-4 inline-block text-sm font-semibold text-community-green hover:underline"
+              className="mt-4 inline-flex min-h-6 items-center text-sm font-semibold text-community-green hover:underline"
             >
               All landscape photographs →
             </Link>

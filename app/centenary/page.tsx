@@ -134,7 +134,7 @@ export default async function CentenaryPage() {
             </div>
             <Link
               href="/tipu/branches"
-              className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-community-green hover:underline"
+              className="mt-6 inline-flex min-h-6 items-center gap-1.5 text-sm font-semibold text-community-green hover:underline"
             >
               <Globe2 className="h-4 w-4" aria-hidden="true" />
               Explore Our Global Community →
@@ -164,7 +164,7 @@ export default async function CentenaryPage() {
               </p>
               {attire.length > 0 && (
                 <div className="mt-5 grid grid-cols-3 gap-2">
-                  {attire.slice(0, 3).map((item) => (
+                  {attire.filter((item) => !item.isPlaceholder).slice(0, 3).map((item) => (
                     <div key={item.id} className="relative aspect-square overflow-hidden rounded-xl">
                       <HeritageImage
                         src={item.src}
@@ -180,7 +180,7 @@ export default async function CentenaryPage() {
               )}
               <Link
                 href="/takete-ide-day/cultural-attire"
-                className="mt-5 inline-block text-sm font-semibold text-community-green hover:underline"
+                className="mt-5 inline-flex min-h-6 items-center text-sm font-semibold text-community-green hover:underline"
               >
                 View the attire archive →
               </Link>

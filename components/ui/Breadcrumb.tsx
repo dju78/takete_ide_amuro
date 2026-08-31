@@ -26,9 +26,11 @@ export function Breadcrumb({ items }: { items: Crumb[] }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      {/* min-h-6 on each link: breadcrumbs are standalone navigation, not links
+          inside a sentence, so they are not exempt from the minimum target size. */}
       <ol className="flex flex-wrap items-center gap-1.5 text-charcoal/60">
         <li>
-          <Link href="/" className="hover:text-purple-600">
+          <Link href="/" className="inline-flex min-h-6 items-center py-0.5 hover:text-purple-600">
             Home
           </Link>
         </li>
@@ -36,7 +38,7 @@ export function Breadcrumb({ items }: { items: Crumb[] }) {
           <li key={item.label} className="flex items-center gap-1.5">
             <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
             {item.href && i !== items.length - 1 ? (
-              <Link href={item.href} className="hover:text-purple-600">
+              <Link href={item.href} className="inline-flex min-h-6 items-center py-0.5 hover:text-purple-600">
                 {item.label}
               </Link>
             ) : (

@@ -90,7 +90,7 @@ export default async function CentenaryAttirePage() {
               </p>
               <Link
                 href="/centenary"
-                className="mt-3 inline-block text-sm font-semibold text-community-green hover:underline"
+                className="mt-3 inline-flex min-h-6 items-center text-sm font-semibold text-community-green hover:underline"
               >
                 About the Centenary →
               </Link>

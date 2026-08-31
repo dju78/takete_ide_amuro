@@ -58,7 +58,7 @@ export default async function ArchiveItemPage({ params }: Props) {
               </div>
             )}
             {item.file_url && (
-              <a href={item.file_url} className="mt-6 inline-block text-sm font-semibold text-community-green hover:underline">
+              <a href={item.file_url} className="mt-6 inline-flex min-h-6 items-center text-sm font-semibold text-community-green hover:underline">
                 Open / Download Original →
               </a>
             )}
