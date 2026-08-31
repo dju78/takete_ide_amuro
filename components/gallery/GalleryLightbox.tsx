@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { GalleryCard } from "@/components/cards/GalleryCard";
@@ -23,35 +23,49 @@ export function GalleryLightbox({
   /** Widest-breakpoint column count. Three suits a short set that would otherwise leave a hole. */
   columns?: 3 | 4;
 }) {
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const photoItems = items.filter((item) => !item.is_placeholder);
+  const [activeId, setActiveId] = useState<string | null>(null);
 
-  const close = useCallback(() => setActiveIndex(null), []);
-  const showPrev = useCallback(
-    () => setActiveIndex((i) => (i === null ? null : (i - 1 + items.length) % items.length)),
-    [items.length],
-  );
-  const showNext = useCallback(
-    () => setActiveIndex((i) => (i === null ? null : (i + 1) % items.length)),
-    [items.length],
-  );
+  const activeIndex = activeId !== null ? photoItems.findIndex((p) => p.id === activeId) : -1;
+  const active = activeIndex !== -1 ? photoItems[activeIndex] : null;
+
+  const close = () => setActiveId(null);
+  const showPrev = () => {
+    if (activeIndex === -1 || photoItems.length === 0) return;
+    const prevIdx = (activeIndex - 1 + photoItems.length) % photoItems.length;
+    setActiveId(photoItems[prevIdx].id);
+  };
+
+  const showNext = () => {
+    if (activeIndex === -1 || photoItems.length === 0) return;
+    const nextIdx = (activeIndex + 1) % photoItems.length;
+    setActiveId(photoItems[nextIdx].id);
+  };
 
   useEffect(() => {
-    if (activeIndex === null) return;
+    if (active === null) return;
     document.body.style.overflow = "hidden";
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") close();
-      if (e.key === "ArrowLeft") showPrev();
-      if (e.key === "ArrowRight") showNext();
+      if (e.key === "Escape") {
+        setActiveId(null);
+      }
+      if (e.key === "ArrowLeft" && activeIndex !== -1 && photoItems.length > 0) {
+        const prevIdx = (activeIndex - 1 + photoItems.length) % photoItems.length;
+        setActiveId(photoItems[prevIdx].id);
+      }
+      if (e.key === "ArrowRight" && activeIndex !== -1 && photoItems.length > 0) {
+        const nextIdx = (activeIndex + 1) % photoItems.length;
+        setActiveId(photoItems[nextIdx].id);
+      }
     };
     window.addEventListener("keydown", onKey);
     return () => {
       document.body.style.overflow = "";
       window.removeEventListener("keydown", onKey);
     };
-  }, [activeIndex, close, showPrev, showNext]);
+  }, [active, activeIndex, photoItems]);
 
   if (items.length === 0) return null;
-  const active = activeIndex !== null ? items[activeIndex] : null;
 
   return (
     <>
@@ -67,7 +81,7 @@ export function GalleryLightbox({
             <GalleryCard
               key={item.id}
               item={item}
-              onSelect={() => setActiveIndex(i)}
+              onSelect={() => setActiveId(item.id)}
               className={isLead ? "col-span-2 row-span-2" : undefined}
               sizes={
                 isLead

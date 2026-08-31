@@ -51,7 +51,7 @@ export default async function OralHistoryPage() {
                 </div>
                 <div>
                   <div className="flex flex-wrap items-center gap-3">
-                    <h2 className="font-serif text-xl font-bold text-purple-600">{history.interviewee}</h2>
+                    <h3 className="font-serif text-xl font-bold text-purple-600">{history.interviewee}</h3>
                     <VerificationBadge status={history.verification_status} />
                   </div>
                   <p className="mt-1 text-xs text-charcoal/50">

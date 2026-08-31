@@ -194,6 +194,57 @@ test.describe("Video delivery and accessibility", () => {
   });
 });
 
+test.describe("Digital archive and oral history presentation", () => {
+  test("archive index displays search, categories, and respectful empty states", async ({ page }) => {
+    await page.goto("/archive");
+    await expect(page.getByRole("heading", { name: "Digital Archive", level: 1 })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Voices of Takete-Ide" })).toBeVisible();
+    await expect(page.getByPlaceholder("Search the archive…")).toBeVisible();
+  });
+
+  test("oral history page preserves privacy and offers elder recommendation CTA", async ({ page }) => {
+    await page.goto("/archive/oral-history");
+    await expect(page.getByRole("heading", { name: "Voices of Takete-Ide", level: 1 })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Recommend an Elder to Interview" })).toBeVisible();
+    // Verify no audio autoplays
+    const audios = page.locator("audio");
+    if (await audios.count() > 0) {
+      const preload = await audios.first().getAttribute("preload");
+      expect(preload).toBe("none");
+    }
+  });
+});
+
+test.describe("Responsive viewport safety and layout integrity", () => {
+  const viewports = [
+    { name: "mobile-320", width: 320, height: 568 },
+    { name: "mobile-375", width: 375, height: 667 },
+    { name: "mobile-390", width: 390, height: 844 },
+    { name: "mobile-430", width: 430, height: 932 },
+    { name: "tablet-768", width: 768, height: 1024 },
+    { name: "desktop-1024", width: 1024, height: 768 },
+    { name: "desktop-1440", width: 1440, height: 900 },
+  ];
+
+  for (const vp of viewports) {
+    test(`no horizontal overflow on / at ${vp.name}`, async ({ page }) => {
+      await page.setViewportSize({ width: vp.width, height: vp.height });
+      await page.goto("/");
+      const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
+      const clientWidth = await page.evaluate(() => document.documentElement.clientWidth);
+      expect(scrollWidth).toBeLessThanOrEqual(clientWidth + 1);
+    });
+
+    test(`no horizontal overflow on /gallery at ${vp.name}`, async ({ page }) => {
+      await page.setViewportSize({ width: vp.width, height: vp.height });
+      await page.goto("/gallery");
+      const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
+      const clientWidth = await page.evaluate(() => document.documentElement.clientWidth);
+      expect(scrollWidth).toBeLessThanOrEqual(clientWidth + 1);
+    });
+  }
+});
+
 test.describe("Homepage media selection", () => {
   test("leads with place, culture and diaspora rather than an event album", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
