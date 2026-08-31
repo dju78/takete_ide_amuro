@@ -43,18 +43,18 @@ export const ARCHIVE_OVERVIEW_CARDS: ArchiveOverviewCard[] = [
     linkLabel: "View migration timeline",
   },
   {
-    title: "5. Landscape, Rivers & Hills",
+    title: "5. Traditional Institution & Confirmed Register",
     summary:
-      "Documents the prominent natural topography—Obasoro Hill, Oke Elegan, Oroke Agodi, Eba River, Owowo River, and sacred sanctuary sites.",
-    href: "/heritage",
-    linkLabel: "Explore landscape",
-  },
-  {
-    title: "6. Traditional Institution & Cultural Memory",
-    summary:
-      "Preserves the historical Olu’de register, the Takete-Ide Traditional Council structure, the Alamuro rotation, and praise traditions like Oríkì and the Community Anthem.",
+      "Preserves the 12-ruler historical Olu’de register with confirmed family and ward/compound affiliations, the Traditional Council, and the rotating Alamuro stool structure.",
     href: "/heritage/traditional-institution",
     linkLabel: "View traditional institution",
+  },
+  {
+    title: "6. Living Oral Heritage — Anthem & Oríkì",
+    summary:
+      "Preserves the verbatim Takete-Ide Community Anthem and Oríkì Agbagba Ide, celebrating divine deliverance, communal resilience, and the sacred memory of Agbagba Ide.",
+    href: "/heritage/takete-ide-anthem",
+    linkLabel: "Explore anthem & oríkì",
   },
 ];
 
@@ -77,24 +77,24 @@ export const RELATED_HERITAGE_LINKS = [
     href: "/centenary",
   },
   {
-    title: "Culture & Heritage",
-    description: "Festivals, attire, places of worship and community traditions.",
-    href: "/heritage",
+    title: "Community Anthem & Oríkì",
+    description: "Verbatim text of the Takete-Ide Anthem and Oríkì Agbagba Ide.",
+    href: "/heritage/takete-ide-anthem",
   },
   {
-    title: "Agbagba Ide",
+    title: "Traditional Institution",
+    description: "The Olu’de, confirmed ruler register, family/ward ties, and Amuro structure.",
+    href: "/heritage/traditional-institution",
+  },
+  {
+    title: "Agbagba Ide Tradition",
     description: "Sacred sanctuary, cultural memory and symbol of resilience.",
     href: "/heritage/agbagba-ide",
   },
   {
-    title: "Traditional Institution",
-    description: "The Olu’de, Council of Chiefs, and Amuro traditional structure.",
-    href: "/heritage/traditional-institution",
-  },
-  {
-    title: "Oríkì & Oral Heritage",
-    description: "Praise poetry and living cultural expressions.",
-    href: "/oriki",
+    title: "Culture & Heritage",
+    description: "Festivals, attire, places of worship and community traditions.",
+    href: "/heritage",
   },
   {
     title: "Landscape & Landmarks",

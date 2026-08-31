@@ -15,19 +15,26 @@ export const metadata: Metadata = {
     "Explore the supplied community historical account of the Olu’de, the Takete-Ide Traditional Council and the community’s place within the wider Amuro traditional structure.",
 };
 
-const MANUSCRIPT_OLUDE_REGISTER = [
-  "Olu’de Opalu",
-  "Olu’de Ide",
-  "Olu’de Oriko",
-  "Olu’de Atte Gbogori",
-  "Olu’de Orunmbe",
-  "Olu’de Obadofin Obere",
-  "Olu’de Obaba Omologun",
-  "Olu’de Obajemu Atepa",
-  "Olu’de Elewa",
-  "Olu’de Obajemu Ate",
-  "Olu’de Alufa Olukotun",
-  "Olu’de J.A. Fiki",
+export interface HistoricalOludeEntry {
+  number: number;
+  name: string;
+  family: string;
+  ward: string;
+}
+
+export const CONFIRMED_OLUDE_REGISTER: HistoricalOludeEntry[] = [
+  { number: 1, name: "Olu’de Opalu", family: "Atemayi", ward: "Oke-Ako" },
+  { number: 2, name: "Olu’de Ide", family: "Eseyintelu", ward: "Ile-Nla" },
+  { number: 3, name: "Olu’de Oriko", family: "Oriko", ward: "Osikegun" },
+  { number: 4, name: "Olu’de Atte Gbogori", family: "Atemesami", ward: "Osikegun" },
+  { number: 5, name: "Olu’de Orunmbe", family: "Eseyintelu", ward: "Osikegun" },
+  { number: 6, name: "Olu’de Obadofin Obere", family: "Atemeji", ward: "Oketaro" },
+  { number: 7, name: "Olu’de Obaba Omologun", family: "Atemeto", ward: "Oke-Oja" },
+  { number: 8, name: "Olu’de Obajemu Atepa", family: "Atemogbe", ward: "Oke-Oja" },
+  { number: 9, name: "Olu’de Elewa", family: "Eseyinmeleri", ward: "Osikegun" },
+  { number: 10, name: "Olu’de Obajemu Ate", family: "Atejagbo", ward: "Osikegun" },
+  { number: 11, name: "Olu’de Alufa Olukotun", family: "Atejaba", ward: "Oketaro" },
+  { number: 12, name: "Olu’de J.A. Fiki", family: "Atemayi", ward: "Oke-Oja" },
 ];
 
 export default async function TraditionalInstitutionPage() {
@@ -184,7 +191,7 @@ export default async function TraditionalInstitutionPage() {
             <div>
               <span className="inline-flex items-center gap-1.5 rounded-full bg-purple-100 px-3 py-0.5 text-xs font-semibold text-purple-800">
                 <ScrollText className="h-3.5 w-3.5" aria-hidden="true" />
-                Preserved Manuscript Names
+                Confirmed Source Mapping
               </span>
               <h2 className="mt-2 font-serif text-2xl font-bold text-purple-900 sm:text-3xl">
                 Historical Olu’de Register
@@ -194,23 +201,69 @@ export default async function TraditionalInstitutionPage() {
           </div>
 
           <p className="mt-4 text-xs italic leading-relaxed text-charcoal/70 sm:text-sm">
-            Names preserved in the supplied community historical manuscript. Sequence, spellings, family
-            associations and reign dates remain subject to traditional council/community verification.
+            The supplied community historical manuscript preserves a register of earlier Olu’des together with
+            their family and ward/compound affiliations. The row relationships reproduced here have been
+            confirmed by the project owner from the supplied source. Reign dates remain under ongoing documentation.
           </p>
 
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {MANUSCRIPT_OLUDE_REGISTER.map((name, index) => (
+          {/* Desktop Table */}
+          <div className="mt-8 hidden overflow-hidden rounded-2xl border border-purple-100 md:block">
+            <table className="w-full text-left text-sm">
+              <thead className="border-b border-purple-100 bg-purple-50/70 text-xs font-semibold uppercase text-purple-950">
+                <tr>
+                  <th scope="col" className="py-3.5 pl-6 pr-3">#</th>
+                  <th scope="col" className="py-3.5 px-3">Olu’de</th>
+                  <th scope="col" className="py-3.5 px-3">Family</th>
+                  <th scope="col" className="py-3.5 px-3">Ward / Compound</th>
+                  <th scope="col" className="py-3.5 pl-3 pr-6">Status</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-purple-50 text-charcoal/85">
+                {CONFIRMED_OLUDE_REGISTER.map((entry) => (
+                  <tr key={entry.number} className="hover:bg-purple-50/40 transition-colors">
+                    <td className="py-3 pl-6 pr-3 font-mono text-xs font-bold text-gold-700">
+                      {String(entry.number).padStart(2, "0")}
+                    </td>
+                    <td className="py-3 px-3 font-serif font-bold text-purple-950">{entry.name}</td>
+                    <td className="py-3 px-3 font-medium text-charcoal/80">{entry.family}</td>
+                    <td className="py-3 px-3">
+                      <span className="rounded-full bg-purple-50 px-2.5 py-0.5 text-xs font-medium text-purple-800">
+                        {entry.ward}
+                      </span>
+                    </td>
+                    <td className="py-3 pl-3 pr-6 text-xs text-charcoal/60">
+                      Reign dates under documentation
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Mobile Cards */}
+          <div className="mt-6 grid gap-3.5 md:hidden">
+            {CONFIRMED_OLUDE_REGISTER.map((entry) => (
               <div
-                key={index}
-                className="flex items-center gap-3.5 rounded-xl border border-purple-100 bg-purple-50/40 p-4 transition-all hover:bg-purple-50 hover:border-purple-200"
+                key={entry.number}
+                className="flex flex-col gap-2 rounded-xl border border-purple-100 bg-purple-50/40 p-4"
               >
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gold-500/20 font-serif text-xs font-bold text-purple-950">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <div>
-                  <h3 className="font-serif text-sm font-bold text-purple-950">{name}</h3>
-                  <p className="text-[11px] text-charcoal/60">Historic Olu’de Stool</p>
+                <div className="flex items-center justify-between">
+                  <span className="flex h-6 w-6 items-center justify-center rounded bg-gold-500/20 font-mono text-xs font-bold text-purple-950">
+                    {String(entry.number).padStart(2, "0")}
+                  </span>
+                  <span className="rounded-full bg-purple-100 px-2 py-0.5 text-[11px] font-medium text-purple-800">
+                    {entry.ward}
+                  </span>
                 </div>
+                <div>
+                  <h3 className="font-serif text-base font-bold text-purple-950">{entry.name}</h3>
+                  <p className="text-xs text-charcoal/70">
+                    Family: <span className="font-medium text-purple-900">{entry.family}</span>
+                  </p>
+                </div>
+                <p className="border-t border-purple-100/60 pt-2 text-[11px] italic text-charcoal/60">
+                  Reign dates under documentation
+                </p>
               </div>
             ))}
           </div>

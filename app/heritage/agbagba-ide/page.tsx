@@ -136,12 +136,19 @@ export default function AgbagbaIdePage() {
                   <p className="mt-2 text-xs leading-relaxed text-charcoal/75">
                     {AGBAGBA_IDE_TRADITION.associatedPraiseTraditions.editorialNote}
                   </p>
-                  <div className="mt-4">
+                  <div className="mt-4 flex flex-wrap items-center gap-3">
                     <Link
-                      href="/archive"
+                      href="/heritage/takete-ide-anthem"
                       className="inline-flex items-center gap-1.5 text-xs font-semibold text-purple-700 hover:underline"
                     >
-                      View the Digital Archive record →
+                      Read full verbatim Anthem &amp; Oríkì →
+                    </Link>
+                    <span className="text-charcoal/30">•</span>
+                    <Link
+                      href="/archive/takete-history-original"
+                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-purple-700 hover:underline"
+                    >
+                      View Archive record →
                     </Link>
                   </div>
                 </div>

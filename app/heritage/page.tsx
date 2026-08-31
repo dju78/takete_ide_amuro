@@ -263,6 +263,13 @@ export default async function HeritagePage() {
             tone="purple"
           />
           <IconCard
+            icon={Music4}
+            title="Community Anthem"
+            description="The preserved Takete-Ide Anthem and Oríkì Agbagba Ide in original Yoruba."
+            href="/heritage/takete-ide-anthem"
+            tone="gold"
+          />
+          <IconCard
             icon={Church}
             title="Our History"
             description="Origins, settlement, faith and the making of the community."

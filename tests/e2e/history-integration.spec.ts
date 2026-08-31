@@ -86,14 +86,47 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
       await expect(page.getByRole("heading", { name: "Anthem & Praise Traditions" })).toBeVisible();
       await expect(page.getByText(/Takete-Ide Community Anthem/i).first()).toBeVisible();
       await expect(page.getByText(/Oríkì Agbagba Ide/i).first()).toBeVisible();
+
+      // Links to anthem page
+      const anthemLink = page.getByRole("link", { name: /Read full verbatim Anthem & Oríkì/i });
+      await expect(anthemLink).toBeVisible();
+      await expect(anthemLink).toHaveAttribute("href", "/heritage/takete-ide-anthem");
     });
 
     test("heritage page surfaces Land, Water & Memory with authentic landscape photos and landmark list", async ({ page }) => {
       await page.goto("/heritage");
-      await expect(page.getByRole("link", { name: /Agbagba Ide/i })).toBeVisible();
+      await expect(page.locator('a[href="/heritage/agbagba-ide"]')).toBeVisible();
+      await expect(page.locator('a[href="/heritage/takete-ide-anthem"]')).toBeVisible();
       await expect(page.getByRole("heading", { name: "Land, Water & Memory" })).toBeVisible();
       await expect(page.getByText(/Obasoro, Oke Elegan, Oroke Agodi/i)).toBeVisible();
       await expect(page.getByText(/Eba, Owowo, Oga, Ibedo/i)).toBeVisible();
+    });
+  });
+
+  test.describe("Living Oral Heritage: Takete-Ide Community Anthem & Oríkì", () => {
+    test("renders anthem page with verbatim original Yoruba lyrics and distinct Oríkì", async ({ page }) => {
+      const res = await page.goto("/heritage/takete-ide-anthem");
+      expect(res?.status()).toBe(200);
+
+      // Hero
+      await expect(page.getByRole("heading", { name: "Takete-Ide Community Anthem", level: 1 })).toBeVisible();
+      await expect(page.getByText("Community Anthem / Preserved Oral Heritage")).toBeVisible();
+
+      // Verbatim Anthem lines
+      await expect(page.getByText("Takete Ide ilu olokiki, ngha tedo h’owo oke")).toBeVisible();
+      await expect(page.getByText("Ile nghin san ghun wara at’oyin").first()).toBeVisible();
+      await expect(page.getByText("Solo/ T’agbe Tahete Ide ga")).toBeVisible();
+      await expect(page.getByText("All/ T.agbe Takete Ide ga")).toBeVisible();
+
+      // Distinct Oríkì Agbagba Ide section
+      await expect(page.getByRole("heading", { name: "Oríkì Agbagba Ide" })).toBeVisible();
+      await expect(page.getByText("Oni e ha h’abe re ojo a pa")).toBeVisible();
+      await expect(page.getByText("A mi g’orun ghanghan l’ekikan")).toBeVisible();
+
+      // No invented translations
+      const bodyText = await page.innerText("body");
+      expect(bodyText).not.toContain("198×");
+      expect(bodyText).not.toContain("200×");
     });
   });
 
@@ -125,7 +158,8 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
       await expect(page.getByText("1. Takete-Idera — A Place of Comfort")).toBeVisible();
       await expect(page.getByText("2. Takete within Amuro & Okun")).toBeVisible();
       await expect(page.getByText("4. The Migration Journey")).toBeVisible();
-      await expect(page.getByText("6. Traditional Institution & Cultural Memory")).toBeVisible();
+      await expect(page.getByText("5. Traditional Institution & Confirmed Register")).toBeVisible();
+      await expect(page.getByText("6. Living Oral Heritage — Anthem & Oríkì")).toBeVisible();
 
       // Migration Sequence strip
       await expect(page.getByRole("heading", { name: "Historical Migration Sequence" })).toBeVisible();
@@ -139,7 +173,7 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
   });
 
   test.describe("Traditional Institution deep integration", () => {
-    test("traditional institution renders Olu'de introduction, Amuro structure, 13th ruler manuscript identification, and 12-ruler register", async ({ page }) => {
+    test("traditional institution renders Olu'de introduction, Amuro structure, 13th ruler manuscript identification, and confirmed 12-ruler register", async ({ page }) => {
       const res = await page.goto("/heritage/traditional-institution");
       expect(res?.status()).toBe(200);
 
@@ -156,14 +190,31 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
       // Manuscript identification of 13th Olu'de
       await expect(page.getByText("Manuscript Identification")).toBeVisible();
       await expect(page.getByRole("heading", { name: "Oba Philip Ebilakun (Manuscript Record)" })).toBeVisible();
-      await expect(page.getByText(/Current-status confirmation with the traditional institution remains pending/i)).toBeVisible();
 
-      // Historical Olu'de Register (12 rulers)
+      // Historical Olu'de Register (12 rulers with confirmed family & ward affiliations)
       await expect(page.getByRole("heading", { name: "Historical Olu’de Register" })).toBeVisible();
-      await expect(page.getByText("Olu’de Opalu")).toBeVisible();
-      await expect(page.getByText("Olu’de Ide")).toBeVisible();
-      await expect(page.getByText("Olu’de Oriko")).toBeVisible();
-      await expect(page.getByText("Olu’de J.A. Fiki")).toBeVisible();
+      
+      // Check individual confirmed entries
+      const expectedRulers = [
+        { name: "Olu’de Opalu", family: "Atemayi", ward: "Oke-Ako" },
+        { name: "Olu’de Ide", family: "Eseyintelu", ward: "Ile-Nla" },
+        { name: "Olu’de Oriko", family: "Oriko", ward: "Osikegun" },
+        { name: "Olu’de Atte Gbogori", family: "Atemesami", ward: "Osikegun" },
+        { name: "Olu’de Orunmbe", family: "Eseyintelu", ward: "Osikegun" },
+        { name: "Olu’de Obadofin Obere", family: "Atemeji", ward: "Oketaro" },
+        { name: "Olu’de Obaba Omologun", family: "Atemeto", ward: "Oke-Oja" },
+        { name: "Olu’de Obajemu Atepa", family: "Atemogbe", ward: "Oke-Oja" },
+        { name: "Olu’de Elewa", family: "Eseyinmeleri", ward: "Osikegun" },
+        { name: "Olu’de Obajemu Ate", family: "Atejagbo", ward: "Osikegun" },
+        { name: "Olu’de Alufa Olukotun", family: "Atejaba", ward: "Oketaro" },
+        { name: "Olu’de J.A. Fiki", family: "Atemayi", ward: "Oke-Oja" },
+      ];
+
+      for (const ruler of expectedRulers) {
+        await expect(page.getByText(ruler.name).first()).toBeVisible();
+        await expect(page.getByText(ruler.family).first()).toBeVisible();
+        await expect(page.getByText(ruler.ward).first()).toBeVisible();
+      }
 
       // No 198× or 200×
       const bodyText = await page.innerText("body");
@@ -174,7 +225,15 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
 
   test.describe("Site Search for historical topics", () => {
     test("finds key historical terms across public pages", async ({ page }) => {
-      for (const term of ["Takete-Idera", "Amuro-Odo", "Ilu-Oke", "Agbagba Ide", "Ileteju", "Traditional Institution"]) {
+      for (const term of [
+        "Takete-Idera",
+        "Amuro-Odo",
+        "Ilu-Oke",
+        "Agbagba Ide",
+        "Ileteju",
+        "Traditional Institution",
+        "Takete-Ide Anthem",
+      ]) {
         await page.goto(`/search?q=${encodeURIComponent(term)}`);
         await expect(page.getByText(/results? for/i)).toBeVisible();
         await expect(page.getByText(/No results for/i)).toHaveCount(0);
@@ -184,7 +243,16 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
 
   test.describe("Safeguards & Responsive Layout", () => {
     test("no internal editorial paths or unresolved ruler dates exposed publicly", async ({ page }) => {
-      for (const path of ["/our-story", "/centenary", "/heritage", "/heritage/agbagba-ide", "/heritage/traditional-institution", "/archive", "/archive/takete-history-original"]) {
+      for (const path of [
+        "/our-story",
+        "/centenary",
+        "/heritage",
+        "/heritage/agbagba-ide",
+        "/heritage/traditional-institution",
+        "/heritage/takete-ide-anthem",
+        "/archive",
+        "/archive/takete-history-original",
+      ]) {
         await page.goto(path);
         const bodyText = await page.innerText("body");
         expect(bodyText).not.toContain("content/history/editorial");
@@ -208,7 +276,14 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
 
       for (const vp of viewports) {
         await page.setViewportSize({ width: vp.width, height: vp.height });
-        for (const route of ["/our-story", "/centenary", "/heritage/agbagba-ide", "/heritage/traditional-institution", "/archive/takete-history-original"]) {
+        for (const route of [
+          "/our-story",
+          "/centenary",
+          "/heritage/agbagba-ide",
+          "/heritage/traditional-institution",
+          "/heritage/takete-ide-anthem",
+          "/archive/takete-history-original",
+        ]) {
           await page.goto(route);
           const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
           const clientWidth = await page.evaluate(() => document.documentElement.clientWidth);

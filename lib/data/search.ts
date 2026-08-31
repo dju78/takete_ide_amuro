@@ -115,6 +115,12 @@ const PAGE_INDEX: { title: string; href: string; excerpt: string; keywords: stri
     keywords: "agbagba ide sanctuary symbol cultural memory anthem oriki tradition history protection peace",
   },
   {
+    title: "Takete-Ide Community Anthem & Living Oral Heritage",
+    href: "/heritage/takete-ide-anthem",
+    excerpt: "The preserved Takete-Ide Community Anthem and Oríkì Agbagba Ide recorded verbatim from the canonical manuscript.",
+    keywords: "anthem takete-ide anthem oriki agbagba ide living oral heritage song lyrics poetry praise yoruba",
+  },
+  {
     title: "Kogi Quest",
     href: "/community/kogi-quest",
     excerpt: "Interactive knowledge and learning experience exploring Kogi State history, culture and places.",
