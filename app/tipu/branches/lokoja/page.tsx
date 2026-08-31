@@ -5,6 +5,7 @@ import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { HeritageImage } from "@/components/ui/HeritageImage";
 import { MediaGallery } from "@/components/media/MediaGallery";
+import { BranchActivity } from "@/components/tipu/BranchActivity";
 import { getCommunityMedia, mediaDateLabel } from "@/lib/data/community-media";
 import { EVENTS } from "@/lib/media/community-media";
 
@@ -99,6 +100,8 @@ export default async function LokojaBranchPage() {
             </section>
           )}
         </article>
+
+        <BranchActivity branchSlug="lokoja" />
 
         <p className="mt-12 text-xs text-charcoal/50">
           Photographs supplied by the Takete-Ide Progressive Union community archive. Individuals are not

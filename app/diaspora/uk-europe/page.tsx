@@ -4,6 +4,7 @@ import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { ButtonLink } from "@/components/ui/Button";
 import { HeritageImage } from "@/components/ui/HeritageImage";
+import { BranchActivity } from "@/components/tipu/BranchActivity";
 import { getCommunityMedia, mediaDateLabel } from "@/lib/data/community-media";
 import { EVENTS } from "@/lib/media/community-media";
 
@@ -89,6 +90,8 @@ export default async function UkEuropeChapterPage() {
             confirms them.
           </p>
         </div>
+
+        <BranchActivity branchSlug="uk-europe" />
 
         <div className="mt-12 rounded-3xl bg-white p-8 shadow-sm lg:p-10">
           <h2 className="font-serif text-2xl font-bold text-purple-600">

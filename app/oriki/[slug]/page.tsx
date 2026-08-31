@@ -87,6 +87,15 @@ export default async function OrikiDetailPage({ params }: Props) {
           </section>
         )}
 
+        {/* Said plainly, and without implying a recording exists: media is withheld
+            unless the performer or family confirmed consent for it to be archived. */}
+        {!audio && !video && (
+          <p className="mt-10 rounded-2xl bg-purple-50 px-5 py-4 text-sm leading-relaxed text-charcoal/70">
+            Recordings are published only where the performer or family has confirmed their consent. Where
+            no recording appears here, none has been cleared for publication.
+          </p>
+        )}
+
         {oriki.family && (
           <section className="mt-6 text-sm text-charcoal/70">
             <Link href={`/families/${oriki.family.slug}`} className="font-semibold text-purple-600 underline underline-offset-2">
