@@ -100,9 +100,46 @@ test.describe("Gallery after the archive import", () => {
   test("landmarks and placeholders are presented respectfully", async ({ page }) => {
     await page.goto("/gallery?category=Landmarks");
     await expect(page.getByText("Okuta Boro")).toBeVisible();
-    // More than one landmark placeholder now carries this caption, so scope to
-    // the first rather than asserting it is unique.
-    await expect(page.getByText("Authentic landmark photograph being verified").first()).toBeVisible();
+    await expect(page.getByText("Takete-Ide Town Hall")).toBeVisible();
+    await expect(page.getByText("Authentic current photograph coming soon")).toBeVisible();
+    await expect(page.getByText("Authentic landmark photograph being verified")).toBeVisible();
+  });
+
+  test("verified-place placeholders render with correct categories and distinct identities", async ({ page }) => {
+    // 1. Nature & Waterways
+    await page.goto("/gallery?category=Nature");
+    await expect(page.getByRole("button", { name: /Obasoro Hill/i })).toBeVisible();
+    await expect(page.getByRole("button", { name: /bank of the Eba River/i })).toBeVisible();
+    await expect(page.getByRole("button", { name: /Eba River.*in flow/i })).toBeVisible();
+    await expect(page.getByText("Ighoruku River")).toBeVisible();
+    await expect(page.getByText("Owowo River")).toBeVisible();
+    const riverPlaceholders = page.getByText("Authentic river photograph coming soon");
+    await expect(riverPlaceholders).toHaveCount(2);
+
+    // 2. Places of Worship
+    await page.goto("/gallery?category=Places+of+Worship");
+    await expect(page.getByRole("button", { name: /First Baptist Church/i })).toBeVisible();
+    await expect(page.getByRole("button", { name: /Church of God in Christ/i })).toBeVisible();
+    await expect(page.getByRole("button", { name: /ECWA/i })).toBeVisible();
+    await expect(page.getByText("First Apostolic Church, Takete-Ide")).toBeVisible();
+    await expect(page.getByText("Authentic community photograph coming soon")).toBeVisible();
+
+    // 3. Education
+    await page.goto("/gallery?category=Education");
+    await expect(page.getByText("Takete-Ide Primary School")).toBeVisible();
+    await expect(page.getByText("Government Day Secondary School, Takete-Ide")).toBeVisible();
+    const schoolPlaceholders = page.getByText("Authentic school photograph coming soon");
+    await expect(schoolPlaceholders).toHaveCount(2);
+  });
+
+  test("no authentic place image is reused for another distinct place", async ({ page }) => {
+    await page.goto("/gallery");
+    // Verify each authentic place image appears at most once in the gallery buttons
+    const imgSources = await page.locator("main .grid button img").evaluateAll((imgs) =>
+      imgs.map((i) => (i as HTMLImageElement).src),
+    );
+    const uniqueSources = new Set(imgSources);
+    expect(imgSources.length).toBe(uniqueSources.size);
   });
 });
 

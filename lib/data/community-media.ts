@@ -111,7 +111,7 @@ export async function getCommunityGalleryItems(category?: string): Promise<Galle
     object_position: m.objectPosition,
     is_placeholder: m.isPlaceholder,
     placeholder_title: m.title,
-    placeholder_subtitle: m.description,
+    placeholder_subtitle: m.verificationNote ?? m.description,
   }));
 }
 

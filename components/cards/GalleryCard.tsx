@@ -1,6 +1,31 @@
 import Image from "next/image";
+import { Building2, Church, GraduationCap, Waves } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { GalleryItem } from "@/types/content";
+
+function PlaceholderIcon({ category }: { category?: string }) {
+  if (category === "Places of Worship") {
+    return <Church className="h-3.5 w-3.5 text-purple-900 sm:h-4 sm:w-4" aria-hidden="true" />;
+  }
+  if (category === "Nature") {
+    return <Waves className="h-3.5 w-3.5 text-purple-900 sm:h-4 sm:w-4" aria-hidden="true" />;
+  }
+  if (category === "Education") {
+    return <GraduationCap className="h-3.5 w-3.5 text-purple-900 sm:h-4 sm:w-4" aria-hidden="true" />;
+  }
+  if (category === "Landmarks" || category === "Development") {
+    return <Building2 className="h-3.5 w-3.5 text-purple-900 sm:h-4 sm:w-4" aria-hidden="true" />;
+  }
+  return (
+    <Image
+      src="/images/takete-ide/tipu-emblem.png"
+      alt=""
+      fill
+      sizes="(min-width: 640px) 32px, 24px"
+      className="object-contain p-0.5"
+    />
+  );
+}
 
 export function GalleryCard({
   item,
@@ -48,14 +73,8 @@ export function GalleryCard({
         <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-1 bg-community-green" />
 
         <div className="relative z-10 flex flex-col items-center gap-1 px-1 sm:gap-1.5 sm:px-2">
-          <span className="relative h-6 w-6 shrink-0 overflow-hidden rounded-full bg-ivory/95 ring-1 ring-gold-500/50 sm:h-8 sm:w-8">
-            <Image
-              src="/images/takete-ide/tipu-emblem.png"
-              alt=""
-              fill
-              sizes="(min-width: 640px) 32px, 24px"
-              className="object-contain p-0.5"
-            />
+          <span className="relative flex h-6 w-6 shrink-0 items-center justify-center overflow-hidden rounded-full bg-ivory/95 ring-1 ring-gold-500/50 sm:h-8 sm:w-8">
+            <PlaceholderIcon category={item.category} />
           </span>
           <span className="line-clamp-2 font-serif text-xs font-bold leading-tight text-white sm:text-base">
             {item.placeholder_title ?? item.title ?? "Takete-Ide Archive"}
