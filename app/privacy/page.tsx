@@ -54,6 +54,33 @@ export default function PrivacyPage() {
             for further technical detail.
           </p>
 
+          <h2>Online Contributions and Payments</h2>
+          <p>
+            Where online contribution is available, payment is processed securely by{" "}
+            <strong>Paystack</strong>. Card and bank details are entered on Paystack&rsquo;s own secure
+            payment page, not on this website.{" "}
+            <strong>
+              Takete-Ide does not store your full card details, PIN or one-time password (OTP)
+            </strong>
+            , and this website will never ask you for them.
+          </p>
+          <p>
+            For each contribution we record the amount, currency, the purpose you selected, your email
+            address, your name and message if you choose to give them, a transaction reference, the
+            payment status, and the payment method reported by Paystack. We keep this so the union can
+            confirm and account for contributions received.
+          </p>
+          <p>
+            These records are visible only to the union&rsquo;s super administrators and treasurer, both
+            in the admin area and at the database level. They are not published, not listed publicly, and
+            not shared with anyone else.
+          </p>
+          <p>
+            Paystack processes your payment as an independent data controller under its own privacy
+            policy. If you contribute by direct bank transfer instead, no payment details reach this
+            website at all — the transfer happens entirely between you and your bank.
+          </p>
+
           <h2>Your Rights</h2>
           <p>
             You may request access to, correction of, or deletion of personal information you have
