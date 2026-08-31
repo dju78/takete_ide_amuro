@@ -44,7 +44,9 @@ callback URL, so a wrong value returns contributors to the wrong host after paym
 
 ## 3. Online Contributions (Paystack)
 
-The payment feature is **inert unless both Paystack keys are set**. With them unset the Support page
+Checkout is a server-side redirect to Paystack's own hosted page, so
+`PAYSTACK_SECRET_KEY` is the only key required — there is no publishable key to
+set. The payment feature is **inert unless it is set**. With them unset the Support page
 shows only Direct Bank Transfer, no checkout is exposed, and nothing errors — so the site is safe to
 deploy before payments are approved.
 
@@ -53,7 +55,6 @@ deploy before payments are approved.
 | Variable | Scope | Purpose |
 |---|---|---|
 | `PAYSTACK_SECRET_KEY` | **Server only** | Initialize and verify transactions; validate webhook signatures |
-| `NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY` | Public | Identifies the merchant to the browser |
 | `CONTRIBUTION_MIN_AMOUNT` | Optional | Minimum contribution in naira (default 100) |
 | `CONTRIBUTION_MAX_AMOUNT` | Optional | Maximum contribution in naira (default 5,000,000) |
 

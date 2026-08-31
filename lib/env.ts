@@ -22,7 +22,6 @@ export const env = {
   // Component. Only lib/payments/paystack.ts touches it, and that module is
   // marked server-only.
   paystackSecretKey: process.env.PAYSTACK_SECRET_KEY,
-  paystackPublicKey: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
 
   // Contribution bounds, in the currency's major unit (naira). Defaults are an
   // operational guard against typos and abuse, not a legal limit — the union can
@@ -32,17 +31,26 @@ export const env = {
 };
 
 /**
- * Online contributions require the secret key (to initialize and verify
- * server-side) and the public key (for the browser). Missing either disables the
- * online path entirely; the Direct Bank Transfer card is unaffected.
+ * Online contributions require the secret key and nothing else.
+ *
+ * This is a redirect flow: the server calls transaction/initialize with the
+ * secret key and the browser is sent to Paystack's own checkout, so no publishable
+ * key is ever needed. Gating on one would have made the feature depend on a
+ * variable that does nothing — a missing value disabling a payment path that
+ * would otherwise work perfectly.
+ *
+ * With the key unset the online path disappears entirely and the Direct Bank
+ * Transfer card is unaffected.
  */
-export const isPaystackConfigured = Boolean(env.paystackSecretKey && env.paystackPublicKey);
+export const isPaystackConfigured = Boolean(env.paystackSecretKey);
 
 /**
- * Paystack keys are self-describing: `sk_test_` / `pk_test_` versus `sk_live_` /
- * `pk_live_`. Deriving the mode from the key rather than a separate flag means a
- * test key can never be mistaken for production because someone forgot to flip a
- * variable.
+ * The secret key is self-describing, so the mode is derived from it rather than
+ * from a separate flag that someone could forget to flip.
+ *
+ * Anything that is not explicitly a live-prefixed key resolves to "test",
+ * including a malformed one — the failure mode of this comparison is to
+ * under-claim rather than to present a test deployment as production.
  */
 export const paystackMode: "test" | "live" | "unconfigured" = !env.paystackSecretKey
   ? "unconfigured"
