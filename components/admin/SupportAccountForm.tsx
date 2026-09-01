@@ -25,13 +25,23 @@ export function SupportAccountForm({ account }: { account?: AccountRow }) {
   return (
     <form action={formAction} className="flex flex-col gap-6" noValidate>
       {state.message && (
-        <p
-          className={`rounded-xl p-3 text-sm ${
+        <div
+          className={`flex items-center justify-between gap-3 rounded-xl p-3 text-sm ${
             state.status === "error" ? "bg-red-100 text-red-700" : "bg-green-600/10 text-green-700"
           }`}
         >
-          {state.message}
-        </p>
+          <span>{state.message}</span>
+          {state.status !== "error" && (
+            <a
+              href="/support"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium underline hover:text-green-900"
+            >
+              View public Support page →
+            </a>
+          )}
+        </div>
       )}
 
       <div className="flex gap-3 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm leading-relaxed text-red-900">

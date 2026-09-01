@@ -7,6 +7,7 @@ import { createClient } from "@/lib/supabase/server";
 import { requireStaff } from "@/lib/auth";
 import { logAudit } from "@/lib/data/admin";
 import { slugify } from "@/lib/utils";
+import { revalidateProjectPaths } from "@/lib/revalidation";
 import { flattenZodError, type AdminFormState } from "@/lib/zod-helpers";
 
 const categories = [
@@ -70,6 +71,7 @@ export async function createProjectAction(_prev: AdminFormState, formData: FormD
   const supabase = await createClient();
   if (!supabase) return { status: "error", message: "Supabase is not configured." };
 
+  const slug = parsed.data.slug || slugify(parsed.data.title);
   const { data, error } = await supabase.from("projects").insert({ ...toRow(parsed.data), created_by: user.id }).select("id").single();
   if (error || !data) return { status: "error", message: `Could not create project: ${error?.message ?? "unknown error"}` };
 
@@ -78,8 +80,7 @@ export async function createProjectAction(_prev: AdminFormState, formData: FormD
   }
 
   await logAudit(user.id, "create", "project", data.id, { title: parsed.data.title });
-  revalidatePath("/admin/projects");
-  revalidatePath("/development");
+  revalidateProjectPaths(slug);
   redirect("/admin/projects");
 }
 
@@ -90,6 +91,7 @@ export async function updateProjectAction(id: string, _prev: AdminFormState, for
   const supabase = await createClient();
   if (!supabase) return { status: "error", message: "Supabase is not configured." };
 
+  const slug = parsed.data.slug || slugify(parsed.data.title);
   const { error } = await supabase.from("projects").update(toRow(parsed.data)).eq("id", id);
   if (error) return { status: "error", message: `Could not update project: ${error.message}` };
 
@@ -101,8 +103,7 @@ export async function updateProjectAction(id: string, _prev: AdminFormState, for
   }
 
   await logAudit(user.id, "update", "project", id);
-  revalidatePath("/admin/projects");
-  revalidatePath("/development");
+  revalidateProjectPaths(slug);
   redirect("/admin/projects");
 }
 
@@ -112,8 +113,7 @@ export async function deleteProjectAction(id: string) {
   if (!supabase) return;
   await supabase.from("projects").delete().eq("id", id);
   await logAudit(user.id, "delete", "project", id);
-  revalidatePath("/admin/projects");
-  revalidatePath("/development");
+  revalidateProjectPaths();
 }
 
 const updateSchema = z.object({
@@ -139,6 +139,6 @@ export async function addProjectUpdateAction(projectId: string, _prev: AdminForm
 
   await logAudit(user.id, "create", "project_update", projectId);
   revalidatePath(`/admin/projects/${projectId}/edit`);
-  revalidatePath("/development");
+  revalidateProjectPaths();
   return { status: "idle" };
 }

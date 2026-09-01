@@ -15,6 +15,9 @@ export const metadata: Metadata = {
   description: "Community news, announcements and updates from Takete-Ide Amuro.",
 };
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 interface Props {
   searchParams: Promise<{ category?: string; q?: string }>;
 }

@@ -1,11 +1,11 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
 import { requireStaff } from "@/lib/auth";
 import { logAudit } from "@/lib/data/admin";
+import { revalidateTipuPaths } from "@/lib/revalidation";
 import { flattenZodError, type AdminFormState } from "@/lib/zod-helpers";
 
 const leaderSchema = z.object({
@@ -33,8 +33,7 @@ export async function createTipuLeaderAction(_prev: AdminFormState, formData: Fo
   if (error) return { status: "error", message: `Could not add leader: ${error.message}` };
 
   await logAudit(user.id, "create", "tipu_leadership", undefined, { full_name: parsed.data.full_name });
-  revalidatePath("/admin/tipu");
-  revalidatePath("/tipu");
+  revalidateTipuPaths();
   redirect("/admin/tipu");
 }
 
@@ -44,8 +43,7 @@ export async function deleteTipuLeaderAction(id: string) {
   if (!supabase) return;
   await supabase.from("tipu_leadership").delete().eq("id", id);
   await logAudit(user.id, "delete", "tipu_leadership", id);
-  revalidatePath("/admin/tipu");
-  revalidatePath("/tipu");
+  revalidateTipuPaths();
 }
 
 const announcementSchema = z.object({
@@ -70,8 +68,7 @@ export async function createTipuAnnouncementAction(_prev: AdminFormState, formDa
   if (error) return { status: "error", message: `Could not add announcement: ${error.message}` };
 
   await logAudit(user.id, "create", "tipu_announcement", undefined, { title: parsed.data.title });
-  revalidatePath("/admin/tipu");
-  revalidatePath("/tipu");
+  revalidateTipuPaths();
   redirect("/admin/tipu");
 }
 
@@ -81,13 +78,8 @@ export async function deleteTipuAnnouncementAction(id: string) {
   if (!supabase) return;
   await supabase.from("tipu_announcements").delete().eq("id", id);
   await logAudit(user.id, "delete", "tipu_announcement", id);
-  revalidatePath("/admin/tipu");
-  revalidatePath("/tipu");
+  revalidateTipuPaths();
 }
-
-// Branch create/update/delete moved to lib/actions/admin-tipu-branches.ts when
-// branches gained photographs, grouping, activity and dedicated pages — see
-// docs/TIPU_BRANCH_NETWORK.md.
 
 const documentSchema = z.object({
   title: z.string().trim().min(2, "Title is required."),
@@ -111,8 +103,7 @@ export async function createTipuDocumentAction(_prev: AdminFormState, formData: 
   if (error) return { status: "error", message: `Could not add document: ${error.message}` };
 
   await logAudit(user.id, "create", "tipu_document", undefined, { title: parsed.data.title });
-  revalidatePath("/admin/tipu");
-  revalidatePath("/tipu");
+  revalidateTipuPaths();
   redirect("/admin/tipu");
 }
 
@@ -122,6 +113,5 @@ export async function deleteTipuDocumentAction(id: string) {
   if (!supabase) return;
   await supabase.from("tipu_documents").delete().eq("id", id);
   await logAudit(user.id, "delete", "tipu_document", id);
-  revalidatePath("/admin/tipu");
-  revalidatePath("/tipu");
+  revalidateTipuPaths();
 }

@@ -11,6 +11,9 @@ export const metadata: Metadata = {
   description: "Photographs of community life, Takete-Ide Day, the traditional institution and development projects.",
 };
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 interface Props {
   searchParams: Promise<{ category?: string; year?: string }>;
 }

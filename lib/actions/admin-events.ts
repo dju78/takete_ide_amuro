@@ -7,6 +7,7 @@ import { createClient } from "@/lib/supabase/server";
 import { requireStaff } from "@/lib/auth";
 import { logAudit } from "@/lib/data/admin";
 import { slugify } from "@/lib/utils";
+import { revalidateEventPaths } from "@/lib/revalidation";
 import { flattenZodError, type AdminFormState } from "@/lib/zod-helpers";
 
 const contentStatuses = ["draft", "pending_review", "verified", "published", "archived"] as const;
@@ -47,8 +48,7 @@ export async function createEventAction(_prev: AdminFormState, formData: FormDat
   if (error || !data) return { status: "error", message: `Could not create event: ${error?.message ?? "unknown error"}` };
 
   await logAudit(user.id, "create", "event", data.id, { year: parsed.data.year });
-  revalidatePath("/admin/events");
-  revalidatePath("/takete-ide-day");
+  revalidateEventPaths(parsed.data.year);
   redirect("/admin/events");
 }
 
@@ -63,8 +63,7 @@ export async function updateEventAction(id: string, _prev: AdminFormState, formD
   if (error) return { status: "error", message: `Could not update event: ${error.message}` };
 
   await logAudit(user.id, "update", "event", id);
-  revalidatePath("/admin/events");
-  revalidatePath("/takete-ide-day");
+  revalidateEventPaths(parsed.data.year);
   redirect("/admin/events");
 }
 
@@ -74,8 +73,7 @@ export async function deleteEventAction(id: string) {
   if (!supabase) return;
   await supabase.from("events").delete().eq("id", id);
   await logAudit(user.id, "delete", "event", id);
-  revalidatePath("/admin/events");
-  revalidatePath("/takete-ide-day");
+  revalidateEventPaths();
 }
 
 const mediaSchema = z.object({
@@ -100,7 +98,7 @@ export async function addEventMediaAction(eventId: string, _prev: AdminFormState
 
   await logAudit(user.id, "create", "event_media", eventId);
   revalidatePath(`/admin/events/${eventId}/edit`);
-  revalidatePath("/takete-ide-day");
+  revalidateEventPaths();
   return { status: "idle" };
 }
 
@@ -111,5 +109,5 @@ export async function deleteEventMediaAction(eventId: string, mediaId: string) {
   await supabase.from("event_media").delete().eq("id", mediaId);
   await logAudit(user.id, "delete", "event_media", mediaId);
   revalidatePath(`/admin/events/${eventId}/edit`);
-  revalidatePath("/takete-ide-day");
+  revalidateEventPaths();
 }

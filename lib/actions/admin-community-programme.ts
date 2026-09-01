@@ -5,6 +5,7 @@ import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
 import { requireStaff, requireFinancialAdmin } from "@/lib/auth";
 import { logAudit } from "@/lib/data/admin";
+import { revalidateCentenaryPaths, revalidateSupportPaths } from "@/lib/revalidation";
 import { flattenZodError, type AdminFormState } from "@/lib/zod-helpers";
 
 /**
@@ -82,9 +83,7 @@ export async function saveSupportAccountAction(
     changed_by_role: user.role,
   });
 
-  revalidatePath("/support");
-  revalidatePath("/");
-  revalidatePath("/admin/support");
+  revalidateSupportPaths();
   return { status: "idle", message: "Account saved. The change has been recorded in the audit log." };
 }
 
@@ -103,9 +102,7 @@ export async function deactivateSupportAccountAction(id: string) {
     next: { is_active: false },
     changed_by_role: user.role,
   });
-  revalidatePath("/support");
-  revalidatePath("/");
-  revalidatePath("/admin/support");
+  revalidateSupportPaths();
 }
 
 // ── Centenary ───────────────────────────────────────────────────────────────
@@ -158,7 +155,7 @@ export async function updateCentenaryAction(
   if (error) return { status: "error", message: `Could not save: ${error.message}` };
 
   await logAudit(user.id, "update", "centenary_settings");
-  for (const path of ["/", "/centenary", "/tipu", "/takete-ide-day"]) revalidatePath(path);
+  revalidateCentenaryPaths();
   return { status: "idle", message: "Centenary details saved." };
 }
 

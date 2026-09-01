@@ -6,6 +6,7 @@ import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
 import { requireStaff } from "@/lib/auth";
 import { logAudit } from "@/lib/data/admin";
+import { revalidateInstitutionPaths } from "@/lib/revalidation";
 import { flattenZodError, type AdminFormState } from "@/lib/zod-helpers";
 
 const verificationStatuses = ["unverified", "oral_history", "community_tradition", "documentary_evidence", "verified", "disputed"] as const;
@@ -47,8 +48,7 @@ export async function createRulerAction(_prev: AdminFormState, formData: FormDat
   if (error || !data) return { status: "error", message: `Could not create: ${error?.message ?? "unknown error"}` };
 
   await logAudit(user.id, "create", "traditional_ruler", data.id, { full_name: parsed.data.full_name });
-  revalidatePath("/admin/traditional-institution");
-  revalidatePath("/heritage/traditional-institution");
+  revalidateInstitutionPaths();
   redirect("/admin/traditional-institution");
 }
 
@@ -63,8 +63,7 @@ export async function updateRulerAction(id: string, _prev: AdminFormState, formD
   if (error) return { status: "error", message: `Could not update: ${error.message}` };
 
   await logAudit(user.id, "update", "traditional_ruler", id);
-  revalidatePath("/admin/traditional-institution");
-  revalidatePath("/heritage/traditional-institution");
+  revalidateInstitutionPaths();
   redirect("/admin/traditional-institution");
 }
 
@@ -74,8 +73,7 @@ export async function deleteRulerAction(id: string) {
   if (!supabase) return;
   await supabase.from("traditional_rulers").delete().eq("id", id);
   await logAudit(user.id, "delete", "traditional_ruler", id);
-  revalidatePath("/admin/traditional-institution");
-  revalidatePath("/heritage/traditional-institution");
+  revalidateInstitutionPaths();
 }
 
 const councilSchema = z.object({
@@ -103,8 +101,7 @@ export async function createCouncilMemberAction(_prev: AdminFormState, formData:
   if (error) return { status: "error", message: `Could not create: ${error.message}` };
 
   await logAudit(user.id, "create", "traditional_council_member", undefined, { full_name: parsed.data.full_name });
-  revalidatePath("/admin/traditional-institution");
-  revalidatePath("/heritage/traditional-institution");
+  revalidateInstitutionPaths();
   redirect("/admin/traditional-institution");
 }
 
@@ -114,6 +111,5 @@ export async function deleteCouncilMemberAction(id: string) {
   if (!supabase) return;
   await supabase.from("traditional_council_members").delete().eq("id", id);
   await logAudit(user.id, "delete", "traditional_council_member", id);
-  revalidatePath("/admin/traditional-institution");
-  revalidatePath("/heritage/traditional-institution");
+  revalidateInstitutionPaths();
 }

@@ -1,12 +1,12 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
 import { requireStaff } from "@/lib/auth";
 import { logAudit } from "@/lib/data/admin";
 import { slugify } from "@/lib/utils";
+import { revalidateNewsPaths } from "@/lib/revalidation";
 
 const newsSchema = z
   .object({
@@ -96,7 +96,7 @@ export async function createNewsAction(_prev: AdminFormState, formData: FormData
   if (error || !data) return { status: "error", message: `Could not create article: ${error?.message ?? "unknown error"}` };
 
   await logAudit(user.id, "create", "news_article", data.id, { title: parsed.data.title });
-  revalidateNewsPaths();
+  revalidateNewsPaths(slug);
   redirect("/admin/news");
 }
 
@@ -120,11 +120,12 @@ export async function updateNewsAction(id: string, _prev: AdminFormState, formDa
       ? (explicitDate ?? (isNewlyPublished ? new Date().toISOString() : existing?.published_at))
       : null;
 
+  const slug = parsed.data.slug || slugify(parsed.data.title);
   const { error } = await supabase
     .from("news_articles")
     .update({
       ...editorialFields(parsed.data),
-      slug: parsed.data.slug || slugify(parsed.data.title),
+      slug,
       published_at: publishedAt,
     })
     .eq("id", id);
@@ -132,7 +133,7 @@ export async function updateNewsAction(id: string, _prev: AdminFormState, formDa
   if (error) return { status: "error", message: `Could not update article: ${error.message}` };
 
   await logAudit(user.id, "update", "news_article", id);
-  revalidateNewsPaths();
+  revalidateNewsPaths(slug);
   redirect("/admin/news");
 }
 
@@ -143,11 +144,6 @@ export async function deleteNewsAction(id: string) {
   await supabase.from("news_articles").delete().eq("id", id);
   await logAudit(user.id, "delete", "news_article", id);
   revalidateNewsPaths();
-}
-
-/** Every surface that lists news, so a publish or unpublish shows up at once. */
-function revalidateNewsPaths() {
-  for (const path of ["/admin/news", "/news", "/", "/tipu", "/centenary"]) revalidatePath(path);
 }
 
 function flat(error: z.ZodError) {

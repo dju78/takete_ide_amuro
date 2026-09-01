@@ -7,6 +7,7 @@ import { createClient } from "@/lib/supabase/server";
 import { requireStaff } from "@/lib/auth";
 import { logAudit } from "@/lib/data/admin";
 import { slugify } from "@/lib/utils";
+import { revalidateGalleryPaths } from "@/lib/revalidation";
 import { flattenZodError, type AdminFormState } from "@/lib/zod-helpers";
 
 const contentStatuses = ["draft", "pending_review", "verified", "published", "archived"] as const;
@@ -46,9 +47,7 @@ export async function createGalleryItemAction(_prev: AdminFormState, formData: F
   if (error || !data) return { status: "error", message: `Could not add photo: ${error?.message ?? "unknown error"}` };
 
   await logAudit(user.id, "create", "gallery_item", data.id);
-  revalidatePath("/admin/gallery");
-  revalidatePath("/gallery");
-  revalidatePath("/");
+  revalidateGalleryPaths();
   redirect("/admin/gallery");
 }
 
@@ -63,8 +62,7 @@ export async function updateGalleryItemAction(id: string, _prev: AdminFormState,
   if (error) return { status: "error", message: `Could not update photo: ${error.message}` };
 
   await logAudit(user.id, "update", "gallery_item", id);
-  revalidatePath("/admin/gallery");
-  revalidatePath("/gallery");
+  revalidateGalleryPaths();
   redirect("/admin/gallery");
 }
 
@@ -74,8 +72,7 @@ export async function deleteGalleryItemAction(id: string) {
   if (!supabase) return;
   await supabase.from("gallery_items").delete().eq("id", id);
   await logAudit(user.id, "delete", "gallery_item", id);
-  revalidatePath("/admin/gallery");
-  revalidatePath("/gallery");
+  revalidateGalleryPaths();
 }
 
 const albumSchema = z.object({

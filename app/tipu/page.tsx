@@ -28,6 +28,9 @@ export const metadata: Metadata = {
     "Connecting Takete-Ide people at home, across Nigeria and around the world in support of heritage, unity and community development.",
 };
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 /** Branches surfaced on the overview — media-backed first, then two representative others. */
 const FEATURED_ON_OVERVIEW = ["lokoja", "ilorin", "uk-europe", "abuja", "kaduna"];
 

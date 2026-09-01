@@ -23,6 +23,9 @@ export const metadata: Metadata = {
 export type { HistoricalOludeEntry };
 export { CONFIRMED_OLUDE_REGISTER };
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function TraditionalInstitutionPage() {
   const [rulers, council] = await Promise.all([getTraditionalRulers(), getTraditionalCouncil()]);
   const currentRuler = rulers.find((r) => r.is_current);
