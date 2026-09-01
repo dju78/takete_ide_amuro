@@ -226,11 +226,12 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
 
       // Amuro structure
       await expect(page.getByRole("heading", { name: "Takete-Ide within the Amuro Traditional Structure" })).toBeVisible();
-      await expect(page.getByText(/Alamuro heads the wider Amuro Traditional Council/i)).toBeVisible();
+      await expect(page.getByText(/heads the wider Amuro Traditional Council/i)).toBeVisible();
 
-      // Manuscript identification of 13th Olu'de with authentic portrait
-      await expect(page.getByText("Manuscript Identification")).toBeVisible();
-      await expect(page.getByRole("heading", { name: "Oba Philip Ebilakun (Manuscript Record)" })).toBeVisible();
+      // Confirmed current 13th Olu'de with authentic portrait
+      await expect(page.getByText("Current Olu’de")).toBeVisible();
+      await expect(page.getByRole("heading", { name: "Oba Philip Ebilakun" })).toBeVisible();
+      await expect(page.getByText("The Olu’de of Takete-Ide (13th Olu’de)")).toBeVisible();
       await expect(page.getByAltText(/Portrait of Oba Philip Ebilakun in royal attire/i)).toBeVisible();
 
       // Historical Olu'de Register (12 rulers with confirmed family & ward affiliations)

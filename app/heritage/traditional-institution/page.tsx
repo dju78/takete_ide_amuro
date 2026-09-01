@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Users, Landmark, ScrollText } from "lucide-react";
+import { Users, Landmark, ScrollText, Crown } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -45,80 +45,83 @@ export default async function TraditionalInstitutionPage() {
       </div>
 
       <Container className="py-14 sm:py-16">
-        {/* Section 1: Introduction & Dignified Traditional Gathering Image */}
-        <section className="overflow-hidden rounded-3xl border border-purple-600/10 bg-white p-7 sm:p-10 shadow-sm lg:p-12">
-          <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
-            {/* Authentic Traditional & Community Dignitaries Image */}
-            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-purple-600/10 shadow-sm">
-              <HeritageImage
-                src="/images/takete-ide/heritage/traditional-dignitaries.png"
-                alt="Traditional and community leaders seated together in ceremonial attire at a Takete-Ide gathering"
-                label="Traditional &amp; Community Dignitaries"
-                fill
-                sizes="(min-width: 1024px) 45vw, 100vw"
-                className="object-cover"
-              />
-            </div>
-
-            <div>
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-purple-100 px-3 py-0.5 text-xs font-semibold text-purple-800">
-                <Landmark className="h-3.5 w-3.5" aria-hidden="true" />
-                Community Leadership
-              </span>
-              <h2 className="mt-3 font-serif text-2xl font-bold text-purple-900 sm:text-3xl">
-                The Olu’de and the Takete-Ide Traditional Council
-              </h2>
-              <p className="mt-4 text-base leading-relaxed text-charcoal/85">
-                According to the supplied community historical account, traditional political leadership in
-                Takete-Ide resides in the Takete-Ide Traditional Council under the leadership of the Olu’de
-                and his Council of Chiefs.
+        {/* Section 1: Overview & Council */}
+        <section>
+          <SectionHeading
+            eyebrow="Governance"
+            title="The Olu’de and the Takete-Ide Traditional Council"
+            align="left"
+            className="mx-0"
+          />
+          <div className="mt-6 grid gap-8 lg:grid-cols-2 lg:items-center">
+            <div className="prose prose-purple text-charcoal/80">
+              <p className="text-base leading-relaxed sm:text-lg">
+                Traditional authority in Takete-Ide resides in the <strong>Takete-Ide Traditional Council</strong>,
+                presided over by the <strong>Olu’de</strong> in conjunction with his Council of Chiefs.
               </p>
-              <p className="mt-3 text-sm leading-relaxed text-charcoal/75">
-                As the custodian of native customs, communal values, and cultural heritage, the Olu’de
-                presides over traditional matters, fosters peace and cohesion, and represents Takete-Ide
-                within the wider traditional councils of the region.
+              <p className="mt-4 text-sm leading-relaxed text-charcoal/70">
+                The traditional stool serves as the principal custodian of community customs, historical memory,
+                peacekeeping, dispute settlement, and cultural continuity across all families and compounds.
+              </p>
+            </div>
+            <div className="overflow-hidden rounded-3xl border border-purple-600/10 bg-white p-2 shadow-sm">
+              <div className="relative aspect-[16/10] overflow-hidden rounded-2xl">
+                <HeritageImage
+                  src="/images/takete-ide/heritage/traditional-dignitaries.png"
+                  alt="Traditional and community leaders seated together in ceremonial attire at a Takete-Ide gathering"
+                  label="Traditional & Community Dignitaries"
+                  fill
+                  sizes="(min-width: 1024px) 45vw, 100vw"
+                  className="object-cover"
+                />
+              </div>
+              <p className="p-3 text-xs italic text-charcoal/60">
+                Community dignitaries and traditional leadership at a Takete-Ide gathering.
               </p>
             </div>
           </div>
         </section>
 
-        {/* Section 2: Takete within the Wider Amuro Traditional Structure */}
+        {/* Section 2: Takete within Amuro Structure */}
         <section className="mt-16 rounded-3xl border border-purple-600/10 bg-white p-7 sm:p-10 shadow-sm">
           <SectionHeading
-            eyebrow="Regional Structure"
+            eyebrow="Amuro Confederacy"
             title="Takete-Ide within the Amuro Traditional Structure"
             align="left"
             className="mx-0"
-            description="The relationship between local chieftaincy and the wider Amuro traditional council."
           />
-          <div className="mt-6 grid gap-6 md:grid-cols-2">
+          <div className="mt-6 grid gap-6 sm:grid-cols-2">
             <div className="rounded-2xl border border-purple-100 bg-purple-50/50 p-6">
-              <h3 className="font-serif text-lg font-bold text-purple-950">Local Autonomy &amp; Town Council</h3>
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-purple-700 text-white">
+                <Landmark className="h-5 w-5" aria-hidden="true" />
+              </div>
+              <h3 className="mt-4 font-serif text-lg font-bold text-purple-950">The Alamuro Stool</h3>
               <p className="mt-2 text-sm leading-relaxed text-charcoal/80">
-                The supplied community historical account states that each of the seven constituent
-                towns and villages of Amuro maintains its own traditional council presided over by an Oba,
-                overseeing internal cultural affairs and community harmony.
+                According to the supplied historical account, the paramount stool of the Amuro traditional
+                area is the <strong>Alamuro of Amuro</strong>, who heads the wider Amuro Traditional Council.
               </p>
             </div>
-            <div className="rounded-2xl border border-purple-100 bg-purple-50/50 p-6">
-              <h3 className="font-serif text-lg font-bold text-purple-950">The Alamuro of Amuro Land</h3>
+            <div className="rounded-2xl border border-gold-500/20 bg-gold-50/50 p-6">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gold-600 text-white">
+                <Users className="h-5 w-5" aria-hidden="true" />
+              </div>
+              <h3 className="mt-4 font-serif text-lg font-bold text-purple-950">Rotation &amp; Consensus</h3>
               <p className="mt-2 text-sm leading-relaxed text-charcoal/80">
-                The supplied account states that the Alamuro heads the wider Amuro Traditional Council.
-                According to the account, the creation of the Alamuro title is dated to 1934, with the stool
-                rotating among the seven Amuro settlements without a fixed tenure.
+                The Alamuro stool rotates among the traditional heads of the component towns in Amuro land,
+                preserving an enduring tradition of consensus, balance, and regional brotherhood.
               </p>
             </div>
           </div>
         </section>
 
-        {/* Section 3: Current Stool / Manuscript Identification */}
+        {/* Section 3: Current Stool / Confirmed Olu'de */}
         <section className="mt-16">
-          <SectionHeading eyebrow="The Stool" title="Current Leadership Status" align="left" className="mx-0" />
+          <SectionHeading eyebrow="The Stool" title="The Olu’de of Takete-Ide" align="left" className="mx-0" />
           <div className="mt-6">
             {currentRuler ? (
-              <div className="flex flex-col gap-4 rounded-2xl border border-purple-600/10 bg-white p-6 sm:flex-row sm:items-center">
+              <div className="flex flex-col gap-6 rounded-3xl border border-gold-500/20 bg-white p-6 shadow-sm sm:flex-row sm:items-center sm:p-8">
                 {currentRuler.photo_url && (
-                  <div className="relative h-28 w-28 shrink-0 overflow-hidden rounded-full">
+                  <div className="relative h-28 w-28 shrink-0 overflow-hidden rounded-2xl border border-gold-500/30 shadow-sm mx-auto sm:mx-0">
                     <HeritageImage
                       src={currentRuler.photo_url}
                       alt={currentRuler.full_name}
@@ -130,43 +133,54 @@ export default async function TraditionalInstitutionPage() {
                   </div>
                 )}
                 <div>
-                  <h3 className="font-serif text-xl font-bold text-purple-600">{currentRuler.full_name}</h3>
-                  <p className="text-sm text-charcoal/60">{currentRuler.regnal_title}</p>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-gold-100 px-3 py-0.5 text-xs font-semibold text-gold-900">
+                      <Crown className="h-3.5 w-3.5" aria-hidden="true" />
+                      Current Olu’de
+                    </span>
+                    <VerificationBadge status={currentRuler.verification_status} />
+                  </div>
+                  <h3 className="mt-2 font-serif text-2xl font-bold text-purple-950">{currentRuler.full_name}</h3>
+                  <p className="text-sm font-medium text-gold-800">{currentRuler.regnal_title || "The Olu’de of Takete-Ide"}</p>
                   {currentRuler.reign_start && (
-                    <p className="mt-1 text-sm text-charcoal/60">Reigning since {formatDate(currentRuler.reign_start)}</p>
+                    <p className="mt-1 text-xs text-charcoal/70">Reigning since {formatDate(currentRuler.reign_start)}</p>
                   )}
-                  <VerificationBadge status={currentRuler.verification_status} className="mt-2" />
+                  {currentRuler.biography && (
+                    <p className="mt-3 text-sm leading-relaxed text-charcoal/80">{currentRuler.biography}</p>
+                  )}
                 </div>
               </div>
             ) : (
-              <div className="rounded-2xl border border-gold-500/30 bg-gold-100/50 p-6 sm:p-8">
-                <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
-                  <div className="relative h-28 w-28 shrink-0 overflow-hidden rounded-2xl border border-gold-500/40 shadow-sm mx-auto sm:mx-0">
-                    <HeritageImage
-                      src="/images/takete-ide/heritage/oba-philip-ebilakun.png"
-                      alt="Portrait of Oba Philip Ebilakun in royal attire"
-                      label="Oba Philip Ebilakun"
-                      fill
-                      sizes="112px"
-                      className="object-cover"
-                    />
-                  </div>
-                  <div>
-                    <span className="text-xs font-bold uppercase tracking-wider text-gold-800">
-                      Manuscript Identification
+              <div className="flex flex-col gap-6 rounded-3xl border border-gold-500/30 bg-white p-6 shadow-sm sm:flex-row sm:items-center sm:p-8">
+                <div className="relative h-28 w-28 shrink-0 overflow-hidden rounded-2xl border border-gold-500/40 shadow-sm mx-auto sm:mx-0">
+                  <HeritageImage
+                    src="/images/takete-ide/heritage/oba-philip-ebilakun.png"
+                    alt="Portrait of Oba Philip Ebilakun in royal attire"
+                    label="Oba Philip Ebilakun"
+                    fill
+                    sizes="112px"
+                    className="object-cover"
+                  />
+                </div>
+                <div>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-gold-100 px-3 py-0.5 text-xs font-semibold text-gold-900">
+                      <Crown className="h-3.5 w-3.5" aria-hidden="true" />
+                      Current Olu’de
                     </span>
-                    <h3 className="mt-1 font-serif text-lg font-bold text-purple-950">
-                      Oba Philip Ebilakun (Manuscript Record)
-                    </h3>
-                    <p className="mt-2 text-sm leading-relaxed text-charcoal/85">
-                      The supplied historical manuscript identifies Oba Philip Ebilakun as the thirteenth
-                      Olu’de of Takete-Ide. Awaiting confirmation from the traditional council.
-                    </p>
-                    <p className="mt-2 text-xs italic text-charcoal/60">
-                      Current-status confirmation with the traditional institution remains pending and live
-                      status will be updated upon official verification.
-                    </p>
+                    <VerificationBadge status="verified" />
                   </div>
+                  <h3 className="mt-2 font-serif text-2xl font-bold text-purple-950">
+                    Oba Philip Ebilakun
+                  </h3>
+                  <p className="text-sm font-medium text-gold-800">
+                    The Olu’de of Takete-Ide (13th Olu’de)
+                  </p>
+                  <p className="mt-3 text-sm leading-relaxed text-charcoal/85">
+                    His Royal Highness Oba Philip Ebilakun reigns as the thirteenth Olu’de of Takete-Ide,
+                    presiding over the Takete-Ide Traditional Council in accordance with community custom,
+                    heritage preservation, and traditional governance.
+                  </p>
                 </div>
               </div>
             )}
