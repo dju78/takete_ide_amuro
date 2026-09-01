@@ -67,13 +67,12 @@ export default function GetInvolvedPage() {
         </div>
 
         <div className="mt-10 rounded-2xl border border-gold-500/30 bg-gold-100/50 p-6 text-sm text-charcoal/80">
-          Contributions to the union can be made today by direct bank transfer to its official account —
+          Contributions to the union can be made by direct bank transfer to its official account —
           see{" "}
           <Link href="/support" className="font-semibold text-purple-600 underline underline-offset-2">
             Support Takete-Ide
           </Link>
-          . Online card and bank payment is being prepared and will be announced here once it has been
-          tested and approved by the union.
+          .
         </div>
       </Container>
     </div>

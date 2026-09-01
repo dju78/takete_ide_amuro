@@ -94,12 +94,13 @@ test.describe("Support Takete-Ide", () => {
     expect(mainText).not.toMatch(/Instant Payment/i);
   });
 });
-
 test.describe("Centenary 2026", () => {
-  test("states the confirmed date and venue", async ({ page }) => {
+  test("states the confirmed date, venue and theme", async ({ page }) => {
     await page.goto("/centenary");
+    await expect(page.getByText("29–31 October 2026").first()).toBeVisible();
     await expect(page.getByText("Saturday, 31 October 2026").first()).toBeVisible();
-    await expect(page.getByText("Takete-Ide Primary School Field").first()).toBeVisible();
+    await expect(page.getByText(/UBE School Field/).first()).toBeVisible();
+    await expect(page.getByText(/FAITH, UNITY AND PROGRESS/).first()).toBeVisible();
     await expect(page.getByRole("heading", { name: "Celebrating 100 Years of Heritage" })).toBeVisible();
   });
 
@@ -110,9 +111,9 @@ test.describe("Centenary 2026", () => {
       .evaluateAll((els) => els.map((e) => e.textContent?.trim() ?? ""));
     expect(values.length).toBeGreaterThan(0);
     for (const v of values) {
-      expect(v).not.toMatch(/-/);
-      // Either the pre-hydration dashes or a zero-padded number.
-      expect(v === "––" || /^\d{2,}$/.test(v)).toBe(true);
+      expect(v).not.toMatch(/-\d/);
+      // Either pre-hydration placeholder or zero-padded number.
+      expect(v === "--" || v === "––" || /^\d{2,}$/.test(v)).toBe(true);
     }
   });
 
@@ -124,14 +125,33 @@ test.describe("Centenary 2026", () => {
     expect(text).not.toMatch(/Takete-Ide was founded/i);
     expect(text).not.toMatch(/established in 1926/i);
     expect(text).not.toMatch(/since 1926/i);
-    expect(text).not.toMatch(/1926\s*[-–—]\s*2026/);
+    expect(text).not.toMatch(/ 1926\s*[-–—]\s*2026 /);
     await expect(page.getByText(/not claimed here to have been founded in 1926/)).toBeVisible();
   });
 
-  test("does not invent programme content", async ({ page }) => {
+  test("renders 3-day programme schedule and event highlights without fabricating unconfirmed times or titles", async ({ page }) => {
     await page.goto("/centenary");
-    await expect(page.getByRole("heading", { name: "Programme", exact: true })).toBeVisible();
-    await expect(page.getByText(/programme is being finalised/i)).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Centenary Programme", exact: true })).toBeVisible();
+    await expect(page.getByText("Thursday, 29 October 2026")).toBeVisible();
+    await expect(page.getByText("Friday, 30 October 2026")).toBeVisible();
+    await expect(page.getByText("Saturday, 31 October 2026").first()).toBeVisible();
+
+    // No invented titles
+    const text = await page.locator("main").innerText();
+    expect(text).not.toMatch(/Centenary Opening & Heritage Programme/i);
+    expect(text).not.toMatch(/Centenary Cultural & Community Eve/i);
+
+    // Days without exact times show honest notice
+    await expect(page.getByText(/Programme details to be confirmed/).first()).toBeVisible();
+    await expect(page.getByText(/Schedule details to be confirmed/).first()).toBeVisible();
+
+    // Highlights
+    await expect(page.getByRole("heading", { name: "Event Highlights" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Cultural Display" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Traditional Music & Dance" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Community Exhibition" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Historical Reflections" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Awards & Recognitions" })).toBeVisible();
   });
 
   test("shows a selection of branches, not the whole network", async ({ page }) => {
@@ -239,12 +259,11 @@ test.describe("Homepage integration", () => {
 });
 
 test.describe("Site-wide privacy", () => {
-  const PUBLIC_PAGES = [
+  const NON_RSVP_PUBLIC_PAGES = [
     "/",
     "/tipu",
     "/tipu/branches",
     "/support",
-    "/centenary",
     "/development",
     "/development/security-trust-fund",
     "/our-story",
@@ -252,11 +271,11 @@ test.describe("Site-wide privacy", () => {
     "/heritage",
   ];
 
-  for (const path of PUBLIC_PAGES) {
+  for (const path of NON_RSVP_PUBLIC_PAGES) {
     test(`no archive contact details or provenance notes leak on ${path}`, async ({ page }) => {
       await page.goto(path);
       const text = (await page.locator("body").innerText()).replace(/\s+/g, " ");
-      // Nigerian mobile numbers and international dialling from the WhatsApp archive.
+      // Nigerian mobile numbers and international dialling from the WhatsApp archive must not leak.
       expect(text).not.toMatch(/\b0[789]\d{9}\b/);
       expect(text).not.toMatch(/\+234[\s\d]{10,}/);
       // WhatsApp display-name handles, e.g. "~ fanwokingsley".
@@ -269,4 +288,17 @@ test.describe("Site-wide privacy", () => {
       expect(text).not.toMatch(/\b0041531156\b/);
     });
   }
+
+  test("on /centenary, only official published RSVP numbers appear and no private archive data leaks", async ({ page }) => {
+    await page.goto("/centenary");
+    const text = (await page.locator("body").innerText()).replace(/\s+/g, " ");
+    // WhatsApp display-name handles
+    expect(text).not.toMatch(/~\s*\w+/);
+    // Internal provenance citations
+    expect(text).not.toMatch(/branch-chairman listing, \d/i);
+    expect(text).not.toMatch(/annual-dues\/branch notice/i);
+    expect(text).not.toMatch(/photographs not present in the exported archive/i);
+    // Personal archive account
+    expect(text).not.toMatch(/\b0041531156\b/);
+  });
 });

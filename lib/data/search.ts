@@ -63,8 +63,9 @@ const PAGE_INDEX: { title: string; href: string; excerpt: string; keywords: stri
   {
     title: "Takete-Ide Day & Centenary Celebration 2026",
     href: "/centenary",
-    excerpt: `Celebrating 100 years of heritage — ${CENTENARY.eventDateLabel} at the ${CENTENARY.venue}.`,
-    keywords: "centenary 100 years anniversary takete-ide day celebration 2026 homecoming festival",
+    excerpt: `Celebrating 100 years of heritage (29–31 October 2026) at ${CENTENARY.venue} — programme schedule, official invitation, dignitaries, guests, hosts and RSVP.`,
+    keywords:
+      "centenary 100 years anniversary takete-ide day celebration 2026 homecoming festival guests hosts chief launcher chairman of the day lady chairman royal host royal guest special guests rsvp invitation invitation materials ododo karimi faleke abejide olatunji onumoko nasir omole korede mangal olarunisola abubakar asiru idachaba bello jacob owoniyi ibeun michael ebilakun fiki fanwo",
   },
   {
     title: "Support Takete-Ide",
@@ -133,16 +134,10 @@ const PAGE_INDEX: { title: string; href: string; excerpt: string; keywords: stri
     keywords: "anthem takete-ide anthem oriki agbagba ide living oral heritage song lyrics poetry praise yoruba",
   },
   {
-    title: "Kogi Quest",
-    href: "/community/kogi-quest",
-    excerpt: "Interactive knowledge and learning experience exploring Kogi State history, culture and places.",
-    keywords: "kogi quest quiz learning trivia education community tool questions",
-  },
-  {
     title: "Culture & Heritage",
     href: "/heritage",
     excerpt: "Festivals, cultural dress, places of worship, landscape and community life.",
-    keywords: "culture heritage festival attire cloth worship landscape tradition egungun ogun okuta gboro",
+    keywords: "culture heritage festival attire cloth worship landscape tradition egungun ogun okuta gbooro okuta gboro igboruku gboruku",
   },
   {
     title: "Ate — Egungun Heritage",

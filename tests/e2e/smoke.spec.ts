@@ -58,6 +58,39 @@ test.describe("Public site smoke tests", () => {
     await page.goto("/families");
     await expect(page.getByRole("heading", { name: /Detailed Family Profiles Under Compilation/i })).toBeVisible();
   });
+
+  test("no public Kogi Quest link exists in navigation or footer", async ({ page }) => {
+    await page.goto("/");
+    await expect(page.locator("nav").getByText("Kogi Quest")).toHaveCount(0);
+    await expect(page.locator("footer").getByText("Kogi Quest")).toHaveCount(0);
+  });
+
+  test("homepage does not display broken weather unavailable block when unconfigured", async ({ page }) => {
+    await page.goto("/");
+    await expect(page.getByText("Weather temporarily unavailable")).toHaveCount(0);
+  });
+
+  test("homepage renders authentic Okuta Gbooro without placeholder tag", async ({ page }) => {
+    await page.goto("/");
+    const okutaImg = page.locator("img[src*='okuta-gboro'] >> visible=true").first();
+    await expect(okutaImg).toBeVisible();
+    await expect(page.getByText("authentic photograph being verified")).toHaveCount(0);
+  });
+
+  test("public site offers direct bank transfer and no active online payment checkout", async ({ page }) => {
+    await page.goto("/support");
+    await expect(page.getByRole("heading", { name: "Direct Bank Transfer" })).toBeVisible();
+    await expect(page.getByText("2023263187", { exact: true }).first()).toBeVisible();
+    await expect(page.getByRole("button", { name: /Pay Online|Pay with Card|Donate Online|Pay with Paystack/i })).toHaveCount(0);
+
+    await page.goto("/get-involved");
+    await expect(page.getByText(/Contributions to the union can be made by direct bank transfer/i)).toBeVisible();
+    await expect(page.getByRole("button", { name: /Pay Online|Pay with Card|Donate Online/i })).toHaveCount(0);
+
+    await page.goto("/terms");
+    await expect(page.getByRole("heading", { name: "Contributions" })).toBeVisible();
+    await expect(page.getByText(/Community contributions to the union.*direct bank transfer/i)).toBeVisible();
+  });
 });
 
 test.describe("Admin auth gate", () => {

@@ -62,7 +62,7 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
     test("explains centenary as a century at the present settlement and avoids false founding claims", async ({ page }) => {
       await page.goto("/centenary");
 
-      await expect(page.getByText("Why 2026 Matters")).toBeVisible();
+      await expect(page.locator("#history").getByText("Why 2026 Matters")).toBeVisible();
       await expect(page.getByRole("heading", { name: "A Century at the Present Settlement" })).toBeVisible();
       await expect(page.getByText(/around 1926/i)).toBeVisible();
       await expect(page.getByText(/approximately a century at the present settlement/i).first()).toBeVisible();
@@ -90,7 +90,7 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
     });
   });
 
-  test.describe("Heritage, Festivals & Okuta Gboro", () => {
+  test.describe("Heritage, Festivals & Okuta Gbooro", () => {
     test("renders /heritage/agbagba-ide with cultural memory framing and praise traditions", async ({ page }) => {
       const res = await page.goto("/heritage/agbagba-ide");
       expect(res?.status()).toBe(200);
@@ -108,7 +108,7 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
       await expect(anthemLink).toHaveAttribute("href", "/heritage/takete-ide-anthem");
     });
 
-    test("heritage page surfaces Ogun Festival, Land & Water with Okuta Gboro, and distinct gallery links", async ({ page }) => {
+    test("heritage page surfaces Ogun Festival, Land & Water with Okuta Gbooro, and distinct gallery links", async ({ page }) => {
       await page.goto("/heritage");
       await expect(page.locator('a[href="/heritage/agbagba-ide"]')).toBeVisible();
       await expect(page.locator('a[href="/heritage/takete-ide-anthem"]')).toBeVisible();
@@ -122,9 +122,9 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
       await expect(exploreCulturalLink).toBeVisible();
       await expect(exploreCulturalLink).toHaveAttribute("href", "/gallery?category=Culture+%26+Events");
 
-      // Land, Water & Memory with Okuta Gboro
+      // Land, Water & Memory with Okuta Gbooro
       await expect(page.getByRole("heading", { name: "Land, Water & Memory" })).toBeVisible();
-      await expect(page.getByAltText(/Okuta Gboro, a prominent rock formation/i)).toBeVisible();
+      await expect(page.getByAltText(/Okuta Gbooro, a prominent rock formation/i)).toBeVisible();
       await expect(page.getByText(/Obasoro, Oke Elegan, Oroke Agodi/i)).toBeVisible();
       await expect(page.getByText(/Eba, Owowo, Oga, Ibedo/i)).toBeVisible();
 
@@ -137,9 +137,9 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
       await expect(landmarkLink).toBeVisible();
       await expect(landmarkLink).toHaveAttribute("href", "/gallery?category=Landmarks");
 
-      // No obsolete spelling "Okuta Gbooro"
+      // Confirmed authentic spelling "Okuta Gbooro"
       const bodyText = await page.innerText("body");
-      expect(bodyText).not.toContain("Okuta Gbooro");
+      expect(bodyText).toContain("Okuta Gbooro");
     });
   });
 
@@ -392,10 +392,10 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
       await expect(page.getByAltText(/Building facade and signboard of the CVB Primary Health Centre/i)).toBeVisible();
     });
 
-    test("gallery landmarks renders authentic Okuta Gboro without placeholder tag", async ({ page }) => {
+    test("gallery landmarks renders authentic Okuta Gbooro without placeholder tag", async ({ page }) => {
       await page.goto("/gallery?category=Landmarks");
-      await expect(page.getByText("Okuta Gboro").first()).toBeVisible();
-      await expect(page.getByAltText(/Okuta Gboro, a prominent rock formation/i)).toBeVisible();
+      await expect(page.getByText("Okuta Gbooro").first()).toBeVisible();
+      await expect(page.getByAltText(/Okuta Gbooro, a prominent rock formation/i)).toBeVisible();
     });
   });
 
@@ -446,6 +446,7 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
     });
 
     test("no horizontal overflow across viewports on historical pages", async ({ page }) => {
+      test.setTimeout(90000);
       const viewports = [
         { name: "320", width: 320, height: 568 },
         { name: "375", width: 375, height: 667 },

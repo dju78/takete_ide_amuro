@@ -24,9 +24,9 @@ export default async function HeritagePage() {
     getCommunityMedia({ category: "Culture & Events", mediaType: "image" }),
   ]);
   const newYamLead = newYam.find((m) => m.id === "new-yam-ilorin-full-group");
-  const okutaGboro = landmarks.find((m) => m.id === "okuta-gbooro" || m.id === "okuta-gboro");
+  const okutaGbooro = landmarks.find((m) => m.id === "okuta-gbooro" || m.id === "okuta-gboro");
   const landscapeMedia = [
-    ...(okutaGboro ? [okutaGboro] : []),
+    ...(okutaGbooro ? [okutaGbooro] : []),
     ...nature.filter((m) => m.id !== "okuta-gbooro" && m.id !== "okuta-gboro"),
   ].slice(0, 4);
 
@@ -236,7 +236,7 @@ export default async function HeritagePage() {
             <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-charcoal/70">
               <span><strong>Hills:</strong> Obasoro, Oke Elegan, Oroke Agodi</span>
               <span>•</span>
-              <span><strong>Waters:</strong> Eba, Owowo, Oga, Ibedo, Igan, Gboruku</span>
+              <span><strong>Waters:</strong> Eba, Owowo, Oga, Ibedo, Igan, Igboruku / Gboruku</span>
             </div>
             <div className="mt-4 flex flex-wrap items-center gap-4 text-xs font-semibold">
               <Link
@@ -321,7 +321,7 @@ export default async function HeritagePage() {
           <IconCard
             icon={Mountain}
             title="Landmarks"
-            description="Obasoro Hill, Okuta Gboro and the places that mark our land."
+            description="Obasoro Hill, Okuta Gbooro and the places that mark our land."
             href="/gallery?category=Landmarks"
             tone="gold"
           />

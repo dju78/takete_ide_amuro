@@ -156,7 +156,7 @@ export const OUR_STORY_SECTIONS: HistoricalSection[] = [
     sourceType: "community-historical-account",
     verificationStatus: "community-account",
     summary:
-      "During periods of renewed regional conflict involving Ibadan and Nupe campaigns, segments of the community moved deeper into the surrounding hills to Okeata near the Odede area, while other groups guarded established lines from Okuta Gboro to Oke Eba. As peace returned, families gradually converged toward agricultural lands.",
+      "During periods of renewed regional conflict involving Ibadan and Nupe campaigns, segments of the community moved deeper into the surrounding hills to Okeata near the Odede area, while other groups guarded established lines from Okuta Gbooro to Oke Eba. As peace returned, families gradually converged toward agricultural lands.",
     keyPoints: [
       "Upland terrain provided tactical retreats during peak regional turbulence.",
       "The Eseyin Meleri and Eseyin Telu lineages played key roles in defending and farming arable tracts.",

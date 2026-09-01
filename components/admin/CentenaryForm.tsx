@@ -29,17 +29,38 @@ export function CentenaryForm({ centenary }: { centenary: CentenaryDetails }) {
 
       <div className="grid gap-5 sm:grid-cols-2">
         <TextField
-          label="Event date"
+          label="Overall event period"
+          name="event_dates"
+          hint="e.g. “29–31 October 2026”"
+          defaultValue={centenary.eventDates}
+        />
+        <TextField
+          label="Celebration theme"
+          name="theme"
+          hint="e.g. “FAITH, UNITY AND PROGRESS”"
+          defaultValue={centenary.theme}
+        />
+      </div>
+
+      <div className="grid gap-5 sm:grid-cols-3">
+        <TextField
+          label="Main event date"
           name="event_date"
           type="date"
           hint="Drives the countdown"
           defaultValue={centenary.eventDate}
         />
         <TextField
-          label="Date label"
+          label="Main date label"
           name="event_time_label"
-          hint="How the date reads publicly, e.g. “Saturday, 31 October 2026”"
+          hint="e.g. “Saturday, 31 October 2026”"
           defaultValue={centenary.eventDateLabel}
+        />
+        <TextField
+          label="Main event time"
+          name="main_event_time"
+          hint="e.g. “10:00 AM Prompt”"
+          defaultValue={centenary.mainEventTime}
         />
       </div>
       <TextField label="Venue" name="venue" defaultValue={centenary.venue} />
