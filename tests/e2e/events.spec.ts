@@ -18,14 +18,14 @@ test.describe("Events", () => {
   test("the Centenary appears with its confirmed date and venue", async ({ page }) => {
     await page.goto("/events");
     await expect(page.getByText("Saturday, 31 October 2026").first()).toBeVisible();
-    await expect(page.getByText("Takete-Ide Primary School Field").first()).toBeVisible();
+    await expect(page.getByText(/UBE School Field/).first()).toBeVisible();
     await expect(page.getByRole("link", { name: /Centenary 2026/ }).first()).toBeVisible();
   });
 
   test("the Centenary is listed as upcoming, not archived", async ({ page }) => {
     await page.goto("/events");
     const upcoming = page.locator("section").filter({ hasText: "Upcoming Events" });
-    await expect(upcoming.getByText(/Centenary Celebration 2026/).first()).toBeVisible();
+    await expect(upcoming.getByText(/Centenary/i).first()).toBeVisible();
   });
 
   test("emits Event structured data using only confirmed fields", async ({ page }) => {
@@ -43,26 +43,24 @@ test.describe("Events", () => {
       .filter((n) => n["@type"] === "Event");
 
     expect(events.length).toBeGreaterThan(0);
-    const centenary = events.find((e) => String(e.name).includes("Centenary"));
+    const centenary = events.find((e) => String(e.name).toLowerCase().includes("centenary"));
     expect(centenary).toBeTruthy();
     expect(centenary.startDate).toBe("2026-10-31");
     expect(centenary.eventStatus).toBe("https://schema.org/EventScheduled");
-    expect(centenary.location?.name).toBe("Takete-Ide Primary School Field");
+    expect(centenary.location?.name).toMatch(/UBE School Field/);
 
-    // No start time is on record, so none may be published.
+    // Unconfirmed ticket/performer details are never fabricated.
     for (const e of events) {
-      expect(e.startTime).toBeUndefined();
       expect(e.doorTime).toBeUndefined();
       expect(e.offers).toBeUndefined();
       expect(e.performer).toBeUndefined();
     }
   });
 
-  test("invents no programme, performers or ticketing", async ({ page }) => {
+  test("invents no ticketing or performers", async ({ page }) => {
     await page.goto("/events");
     const text = (await page.locator("main").innerText()).replace(/\s+/g, " ");
     expect(text).not.toMatch(/buy tickets?|ticket price|admission fee|book now/i);
-    expect(text).not.toMatch(/\b\d{1,2}(:\d{2})?\s?(am|pm)\b/i);
     await expect(
       page.getByText(/Start times, programmes and guest details are published only once/),
     ).toBeVisible();

@@ -99,7 +99,7 @@ test.describe("Gallery after the archive import", () => {
 
   test("landmarks and placeholders are presented respectfully", async ({ page }) => {
     await page.goto("/gallery?category=Landmarks");
-    await expect(page.getByText("Okuta Gboro").first()).toBeVisible();
+    await expect(page.getByText("Okuta Gbooro").first()).toBeVisible();
     await expect(page.getByText("Takete-Ide Town Hall")).toBeVisible();
     await expect(page.getByText("Authentic current photograph coming soon")).toBeVisible();
   });
@@ -110,7 +110,7 @@ test.describe("Gallery after the archive import", () => {
     await expect(page.getByRole("button", { name: /Obasoro Hill/i })).toBeVisible();
     await expect(page.getByRole("button", { name: /bank of the Eba River/i })).toBeVisible();
     await expect(page.getByRole("button", { name: /Eba River.*in flow/i })).toBeVisible();
-    await expect(page.getByText("Ighoruku River")).toBeVisible();
+    await expect(page.getByText("Igboruku / Gboruku")).toBeVisible();
     await expect(page.getByText("Owowo River")).toBeVisible();
     const riverPlaceholders = page.getByText("Authentic river photograph coming soon");
     await expect(riverPlaceholders).toHaveCount(2);

@@ -2,9 +2,13 @@ import { createClient } from "@/lib/supabase/server";
 import {
   OFFICIAL_SUPPORT_ACCOUNT,
   CENTENARY,
+  CENTENARY_PROGRAMME,
+  CENTENARY_HIGHLIGHTS,
   SECURITY_TRUST_FUND,
   type SupportAccount,
   type CentenaryDetails,
+  type CentenaryProgrammeItem,
+  type CentenaryHighlight,
   type TrustFundReport,
 } from "@/lib/media/community-programme";
 import { formatCurrency } from "@/lib/utils";
@@ -61,12 +65,50 @@ export async function getCentenary(): Promise<CentenaryDetails> {
     ...CENTENARY,
     headline: data.headline || CENTENARY.headline,
     intro: data.intro || CENTENARY.intro,
+    eventDates: data.event_dates || CENTENARY.eventDates,
     eventDate: data.event_date || CENTENARY.eventDate,
     eventDateLabel: data.event_time_label || formatEventDate(data.event_date) || CENTENARY.eventDateLabel,
+    mainEventTime: data.main_event_time || CENTENARY.mainEventTime,
     venue: data.venue || CENTENARY.venue,
+    theme: data.theme || CENTENARY.theme,
     programmeStatus: data.programme_status || CENTENARY.programmeStatus,
     attireStatus: data.attire_status || CENTENARY.attireStatus,
   };
+}
+
+export async function getCentenaryProgramme(): Promise<CentenaryProgrammeItem[]> {
+  const supabase = await createClient();
+  if (!supabase) return CENTENARY_PROGRAMME;
+
+  const { data, error } = await supabase
+    .from("centenary_programmes")
+    .select("*")
+    .order("display_order", { ascending: true });
+
+  if (error || !data || data.length === 0) return CENTENARY_PROGRAMME;
+
+  return data.map((d) => ({
+    id: String(d.id),
+    title: d.title,
+    dayNumber: d.day_number ?? 1,
+    dayLabel: d.day_label ?? `Day ${d.day_number ?? 1}`,
+    date: d.date,
+    dateLabel: d.date_label || formatEventDate(d.date) || d.date,
+    startTime: d.start_time || undefined,
+    endTime: d.end_time || undefined,
+    timeLabel: d.time_label || (d.start_time ? `${d.start_time} Prompt` : undefined),
+    venue: d.venue || CENTENARY.venue,
+    description: d.description || undefined,
+    category: d.category || undefined,
+    theme: d.theme || undefined,
+    isGrandCelebration: Boolean(d.is_grand_celebration),
+    confirmed: Boolean(d.confirmed),
+    displayOrder: d.display_order ?? 1,
+  }));
+}
+
+export function getCentenaryHighlights(): CentenaryHighlight[] {
+  return CENTENARY_HIGHLIGHTS;
 }
 
 function formatEventDate(iso: string | null): string | null {

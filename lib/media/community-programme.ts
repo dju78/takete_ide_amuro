@@ -83,37 +83,158 @@ export interface CentenaryDetails {
   title: string;
   headline: string;
   intro: string;
-  /** ISO date. Confirmed: Saturday 31 October 2026. */
+  /** Overall event period, e.g. "29–31 October 2026". */
+  eventDates: string;
+  /** ISO date of the main celebration: "2026-10-31". */
   eventDate: string;
   eventDateLabel: string;
+  mainEventTime: string;
   venue: string;
+  theme: string;
+  motto?: string;
+  tagline?: string;
   programmeStatus: string;
   attireStatus: string;
 }
 
+export interface CentenaryProgrammeItem {
+  id: string;
+  title: string;
+  dayNumber: number;
+  dayLabel: string;
+  date: string;
+  dateLabel: string;
+  startTime?: string;
+  endTime?: string;
+  timeLabel?: string;
+  venue: string;
+  description?: string;
+  category?: string;
+  theme?: string;
+  isGrandCelebration?: boolean;
+  confirmed: boolean;
+  displayOrder: number;
+  status?: "scheduled" | "happening_now" | "completed";
+  isCompleted?: boolean;
+}
+
+export interface CentenaryHighlight {
+  id: string;
+  title: string;
+  description: string;
+  category: string;
+}
+
 /**
- * What the community has confirmed about the Centenary.
- *
- * Note what is *absent*: no founding year. The celebration is named as a
- * centenary, but the community archive nowhere states that Takete-Ide was
- * founded in 1926, and its own historical recollections describe events that
- * appear to predate that. What the centenary commemorates is an open question —
- * see docs/COMMUNITY_VERIFICATION.md — so the page marks the anniversary without
- * asserting a date of foundation.
+ * Confirmed Centenary details from the official invitation.
+ * Venue: UBE School Field, Takete-Ide, Mopamuro L.G.A., Kogi State.
+ * Overall event period: 29–31 October 2026.
+ * Invitation time: 10:00 AM Prompt (detailed daily timetable awaiting confirmation).
+ * Theme: FAITH, UNITY AND PROGRESS.
  */
 export const CENTENARY: CentenaryDetails = {
-  title: "Takete-Ide Day & Centenary Celebration 2026",
+  title: "TAKETE-IDE DAY & CENTENARY CELEBRATION 2026",
   headline: "Celebrating 100 Years of Heritage",
   intro:
-    "A historic gathering of Takete-Ide sons, daughters, families and friends celebrating heritage, unity and progress.",
+    "A historic celebration of Takete-Ide's heritage, faith, unity and progress.",
+  eventDates: "29–31 October 2026",
   eventDate: "2026-10-31",
   eventDateLabel: "Saturday, 31 October 2026",
-  venue: "Takete-Ide Primary School Field",
+  mainEventTime: "10:00 AM Prompt (Invitation time)",
+  venue: "UBE School Field, Takete-Ide, Mopamuro L.G.A., Kogi State",
+  theme: "FAITH, UNITY AND PROGRESS",
+  motto: "AGBAGBA IDE AGBE WA O",
+  tagline: "A CENTURY OF HERITAGE. A FUTURE OF GREATER GLORY.",
   programmeStatus:
-    "The full programme of events is being finalised by the Central Planning Committee and will be published here once approved.",
+    "Three historic days celebrating a century of Takete-Ide's heritage, unity and progress. Daily timetable awaiting confirmation by the Central Planning Committee.",
   attireStatus:
     "The official Centenary attire has not yet been confirmed for publication. Details will appear here once the organising committee releases them.",
 };
+
+/**
+ * Schedule data for the three-day Centenary Celebration (29–31 October 2026).
+ * Unconfirmed daily programme titles and session start times display honest notices
+ * and are configurable via the administration system.
+ */
+export const CENTENARY_PROGRAMME: CentenaryProgrammeItem[] = [
+  {
+    id: "centenary-day-1",
+    title: "Programme details to be confirmed",
+    dayNumber: 1,
+    dayLabel: "Day 1",
+    date: "2026-10-29",
+    dateLabel: "Thursday, 29 October 2026",
+    venue: "UBE School Field, Takete-Ide, Mopamuro L.G.A., Kogi State",
+    description:
+      "Detailed daily schedule and session start times to be confirmed by the Central Planning Committee.",
+    confirmed: true,
+    displayOrder: 1,
+  },
+  {
+    id: "centenary-day-2",
+    title: "Programme details to be confirmed",
+    dayNumber: 2,
+    dayLabel: "Day 2",
+    date: "2026-10-30",
+    dateLabel: "Friday, 30 October 2026",
+    venue: "UBE School Field, Takete-Ide, Mopamuro L.G.A., Kogi State",
+    description:
+      "Detailed daily schedule and session start times to be confirmed by the Central Planning Committee.",
+    confirmed: true,
+    displayOrder: 2,
+  },
+  {
+    id: "centenary-day-3-main-celebration",
+    title: "2026 Takete-Ide Day Centenary Celebration",
+    dayNumber: 3,
+    dayLabel: "Day 3 — Main Centenary Celebration",
+    date: "2026-10-31",
+    dateLabel: "Saturday, 31 October 2026",
+    venue: "UBE School Field, Takete-Ide, Mopamuro L.G.A., Kogi State",
+    description:
+      "The flagship Centenary gathering featuring cultural displays, historical reflections, awards, recognitions and community development launch. Detailed programme information is awaiting confirmation.",
+    theme: "FAITH, UNITY AND PROGRESS",
+    isGrandCelebration: true,
+    confirmed: true,
+    displayOrder: 3,
+  },
+];
+
+/**
+ * Event Highlights from the official Centenary invitation.
+ */
+export const CENTENARY_HIGHLIGHTS: CentenaryHighlight[] = [
+  {
+    id: "cultural-display",
+    title: "Cultural Display",
+    description: "Celebrating Takete-Ide's cultural heritage.",
+    category: "Culture",
+  },
+  {
+    id: "traditional-music-dance",
+    title: "Traditional Music & Dance",
+    description: "Traditional performances celebrating the community's cultural identity.",
+    category: "Music & Performance",
+  },
+  {
+    id: "community-exhibition",
+    title: "Community Exhibition",
+    description: "A presentation of Takete-Ide's community heritage and development.",
+    category: "Exhibition",
+  },
+  {
+    id: "historical-reflections",
+    title: "Historical Reflections",
+    description: "Reflecting on 100 years of Takete-Ide history.",
+    category: "History",
+  },
+  {
+    id: "awards-recognitions",
+    title: "Awards & Recognitions",
+    description: "Recognising contributions to the community.",
+    category: "Civic Honour",
+  },
+];
 
 // ── Security Trust Fund ─────────────────────────────────────────────────────
 

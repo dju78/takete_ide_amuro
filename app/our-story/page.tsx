@@ -123,7 +123,7 @@ export default function OurStoryPage() {
                 The territory is naturally blessed with rich water bodies: visitors from the western axis
                 cross the <strong>Owowo River</strong>, those from the eastern axis cross the{" "}
                 <strong>Eba River (Omi Ebba)</strong>, and southern approaches meet the <strong>Oga</strong>,
-                alongside local streams such as Ibedo, Igan, Gboruku, Pandara, and Omi Loke.
+                alongside local streams such as Ibedo, Igan, Igboruku, also popularly called Gboruku, Pandara, and Omi Loke.
               </p>
             </SourcedSection>
           </section>

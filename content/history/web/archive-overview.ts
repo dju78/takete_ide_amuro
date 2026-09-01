@@ -103,7 +103,7 @@ export const RELATED_HERITAGE_LINKS = [
   },
   {
     title: "Landmarks",
-    description: "Okuta Gboro and key landscape landmarks marking the community's territory.",
+    description: "Okuta Gbooro and key landscape landmarks marking the community's territory.",
     href: "/gallery?category=Landmarks",
   },
 ];

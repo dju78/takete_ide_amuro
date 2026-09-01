@@ -31,13 +31,11 @@ test.describe("Support page — degrades safely without Paystack", () => {
     await expect(page.getByText("2023263187", { exact: true }).first()).toBeVisible();
   });
 
-  test("exposes no empty checkout when payment is unconfigured", async ({ page }) => {
+  test("exposes no online checkout form on the public support page", async ({ page }) => {
     await page.goto("/support");
-    // The heading is still offered honestly, but no amount field or pay button.
-    await expect(page.getByRole("heading", { name: "Make a Contribution" })).toBeVisible();
     await expect(page.getByLabel(/Contribution amount/)).toHaveCount(0);
     await expect(page.getByRole("button", { name: /Continue to secure payment/ })).toHaveCount(0);
-    await expect(page.getByText(/Online card and bank payment is being set up/)).toBeVisible();
+    await expect(page.getByRole("button", { name: /Pay Online|Pay with Card|Donate Online/i })).toHaveCount(0);
   });
 
   test("keeps the beneficiary warning and the copy control", async ({ page, context }) => {
@@ -178,22 +176,20 @@ test.describe("Financial access control", () => {
 });
 
 test.describe("Privacy disclosure", () => {
-  test("states how payment data is handled without overclaiming", async ({ page }) => {
+  test("states how direct bank transfers and contribution records are handled", async ({ page }) => {
     await page.goto("/privacy");
-    await expect(page.getByRole("heading", { name: "Online Contributions and Payments" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Community Contributions" })).toBeVisible();
     await expect(
-      page.getByText(/does not store your full card details, PIN or one-time password/i),
+      page.getByText(/Community contributions to the union are made by direct bank transfer/i),
     ).toBeVisible();
-    await expect(page.getByText(/processed securely by/i).first()).toBeVisible();
     const text = await page.locator("main").innerText();
     expect(text).not.toMatch(/we store your card|card details are stored/i);
   });
 
-  test("Get Involved no longer says donations are disabled", async ({ page }) => {
+  test("Get Involved directs to Support for direct bank transfer", async ({ page }) => {
     await page.goto("/get-involved");
     const text = (await page.locator("main").innerText()).replace(/\s+/g, " ");
-    expect(text).not.toMatch(/donations are not yet enabled/i);
-    // Nor does it claim online payment is already live.
-    expect(text).toMatch(/being prepared/i);
+    expect(text).toMatch(/Contributions to the union can be made by direct bank transfer/i);
+    expect(text).not.toMatch(/donations are not yet enabled|online contribution payment is currently in testing/i);
   });
 });
