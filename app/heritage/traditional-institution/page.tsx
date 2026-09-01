@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Users, Landmark, ScrollText } from "lucide-react";
+import { Users, Landmark, ScrollText, Crown } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -111,14 +111,14 @@ export default async function TraditionalInstitutionPage() {
           </div>
         </section>
 
-        {/* Section 3: Current Stool / Manuscript Identification */}
+        {/* Section 3: Current Stool / Confirmed Olu'de */}
         <section className="mt-16">
-          <SectionHeading eyebrow="The Stool" title="Current Leadership Status" align="left" className="mx-0" />
+          <SectionHeading eyebrow="The Stool" title="The Olu’de of Takete-Ide" align="left" className="mx-0" />
           <div className="mt-6">
             {currentRuler ? (
-              <div className="flex flex-col gap-4 rounded-2xl border border-purple-600/10 bg-white p-6 sm:flex-row sm:items-center">
+              <div className="flex flex-col gap-6 rounded-3xl border border-gold-500/30 bg-white p-6 shadow-sm sm:flex-row sm:items-center sm:p-8">
                 {currentRuler.photo_url && (
-                  <div className="relative h-28 w-28 shrink-0 overflow-hidden rounded-full">
+                  <div className="relative h-28 w-28 shrink-0 overflow-hidden rounded-2xl border border-gold-500/40 shadow-sm mx-auto sm:mx-0">
                     <HeritageImage
                       src={currentRuler.photo_url}
                       alt={currentRuler.full_name}
@@ -130,43 +130,68 @@ export default async function TraditionalInstitutionPage() {
                   </div>
                 )}
                 <div>
-                  <h3 className="font-serif text-xl font-bold text-purple-600">{currentRuler.full_name}</h3>
-                  <p className="text-sm text-charcoal/60">{currentRuler.regnal_title}</p>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-gold-100 px-3 py-0.5 text-xs font-semibold text-gold-900">
+                      <Crown className="h-3.5 w-3.5" aria-hidden="true" />
+                      Current Olu’de
+                    </span>
+                    <span className="rounded-full bg-purple-100 px-2.5 py-0.5 text-xs font-medium text-purple-800">
+                      Community Confirmed
+                    </span>
+                  </div>
+                  <h3 className="mt-2 font-serif text-2xl font-bold text-purple-950">{currentRuler.full_name}</h3>
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm font-medium text-gold-800">
+                    <span>{currentRuler.regnal_title || "The Olu’de of Takete-Ide"}</span>
+                    <span>•</span>
+                    <span>13th Olu’de</span>
+                  </div>
                   {currentRuler.reign_start && (
-                    <p className="mt-1 text-sm text-charcoal/60">Reigning since {formatDate(currentRuler.reign_start)}</p>
+                    <p className="mt-1 text-xs text-charcoal/70">Reigning since {formatDate(currentRuler.reign_start)}</p>
                   )}
-                  <VerificationBadge status={currentRuler.verification_status} className="mt-2" />
+                  {currentRuler.biography && (
+                    <p className="mt-3 text-sm leading-relaxed text-charcoal/80">{currentRuler.biography}</p>
+                  )}
                 </div>
               </div>
             ) : (
-              <div className="rounded-2xl border border-gold-500/30 bg-gold-100/50 p-6 sm:p-8">
-                <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
-                  <div className="relative h-28 w-28 shrink-0 overflow-hidden rounded-2xl border border-gold-500/40 shadow-sm mx-auto sm:mx-0">
-                    <HeritageImage
-                      src="/images/takete-ide/heritage/oba-philip-ebilakun.png"
-                      alt="Portrait of Oba Philip Ebilakun in royal attire"
-                      label="Oba Philip Ebilakun"
-                      fill
-                      sizes="112px"
-                      className="object-cover"
-                    />
-                  </div>
-                  <div>
-                    <span className="text-xs font-bold uppercase tracking-wider text-gold-800">
-                      Manuscript Identification
+              <div className="flex flex-col gap-6 rounded-3xl border border-gold-500/30 bg-white p-6 shadow-sm sm:flex-row sm:items-center sm:p-8">
+                <div className="relative h-28 w-28 shrink-0 overflow-hidden rounded-2xl border border-gold-500/40 shadow-sm mx-auto sm:mx-0">
+                  <HeritageImage
+                    src="/images/takete-ide/heritage/oba-philip-ebilakun.png"
+                    alt="Portrait of Oba Philip Ebilakun in royal attire"
+                    label="Oba Philip Ebilakun"
+                    fill
+                    sizes="112px"
+                    className="object-cover"
+                  />
+                </div>
+                <div>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-gold-100 px-3 py-0.5 text-xs font-semibold text-gold-900">
+                      <Crown className="h-3.5 w-3.5" aria-hidden="true" />
+                      Current Olu’de
                     </span>
-                    <h3 className="mt-1 font-serif text-lg font-bold text-purple-950">
-                      Oba Philip Ebilakun (Manuscript Record)
-                    </h3>
-                    <p className="mt-2 text-sm leading-relaxed text-charcoal/85">
-                      The supplied historical manuscript identifies Oba Philip Ebilakun as the thirteenth
-                      Olu’de of Takete-Ide. Awaiting confirmation from the traditional council.
-                    </p>
-                    <p className="mt-2 text-xs italic text-charcoal/60">
-                      Current-status confirmation with the traditional institution remains pending and live
-                      status will be updated upon official verification.
-                    </p>
+                    <span className="rounded-full bg-purple-100 px-2.5 py-0.5 text-xs font-medium text-purple-800">
+                      Community Confirmed
+                    </span>
                   </div>
+                  <h3 className="mt-2 font-serif text-2xl font-bold text-purple-950">
+                    Oba Philip Ebilakun
+                  </h3>
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm font-medium text-gold-800">
+                    <span>The Olu’de of Takete-Ide</span>
+                    <span>•</span>
+                    <span>13th Olu’de</span>
+                  </div>
+                  <p className="mt-3 text-sm leading-relaxed text-charcoal/85">
+                    Community information confirms Oba Philip Ebilakun as the current Olu’de of Takete-Ide.
+                    The supplied historical manuscript also identifies him as the thirteenth Olu’de in the
+                    recorded succession.
+                  </p>
+                  <p className="mt-2 text-sm leading-relaxed text-charcoal/75">
+                    As Olu’de, he heads the Takete-Ide Traditional Council within the community’s traditional
+                    governance structure.
+                  </p>
                 </div>
               </div>
             )}

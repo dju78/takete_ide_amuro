@@ -226,12 +226,20 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
 
       // Amuro structure
       await expect(page.getByRole("heading", { name: "Takete-Ide within the Amuro Traditional Structure" })).toBeVisible();
-      await expect(page.getByText(/Alamuro heads the wider Amuro Traditional Council/i)).toBeVisible();
+      await expect(page.getByText(/heads the wider Amuro Traditional Council/i)).toBeVisible();
 
-      // Manuscript identification of 13th Olu'de with authentic portrait
-      await expect(page.getByText("Manuscript Identification")).toBeVisible();
-      await expect(page.getByRole("heading", { name: "Oba Philip Ebilakun (Manuscript Record)" })).toBeVisible();
+      // Confirmed current 13th Olu'de with authentic portrait & community confirmation
+      await expect(page.getByText("Current Olu’de", { exact: true })).toBeVisible();
+      await expect(page.getByText("Community Confirmed")).toBeVisible();
+      await expect(page.getByRole("heading", { name: "Oba Philip Ebilakun" })).toBeVisible();
+      await expect(page.getByText("The Olu’de of Takete-Ide").first()).toBeVisible();
+      await expect(page.getByText("13th Olu’de").first()).toBeVisible();
       await expect(page.getByAltText(/Portrait of Oba Philip Ebilakun in royal attire/i)).toBeVisible();
+
+      // Ensure old pending wording is completely absent
+      const pageText = await page.innerText("body");
+      expect(pageText).not.toContain("Awaiting confirmation from the traditional council");
+      expect(pageText).not.toContain("Current-status confirmation with the traditional institution remains pending");
 
       // Historical Olu'de Register (12 rulers with confirmed family & ward affiliations)
       await expect(page.getByRole("heading", { name: "Historical Olu’de Register" })).toBeVisible();
