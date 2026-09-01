@@ -33,6 +33,10 @@ jobs:
 
       - name: Production build
         run: npm run build
+        env:
+          NEXT_TELEMETRY_DISABLED: 1
 
       - name: Run Playwright tests
         run: npx playwright test
+        env:
+          CI: true
