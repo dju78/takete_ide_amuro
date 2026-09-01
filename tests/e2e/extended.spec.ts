@@ -31,7 +31,7 @@ test.describe("Primary navigation", () => {
       ["Community", "The TIPU Network"],
       ["News & Events", "Takete-Ide Day"],
       ["Centenary 2026", "Cultural Attire"],
-      ["Support", "Security Trust Fund"],
+      ["Support", "Support Takete-Ide"],
     ] as const) {
       await primaryNav.getByRole("button", { name: group, exact: true }).hover();
       await expect(

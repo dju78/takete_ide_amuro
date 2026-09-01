@@ -212,6 +212,6 @@ export async function updateTrustFundAction(
     next: { target_amount: d.target_amount, amount_paid: d.amount_paid, as_of: d.as_of },
     changed_by_role: user.role,
   });
-  for (const path of ["/support", "/development", "/development/security-trust-fund"]) revalidatePath(path);
+  for (const path of ["/support", "/development"]) revalidatePath(path);
   return { status: "idle", message: "Fund figures saved." };
 }

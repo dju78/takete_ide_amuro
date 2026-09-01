@@ -7,8 +7,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { ButtonLink } from "@/components/ui/Button";
 import { SupportAccountCard } from "@/components/community/SupportAccountCard";
-import { FundProgress } from "@/components/community/FundProgress";
-import { getSupportAccount, getSecurityTrustFund } from "@/lib/data/community-programme";
+import { getSupportAccount } from "@/lib/data/community-programme";
 import { SUPPORT_PURPOSES } from "@/lib/media/community-programme";
 
 export const metadata: Metadata = {
@@ -18,7 +17,7 @@ export const metadata: Metadata = {
 };
 
 export default async function SupportPage() {
-  const [account, fund] = await Promise.all([getSupportAccount(), getSecurityTrustFund()]);
+  const account = await getSupportAccount();
 
   return (
     <div className="bg-ivory">
@@ -68,27 +67,13 @@ export default async function SupportPage() {
           </div>
         </div>
 
-        {/* The one fund with published figures, so it is the one shown with a target. */}
-        <section className="mt-16">
-          <SectionHeading
-            eyebrow="Current community fund"
-            title="Where support is going"
-            align="left"
-            className="mx-0"
-            description="The Security Trust Fund is the community fund with published figures. Its position is reported by the union to its branches."
-          />
-          <div className="mt-8">
-            <FundProgress fund={fund} />
-          </div>
-        </section>
-
         <section className="mt-16">
           <SectionHeading
             eyebrow="Approved areas"
             title="What your support goes towards"
             align="left"
             className="mx-0"
-            description="Areas the union directs community support towards. Except where a fund is shown above with published figures, these are ongoing areas of work rather than active campaigns with targets."
+            description="Areas the union directs community support towards. These are ongoing areas of work rather than active campaigns with targets."
           />
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {SUPPORT_PURPOSES.map((purpose) => (

@@ -307,7 +307,7 @@ export default async function HomePage() {
           />
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             <IconCard icon={Route} title="Roads & Infrastructure" description="Improving access roads and bridges that connect Takete-Ide with neighbouring communities." href="/development" />
-            <IconCard icon={ShieldCheck} title="Security" description="The community Security Trust Fund, raised across the union's branches." href="/development/security-trust-fund" tone="gold" />
+            <IconCard icon={ShieldCheck} title="Security" description="Community security initiatives to ensure peace and safety at home." href="/development" tone="gold" />
             <IconCard icon={GraduationCap} title="Education" description="Supporting schools and learning initiatives to empower our children." href="/education" tone="green" />
             <IconCard icon={HeartPulse} title="Healthcare" description="Advancing primary healthcare through community-driven efforts." href="/development" />
           </div>

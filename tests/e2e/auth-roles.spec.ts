@@ -90,7 +90,7 @@ test.describe("Public pages smoke test with shared database architecture", () =>
     "/archive/oral-history",
     "/oriki",
     "/support",
-    "/development/security-trust-fund",
+    "/development",
   ];
 
   for (const route of publicRoutes) {
