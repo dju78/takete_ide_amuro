@@ -123,7 +123,7 @@ test.describe("Admin", () => {
     await page.locator("#email").fill("test@example.com");
     await page.locator("#password").fill("password123");
     await page.getByRole("button", { name: "Sign In" }).click();
-    await expect(page.getByRole("alert")).toBeVisible({ timeout: 10000 });
+    await expect(page.locator("form [role='alert']")).toBeVisible({ timeout: 10000 });
   });
 
   test("admin settings and news routes also redirect unauthenticated visitors", async ({ page }) => {
@@ -140,8 +140,10 @@ test.describe("Families & Oríkì empty states", () => {
     await expect(page.getByText(/Oríkì archive is just beginning/)).toBeVisible();
   });
 
-  test("Traditional Institution shows an honest empty state for unconfirmed rulers", async ({ page }) => {
+  test("Traditional Institution displays confirmed current Olu'de Oba Philip Ebilakun", async ({ page }) => {
     await page.goto("/heritage/traditional-institution");
-    await expect(page.getByText(/Awaiting confirmation from the traditional council/)).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Oba Philip Ebilakun" })).toBeVisible();
+    await expect(page.getByText("Current Olu’de", { exact: true })).toBeVisible();
+    await expect(page.getByText("Community Confirmed")).toBeVisible();
   });
 });

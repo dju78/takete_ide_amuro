@@ -9,10 +9,11 @@
  * list of all Takete-Ide families or compounds.
  */
 
-export interface HistoricalRegisterEntry {
-  ruler: string;
+export interface HistoricalOludeEntry {
+  number: number;
+  name: string;
   family: string;
-  compound: string;
+  ward: string;
 }
 
 export interface DocumentedCompound {
@@ -31,19 +32,19 @@ export interface DocumentedFamily {
   recordType: "Historical manuscript record";
 }
 
-export const HISTORICAL_REGISTER_ROWS: HistoricalRegisterEntry[] = [
-  { ruler: "Olu’de Opalu", family: "Atemayi", compound: "Oke-Ako" },
-  { ruler: "Olu’de Ide", family: "Eseyintelu", compound: "Ile-Nla" },
-  { ruler: "Olu’de Oriko", family: "Oriko", compound: "Osikegun" },
-  { ruler: "Olu’de Atte Gbogori", family: "Atemesami", compound: "Osikegun" },
-  { ruler: "Olu’de Orunmbe", family: "Eseyintelu", compound: "Osikegun" },
-  { ruler: "Olu’de Obadofin Obere", family: "Atemeji", compound: "Oketaro" },
-  { ruler: "Olu’de Obaba Omologun", family: "Atemeto", compound: "Oke-Oja" },
-  { ruler: "Olu’de Obajemu Atepa", family: "Atemogbe", compound: "Oke-Oja" },
-  { ruler: "Olu’de Elewa", family: "Eseyinmeleri", compound: "Osikegun" },
-  { ruler: "Olu’de Obajemu Ate", family: "Atejagbo", compound: "Osikegun" },
-  { ruler: "Olu’de Alufa Olukotun", family: "Atejaba", compound: "Oketaro" },
-  { ruler: "Olu’de J.A. Fiki", family: "Atemayi", compound: "Oke-Oja" },
+export const CONFIRMED_OLUDE_REGISTER: HistoricalOludeEntry[] = [
+  { number: 1, name: "Olu’de Opalu", family: "Atemayi", ward: "Oke-Ako" },
+  { number: 2, name: "Olu’de Ide", family: "Eseyintelu", ward: "Ile-Nla" },
+  { number: 3, name: "Olu’de Oriko", family: "Oriko", ward: "Osikegun" },
+  { number: 4, name: "Olu’de Atte Gbogori", family: "Atemesami", ward: "Osikegun" },
+  { number: 5, name: "Olu’de Orunmbe", family: "Eseyintelu", ward: "Osikegun" },
+  { number: 6, name: "Olu’de Obadofin Obere", family: "Atemeji", ward: "Oketaro" },
+  { number: 7, name: "Olu’de Obaba Omologun", family: "Atemeto", ward: "Oke-Oja" },
+  { number: 8, name: "Olu’de Obajemu Atepa", family: "Atemogbe", ward: "Oke-Oja" },
+  { number: 9, name: "Olu’de Elewa", family: "Eseyinmeleri", ward: "Osikegun" },
+  { number: 10, name: "Olu’de Obajemu Ate", family: "Atejagbo", ward: "Osikegun" },
+  { number: 11, name: "Olu’de Alufa Olukotun", family: "Atejaba", ward: "Oketaro" },
+  { number: 12, name: "Olu’de J.A. Fiki", family: "Atemayi", ward: "Oke-Oja" },
 ];
 
 /**

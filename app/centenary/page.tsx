@@ -1,17 +1,23 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { CalendarDays, MapPin, Info, Globe2 } from "lucide-react";
+import { CalendarDays, MapPin, Info, Globe2, Sparkles, Clock, Landmark } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ButtonLink } from "@/components/ui/Button";
 import { HeritageImage } from "@/components/ui/HeritageImage";
-import { EmptyState } from "@/components/ui/EmptyState";
 import { NewsCard } from "@/components/cards/NewsCard";
 import { CentenaryCountdown } from "@/components/community/CentenaryCountdown";
 import { BranchStrip } from "@/components/tipu/BranchStrip";
 import { MediaGallery } from "@/components/media/MediaGallery";
-import { getCentenary } from "@/lib/data/community-programme";
+import { CentenaryNav } from "@/components/centenary/CentenaryNav";
+import { CentenaryProgrammeSection } from "@/components/centenary/CentenaryProgrammeSection";
+import { CentenaryHighlightsSection } from "@/components/centenary/CentenaryHighlightsSection";
+import { CentenaryGuestsSection } from "@/components/centenary/CentenaryGuestsSection";
+import { CentenaryInvitationSection } from "@/components/centenary/CentenaryInvitationSection";
+import { CentenaryRSVPSection } from "@/components/centenary/CentenaryRSVPSection";
+import { getCentenary, getCentenaryProgramme, getCentenaryHighlights } from "@/lib/data/community-programme";
+import { getCentenaryGuestGroups, getCentenaryRSVP } from "@/lib/data/centenary-guests";
 import { getFeaturedBranches } from "@/lib/data/tipu-branches";
 import { getCommunityMedia } from "@/lib/data/community-media";
 import { getLatestNews } from "@/lib/data/news";
@@ -19,43 +25,82 @@ import { getLatestNews } from "@/lib/data/news";
 export const metadata: Metadata = {
   title: "Takete-Ide Day & Centenary Celebration 2026",
   description:
-    "Takete-Ide Day and Centenary Celebration 2026 — commemorating approximately a century at the present settlement while honouring a much older community history.",
+    "Official Takete-Ide Centenary 2026 Celebration (29–31 October 2026) — programme schedule, official invitation, dignitaries, guests & hosts, event highlights, venue and RSVP information.",
 };
 
 export default async function CentenaryPage() {
-  const [centenary, branches, attire, news] = await Promise.all([
+  const [centenary, programmes, guestGroups, rsvpContacts, branches, attire, news] = await Promise.all([
     getCentenary(),
+    getCentenaryProgramme(),
+    getCentenaryGuestGroups(),
+    getCentenaryRSVP(),
     getFeaturedBranches(),
     getCommunityMedia({ category: "Centenary", mediaType: "image" }),
     getLatestNews(3),
   ]);
 
+  const highlights = getCentenaryHighlights();
+
   return (
     <div className="bg-ivory">
       {/* Hero */}
-      <div className="relative overflow-hidden bg-purple-700 py-14 text-white sm:py-16">
+      <div className="relative overflow-hidden bg-purple-700 py-14 text-white sm:py-16 lg:py-20">
         <Container>
           <Breadcrumb items={[{ label: "Centenary 2026" }]} />
-          <p className="mt-4 inline-block rounded-full bg-gold-500/20 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-gold-300">
-            {centenary.title}
-          </p>
-          <h1 className="mt-3 font-serif text-4xl font-bold leading-tight sm:text-5xl">
-            {centenary.headline}
-          </h1>
-          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-white/85">{centenary.intro}</p>
-
-          <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm text-white/85">
-            <span className="flex items-center gap-2">
-              <CalendarDays className="h-4 w-4 text-gold-300" aria-hidden="true" />
-              {centenary.eventDateLabel}
+          
+          <div className="mt-6 flex flex-wrap items-center gap-3">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-gold-500/20 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-gold-300 ring-1 ring-inset ring-gold-400/30">
+              <Sparkles className="h-3.5 w-3.5 text-gold-300" aria-hidden="true" />
+              {centenary.title}
             </span>
-            <span className="flex items-center gap-2">
-              <MapPin className="h-4 w-4 text-gold-300" aria-hidden="true" />
-              {centenary.venue}
+
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3.5 py-1 text-xs font-semibold text-white/90 ring-1 ring-inset ring-white/15">
+              <CalendarDays className="h-3.5 w-3.5 text-gold-300" aria-hidden="true" />
+              {centenary.eventDates}
             </span>
           </div>
 
-          <CentenaryCountdown eventDate={centenary.eventDate} tone="light" className="mt-8 max-w-xl" />
+          <h1 className="mt-4 font-serif text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl">
+            {centenary.headline}
+          </h1>
+
+          <p className="mt-4 max-w-3xl text-lg leading-relaxed text-white/90 sm:text-xl">
+            {centenary.intro}
+          </p>
+
+          <div className="mt-6 flex flex-wrap items-center gap-2">
+            <span className="rounded-xl bg-gold-500/20 px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-gold-200 ring-1 ring-inset ring-gold-400/30">
+              Theme: {centenary.theme}
+            </span>
+            {centenary.motto && (
+              <span className="rounded-xl bg-white/10 px-3 py-1.5 text-xs font-semibold italic text-gold-300 ring-1 ring-inset ring-white/15">
+                {centenary.motto}
+              </span>
+            )}
+          </div>
+
+          <div className="mt-6 grid gap-3 text-sm text-white/90 sm:grid-cols-2 max-w-3xl">
+            <div className="flex items-start gap-2.5 rounded-2xl bg-white/10 p-3.5 ring-1 ring-inset ring-white/15">
+              <Clock className="mt-0.5 h-4 w-4 shrink-0 text-gold-300" aria-hidden="true" />
+              <div>
+                <span className="block font-semibold text-white">Main Celebration</span>
+                <span className="text-white/80">{centenary.eventDateLabel} · {centenary.mainEventTime}</span>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-2.5 rounded-2xl bg-white/10 p-3.5 ring-1 ring-inset ring-white/15">
+              <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold-300" aria-hidden="true" />
+              <div>
+                <span className="block font-semibold text-white">Official Venue</span>
+                <span className="text-white/80">{centenary.venue}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Multi-Programme Intelligent Countdown */}
+          <div className="mt-10 max-w-2xl">
+            <CentenaryCountdown programmes={programmes} tone="light" />
+          </div>
 
           <div className="mt-8 flex flex-wrap gap-3">
             <ButtonLink href="/support">Support the Centenary</ButtonLink>
@@ -71,9 +116,52 @@ export default async function CentenaryPage() {
         <div className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-gold-500 via-community-green to-gold-500" />
       </div>
 
-      <Container className="py-14 sm:py-16">
+      <Container className="py-10 sm:py-14">
+        {/* Quick In-Page Navigation */}
+        <CentenaryNav className="mb-12" />
+
+        {/* Overview Banner */}
+        <section id="overview" className="scroll-mt-24 mb-16 rounded-3xl border border-purple-600/10 bg-white p-8 shadow-sm sm:p-10 lg:p-12">
+          <div className="max-w-3xl">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-purple-50 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-purple-700 ring-1 ring-inset ring-purple-600/15">
+              A Century of Heritage · A Future of Greater Glory
+            </span>
+            <h2 className="mt-4 font-serif text-2xl font-bold text-purple-600 sm:text-3xl">
+              Special Invitation to the 2026 Takete-Ide Day Centenary Celebration
+            </h2>
+            <p className="mt-4 text-base leading-relaxed text-charcoal/80">
+              The Takete-Ide Progressive Union cordially invites sons, daughters, in-laws, friends and well-wishers
+              across Nigeria and the global diaspora to the historic <strong>2026 Takete-Ide Day &amp; Centenary Celebration</strong>.
+            </p>
+            <p className="mt-3 text-sm leading-relaxed text-charcoal/70">
+              Join us as we celebrate 100 remarkable years of rich heritage, culture, unity and progress. Together,
+              let us honour our past, celebrate our present and build a greater future for Takete-Ide.
+            </p>
+          </div>
+        </section>
+
+        {/* Programme Section */}
+        <div className="mb-16">
+          <CentenaryProgrammeSection programmes={programmes} />
+        </div>
+
+        {/* Official Guests & Hosts Section */}
+        <div className="mb-16">
+          <CentenaryGuestsSection groups={guestGroups} />
+        </div>
+
+        {/* Event Highlights Section */}
+        <div className="mb-16">
+          <CentenaryHighlightsSection highlights={highlights} />
+        </div>
+
+        {/* Official Invitation Section */}
+        <div className="mb-16">
+          <CentenaryInvitationSection />
+        </div>
+
         {/* Why 2026 Matters — A Century at the Present Settlement */}
-        <section className="mt-4 rounded-3xl border border-purple-600/10 bg-white p-8 shadow-sm sm:p-10 lg:p-12">
+        <section id="history" className="scroll-mt-24 mb-16 rounded-3xl border border-purple-600/10 bg-white p-8 shadow-sm sm:p-10 lg:p-12">
           <div className="grid gap-8 lg:grid-cols-[1.3fr_1fr] lg:items-center">
             <div>
               <span className="inline-flex items-center gap-1.5 rounded-full bg-gold-100 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-gold-800">
@@ -123,43 +211,8 @@ export default async function CentenaryPage() {
           </div>
         </section>
 
-        {/* Programme — a placeholder, not invented content. */}
-        <section className="mt-16">
-          <SectionHeading eyebrow="On the day" title="Programme" align="left" className="mx-0" />
-          <div className="mt-6">
-            <EmptyState
-              icon={CalendarDays}
-              title="The programme is being finalised"
-              message={centenary.programmeStatus}
-            />
-          </div>
-        </section>
-
-        {/* Coming home — connects the branch network to the celebration. */}
-        {branches.length > 0 && (
-          <section className="mt-16">
-            <SectionHeading
-              eyebrow="Homecoming"
-              title="Coming Home From Near and Far"
-              align="left"
-              className="mx-0"
-              description="From branches across Nigeria to Takete-Ide communities in the UK, Europe and North America, the Centenary provides an opportunity to reconnect at home."
-            />
-            <div className="mt-8">
-              <BranchStrip branches={branches.slice(0, 5)} />
-            </div>
-            <Link
-              href="/tipu/branches"
-              className="mt-6 inline-flex min-h-6 items-center gap-1.5 text-sm font-semibold text-community-green hover:underline"
-            >
-              <Globe2 className="h-4 w-4" aria-hidden="true" />
-              Explore Our Global Community →
-            </Link>
-          </section>
-        )}
-
         {/* Attire — the 2026 set is not confirmed, the 2025 archive is. */}
-        <section className="mt-16">
+        <section id="attire" className="scroll-mt-24 mb-16">
           <SectionHeading eyebrow="Cultural dress" title="Centenary Attire" align="left" className="mx-0" />
           <div className="mt-8 grid gap-6 lg:grid-cols-2">
             <div className="rounded-3xl border border-purple-600/10 bg-white p-6 shadow-sm sm:p-8">
@@ -204,9 +257,32 @@ export default async function CentenaryPage() {
           </div>
         </section>
 
+        {/* Coming home — connects the branch network to the celebration. */}
+        {branches.length > 0 && (
+          <section id="diaspora" className="scroll-mt-24 mb-16">
+            <SectionHeading
+              eyebrow="Homecoming"
+              title="Coming Home From Near and Far"
+              align="left"
+              className="mx-0"
+              description="From branches across Nigeria to Takete-Ide communities in the UK, Europe and North America, the Centenary provides an opportunity to reconnect at home."
+            />
+            <div className="mt-8">
+              <BranchStrip branches={branches.slice(0, 5)} />
+            </div>
+            <Link
+              href="/tipu/branches"
+              className="mt-6 inline-flex min-h-6 items-center gap-1.5 text-sm font-semibold text-community-green hover:underline"
+            >
+              <Globe2 className="h-4 w-4" aria-hidden="true" />
+              Explore Our Global Community →
+            </Link>
+          </section>
+        )}
+
         {/* Gallery */}
         {attire.length > 0 && (
-          <section className="mt-16">
+          <section id="gallery" className="scroll-mt-24 mb-16">
             <SectionHeading
               eyebrow="Gallery"
               title="Towards the Centenary"
@@ -220,8 +296,13 @@ export default async function CentenaryPage() {
           </section>
         )}
 
+        {/* RSVP & Enquiries */}
+        <div className="mb-16">
+          <CentenaryRSVPSection contacts={rsvpContacts} />
+        </div>
+
         {/* Updates */}
-        <section className="mt-16">
+        <section className="mb-16">
           <SectionHeading eyebrow="Updates" title="Latest Updates" align="left" className="mx-0" />
           <div className="mt-8">
             {news.length > 0 ? (
@@ -231,23 +312,23 @@ export default async function CentenaryPage() {
                 ))}
               </div>
             ) : (
-              <EmptyState
-                title="Centenary updates will appear here"
-                message="Announcements from the Central Planning Committee will be published here as they are released."
-              />
+              <div className="rounded-3xl border border-purple-600/10 bg-white p-8 text-center sm:p-10">
+                <p className="font-serif text-lg font-bold text-purple-900">Centenary updates will appear here</p>
+                <p className="mt-2 text-sm text-charcoal/70">Announcements from the Central Planning Committee will be published here as they are released.</p>
+              </div>
             )}
           </div>
         </section>
 
         {/* Support CTA */}
-        <div className="mt-16 rounded-3xl bg-purple-700 p-8 text-white shadow-sm lg:p-10">
+        <div id="support" className="scroll-mt-24 rounded-3xl bg-purple-700 p-8 text-white shadow-sm lg:p-10">
           <h2 className="font-serif text-2xl font-bold">Support the Centenary</h2>
           <p className="mt-3 max-w-2xl text-white/85">
             Contributions towards the Centenary Celebration and the community&rsquo;s development are made
             through the Takete-Ide Progressive Union&rsquo;s official account.
           </p>
           <ButtonLink href="/support" className="mt-6">
-            View the official account
+            View Contribution Details
           </ButtonLink>
         </div>
       </Container>

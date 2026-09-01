@@ -17,12 +17,18 @@ export const metadata: Metadata = {
 };
 
 export default async function HeritagePage() {
-  const [worship, nature, newYam] = await Promise.all([
+  const [worship, nature, landmarks, newYam] = await Promise.all([
     getCommunityMedia({ category: "Places of Worship", mediaType: "image" }),
     getCommunityMedia({ category: "Nature", mediaType: "image" }),
+    getCommunityMedia({ category: "Landmarks", mediaType: "image" }),
     getCommunityMedia({ category: "Culture & Events", mediaType: "image" }),
   ]);
   const newYamLead = newYam.find((m) => m.id === "new-yam-ilorin-full-group");
+  const okutaGbooro = landmarks.find((m) => m.id === "okuta-gbooro" || m.id === "okuta-gboro");
+  const landscapeMedia = [
+    ...(okutaGbooro ? [okutaGbooro] : []),
+    ...nature.filter((m) => m.id !== "okuta-gbooro" && m.id !== "okuta-gboro"),
+  ].slice(0, 4);
 
   return (
     <div className="bg-ivory">
@@ -70,6 +76,35 @@ export default async function HeritagePage() {
             image="/images/takete-ide/ate-egungun.jpg"
             imageAlt="Ate, one of the Egungun traditions of Takete-Ide, in full masquerade dress"
           />
+        </div>
+
+        {/* More Cultural Traditions — Ogun Festival */}
+        <div className="mt-6 flex flex-col items-start justify-between gap-4 rounded-2xl border border-purple-100 bg-white p-5 shadow-sm sm:flex-row sm:items-center">
+          <div className="flex items-center gap-4">
+            <div className="relative h-16 w-24 shrink-0 overflow-hidden rounded-xl">
+              <HeritageImage
+                src="/images/takete-ide/heritage/ogun-festival.png"
+                alt="A cultural gathering of community members associated with the Ogun Festival in Takete-Ide"
+                label="Ogun Festival"
+                fill
+                sizes="96px"
+                className="object-cover"
+              />
+            </div>
+            <div>
+              <span className="text-[11px] font-bold uppercase tracking-wider text-gold-700">Cultural Tradition</span>
+              <h3 className="font-serif text-base font-bold text-purple-950">Ogun Festival</h3>
+              <p className="text-xs text-charcoal/75">
+                A community cultural gathering associated with the Ogun Festival tradition in Takete-Ide.
+              </p>
+            </div>
+          </div>
+          <Link
+            href="/gallery?category=Culture+%26+Events"
+            className="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-purple-200 bg-purple-50/50 px-3.5 py-1.5 text-xs font-semibold text-purple-900 hover:bg-purple-100"
+          >
+            Explore Cultural Gallery →
+          </Link>
         </div>
 
         {/* New Yam feature — the best-documented festival in the archive. */}
@@ -185,7 +220,7 @@ export default async function HeritagePage() {
               The natural landscape of Takete-Ide is shaped by historic hills, life-giving rivers, and ancestral settlements preserved in community memory.
             </p>
             <div className="mt-5 grid grid-cols-2 gap-3">
-              {nature.slice(0, 4).map((item) => (
+              {landscapeMedia.map((item) => (
                 <div key={item.id} className="relative aspect-[4/3] overflow-hidden rounded-2xl">
                   <HeritageImage
                     src={item.src}
@@ -201,14 +236,22 @@ export default async function HeritagePage() {
             <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-charcoal/70">
               <span><strong>Hills:</strong> Obasoro, Oke Elegan, Oroke Agodi</span>
               <span>•</span>
-              <span><strong>Waters:</strong> Eba, Owowo, Oga, Ibedo, Igan, Gboruku</span>
+              <span><strong>Waters:</strong> Eba, Owowo, Oga, Ibedo, Igan, Igboruku / Gboruku</span>
             </div>
-            <Link
-              href="/gallery?category=Nature"
-              className="mt-4 inline-flex min-h-6 items-center text-sm font-semibold text-community-green hover:underline"
-            >
-              All landscape photographs →
-            </Link>
+            <div className="mt-4 flex flex-wrap items-center gap-4 text-xs font-semibold">
+              <Link
+                href="/gallery?category=Nature"
+                className="inline-flex items-center text-community-green hover:underline"
+              >
+                Nature &amp; waterways →
+              </Link>
+              <Link
+                href="/gallery?category=Landmarks"
+                className="inline-flex items-center text-gold-700 hover:underline"
+              >
+                Community landmarks →
+              </Link>
+            </div>
           </div>
         </section>
 

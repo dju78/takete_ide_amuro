@@ -48,10 +48,10 @@ export default function TermsPage() {
             time of submission.
           </p>
 
-          <h2>No Financial Transactions</h2>
+          <h2>Contributions</h2>
           <p>
-            This website does not currently process financial donations or payments. Any future donation
-            functionality will be clearly labelled and separately governed.
+            Community contributions to the union&rsquo;s verified official account are made by direct
+            bank transfer and are detailed on the <Link href="/support">Support page</Link>.
           </p>
 
           <h2>Limitation of Liability</h2>

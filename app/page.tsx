@@ -12,6 +12,8 @@ import {
   ShieldCheck,
   CalendarDays,
   MapPin,
+  Sparkles,
+  Clock,
 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -25,17 +27,17 @@ import { HomeBranchShowcase } from "@/components/tipu/HomeBranchShowcase";
 import { getLatestNews } from "@/lib/data/news";
 import { getHomepageGallery, getHomepagePlaceMedia } from "@/lib/data/gallery";
 import { getFeaturedBranches } from "@/lib/data/tipu-branches";
-import { getCentenary, getSupportAccount } from "@/lib/data/community-programme";
+import { getCentenary, getCentenaryProgramme, getSupportAccount } from "@/lib/data/community-programme";
 import { getPublishedEvents } from "@/lib/data/events";
 import { formatDate } from "@/lib/utils";
 
 const fallbackGallery = [
+  { src: "/images/takete-ide/places/okuta-gboro.png", alt: "Okuta Gbooro, a prominent rock formation and landscape landmark at Takete-Ide" },
   { src: "/images/takete-ide/children-traditional-attire.jpg", alt: "Two children in traditional Takete-Ide attire" },
   { src: "/images/takete-ide/cultural-procession.jpg", alt: "Children in a cultural procession at a Takete-Ide celebration" },
   { src: "/images/takete-ide/takete-ide-day.jpg", alt: "Community members preparing for a Takete-Ide Day celebration" },
   { src: "/images/takete-ide/takete-ide-day-2025.jpg", alt: "News coverage of Takete-Ide Day 2025" },
   { src: "/images/takete-ide/ate-egungun.jpg", alt: "Ate, one of the Egungun traditions of Takete-Ide" },
-  { src: "/images/takete-ide/marriage-celebration-1.jpg", alt: "Ceremonial items associated with a marriage celebration" },
 ];
 
 /**
@@ -54,6 +56,8 @@ const placeCaptions: Record<string, string> = {
   "obasoro-hill": "Natural heritage",
   "eba-river-bank": "Omi Ebba",
   "first-baptist-church": "Built heritage",
+  "okuta-gboro": "Natural heritage",
+  "okuta-gbooro": "Natural heritage",
 };
 
 /** Where each place photograph sends you in the gallery. */
@@ -61,18 +65,21 @@ const placeLinks: Record<string, string> = {
   "obasoro-hill": "/gallery?category=Nature",
   "eba-river-bank": "/gallery?category=Nature",
   "first-baptist-church": "/gallery?category=Places+of+Worship",
+  "okuta-gboro": "/gallery?category=Landmarks",
+  "okuta-gbooro": "/gallery?category=Landmarks",
 };
 
 const heroImageSrc = "/images/takete-ide/children-traditional-attire.jpg";
 const heroImageAlt = "Two children in traditional Takete-Ide attire, wearing beaded necklaces and matching caps";
 
 export default async function HomePage() {
-  const [news, gallery, place, branches, centenary, account, events] = await Promise.all([
+  const [news, gallery, place, branches, centenary, programmes, account, events] = await Promise.all([
     getLatestNews(3),
     getHomepageGallery(),
     getHomepagePlaceMedia(),
     getFeaturedBranches(),
     getCentenary(),
+    getCentenaryProgramme(),
     getSupportAccount(),
     getPublishedEvents(),
   ]);
@@ -156,29 +163,64 @@ export default async function HomePage() {
 
       {/* Centenary — the community's biggest upcoming date, so it sits directly
           under the hero rather than being buried further down. */}
-      <section className="bg-purple-900 py-10 text-white sm:py-12">
+      <section className="bg-purple-900 py-10 text-white sm:py-14">
         <Container>
           <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gold-300">
-                {centenary.title}
-              </p>
-              <h2 className="mt-2 font-serif text-2xl font-bold sm:text-3xl">{centenary.headline}</h2>
-              <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm text-white/80">
-                <span className="flex items-center gap-2">
-                  <CalendarDays className="h-4 w-4 text-gold-300" aria-hidden="true" />
-                  {centenary.eventDateLabel}
+            <div className="max-w-2xl">
+              <div className="flex flex-wrap items-center gap-2.5">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-gold-500/20 px-3 py-1 text-xs font-bold uppercase tracking-wider text-gold-300 ring-1 ring-inset ring-gold-400/30">
+                  <Sparkles className="h-3.5 w-3.5 text-gold-300" aria-hidden="true" />
+                  {centenary.title}
                 </span>
-                <span className="flex items-center gap-2">
+
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white/90 ring-1 ring-inset ring-white/15">
+                  <CalendarDays className="h-3.5 w-3.5 text-gold-300" aria-hidden="true" />
+                  {centenary.eventDates}
+                </span>
+              </div>
+
+              <h2 className="mt-3 font-serif text-2xl font-bold sm:text-3xl lg:text-4xl">
+                {centenary.headline}
+              </h2>
+              <p className="mt-2 text-sm leading-relaxed text-white/85 sm:text-base">
+                {centenary.intro}
+              </p>
+
+              <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-xs text-white/80 sm:text-sm">
+                <span className="flex items-center gap-1.5">
+                  <Clock className="h-4 w-4 text-gold-300" aria-hidden="true" />
+                  Main: {centenary.eventDateLabel} · {centenary.mainEventTime}
+                </span>
+                <span className="flex items-center gap-1.5">
                   <MapPin className="h-4 w-4 text-gold-300" aria-hidden="true" />
                   {centenary.venue}
                 </span>
               </div>
-              <ButtonLink href="/centenary" size="sm" className="mt-5">
-                Centenary 2026
-              </ButtonLink>
+
+              <div className="mt-6 flex flex-wrap items-center gap-3">
+                <ButtonLink href="/centenary" size="sm">
+                  Explore Centenary Programme
+                </ButtonLink>
+                <Link
+                  href="/centenary#guests"
+                  className="text-xs font-semibold text-gold-300 hover:text-gold-200 hover:underline sm:text-sm"
+                >
+                  Official Guests & Hosts →
+                </Link>
+                <ButtonLink
+                  href="/support"
+                  variant="outline"
+                  size="sm"
+                  className="border-white/40 text-white hover:bg-white hover:text-purple-900"
+                >
+                  Support Centenary
+                </ButtonLink>
+              </div>
             </div>
-            <CentenaryCountdown eventDate={centenary.eventDate} tone="light" className="lg:max-w-md" />
+
+            <div className="w-full lg:max-w-md">
+              <CentenaryCountdown programmes={programmes} tone="light" />
+            </div>
           </div>
         </Container>
       </section>

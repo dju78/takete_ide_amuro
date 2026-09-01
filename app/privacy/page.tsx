@@ -54,31 +54,17 @@ export default function PrivacyPage() {
             for further technical detail.
           </p>
 
-          <h2>Online Contributions and Payments</h2>
+          <h2>Community Contributions</h2>
           <p>
-            Where online contribution is available, payment is processed securely by{" "}
-            <strong>Paystack</strong>. Card and bank details are entered on Paystack&rsquo;s own secure
-            payment page, not on this website.{" "}
-            <strong>
-              Takete-Ide does not store your full card details, PIN or one-time password (OTP)
-            </strong>
-            , and this website will never ask you for them.
+            Community contributions to the union are made by direct bank transfer to the union&rsquo;s
+            verified official account as detailed on the <Link href="/support">Support page</Link>. When you
+            contribute by direct bank transfer, no banking credentials or card details reach this website
+            — the transfer occurs entirely within your banking platform.
           </p>
           <p>
-            For each contribution we record the amount, currency, the purpose you selected, your email
-            address, your name and message if you choose to give them, a transaction reference, the
-            payment status, and the payment method reported by Paystack. We keep this so the union can
-            confirm and account for contributions received.
-          </p>
-          <p>
-            These records are visible only to the union&rsquo;s super administrators and treasurer, both
-            in the admin area and at the database level. They are not published, not listed publicly, and
-            not shared with anyone else.
-          </p>
-          <p>
-            Paystack processes your payment as an independent data controller under its own privacy
-            policy. If you contribute by direct bank transfer instead, no payment details reach this
-            website at all — the transfer happens entirely between you and your bank.
+            Where official contribution records are maintained for union accounting, access is strictly
+            restricted to authorised union officers under row-level database security. Contribution records
+            are not published, not listed publicly, and not shared with external parties.
           </p>
 
           <h2>Your Rights</h2>

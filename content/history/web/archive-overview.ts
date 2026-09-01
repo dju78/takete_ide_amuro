@@ -18,21 +18,21 @@ export const ARCHIVE_OVERVIEW_CARDS: ArchiveOverviewCard[] = [
     title: "1. Takete-Idera — A Place of Comfort",
     summary:
       "Explores the literal meaning of Takete-Idera ('separated to a place of comfort/rest'), the community's geographic placement, surrounding waterways and peaceful ethos.",
-    href: "/our-story#comfort",
+    href: "/our-story#a-place-of-comfort",
     linkLabel: "Read in Our Story",
   },
   {
     title: "2. Takete within Amuro & Okun",
     summary:
       "Details Takete-Ide's position as one of the seven historic Amuro towns, its shared Okun cultural heritage, and regional civic ties.",
-    href: "/our-story#amuro",
+    href: "/our-story#takete-within-amuro",
     linkLabel: "Explore Amuro context",
   },
   {
     title: "3. A People’s Search for Peace",
     summary:
       "Records how forebears navigated nineteenth-century regional warfare and cavalry incursions by seeking naturally fortified settlements in the uplands.",
-    href: "/our-story#peace",
+    href: "/our-story#the-search-for-peace",
     linkLabel: "Read historical context",
   },
   {
@@ -97,8 +97,13 @@ export const RELATED_HERITAGE_LINKS = [
     href: "/heritage",
   },
   {
-    title: "Landscape & Landmarks",
-    description: "Photographs and documentation of hills, streams and landmarks.",
+    title: "Natural Heritage",
+    description: "Hills, streams, waterways and the natural landscape of Takete-Ide.",
     href: "/gallery?category=Nature",
+  },
+  {
+    title: "Landmarks",
+    description: "Okuta Gbooro and key landscape landmarks marking the community's territory.",
+    href: "/gallery?category=Landmarks",
   },
 ];

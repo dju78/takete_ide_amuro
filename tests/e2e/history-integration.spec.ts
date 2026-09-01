@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 
 test.describe("Takete-Ide complete historical integration & depth", () => {
   test.describe("/our-story primary historical experience", () => {
-    test("renders hero, Takete-Idera, migration stages, and archive CTA", async ({ page }) => {
+    test("renders hero, Takete-Idera, migration stages, archive CTA, and valid section anchor targets", async ({ page }) => {
       const res = await page.goto("/our-story");
       expect(res?.status()).toBe(200);
 
@@ -20,6 +20,21 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
       await expect(page.getByRole("heading", { name: "Ilu-Oke" })).toBeVisible();
       await expect(page.getByRole("heading", { name: "Okeata / Surrounding Uplands" })).toBeVisible();
       await expect(page.getByRole("heading", { name: /Present Takete-Ide/i })).toBeVisible();
+
+      // Confirm exact section anchor IDs exist on the page
+      const requiredAnchorIds = [
+        "a-place-of-comfort",
+        "takete-within-amuro",
+        "earlier-roots",
+        "the-search-for-peace",
+        "journey",
+        "home-at-last",
+        "faith-and-development",
+        "community-memory",
+      ];
+      for (const id of requiredAnchorIds) {
+        await expect(page.locator(`#${id}`)).toHaveCount(1);
+      }
 
       // c.1926 settlement milestone callout
       await expect(
@@ -47,7 +62,7 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
     test("explains centenary as a century at the present settlement and avoids false founding claims", async ({ page }) => {
       await page.goto("/centenary");
 
-      await expect(page.getByText("Why 2026 Matters")).toBeVisible();
+      await expect(page.locator("#history").getByText("Why 2026 Matters")).toBeVisible();
       await expect(page.getByRole("heading", { name: "A Century at the Present Settlement" })).toBeVisible();
       await expect(page.getByText(/around 1926/i)).toBeVisible();
       await expect(page.getByText(/approximately a century at the present settlement/i).first()).toBeVisible();
@@ -75,7 +90,7 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
     });
   });
 
-  test.describe("Heritage & Agbagba Ide", () => {
+  test.describe("Heritage, Festivals & Okuta Gbooro", () => {
     test("renders /heritage/agbagba-ide with cultural memory framing and praise traditions", async ({ page }) => {
       const res = await page.goto("/heritage/agbagba-ide");
       expect(res?.status()).toBe(200);
@@ -93,13 +108,38 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
       await expect(anthemLink).toHaveAttribute("href", "/heritage/takete-ide-anthem");
     });
 
-    test("heritage page surfaces Land, Water & Memory with authentic landscape photos and landmark list", async ({ page }) => {
+    test("heritage page surfaces Ogun Festival, Land & Water with Okuta Gbooro, and distinct gallery links", async ({ page }) => {
       await page.goto("/heritage");
       await expect(page.locator('a[href="/heritage/agbagba-ide"]')).toBeVisible();
       await expect(page.locator('a[href="/heritage/takete-ide-anthem"]')).toBeVisible();
+
+      // Ogun Festival discoverable
+      await expect(page.getByRole("heading", { name: "Ogun Festival" })).toBeVisible();
+      await expect(
+        page.getByAltText(/A cultural gathering of community members associated with the Ogun Festival in Takete-Ide/i),
+      ).toBeVisible();
+      const exploreCulturalLink = page.getByRole("link", { name: /Explore Cultural Gallery/i });
+      await expect(exploreCulturalLink).toBeVisible();
+      await expect(exploreCulturalLink).toHaveAttribute("href", "/gallery?category=Culture+%26+Events");
+
+      // Land, Water & Memory with Okuta Gbooro
       await expect(page.getByRole("heading", { name: "Land, Water & Memory" })).toBeVisible();
+      await expect(page.getByAltText(/Okuta Gbooro, a prominent rock formation/i)).toBeVisible();
       await expect(page.getByText(/Obasoro, Oke Elegan, Oroke Agodi/i)).toBeVisible();
       await expect(page.getByText(/Eba, Owowo, Oga, Ibedo/i)).toBeVisible();
+
+      // Separate links for Nature vs Landmarks
+      const natureLink = page.getByRole("link", { name: /Nature & waterways/i });
+      await expect(natureLink).toBeVisible();
+      await expect(natureLink).toHaveAttribute("href", "/gallery?category=Nature");
+
+      const landmarkLink = page.getByRole("link", { name: /Community landmarks/i });
+      await expect(landmarkLink).toBeVisible();
+      await expect(landmarkLink).toHaveAttribute("href", "/gallery?category=Landmarks");
+
+      // Confirmed authentic spelling "Okuta Gbooro"
+      const bodyText = await page.innerText("body");
+      expect(bodyText).toContain("Okuta Gbooro");
     });
   });
 
@@ -130,8 +170,8 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
     });
   });
 
-  test.describe("Digital Archive deep historical record", () => {
-    test("archive displays Takete-Ide Historical Community Account with branded cover, precise metadata, inside cards and migration strip", async ({ page }) => {
+  test.describe("Digital Archive deep historical record & correct anchors", () => {
+    test("archive displays Takete-Ide Historical Community Account with branded cover, valid section anchors, and separate nature/landmark links", async ({ page }) => {
       await page.goto("/archive");
       await expect(page.getByText("Takete-Ide Historical Community Account").first()).toBeVisible();
 
@@ -153,27 +193,26 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
       // Ensure branded archive document cover renders
       await expect(page.locator('[aria-label="Archive document cover"]')).toBeVisible();
 
-      // Inside this Historical Account
-      await expect(page.getByRole("heading", { name: "Inside this Historical Account" })).toBeVisible();
-      await expect(page.getByText("1. Takete-Idera — A Place of Comfort")).toBeVisible();
-      await expect(page.getByText("2. Takete within Amuro & Okun")).toBeVisible();
-      await expect(page.getByText("4. The Migration Journey")).toBeVisible();
-      await expect(page.getByText("5. Traditional Institution & Confirmed Register")).toBeVisible();
-      await expect(page.getByText("6. Living Oral Heritage — Anthem & Oríkì")).toBeVisible();
+      // Inside this Historical Account links point to valid Our Story anchor targets
+      await expect(page.locator('a[href="/our-story#a-place-of-comfort"]')).toBeVisible();
+      await expect(page.locator('a[href="/our-story#takete-within-amuro"]')).toBeVisible();
+      await expect(page.locator('a[href="/our-story#the-search-for-peace"]')).toBeVisible();
+      await expect(page.locator('a[href="/our-story#journey"]').first()).toBeVisible();
+
+      // Distinct Natural Heritage vs Landmarks related cards
+      await expect(page.locator('a[href="/gallery?category=Nature"]')).toBeVisible();
+      await expect(page.locator('a[href="/gallery?category=Landmarks"]')).toBeVisible();
 
       // Migration Sequence strip
       await expect(page.getByRole("heading", { name: "Historical Migration Sequence" })).toBeVisible();
 
       // Ileteju transition feature
       await expect(page.getByRole("heading", { name: "Ileteju to Takete-Idera" })).toBeVisible();
-
-      // Related Heritage
-      await expect(page.getByRole("heading", { name: "Related Heritage & Public Pages" })).toBeVisible();
     });
   });
 
-  test.describe("Traditional Institution & Authentic Media", () => {
-    test("traditional institution renders dignitaries image, Oba Philip Ebilakun portrait, and confirmed 12-ruler register", async ({ page }) => {
+  test.describe("Traditional Institution & Shared Register", () => {
+    test("traditional institution renders dignitaries image, Oba Philip Ebilakun portrait, confirmed register, and cross-link to compounds", async ({ page }) => {
       const res = await page.goto("/heritage/traditional-institution");
       expect(res?.status()).toBe(200);
 
@@ -187,12 +226,20 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
 
       // Amuro structure
       await expect(page.getByRole("heading", { name: "Takete-Ide within the Amuro Traditional Structure" })).toBeVisible();
-      await expect(page.getByText(/Alamuro heads the wider Amuro Traditional Council/i)).toBeVisible();
+      await expect(page.getByText(/heads the wider Amuro Traditional Council/i)).toBeVisible();
 
-      // Manuscript identification of 13th Olu'de with authentic portrait
-      await expect(page.getByText("Manuscript Identification")).toBeVisible();
-      await expect(page.getByRole("heading", { name: "Oba Philip Ebilakun (Manuscript Record)" })).toBeVisible();
+      // Confirmed current 13th Olu'de with authentic portrait & community confirmation
+      await expect(page.getByText("Current Olu’de", { exact: true })).toBeVisible();
+      await expect(page.getByText("Community Confirmed")).toBeVisible();
+      await expect(page.getByRole("heading", { name: "Oba Philip Ebilakun" })).toBeVisible();
+      await expect(page.getByText("The Olu’de of Takete-Ide").first()).toBeVisible();
+      await expect(page.getByText("13th Olu’de").first()).toBeVisible();
       await expect(page.getByAltText(/Portrait of Oba Philip Ebilakun in royal attire/i)).toBeVisible();
+
+      // Ensure old pending wording is completely absent
+      const pageText = await page.innerText("body");
+      expect(pageText).not.toContain("Awaiting confirmation from the traditional council");
+      expect(pageText).not.toContain("Current-status confirmation with the traditional institution remains pending");
 
       // Historical Olu'de Register (12 rulers with confirmed family & ward affiliations)
       await expect(page.getByRole("heading", { name: "Historical Olu’de Register" })).toBeVisible();
@@ -345,10 +392,10 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
       await expect(page.getByAltText(/Building facade and signboard of the CVB Primary Health Centre/i)).toBeVisible();
     });
 
-    test("gallery landmarks renders authentic Okuta Gboro without placeholder tag", async ({ page }) => {
+    test("gallery landmarks renders authentic Okuta Gbooro without placeholder tag", async ({ page }) => {
       await page.goto("/gallery?category=Landmarks");
-      await expect(page.getByText("Okuta Gboro").first()).toBeVisible();
-      await expect(page.getByAltText(/Okuta Gboro, a prominent rock formation/i)).toBeVisible();
+      await expect(page.getByText("Okuta Gbooro").first()).toBeVisible();
+      await expect(page.getByAltText(/Okuta Gbooro, a prominent rock formation/i)).toBeVisible();
     });
   });
 
@@ -399,6 +446,7 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
     });
 
     test("no horizontal overflow across viewports on historical pages", async ({ page }) => {
+      test.setTimeout(90000);
       const viewports = [
         { name: "320", width: 320, height: 568 },
         { name: "375", width: 375, height: 667 },

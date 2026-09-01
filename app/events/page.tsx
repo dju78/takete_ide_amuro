@@ -8,7 +8,7 @@ import { EmptyState } from "@/components/ui/EmptyState";
 import { ButtonLink } from "@/components/ui/Button";
 import { CentenaryCountdown } from "@/components/community/CentenaryCountdown";
 import { getGroupedEvents, EVENT_CATEGORY_LABELS, type CommunityEvent } from "@/lib/data/community-events";
-import { getCentenary } from "@/lib/data/community-programme";
+import { getCentenary, getCentenaryProgramme } from "@/lib/data/community-programme";
 import { siteConfig } from "@/lib/site-config";
 import { formatDate } from "@/lib/utils";
 
@@ -19,7 +19,11 @@ export const metadata: Metadata = {
 };
 
 export default async function EventsPage() {
-  const [{ upcoming, past }, centenary] = await Promise.all([getGroupedEvents(), getCentenary()]);
+  const [{ upcoming, past }, centenary, programmes] = await Promise.all([
+    getGroupedEvents(),
+    getCentenary(),
+    getCentenaryProgramme(),
+  ]);
 
   /**
    * schema.org Event for the upcoming list only, and only with fields the
@@ -91,7 +95,7 @@ export default async function EventsPage() {
                 Centenary 2026
               </ButtonLink>
             </div>
-            <CentenaryCountdown eventDate={centenary.eventDate} tone="light" />
+            <CentenaryCountdown programmes={programmes} tone="light" />
           </div>
         </section>
 

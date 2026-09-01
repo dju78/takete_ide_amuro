@@ -18,6 +18,17 @@ export const CONTRIBUTION_STATUSES = [
 export type ContributionStatus = (typeof CONTRIBUTION_STATUSES)[number];
 
 /**
+ * Standardized payment status messaging used across the entire application.
+ * Until live online payments are formally activated, this single status is used.
+ */
+export const PAYMENT_STATUS_MESSAGE =
+  "Online contribution payment is currently in testing. No live payment will be taken until the service is formally activated.";
+
+export const PAYMENT_STATUS_SHORT =
+  "Online contribution payment is currently in testing. No live payment will be taken until the service is formally activated.";
+
+
+/**
  * Purposes a contributor may choose. These describe what the union directs
  * support towards; they are not separately ring-fenced legal funds, and the
  * Support page says so rather than implying otherwise.

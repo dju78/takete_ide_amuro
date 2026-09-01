@@ -7,7 +7,9 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Container } from "@/components/ui/Container";
 
 export async function WeatherHomeSection() {
-  const [current, forecast] = await Promise.all([getCurrentWeather(), getForecast()]);
+  const current = await getCurrentWeather();
+  if (!current) return null;
+  const forecast = await getForecast();
   const today = forecast?.days?.[0];
 
   return (
@@ -19,11 +21,7 @@ export async function WeatherHomeSection() {
           description="Current conditions and the outlook for our community."
         />
         <div className="mx-auto mt-10 max-w-xl">
-          {current ? (
-            <WeatherCard current={current} highC={today?.highC} lowC={today?.lowC} precipitation={today?.precipitationProbability} compact />
-          ) : (
-            <WeatherUnavailable />
-          )}
+          <WeatherCard current={current} highC={today?.highC} lowC={today?.lowC} precipitation={today?.precipitationProbability} compact />
         </div>
       </Container>
     </section>
