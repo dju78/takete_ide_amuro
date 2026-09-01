@@ -3,7 +3,7 @@ import {
   LayoutDashboard, Newspaper, Calendar, Images, Building2, Archive, Mic2,
   Crown, Users, Globe2, Mail, FileText, FolderKanban, Users2, Shield,
   Settings, ClipboardList, HeartHandshake, Landmark, ImagePlay, Network,
-  Sparkles, ShieldCheck, BookOpen, Banknote, ReceiptText,
+  Sparkles, ShieldCheck, BookOpen, Banknote, ReceiptText, Music4,
 } from "lucide-react";
 
 /**
@@ -38,7 +38,8 @@ const sections: { heading: string; items: { label: string; href: string; icon: R
   {
     heading: "Heritage",
     items: [
-      { label: "Families & Oríkì", href: "/admin/families", icon: HeartHandshake },
+      { label: "Family Oríkì Records", href: "/admin/oriki", icon: Music4 },
+      { label: "Families & Compounds", href: "/admin/families", icon: HeartHandshake },
       { label: "Historical Archive", href: "/admin/archive", icon: Archive },
       { label: "Oral Histories", href: "/admin/oral-history", icon: Mic2 },
       { label: "Heritage Submissions", href: "/admin/heritage-submissions", icon: BookOpen },

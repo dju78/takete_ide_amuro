@@ -55,7 +55,7 @@ export const navGroups: NavGroup[] = [
       { label: "Culture & Heritage", href: "/heritage", description: "Festivals, dress, faith and the land", featured: true },
       { label: "Gallery", href: "/gallery", description: "Photographs from community life" },
       { label: "Families & Oríkì", href: "/families", description: "Family names, compounds and praise poetry" },
-      { label: "Oríkì Archive", href: "/oriki", description: "Listen to and read Oríkì" },
+      { label: "Family Oríkì", href: "/oriki", description: "Community directory of family praise names" },
       { label: "Voices of Takete-Ide", href: "/archive/oral-history", description: "Oral history recordings" },
       { label: "Digital Archive", href: "/archive", description: "Historical documents and records" },
     ],

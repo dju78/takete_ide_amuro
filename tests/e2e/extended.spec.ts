@@ -6,18 +6,18 @@ test.describe("Primary navigation", () => {
     await page.goto("/");
     const primaryNav = page.getByRole("navigation", { name: "Primary" });
     await primaryNav.getByRole("button", { name: "Explore" }).hover();
-    const familiesLink = primaryNav.getByRole("link", { name: /Families & Oríkì/ });
+    const familiesLink = primaryNav.locator('a[href="/families"]');
     await expect(familiesLink).toBeVisible();
     await familiesLink.click();
     await expect(page).toHaveURL(/\/families$/);
   });
 
-  test("Explore dropdown also surfaces Oríkì Archive and Voices of Takete-Ide", async ({ page }) => {
+  test("Explore dropdown also surfaces Family Oríkì and Voices of Takete-Ide", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto("/");
     const primaryNav = page.getByRole("navigation", { name: "Primary" });
     await primaryNav.getByRole("button", { name: "Explore" }).hover();
-    await expect(primaryNav.getByRole("link", { name: "Oríkì Archive" })).toBeVisible();
+    await expect(primaryNav.getByRole("link", { name: /Family Oríkì/ })).toBeVisible();
     await expect(primaryNav.getByRole("link", { name: "Voices of Takete-Ide" })).toBeVisible();
   });
 
@@ -134,10 +134,11 @@ test.describe("Admin", () => {
   });
 });
 
-test.describe("Families & Oríkì empty states", () => {
-  test("Oríkì directory shows an honest empty state, never fabricated content", async ({ page }) => {
+test.describe("Families & Oríkì presentation", () => {
+  test("Oríkì directory shows consolidated community directory with 18 records", async ({ page }) => {
     await page.goto("/oriki");
-    await expect(page.getByText(/Oríkì archive is just beginning/)).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Takete-Ide Family Oríkì", level: 1 })).toBeVisible();
+    await expect(page.getByText("18 Records")).toBeVisible();
   });
 
   test("Traditional Institution displays confirmed current Olu'de Oba Philip Ebilakun", async ({ page }) => {

@@ -1,4 +1,4 @@
-﻿import { revalidatePath } from "next/cache";
+import { revalidatePath } from "next/cache";
 
 /**
  * Centralised route revalidation for Admin actions.
@@ -148,3 +148,19 @@ export function revalidateArchivePaths(slug?: string) {
   }
   for (const p of paths) revalidatePath(p);
 }
+
+export function revalidateOrikiPaths(slug?: string) {
+  const paths = [
+    "/",
+    "/oriki",
+    "/heritage",
+    "/families",
+    "/admin/oriki",
+    "/admin/oriki-records",
+  ];
+  if (slug) {
+    paths.push(`/oriki/${slug}`);
+  }
+  for (const p of paths) revalidatePath(p);
+}
+
