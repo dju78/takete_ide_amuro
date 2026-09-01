@@ -97,6 +97,18 @@ const PAGE_INDEX: { title: string; href: string; excerpt: string; keywords: stri
     keywords: "history origins settlement ilu-oke takete-idera amuro-odo igbo ide okeata ileteju odo takete oke adan oke ako pa thomas ode pa george fiki c.1926 1926 present settlement migration timeline story heritage past obasoro eba river owowo river",
   },
   {
+    title: "Compounds of Takete-Ide",
+    href: "/families/compounds",
+    excerpt: "Documented Takete-Ide compounds and their historical family associations from community historical records.",
+    keywords: "compounds compound oke-ako ile-nla osikegun oketaro oke-oja ward traditional families",
+  },
+  {
+    title: "Our Families & Oríkì",
+    href: "/families",
+    excerpt: "Documented Takete-Ide family names, traditional compounds, oral traditions and lineage heritage.",
+    keywords: "families family oriki atejaba atejagbo atemayi atemeji atemesami atemeto atemogbe eseyinmeleri eseyintelu oriko lineage praise",
+  },
+  {
     title: "Traditional Institution",
     href: "/heritage/traditional-institution",
     excerpt: "The Olu’de of Takete-Ide Amuro, the traditional council, and the community's traditional leadership structure.",
