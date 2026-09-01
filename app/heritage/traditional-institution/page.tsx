@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Users, Landmark, ScrollText } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
@@ -268,6 +269,32 @@ export default async function TraditionalInstitutionPage() {
                 </p>
               </div>
             ))}
+          </div>
+
+          {/* Compound & Family Explorer Cross-Link */}
+          <div className="mt-8 flex flex-col items-start justify-between gap-4 rounded-2xl border border-purple-100 bg-purple-50/50 p-5 sm:flex-row sm:items-center">
+            <div>
+              <h3 className="font-serif text-sm font-bold text-purple-950">
+                Explore Compounds &amp; Families
+              </h3>
+              <p className="mt-0.5 text-xs text-charcoal/75">
+                View a compound-centred breakdown of these historical affiliations and family connections.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <Link
+                href="/families/compounds"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-purple-200 bg-white px-3 py-1.5 text-xs font-semibold text-purple-900 shadow-sm hover:bg-purple-100/50"
+              >
+                View Compounds →
+              </Link>
+              <Link
+                href="/families"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-purple-200 bg-white px-3 py-1.5 text-xs font-semibold text-purple-900 shadow-sm hover:bg-purple-100/50"
+              >
+                View Families →
+              </Link>
+            </div>
           </div>
 
           {pastRulers.length > 0 && (

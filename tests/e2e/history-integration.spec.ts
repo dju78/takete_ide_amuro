@@ -218,10 +218,104 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
         await expect(page.getByText(ruler.ward).first()).toBeVisible();
       }
 
+      // Cross-link to compounds & families
+      await expect(page.getByRole("heading", { name: "Explore Compounds & Families" })).toBeVisible();
+      await expect(page.getByRole("link", { name: "View Compounds →" })).toBeVisible();
+      await expect(page.getByRole("link", { name: "View Families →" })).toBeVisible();
+
       // No 198× or 200×
       const bodyText = await page.innerText("body");
       expect(bodyText).not.toContain("198×");
       expect(bodyText).not.toContain("200×");
+    });
+  });
+
+  test.describe("Documented Families & Compounds Integration", () => {
+    test("/families/compounds renders 5 unique documented compounds with families and Olu'des", async ({ page }) => {
+      const res = await page.goto("/families/compounds");
+      expect(res?.status()).toBe(200);
+
+      // Heading and explanatory safeguard
+      await expect(
+        page.getByRole("heading", { name: "Compounds Documented in the Historical Olu’de Register" }),
+      ).toBeVisible();
+      await expect(
+        page.getByText(/should not be treated as a complete list of every compound in Takete-Ide/i),
+      ).toBeVisible();
+
+      // All 5 unique compounds present
+      const expectedCompounds = [
+        { name: "Oke-Ako", family: "Atemayi", ruler: "Olu’de Opalu" },
+        { name: "Ile-Nla", family: "Eseyintelu", ruler: "Olu’de Ide" },
+        { name: "Osikegun", family: "Oriko", ruler: "Olu’de Oriko" },
+        { name: "Oketaro", family: "Atemeji", ruler: "Olu’de Obadofin Obere" },
+        { name: "Oke-Oja", family: "Atemeto", ruler: "Olu’de Obaba Omologun" },
+      ];
+
+      for (const comp of expectedCompounds) {
+        await expect(page.getByRole("heading", { name: comp.name, level: 2 })).toBeVisible();
+        await expect(page.getByText(comp.family).first()).toBeVisible();
+        await expect(page.getByText(comp.ruler).first()).toBeVisible();
+      }
+
+      // Badge
+      await expect(page.getByText("Historical manuscript record").first()).toBeVisible();
+
+      // Cross link to Traditional Institution
+      await expect(page.getByRole("link", { name: /View Traditional Institution register/i })).toBeVisible();
+
+      // Safeguard note for community profiles
+      await expect(
+        page.getByText(/Detailed compound profiles, photographs and oral histories will be added/i),
+      ).toBeVisible();
+    });
+
+    test("/families renders 10 unique documented families with multiple compound associations and updated cards", async ({ page }) => {
+      const res = await page.goto("/families");
+      expect(res?.status()).toBe(200);
+
+      // Card description updated
+      await expect(
+        page.getByText("Explore documented Takete-Ide compounds and their historical family associations."),
+      ).toBeVisible();
+
+      // Section heading and safeguard
+      await expect(
+        page.getByRole("heading", { name: "Families Documented in the Historical Olu’de Register" }),
+      ).toBeVisible();
+      await expect(
+        page.getByText(/do not necessarily represent every Takete-Ide family/i),
+      ).toBeVisible();
+
+      // 10 unique families
+      const uniqueFamilies = [
+        "Atejaba",
+        "Atejagbo",
+        "Atemayi",
+        "Atemeji",
+        "Atemesami",
+        "Atemeto",
+        "Atemogbe",
+        "Eseyinmeleri",
+        "Eseyintelu",
+        "Oriko",
+      ];
+
+      for (const fam of uniqueFamilies) {
+        await expect(page.getByRole("heading", { name: fam, level: 2 })).toBeVisible();
+      }
+
+      // Atemayi shows both Oke-Ako and Oke-Oja
+      const atemayiHeading = page.getByRole("heading", { name: "Atemayi", level: 2 });
+      const atemayiCard = atemayiHeading.locator("xpath=ancestor::div[contains(@class, 'rounded-3xl')]");
+      await expect(atemayiCard.getByRole("link", { name: "Oke-Ako" })).toBeVisible();
+      await expect(atemayiCard.getByRole("link", { name: "Oke-Oja" })).toBeVisible();
+
+      // Eseyintelu shows both Ile-Nla and Osikegun
+      const eseyinteluHeading = page.getByRole("heading", { name: "Eseyintelu", level: 2 });
+      const eseyinteluCard = eseyinteluHeading.locator("xpath=ancestor::div[contains(@class, 'rounded-3xl')]");
+      await expect(eseyinteluCard.getByRole("link", { name: "Ile-Nla" })).toBeVisible();
+      await expect(eseyinteluCard.getByRole("link", { name: "Osikegun" })).toBeVisible();
     });
   });
 
@@ -269,6 +363,7 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
         "Traditional Institution",
         "Takete-Ide Anthem",
         "Ate",
+        "Compounds",
       ]) {
         await page.goto(`/search?q=${encodeURIComponent(term)}`);
         await expect(page.getByText(/results? for/i)).toBeVisible();
@@ -288,6 +383,8 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
         "/heritage/traditional-marriage",
         "/heritage/ate",
         "/heritage/takete-ide-anthem",
+        "/families",
+        "/families/compounds",
         "/development",
         "/archive",
         "/archive/takete-history-original",
@@ -323,6 +420,8 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
           "/heritage/traditional-marriage",
           "/heritage/ate",
           "/heritage/takete-ide-anthem",
+          "/families",
+          "/families/compounds",
           "/development",
           "/archive/takete-history-original",
         ]) {
