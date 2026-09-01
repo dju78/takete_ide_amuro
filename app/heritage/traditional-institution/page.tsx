@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Users, Landmark, ScrollText } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
@@ -8,6 +9,10 @@ import { HeritageImage } from "@/components/ui/HeritageImage";
 import { VerificationBadge } from "@/components/ui/Badge";
 import { getTraditionalRulers, getTraditionalCouncil } from "@/lib/data/people";
 import { formatDate } from "@/lib/utils";
+import {
+  CONFIRMED_OLUDE_REGISTER,
+  type HistoricalOludeEntry,
+} from "@/content/history/web/historical-family-compounds";
 
 export const metadata: Metadata = {
   title: "Traditional Institution | Takete-Ide Amuro",
@@ -15,27 +20,8 @@ export const metadata: Metadata = {
     "Explore the supplied community historical account of the Olu’de, the Takete-Ide Traditional Council and the community’s place within the wider Amuro traditional structure.",
 };
 
-export interface HistoricalOludeEntry {
-  number: number;
-  name: string;
-  family: string;
-  ward: string;
-}
-
-export const CONFIRMED_OLUDE_REGISTER: HistoricalOludeEntry[] = [
-  { number: 1, name: "Olu’de Opalu", family: "Atemayi", ward: "Oke-Ako" },
-  { number: 2, name: "Olu’de Ide", family: "Eseyintelu", ward: "Ile-Nla" },
-  { number: 3, name: "Olu’de Oriko", family: "Oriko", ward: "Osikegun" },
-  { number: 4, name: "Olu’de Atte Gbogori", family: "Atemesami", ward: "Osikegun" },
-  { number: 5, name: "Olu’de Orunmbe", family: "Eseyintelu", ward: "Osikegun" },
-  { number: 6, name: "Olu’de Obadofin Obere", family: "Atemeji", ward: "Oketaro" },
-  { number: 7, name: "Olu’de Obaba Omologun", family: "Atemeto", ward: "Oke-Oja" },
-  { number: 8, name: "Olu’de Obajemu Atepa", family: "Atemogbe", ward: "Oke-Oja" },
-  { number: 9, name: "Olu’de Elewa", family: "Eseyinmeleri", ward: "Osikegun" },
-  { number: 10, name: "Olu’de Obajemu Ate", family: "Atejagbo", ward: "Osikegun" },
-  { number: 11, name: "Olu’de Alufa Olukotun", family: "Atejaba", ward: "Oketaro" },
-  { number: 12, name: "Olu’de J.A. Fiki", family: "Atemayi", ward: "Oke-Oja" },
-];
+export type { HistoricalOludeEntry };
+export { CONFIRMED_OLUDE_REGISTER };
 
 export default async function TraditionalInstitutionPage() {
   const [rulers, council] = await Promise.all([getTraditionalRulers(), getTraditionalCouncil()]);
@@ -268,6 +254,32 @@ export default async function TraditionalInstitutionPage() {
                 </p>
               </div>
             ))}
+          </div>
+
+          {/* Compound & Family Explorer Cross-Link */}
+          <div className="mt-8 flex flex-col items-start justify-between gap-4 rounded-2xl border border-purple-100 bg-purple-50/50 p-5 sm:flex-row sm:items-center">
+            <div>
+              <h3 className="font-serif text-sm font-bold text-purple-950">
+                Explore Compounds &amp; Families
+              </h3>
+              <p className="mt-0.5 text-xs text-charcoal/75">
+                Explore these family and compound associations in a compound-centred view.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <Link
+                href="/families/compounds"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-purple-200 bg-white px-3 py-1.5 text-xs font-semibold text-purple-900 shadow-sm hover:bg-purple-100/50"
+              >
+                View Compounds →
+              </Link>
+              <Link
+                href="/families"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-purple-200 bg-white px-3 py-1.5 text-xs font-semibold text-purple-900 shadow-sm hover:bg-purple-100/50"
+              >
+                View Families →
+              </Link>
+            </div>
           </div>
 
           {pastRulers.length > 0 && (
