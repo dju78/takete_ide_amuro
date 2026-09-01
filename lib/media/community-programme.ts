@@ -67,8 +67,8 @@ export const SUPPORT_PURPOSES = [
   },
   {
     title: "Security",
-    description: "The community Security Trust Fund.",
-    href: "/development/security-trust-fund",
+    description: "Community safety initiatives and security at home in Takete-Ide.",
+    href: "/development",
   },
   {
     title: "Heritage & Culture",

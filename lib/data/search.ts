@@ -71,13 +71,7 @@ const PAGE_INDEX: { title: string; href: string; excerpt: string; keywords: stri
     title: "Support Takete-Ide",
     href: "/support",
     excerpt: "Support community, heritage and development initiatives through the Takete-Ide Progressive Union.",
-    keywords: "support donate contribution account bank first bank giving fundraising levy",
-  },
-  {
-    title: "Security Trust Fund",
-    href: "/development/security-trust-fund",
-    excerpt: "The community security fund raised across the union's branches.",
-    keywords: "security trust fund levy safety contribution",
+    keywords: "support donate contribution account bank first bank giving fundraising",
   },
   {
     title: "The TIPU Network",

@@ -96,7 +96,7 @@ export const navGroups: NavGroup[] = [
     href: "/support",
     items: [
       { label: "Support Takete-Ide", href: "/support", description: "The union's official contribution account", featured: true },
-      { label: "Security Trust Fund", href: "/development/security-trust-fund", description: "The community security fund" },
+      { label: "Get Involved", href: "/get-involved", description: "Volunteer and contribute skills" },
       { label: "Contact", href: "/contact", description: "Get in touch" },
     ],
   },

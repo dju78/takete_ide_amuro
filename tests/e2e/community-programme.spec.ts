@@ -163,36 +163,25 @@ test.describe("Centenary 2026", () => {
   });
 });
 
-test.describe("Security Trust Fund", () => {
-  test("publishes the reported figures with the date they were reported", async ({ page }) => {
-    await page.goto("/development/security-trust-fund");
-    await expect(page.getByText("₦16,500,000").first()).toBeVisible();
-    await expect(page.getByText("₦6,667,960").first()).toBeVisible();
-    // Outstanding is computed: 16,500,000 - 6,667,960.
-    await expect(page.getByText("₦9,832,040").first()).toBeVisible();
-    await expect(page.getByText(/Last reported update: 25 August 2026/)).toBeVisible();
+test.describe("Security Trust Fund — Public Removal Regression Guard", () => {
+  test("public support and homepage do not display Security Trust Fund or levy figures", async ({ page }) => {
+    for (const path of ["/", "/support", "/centenary", "/get-involved", "/development"]) {
+      await page.goto(path);
+      const text = (await page.locator("body").innerText()).replace(/\s+/g, " ");
+
+      // Fund titles and figures must not appear publicly
+      expect(text).not.toContain("Security Trust Fund");
+      expect(text).not.toContain("6,667,960");
+      expect(text).not.toContain("16,500,000");
+      expect(text).not.toContain("9,832,040");
+      expect(text).not.toContain("reported paid");
+      expect(text).not.toContain("branch levy target");
+    }
   });
 
-  test("progress is calculated from the amounts, not hard-coded", async ({ page }) => {
-    await page.goto("/development/security-trust-fund");
-    const bar = page.getByRole("progressbar");
-    const now = Number(await bar.getAttribute("aria-valuenow"));
-    // 6,667,960 / 16,500,000 = 40.4%
-    expect(now).toBe(Math.round((6_667_960 / 16_500_000) * 100));
-    const width = await bar.locator("div").first().evaluate((el) => (el as HTMLElement).style.width);
-    expect(parseFloat(width)).toBeCloseTo((6_667_960 / 16_500_000) * 100, 1);
-  });
-
-  test("is labelled a dated record, never a live balance", async ({ page }) => {
-    await page.goto("/development/security-trust-fund");
-    const text = await page.locator("main").innerText();
-    expect(text).not.toMatch(/current balance|live total|balance now/i);
-    await expect(page.getByText(/a dated community record, not a live account balance/)).toBeVisible();
-  });
-
-  test("names no contributor", async ({ page }) => {
-    await page.goto("/development/security-trust-fund");
-    await expect(page.getByText(/No individual contributor is named/)).toBeVisible();
+  test("route /development/security-trust-fund is not accessible on the public site", async ({ page }) => {
+    const response = await page.goto("/development/security-trust-fund");
+    expect(response?.status()).toBe(404);
   });
 });
 
@@ -265,7 +254,6 @@ test.describe("Site-wide privacy", () => {
     "/tipu/branches",
     "/support",
     "/development",
-    "/development/security-trust-fund",
     "/our-story",
     "/education",
     "/heritage",
