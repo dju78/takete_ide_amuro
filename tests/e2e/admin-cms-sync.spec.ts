@@ -95,11 +95,11 @@ test.describe("Admin UI Save -> Database -> Public Rendering & Failure Handling 
   test("database write failure handling enforces error states over false positives", async ({ page }) => {
     // Navigate to admin login to ensure proper error display without false success
     await page.goto("/admin/login");
-    await page.locator('input[name="email"]').fill("invalid-admin@example.com");
-    await page.locator('input[name="password"]').fill("wrongpassword");
+    await page.locator("#email").fill("invalid-admin@example.com");
+    await page.locator("#password").fill("wrongpassword");
     await page.getByRole("button", { name: "Sign In" }).click();
 
-    await expect(page.getByRole("alert")).toBeVisible();
+    await expect(page.locator("form [role='alert']")).toBeVisible({ timeout: 10000 });
     const body = await page.locator("body").innerText();
     expect(body).not.toContain("Changes saved successfully");
     expect(body).not.toContain("Centenary details saved");
