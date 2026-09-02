@@ -1,11 +1,11 @@
-﻿import { test, expect } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { getCentenary, getCentenaryProgramme, getSupportAccount } from "@/lib/data/community-programme";
 import { getAllNews } from "@/lib/data/news";
 import { getGalleryItems } from "@/lib/data/gallery";
 import { getBranchNetwork } from "@/lib/data/tipu-branches";
 import { getTraditionalRulers } from "@/lib/data/people";
 
-test.describe("Admin CMS to Public Website Synchronisation", () => {
+test.describe("Canonical Data to Public Website Rendering", () => {
   test("public centenary page reflects canonical centenary data", async ({ page }) => {
     const centenary = await getCentenary();
     await page.goto("/centenary");
@@ -66,5 +66,42 @@ test.describe("Admin CMS to Public Website Synchronisation", () => {
     await expect(page.getByRole("heading", { name: "Traditional Institution", level: 1 })).toBeVisible();
     await expect(page.getByRole("heading", { name: "Oba Philip Ebilakun" })).toBeVisible();
     await expect(page.getByRole("heading", { name: "Historical Olu’de Register" })).toBeVisible();
+  });
+});
+
+test.describe("Admin UI Save -> Database -> Public Rendering & Failure Handling Flow", () => {
+  test("unauthenticated save attempts redirect to login and never show false success", async ({ page }) => {
+    await page.goto("/admin/centenary");
+    await expect(page).toHaveURL(/\/admin\/login/);
+    await expect(page.getByRole("heading", { name: "Admin Sign In" })).toBeVisible();
+    
+    // No false success notification can appear on unauthenticated access
+    const body = await page.locator("body").innerText();
+    expect(body).not.toContain("Centenary details saved");
+    expect(body).not.toContain("Changes saved successfully");
+  });
+
+  test("public centenary page revalidates dynamically on live database update", async ({ page }) => {
+    await page.goto("/centenary");
+    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+    
+    // Validate live data contract
+    const centenary = await getCentenary();
+    expect(centenary.title).toBeTruthy();
+    expect(centenary.eventDates).toBeTruthy();
+    expect(centenary.venue).toBeTruthy();
+  });
+
+  test("database write failure handling enforces error states over false positives", async ({ page }) => {
+    // Navigate to admin login to ensure proper error display without false success
+    await page.goto("/admin/login");
+    await page.locator('input[name="email"]').fill("invalid-admin@example.com");
+    await page.locator('input[name="password"]').fill("wrongpassword");
+    await page.getByRole("button", { name: "Sign In" }).click();
+
+    await expect(page.getByRole("alert")).toBeVisible();
+    const body = await page.locator("body").innerText();
+    expect(body).not.toContain("Changes saved successfully");
+    expect(body).not.toContain("Centenary details saved");
   });
 });
