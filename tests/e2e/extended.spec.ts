@@ -58,7 +58,7 @@ test.describe("Primary navigation", () => {
     const dialog = page.getByRole("dialog", { name: "Site navigation" });
     await expect(dialog).toBeVisible();
     await dialog.getByRole("button", { name: "News & Events" }).click();
-    const link = dialog.getByRole("link", { name: "Weather" });
+    const link = dialog.getByRole("link", { name: "Weather" }).first();
     await expect(link).toBeVisible();
     await link.click();
     await expect(page).toHaveURL(/\/weather$/);

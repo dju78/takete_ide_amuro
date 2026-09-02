@@ -33,13 +33,22 @@ export function MobileNav({ onClose }: { onClose: () => void }) {
       </div>
 
       <nav aria-label="Mobile" className="flex-1 overflow-y-auto px-5 py-6">
-        <Link
-          href="/"
-          onClick={onClose}
-          className="flex min-h-11 items-center rounded-xl px-3 text-base font-semibold text-purple-600 hover:bg-purple-50"
-        >
-          Home
-        </Link>
+        <div className="flex items-center gap-2">
+          <Link
+            href="/"
+            onClick={onClose}
+            className="flex min-h-11 flex-1 items-center rounded-xl px-3 text-base font-semibold text-purple-600 hover:bg-purple-50"
+          >
+            Home
+          </Link>
+          <Link
+            href="/weather"
+            onClick={onClose}
+            className="flex min-h-11 flex-1 items-center rounded-xl px-3 text-base font-semibold text-purple-600 hover:bg-purple-50"
+          >
+            Weather
+          </Link>
+        </div>
 
         <div className="mt-4 flex flex-col gap-1">
           {navGroups.map((group) => {

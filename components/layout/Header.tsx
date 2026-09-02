@@ -33,6 +33,15 @@ export function Header({ weatherSlot }: { weatherSlot?: React.ReactNode }) {
           {navGroups.map((group) => (
             <MegaMenuGroup key={group.heading} group={group} isActive={pathname.startsWith(group.href) || group.items.some((i) => pathname.startsWith(i.href))} />
           ))}
+          <Link
+            href="/weather"
+            className={cn(
+              "flex items-center rounded-full px-3.5 py-2 text-sm font-medium text-charcoal/80 transition-colors hover:bg-purple-50 hover:text-purple-600",
+              pathname === "/weather" && "bg-purple-50 text-purple-600 font-semibold",
+            )}
+          >
+            Weather
+          </Link>
         </nav>
 
         <div className="flex items-center gap-3">

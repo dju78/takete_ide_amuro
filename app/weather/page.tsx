@@ -27,7 +27,7 @@ export default async function WeatherPage() {
           <Breadcrumb items={[{ label: "Weather" }]} />
           <h1 className="mt-4 font-serif text-4xl font-bold sm:text-5xl">Takete-Ide Weather</h1>
           <p className="mt-3 max-w-2xl text-white/80">
-            Local weather conditions and forecasts for Takete-Ide Amuro, Kogi State.
+            Local weather conditions and forecasts for Takete-Ide, Amuro, Kogi State, Nigeria.
           </p>
         </Container>
       </div>

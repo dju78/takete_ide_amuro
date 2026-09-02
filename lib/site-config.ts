@@ -136,6 +136,7 @@ export const footerGroups: { heading: string; items: NavItem[] }[] = [
       { label: "Contact", href: "/contact" },
       { label: "Get Involved", href: "/get-involved" },
       { label: "News", href: "/news" },
+      { label: "Weather", href: "/weather" },
     ],
   },
 ];

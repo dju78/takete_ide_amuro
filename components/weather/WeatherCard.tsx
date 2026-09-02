@@ -88,7 +88,7 @@ export function WeatherCard({
 
       <div className="border-t border-white/15 px-6 py-4 text-center">
         <ButtonLink href="/weather" variant="primary" size="sm" className="w-full justify-center sm:w-auto">
-          View Full Forecast
+          View Full Weather Forecast
         </ButtonLink>
       </div>
     </div>
