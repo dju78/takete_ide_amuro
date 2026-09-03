@@ -124,7 +124,11 @@ test.describe("Kogi Quest — Interactive Confluence Challenge Experience", () =
     await expect(page.getByText("Multiple Knowledge Levels")).toBeVisible();
     await expect(page.getByText("Instant Answer Feedback")).toBeVisible();
     await expect(page.getByText("Score Tracking")).toBeVisible();
-    await expect(page.getByText("Global Leaderboard")).toBeVisible();
+    // Scoped to the heading role: the guest-play notice above also
+    // mentions "the global leaderboard" in body text, and a plain
+    // getByText substring match is case-insensitive, so it would
+    // otherwise collide with that sentence.
+    await expect(page.getByRole("heading", { name: "Global Leaderboard" })).toBeVisible();
     await expect(page.getByText("Educational & Entertaining")).toBeVisible();
     await expect(page.getByText("Free to Play")).toBeVisible();
   });
