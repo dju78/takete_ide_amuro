@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { X, ChevronDown, Star } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { X, ChevronDown, Star, Gamepad2 } from "lucide-react";
 import { Logo } from "@/components/layout/Logo";
 import { ButtonLink } from "@/components/ui/Button";
 import { navGroups } from "@/lib/site-config";
@@ -10,6 +11,7 @@ import { cn } from "@/lib/utils";
 
 export function MobileNav({ onClose }: { onClose: () => void }) {
   const [openGroup, setOpenGroup] = useState<string | null>(navGroups[0]?.heading ?? null);
+  const pathname = usePathname();
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -37,16 +39,44 @@ export function MobileNav({ onClose }: { onClose: () => void }) {
           <Link
             href="/"
             onClick={onClose}
-            className="flex min-h-11 flex-1 items-center rounded-xl px-3 text-base font-semibold text-purple-600 hover:bg-purple-50"
+            className={cn(
+              "flex min-h-11 flex-1 items-center rounded-xl px-3 text-base font-semibold text-purple-600 hover:bg-purple-50",
+              pathname === "/" && "bg-purple-50 font-bold text-purple-800",
+            )}
           >
             Home
           </Link>
           <Link
             href="/weather"
             onClick={onClose}
-            className="flex min-h-11 flex-1 items-center rounded-xl px-3 text-base font-semibold text-purple-600 hover:bg-purple-50"
+            className={cn(
+              "flex min-h-11 flex-1 items-center rounded-xl px-3 text-base font-semibold text-purple-600 hover:bg-purple-50",
+              pathname === "/weather" && "bg-purple-50 font-bold text-purple-800",
+            )}
           >
             Weather
+          </Link>
+        </div>
+
+        {/* Prominent Standalone Play Kogi Quest Item */}
+        <div className="mt-3">
+          <Link
+            href="/kogi-quest"
+            onClick={onClose}
+            className={cn(
+              "flex min-h-12 w-full items-center justify-between rounded-2xl border border-purple-200/80 bg-gradient-to-r from-purple-50 via-purple-50/50 to-gold-50/50 px-4 py-2.5 text-base font-bold text-purple-950 shadow-xs transition hover:bg-purple-100/70 focus:outline-none focus:ring-2 focus:ring-purple-500",
+              pathname === "/kogi-quest" && "ring-2 ring-purple-600 bg-purple-100",
+            )}
+          >
+            <span className="flex items-center gap-2.5">
+              <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-purple-600 text-white shadow-xs">
+                <Gamepad2 className="h-4 w-4" aria-hidden="true" />
+              </span>
+              <span>Play Kogi Quest</span>
+            </span>
+            <span className="rounded-full bg-gold-500/20 px-2.5 py-0.5 text-xs font-bold uppercase tracking-wide text-gold-800 ring-1 ring-inset ring-gold-400/40">
+              Game
+            </span>
           </Link>
         </div>
 

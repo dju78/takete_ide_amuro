@@ -11,15 +11,47 @@ test.describe("Kogi Quest — Interactive Confluence Challenge Experience", () =
       page.getByText("Test your knowledge, progress through exciting levels and compete for a place on the Kogi Quest leaderboard.")
     ).toBeVisible();
 
-    const playBtn = page.locator("a[href='/kogi-quest']", { hasText: "Play Kogi Quest" }).first();
+    const promoCard = page.locator("section", { hasText: "Think You Know Kogi State?" });
+    const playBtn = promoCard.locator("a[href='/kogi-quest']", { hasText: "Play Kogi Quest" });
     await expect(playBtn).toBeVisible();
   });
 
-  test("navigation and footer contain exactly one valid link to /kogi-quest", async ({ page }) => {
+  test("desktop top-level navigation displays standalone Play Kogi Quest link and not in Explore dropdown", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto("/");
 
-    const navLink = page.locator("nav a[href='/kogi-quest']").first();
-    await expect(navLink).toBeAttached();
+    const primaryNav = page.getByRole("navigation", { name: "Primary" });
+    const topLevelQuestLink = primaryNav.getByRole("link", { name: /Play Kogi Quest/i });
+    await expect(topLevelQuestLink).toBeVisible();
+    await expect(topLevelQuestLink).toHaveAttribute("href", "/kogi-quest");
+
+    // Verify Explore dropdown menu does NOT contain Kogi Quest
+    await primaryNav.getByRole("button", { name: "Explore" }).hover();
+    const exploreDropdown = primaryNav.locator("div.shadow-2xl").locator("a[href='/kogi-quest']");
+    await expect(exploreDropdown).toHaveCount(0);
+  });
+
+  test("mobile navigation drawer displays standalone Play Kogi Quest item near top", async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto("/");
+
+    // Open mobile menu
+    await page.getByRole("button", { name: "Open menu" }).click();
+
+    const mobileNav = page.getByRole("dialog", { name: "Site navigation" });
+    await expect(mobileNav).toBeVisible();
+
+    const mobileQuestLink = mobileNav.getByRole("link", { name: /Play Kogi Quest/i });
+    await expect(mobileQuestLink).toBeVisible();
+    await expect(mobileQuestLink).toHaveAttribute("href", "/kogi-quest");
+
+    // Click and verify navigation
+    await mobileQuestLink.click();
+    await expect(page).toHaveURL(/\/kogi-quest$/);
+  });
+
+  test("footer contains exactly one valid link to /kogi-quest", async ({ page }) => {
+    await page.goto("/");
 
     const footerLinks = page.locator("footer a[href='/kogi-quest']");
     await expect(footerLinks).toHaveCount(1);
@@ -33,7 +65,8 @@ test.describe("Kogi Quest — Interactive Confluence Challenge Experience", () =
     const calloutHeading = page.getByRole("heading", { name: /Kogi Quest: Test Your Knowledge/i });
     await expect(calloutHeading).toBeVisible();
 
-    const calloutBtn = page.locator("a[href='/kogi-quest']", { hasText: "Play Kogi Quest" });
+    const calloutSection = page.locator("div", { hasText: "Kogi Quest: Test Your Knowledge" });
+    const calloutBtn = calloutSection.locator("a[href='/kogi-quest']", { hasText: "Play Kogi Quest" }).first();
     await expect(calloutBtn).toBeVisible();
   });
 
@@ -169,10 +202,22 @@ test.describe("Kogi Quest — Interactive Confluence Challenge Experience", () =
     { name: "mobile-390", width: 390, height: 844 },
     { name: "tablet-768", width: 768, height: 1024 },
     { name: "desktop-1280", width: 1280, height: 800 },
+    { name: "desktop-1320", width: 1320, height: 800 },
+    { name: "desktop-1440", width: 1440, height: 900 },
   ];
 
   for (const vp of viewports) {
-    test(`renders cleanly without horizontal overflow at ${vp.name}`, async ({ page }) => {
+    test(`renders / without horizontal overflow at ${vp.name}`, async ({ page }) => {
+      await page.setViewportSize({ width: vp.width, height: vp.height });
+      await page.goto("/");
+
+      const hasHorizontalScroll = await page.evaluate(() => {
+        return document.documentElement.scrollWidth > window.innerWidth;
+      });
+      expect(hasHorizontalScroll).toBe(false);
+    });
+
+    test(`renders /kogi-quest without horizontal overflow at ${vp.name}`, async ({ page }) => {
       await page.setViewportSize({ width: vp.width, height: vp.height });
       await page.goto("/kogi-quest");
 

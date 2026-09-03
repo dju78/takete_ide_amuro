@@ -70,7 +70,6 @@ export const navGroups: NavGroup[] = [
     href: "/heritage",
     items: [
       { label: "Culture & Heritage", href: "/heritage", description: "Festivals, dress, faith and the land", featured: true },
-      { label: "Kogi Quest", href: "/kogi-quest", description: "Interactive cultural and educational challenge", featured: true },
       { label: "Gallery", href: "/gallery", description: "Photographs from community life" },
       { label: "Families & Oríkì", href: "/families", description: "Family names, compounds and praise poetry" },
       { label: "Family Oríkì", href: "/oriki", description: "Community directory of family praise names" },
