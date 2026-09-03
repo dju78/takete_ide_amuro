@@ -66,7 +66,7 @@ const structuredData = {
 const highlights = [
   {
     icon: Layers,
-    title: "Multiple Knowledge Levels",
+    title: "Multiple Cultural & Historical Titles",
     description: "Progress from foundational heritage questions to advanced historical deep dives.",
   },
   {
@@ -121,7 +121,7 @@ export default function KogiQuestPage() {
             </h1>
 
             <p className="mt-4 text-base leading-relaxed text-white/90 sm:text-lg">
-              Explore the history, culture, people and remarkable places of Kogi State through an exciting interactive challenge. Answer questions, progress through different levels, build your score and discover how much you truly know about the Confluence State.
+              Explore the history, culture, people and remarkable places of Kogi State through an exciting interactive challenge. Answer questions, explore different cultural and historical titles, build your score and discover how much you truly know about the Confluence State.
             </p>
 
             <p className="mt-3 font-serif text-lg font-bold text-gold-300 sm:text-xl">

@@ -434,7 +434,7 @@ export default async function HomePage() {
                 Think You Know Kogi State?
               </h2>
               <p className="mt-2 text-sm leading-relaxed text-white/85 sm:text-base">
-                Test your knowledge, progress through exciting levels and compete for a place on the Kogi Quest leaderboard.
+                Test your knowledge, explore different cultural and historical titles and compete for a place on the Kogi Quest leaderboard.
               </p>
             </div>
             <div className="mt-6 flex shrink-0 items-center gap-3 lg:mt-0">

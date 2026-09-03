@@ -8,7 +8,7 @@ test.describe("Kogi Quest — Interactive Confluence Challenge Experience", () =
     await expect(heading).toBeVisible();
 
     await expect(
-      page.getByText("Test your knowledge, progress through exciting levels and compete for a place on the Kogi Quest leaderboard.")
+      page.getByText("Test your knowledge, explore different cultural and historical titles and compete for a place on the Kogi Quest leaderboard.")
     ).toBeVisible();
 
     const promoCard = page.locator("section", { hasText: "Think You Know Kogi State?" });
@@ -121,7 +121,7 @@ test.describe("Kogi Quest — Interactive Confluence Challenge Experience", () =
 
     await expect(page.getByText("Powered by Omoyele EduVerse.").first()).toBeVisible();
 
-    await expect(page.getByText("Multiple Knowledge Levels")).toBeVisible();
+    await expect(page.getByText("Multiple Cultural & Historical Titles")).toBeVisible();
     await expect(page.getByText("Instant Answer Feedback")).toBeVisible();
     await expect(page.getByText("Score Tracking")).toBeVisible();
     // Scoped to the heading role: the guest-play notice above also
