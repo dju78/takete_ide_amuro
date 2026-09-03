@@ -32,27 +32,26 @@ export function Header({ weatherSlot }: { weatherSlot?: React.ReactNode }) {
               Home
             </Link>
             {navGroups.map((group) => (
-              <div key={group.heading} className="flex items-center gap-1">
-                <MegaMenuGroup
-                  group={group}
-                  isActive={pathname.startsWith(group.href) || group.items.some((i) => pathname.startsWith(i.href))}
-                />
-                {group.heading === "Explore" && (
-                  <Link
-                    href="/kogi-quest"
-                    className={cn(
-                      "inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-semibold transition-all focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2",
-                      pathname === "/kogi-quest"
-                        ? "bg-purple-100 font-bold text-purple-900 ring-1 ring-purple-600/40 shadow-xs"
-                        : "bg-gold-50/80 text-purple-900 ring-1 ring-gold-400/50 hover:bg-gold-100 hover:text-purple-950",
-                    )}
-                  >
-                    <Gamepad2 className="h-4 w-4 text-purple-700 shrink-0" aria-hidden="true" />
-                    <span>Play Kogi Quest</span>
-                  </Link>
-                )}
-              </div>
+              <MegaMenuGroup
+                key={group.heading}
+                group={group}
+                isActive={pathname.startsWith(group.href) || group.items.some((i) => pathname.startsWith(i.href))}
+              />
             ))}
+            <Link
+              href="/kogi-quest"
+              aria-label="Play Kogi Quest"
+              title="Play Kogi Quest"
+              className={cn(
+                "inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-3 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2",
+                pathname === "/kogi-quest"
+                  ? "bg-purple-100 font-semibold text-purple-800 ring-1 ring-purple-600/30"
+                  : "bg-purple-50 text-purple-700 hover:bg-purple-100 hover:text-purple-900 border border-purple-200/60",
+              )}
+            >
+              <Gamepad2 className="h-4 w-4 shrink-0 text-purple-600" aria-hidden="true" />
+              <span>Kogi Quest</span>
+            </Link>
             <Link
               href="/weather"
               className={cn(

@@ -16,14 +16,36 @@ test.describe("Kogi Quest — Interactive Confluence Challenge Experience", () =
     await expect(playBtn).toBeVisible();
   });
 
-  test("desktop top-level navigation displays standalone Play Kogi Quest link and not in Explore dropdown", async ({ page }) => {
+  test("desktop top-level navigation displays Kogi Quest between Support and Weather in exact order", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto("/");
 
     const primaryNav = page.getByRole("navigation", { name: "Primary" });
-    const topLevelQuestLink = primaryNav.getByRole("link", { name: /Play Kogi Quest/i });
-    await expect(topLevelQuestLink).toBeVisible();
-    await expect(topLevelQuestLink).toHaveAttribute("href", "/kogi-quest");
+    
+    // Top-level link properties
+    const questLink = primaryNav.getByRole("link", { name: /Play Kogi Quest|Kogi Quest/i });
+    await expect(questLink).toBeVisible();
+    await expect(questLink).toHaveText("Kogi Quest");
+    await expect(questLink).toHaveAttribute("href", "/kogi-quest");
+    await expect(questLink).toHaveAttribute("aria-label", "Play Kogi Quest");
+    await expect(questLink).toHaveAttribute("title", "Play Kogi Quest");
+
+    // Verify exact navigation order: Home -> About -> Explore -> Community -> News & Events -> Centenary 2026 -> Support -> Kogi Quest -> Weather
+    const navItems = primaryNav.locator("> a, > div > button, > div > a");
+    const itemTexts = await navItems.allTextContents();
+    const cleanTexts = itemTexts.map((t) => t.trim().replace(/\s+/g, " "));
+
+    expect(cleanTexts).toEqual([
+      "Home",
+      "About",
+      "Explore",
+      "Community",
+      "News & Events",
+      "Centenary 2026",
+      "Support",
+      "Kogi Quest",
+      "Weather",
+    ]);
 
     // Verify Explore dropdown menu does NOT contain Kogi Quest
     await primaryNav.getByRole("button", { name: "Explore" }).hover();
@@ -201,6 +223,7 @@ test.describe("Kogi Quest — Interactive Confluence Challenge Experience", () =
     { name: "mobile-375", width: 375, height: 667 },
     { name: "mobile-390", width: 390, height: 844 },
     { name: "tablet-768", width: 768, height: 1024 },
+    { name: "desktop-1024", width: 1024, height: 768 },
     { name: "desktop-1280", width: 1280, height: 800 },
     { name: "desktop-1320", width: 1320, height: 800 },
     { name: "desktop-1440", width: 1440, height: 900 },
