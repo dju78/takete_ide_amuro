@@ -14,6 +14,7 @@ import {
   MapPin,
   Sparkles,
   Clock,
+  Trophy,
 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -416,6 +417,31 @@ export default async function HomePage() {
             <ButtonLink href="/heritage" variant="outline" size="sm">
               Explore culture &amp; heritage
             </ButtonLink>
+          </div>
+        </Container>
+      </section>
+
+      {/* Kogi Quest Interactive Challenge Promo */}
+      <section className="bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-950 py-14 text-white sm:py-16">
+        <Container>
+          <div className="rounded-3xl border border-gold-500/20 bg-white/5 p-8 backdrop-blur-sm sm:p-10 lg:flex lg:items-center lg:justify-between lg:gap-10">
+            <div className="max-w-2xl">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-gold-500/20 px-3 py-1 text-xs font-bold uppercase tracking-wider text-gold-300 ring-1 ring-inset ring-gold-400/30">
+                <Trophy className="h-3.5 w-3.5 text-gold-300" aria-hidden="true" />
+                Interactive Confluence Challenge
+              </span>
+              <h2 className="mt-3 font-serif text-2xl font-bold sm:text-3xl lg:text-4xl text-white">
+                Think You Know Kogi State?
+              </h2>
+              <p className="mt-2 text-sm leading-relaxed text-white/85 sm:text-base">
+                Test your knowledge, progress through exciting levels and compete for a place on the Kogi Quest leaderboard.
+              </p>
+            </div>
+            <div className="mt-6 flex shrink-0 items-center gap-3 lg:mt-0">
+              <ButtonLink href="/kogi-quest" size="lg" className="w-full justify-center sm:w-auto">
+                Play Kogi Quest
+              </ButtonLink>
+            </div>
           </div>
         </Container>
       </section>

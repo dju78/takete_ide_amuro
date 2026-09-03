@@ -59,10 +59,13 @@ test.describe("Public site smoke tests", () => {
     await expect(page.getByRole("heading", { name: /Detailed Family Profiles Under Compilation/i })).toBeVisible();
   });
 
-  test("no public Kogi Quest link exists in navigation or footer", async ({ page }) => {
+  test("public Kogi Quest link exists in navigation and footer pointing to /kogi-quest", async ({ page }) => {
     await page.goto("/");
-    await expect(page.locator("nav").getByText("Kogi Quest")).toHaveCount(0);
-    await expect(page.locator("footer").getByText("Kogi Quest")).toHaveCount(0);
+    const navLink = page.locator("nav a[href='/kogi-quest']").first();
+    await expect(navLink).toBeAttached();
+
+    const footerLink = page.locator("footer a[href='/kogi-quest']").first();
+    await expect(footerLink).toBeAttached();
   });
 
   test("homepage does not display broken weather unavailable block when unconfigured", async ({ page }) => {

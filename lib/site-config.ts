@@ -70,6 +70,7 @@ export const navGroups: NavGroup[] = [
     href: "/heritage",
     items: [
       { label: "Culture & Heritage", href: "/heritage", description: "Festivals, dress, faith and the land", featured: true },
+      { label: "Kogi Quest", href: "/kogi-quest", description: "Interactive cultural and educational challenge", featured: true },
       { label: "Gallery", href: "/gallery", description: "Photographs from community life" },
       { label: "Families & Oríkì", href: "/families", description: "Family names, compounds and praise poetry" },
       { label: "Family Oríkì", href: "/oriki", description: "Community directory of family praise names" },
@@ -127,6 +128,7 @@ export const footerGroups: { heading: string; items: NavItem[] }[] = [
       { label: "About", href: "/our-story" },
       { label: "History", href: "/our-story" },
       { label: "Culture", href: "/heritage" },
+      { label: "Kogi Quest", href: "/kogi-quest" },
       { label: "Gallery", href: "/gallery" },
     ],
   },
@@ -154,6 +156,7 @@ export const footerGroups: { heading: string; items: NavItem[] }[] = [
       { label: "Get Involved", href: "/get-involved" },
       { label: "News", href: "/news" },
       { label: "Weather", href: "/weather" },
+      { label: "Kogi Quest", href: "/kogi-quest" },
     ],
   },
 ];

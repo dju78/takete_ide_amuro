@@ -150,6 +150,25 @@ export default function EducationPage() {
               Support Takete-Ide →
             </Link>
           </div>
+
+          <div className="rounded-3xl border border-gold-500/30 bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-950 p-6 text-white shadow-sm sm:col-span-2">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <span className="inline-block rounded-full bg-gold-500/20 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-gold-300 ring-1 ring-inset ring-gold-400/30">
+                  Interactive Learning
+                </span>
+                <h3 className="mt-2 font-serif text-xl font-bold text-white">
+                  Kogi Quest: Test Your Knowledge of the Confluence State
+                </h3>
+                <p className="mt-1 text-sm text-white/85">
+                  An exciting cultural quiz exploring the history, geography, culture and heritage of Kogi State.
+                </p>
+              </div>
+              <ButtonLink href="/kogi-quest" size="sm" className="shrink-0 justify-center">
+                Play Kogi Quest →
+              </ButtonLink>
+            </div>
+          </div>
         </section>
 
         <div className="mt-14 rounded-3xl bg-white p-8 shadow-sm">

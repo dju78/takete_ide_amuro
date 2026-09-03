@@ -12,7 +12,7 @@ const staticRoutes = [
   "/development", "/our-people", "/news", "/events", "/gallery", "/weather", "/diaspora", "/archive",
   "/archive/oral-history", "/tipu", "/tipu/branches", "/tipu/branches/lokoja",
   "/tipu/branches/ilorin", "/diaspora/uk-europe", "/takete-ide-day/cultural-attire", "/centenary", "/support",
-  "/education",
+  "/education", "/kogi-quest",
   "/development/community-at-work", "/families", "/families/compounds", "/families/contribute",
   "/oriki", "/oriki/contribute", "/get-involved", "/contact", "/privacy", "/terms",
   "/accessibility", "/cookies",
