@@ -15,6 +15,8 @@ export const metadata: Metadata = {
   description: "Historical photographs, documents, records and oral histories of Takete-Ide Amuro.",
 };
 
+export const revalidate = 3600;
+
 const categories = [
   "photograph", "programme", "church_record", "school_record", "document", "constitution",
   "meeting_minutes", "oral_history", "map", "newspaper_report", "video", "audio", "biography", "publication",

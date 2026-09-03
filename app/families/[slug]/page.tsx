@@ -6,10 +6,17 @@ import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { VerificationBadge } from "@/components/ui/Badge";
 import { AudioPlayer } from "@/components/heritage/AudioPlayer";
-import { getFamilyBySlug } from "@/lib/data/families";
+import { getFamilies, getFamilyBySlug } from "@/lib/data/families";
 
 interface Props {
   params: Promise<{ slug: string }>;
+}
+
+export const revalidate = 3600;
+
+export async function generateStaticParams() {
+  const families = await getFamilies();
+  return families.map((f) => ({ slug: f.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

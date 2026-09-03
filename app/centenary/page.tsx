@@ -28,8 +28,7 @@ export const metadata: Metadata = {
     "Official Takete-Ide Centenary 2026 Celebration (29–31 October 2026) — programme schedule, official invitation, dignitaries, guests & hosts, event highlights, venue and RSVP information.",
 };
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
+export const revalidate = 3600;
 
 export default async function CentenaryPage() {
   const [centenary, programmes, guestGroups, rsvpContacts, branches, attire, news] = await Promise.all([

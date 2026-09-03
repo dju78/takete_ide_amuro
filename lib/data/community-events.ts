@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { getPublicSupabase } from "@/lib/supabase/server";
 import { getCentenary } from "@/lib/data/community-programme";
 import { getBranchNetwork } from "@/lib/data/tipu-branches";
 import { branchLocation } from "@/lib/media/tipu-branches";
@@ -66,7 +66,7 @@ export async function getCommunityEvents(): Promise<CommunityEvent[]> {
     status: "scheduled",
   });
 
-  const supabase = await createClient();
+  const supabase = getPublicSupabase();
   if (!supabase) return sortByDate(events);
 
   const [taketeIdeDays, branchEvents, branches] = await Promise.all([

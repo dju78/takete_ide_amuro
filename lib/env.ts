@@ -12,7 +12,7 @@ export const env = {
   accuweatherForecastUrl:
     process.env.NEXT_PUBLIC_ACCUWEATHER_FORECAST_URL ||
     "https://www.accuweather.com/en/ng/takete-ide/923542/weather-forecast/923542",
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://taketeideamuro.org",
+  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://takete-ide.org",
   emailFrom: process.env.EMAIL_FROM,
   emailProviderApiKey: process.env.EMAIL_PROVIDER_API_KEY,
   contactNotifyAddress: process.env.CONTACT_NOTIFY_EMAIL,

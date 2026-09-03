@@ -1,3 +1,22 @@
+export const CANONICAL_SITE_URL = "https://takete-ide.org";
+
+/**
+ * Single source of truth for canonical site URL across metadataBase, sitemap,
+ * robots, Open Graph, Twitter cards, and JSON-LD structured data.
+ * Ensures the production address always resolves to the approved domain https://takete-ide.org.
+ */
+export function getCanonicalSiteUrl(): string {
+  const envUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  if (
+    !envUrl ||
+    envUrl.includes("takete.netlify.app") ||
+    envUrl.includes("taketeideamuro.org")
+  ) {
+    return CANONICAL_SITE_URL;
+  }
+  return envUrl.replace(/\/+$/, "");
+}
+
 export const siteConfig = {
   name: "Takete-Ide Amuro",
   tagline: "Heritage • Unity • Progress",
@@ -9,9 +28,7 @@ export const siteConfig = {
     state: "Kogi State",
     country: "Nigeria",
   },
-  // No canonical domain has been purchased yet — see docs/DECISIONS.md.
-  // Overridden by NEXT_PUBLIC_SITE_URL in production.
-  url: process.env.NEXT_PUBLIC_SITE_URL || "https://taketeideamuro.org",
+  url: getCanonicalSiteUrl(),
 } as const;
 
 export type NavItem = {

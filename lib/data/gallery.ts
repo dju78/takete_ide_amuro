@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { getPublicSupabase } from "@/lib/supabase/server";
 import {
   getCommunityGalleryItems,
   getCommunityMedia,
@@ -19,7 +19,7 @@ import type { GalleryItem } from "@/types/content";
  * archive media follows. Neither source can displace the other.
  */
 async function getDbGalleryItems(options?: { category?: string; year?: number }): Promise<GalleryItem[]> {
-  const supabase = await createClient();
+  const supabase = getPublicSupabase();
   if (!supabase) return [];
   let query = supabase.from("gallery_items").select("*").eq("status", "published").order("created_at", { ascending: false });
   if (options?.category) query = query.eq("category", options.category);
@@ -41,7 +41,7 @@ export async function getGalleryItems(options?: { category?: string; year?: numb
 }
 
 export async function getGalleryHighlights(limit = 8): Promise<GalleryItem[]> {
-  const supabase = await createClient();
+  const supabase = getPublicSupabase();
   const dbItems = supabase
     ? ((
         await supabase
@@ -58,7 +58,7 @@ export async function getGalleryHighlights(limit = 8): Promise<GalleryItem[]> {
 }
 
 export async function getGalleryCategories(): Promise<string[]> {
-  const supabase = await createClient();
+  const supabase = getPublicSupabase();
   const [albumCategories, communityCategories] = await Promise.all([
     supabase
       ? supabase.from("albums").select("category").order("category").then(({ data }) => (data ?? []).map((a) => a.category))

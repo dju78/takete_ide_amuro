@@ -4,7 +4,7 @@ import { mapCurrentConditions, mapForecast } from "@/lib/weather/mapper";
 
 const BASE_URL = "https://dataservice.accuweather.com";
 const REVALIDATE_SECONDS = 1800; // 30 minutes — current conditions don't need per-request calls.
-const TIMEOUT_MS = 8000;
+const TIMEOUT_MS = 3000;
 
 async function fetchWithTimeout(url: string) {
   const controller = new AbortController();

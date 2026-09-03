@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { getPublicSupabase } from "@/lib/supabase/server";
 import { getBranchNetwork } from "@/lib/data/tipu-branches";
 import { getCommunityMedia } from "@/lib/data/community-media";
 import { branchLocation } from "@/lib/media/tipu-branches";
@@ -274,7 +274,7 @@ export async function siteSearch(query: string): Promise<SearchResult[]> {
   }
 
   // ---- Published database records -----------------------------------------
-  const supabase = await createClient();
+  const supabase = getPublicSupabase();
   if (!supabase) return dedupe(results);
 
   const [news, archive, people, events, projects, families, oriki] = await Promise.all([

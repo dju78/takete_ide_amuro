@@ -4,6 +4,22 @@ import { cookies } from "next/headers";
 import { env, isSupabaseConfigured } from "@/lib/env";
 import type { Database } from "@/types/database";
 
+/**
+ * Public, stateless Supabase client for Server Components, Static Generation, and ISR.
+ * Does not read cookies, enabling full static prerendering and CDN caching.
+ */
+let publicClient: ReturnType<typeof createSupabaseClient<Database>> | null = null;
+
+export function getPublicSupabase() {
+  if (!isSupabaseConfigured || !env.supabaseUrl || !env.supabaseAnonKey) return null;
+  if (!publicClient) {
+    publicClient = createSupabaseClient<Database>(env.supabaseUrl, env.supabaseAnonKey, {
+      auth: { autoRefreshToken: false, persistSession: false },
+    });
+  }
+  return publicClient;
+}
+
 /** Server-side Supabase client for Server Components / Route Handlers / Server Actions. */
 export async function createClient() {
   if (!isSupabaseConfigured) return null;

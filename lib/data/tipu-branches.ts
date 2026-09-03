@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { getPublicSupabase } from "@/lib/supabase/server";
 import {
   tipuBranches,
   GROUP_ORDER,
@@ -117,7 +117,7 @@ function fromRow(row: BranchRow): BranchSeed {
 }
 
 async function fetchRows(): Promise<BranchRow[]> {
-  const supabase = await createClient();
+  const supabase = getPublicSupabase();
   if (!supabase) return [];
   const { data, error } = await supabase.from("tipu_branches").select("*");
   if (error || !data) return [];
@@ -183,7 +183,7 @@ export async function getFeaturedBranches(): Promise<ResolvedBranch[]> {
  * no database, which simply means cards fall back to the baseline activity text.
  */
 export async function getBranchUpdates(): Promise<Map<string, BranchUpdate[]>> {
-  const supabase = await createClient();
+  const supabase = getPublicSupabase();
   if (!supabase) return new Map();
   const { data, error } = await supabase
     .from("tipu_branch_updates")

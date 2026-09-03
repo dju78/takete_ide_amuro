@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { getPublicSupabase } from "@/lib/supabase/server";
 import type { NewsArticle } from "@/types/content";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -38,7 +38,7 @@ const SELECT =
 const PUBLISHED = "published" as const;
 
 export async function getLatestNews(limit = 3): Promise<NewsArticle[]> {
-  const supabase = await createClient();
+  const supabase = getPublicSupabase();
   if (!supabase) return [];
   const { data, error } = await supabase
     .from("news_articles")
@@ -52,7 +52,7 @@ export async function getLatestNews(limit = 3): Promise<NewsArticle[]> {
 
 /** The article an editor has chosen to lead the newsroom with, if any. */
 export async function getFeaturedNews(): Promise<NewsArticle | null> {
-  const supabase = await createClient();
+  const supabase = getPublicSupabase();
   if (!supabase) return null;
   const { data, error } = await supabase
     .from("news_articles")
@@ -67,7 +67,7 @@ export async function getFeaturedNews(): Promise<NewsArticle | null> {
 }
 
 export async function getNewsBySlug(slug: string): Promise<NewsArticle | null> {
-  const supabase = await createClient();
+  const supabase = getPublicSupabase();
   if (!supabase) return null;
   const { data, error } = await supabase
     .from("news_articles")
@@ -80,7 +80,7 @@ export async function getNewsBySlug(slug: string): Promise<NewsArticle | null> {
 }
 
 export async function getAllNews(options?: { category?: string; search?: string }): Promise<NewsArticle[]> {
-  const supabase = await createClient();
+  const supabase = getPublicSupabase();
   if (!supabase) return [];
   let query = supabase
     .from("news_articles")
@@ -118,7 +118,7 @@ export async function getRelatedNews(article: NewsArticle, limit = 3): Promise<N
 
 /** Published articles tagged as relating to a given TIPU branch. */
 export async function getNewsForBranch(branchSlug: string, limit = 3): Promise<NewsArticle[]> {
-  const supabase = await createClient();
+  const supabase = getPublicSupabase();
   if (!supabase) return [];
   const { data, error } = await supabase
     .from("news_articles")
@@ -132,7 +132,7 @@ export async function getNewsForBranch(branchSlug: string, limit = 3): Promise<N
 }
 
 export async function getNewsCategories() {
-  const supabase = await createClient();
+  const supabase = getPublicSupabase();
   if (!supabase) return [];
   const { data } = await supabase.from("news_categories").select("name, slug").order("name");
   return data ?? [];

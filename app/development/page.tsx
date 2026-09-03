@@ -16,8 +16,7 @@ export const metadata: Metadata = {
   description: "Community development projects across roads, education, healthcare, water, electricity and more.",
 };
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
+export const revalidate = 3600;
 
 const categories: { key: string; label: string; icon: React.ComponentType<{ className?: string }> }[] = [
   { key: "roads_access", label: "Roads & Infrastructure", icon: Route },

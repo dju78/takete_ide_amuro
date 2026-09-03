@@ -31,8 +31,7 @@ import { getCentenary, getCentenaryProgramme, getSupportAccount } from "@/lib/da
 import { getPublishedEvents } from "@/lib/data/events";
 import { formatDate } from "@/lib/utils";
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
+export const revalidate = 3600;
 
 const fallbackGallery = [
   { src: "/images/takete-ide/places/okuta-gboro.png", alt: "Okuta Gbooro, a prominent rock formation and landscape landmark at Takete-Ide" },

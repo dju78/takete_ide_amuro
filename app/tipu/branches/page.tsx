@@ -12,8 +12,7 @@ export const metadata: Metadata = {
     "Every branch and chapter of the Takete-Ide Progressive Union — at home in Takete-Ide, across Nigerian cities, and in the diaspora.",
 };
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
+export const revalidate = 3600;
 
 export default async function TipuNetworkPage() {
   const [groups, updates] = await Promise.all([getBranchNetworkByGroup(), getBranchUpdates()]);

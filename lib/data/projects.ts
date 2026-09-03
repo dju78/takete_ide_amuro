@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { getPublicSupabase } from "@/lib/supabase/server";
 import type { DevelopmentProject } from "@/types/content";
 
 const SELECT =
@@ -32,7 +32,7 @@ function mapProject(row: any): DevelopmentProject {
 }
 
 export async function getProjects(category?: string): Promise<DevelopmentProject[]> {
-  const supabase = await createClient();
+  const supabase = getPublicSupabase();
   if (!supabase) return [];
   let query = supabase.from("projects").select(SELECT).order("created_at", { ascending: false });
   if (category) query = query.eq("category", category);
@@ -42,7 +42,7 @@ export async function getProjects(category?: string): Promise<DevelopmentProject
 }
 
 export async function getProjectBySlug(slug: string): Promise<DevelopmentProject | null> {
-  const supabase = await createClient();
+  const supabase = getPublicSupabase();
   if (!supabase) return null;
   const { data, error } = await supabase.from("projects").select(SELECT).eq("slug", slug).maybeSingle();
   if (error || !data) return null;

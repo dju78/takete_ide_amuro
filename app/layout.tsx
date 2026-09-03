@@ -34,6 +34,9 @@ export const metadata: Metadata = {
     title: siteConfig.name,
     description: siteConfig.description,
   },
+  alternates: {
+    canonical: "./",
+  },
   manifest: "/manifest.webmanifest",
 };
 

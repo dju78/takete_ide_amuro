@@ -5,15 +5,19 @@ import { MapPin, Calendar, FileText } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { ProjectStatusBadge, VerificationBadge } from "@/components/ui/Badge";
-import { getProjectBySlug } from "@/lib/data/projects";
+import { getProjectBySlug, getProjects } from "@/lib/data/projects";
 import { formatDate } from "@/lib/utils";
 
 interface Props {
   params: Promise<{ slug: string }>;
 }
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
+export const revalidate = 3600;
+
+export async function generateStaticParams() {
+  const projects = await getProjects();
+  return projects.map((p) => ({ slug: p.slug }));
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;

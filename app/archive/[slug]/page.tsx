@@ -8,7 +8,7 @@ import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { VerificationBadge } from "@/components/ui/Badge";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { formatDate } from "@/lib/utils";
-import { getArchiveItemBySlug } from "@/lib/data/archive";
+import { getArchiveItemBySlug, getArchiveItems } from "@/lib/data/archive";
 import { ArchiveDocumentCover } from "@/components/archive/ArchiveDocumentCover";
 import {
   ARCHIVE_OVERVIEW_CARDS,
@@ -19,6 +19,13 @@ import { MIGRATION_TIMELINE } from "@/content/history/web/migration-timeline";
 
 interface Props {
   params: Promise<{ slug: string }>;
+}
+
+export const revalidate = 3600;
+
+export async function generateStaticParams() {
+  const items = await getArchiveItems();
+  return items.map((item) => ({ slug: item.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

@@ -6,12 +6,19 @@ import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { GalleryLightbox } from "@/components/gallery/GalleryLightbox";
 import { EventWeather } from "@/components/weather/EventWeather";
-import { getEventByYear } from "@/lib/data/events";
+import { getEventByYear, getPublishedEvents } from "@/lib/data/events";
 import { formatDate } from "@/lib/utils";
 import { siteConfig } from "@/lib/site-config";
 
 interface Props {
   params: Promise<{ year: string }>;
+}
+
+export const revalidate = 3600;
+
+export async function generateStaticParams() {
+  const events = await getPublishedEvents();
+  return events.map((e) => ({ year: String(e.year) }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

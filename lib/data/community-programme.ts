@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { getPublicSupabase } from "@/lib/supabase/server";
 import {
   OFFICIAL_SUPPORT_ACCOUNT,
   CENTENARY,
@@ -22,7 +22,7 @@ import { formatCurrency } from "@/lib/utils";
  * the baseline, or deactivating an account would silently fail.
  */
 export async function getSupportAccount(): Promise<SupportAccount | null> {
-  const supabase = await createClient();
+  const supabase = getPublicSupabase();
   if (!supabase) return OFFICIAL_SUPPORT_ACCOUNT;
 
   const { data, error } = await supabase
@@ -49,14 +49,14 @@ export async function getSupportAccount(): Promise<SupportAccount | null> {
 
 /** Every account row, active or not — admin only. */
 export async function getAllSupportAccounts() {
-  const supabase = await createClient();
+  const supabase = getPublicSupabase();
   if (!supabase) return [];
   const { data } = await supabase.from("support_accounts").select("*").order("sort_order");
   return data ?? [];
 }
 
 export async function getCentenary(): Promise<CentenaryDetails> {
-  const supabase = await createClient();
+  const supabase = getPublicSupabase();
   if (!supabase) return CENTENARY;
   const { data, error } = await supabase.from("centenary_settings").select("*").eq("id", true).maybeSingle();
   if (error || !data) return CENTENARY;
@@ -77,7 +77,7 @@ export async function getCentenary(): Promise<CentenaryDetails> {
 }
 
 export async function getCentenaryProgramme(): Promise<CentenaryProgrammeItem[]> {
-  const supabase = await createClient();
+  const supabase = getPublicSupabase();
   if (!supabase) return CENTENARY_PROGRAMME;
 
   const { data, error } = await supabase
@@ -122,7 +122,7 @@ function formatEventDate(iso: string | null): string | null {
 }
 
 export async function getSecurityTrustFund(): Promise<TrustFundReport> {
-  const supabase = await createClient();
+  const supabase = getPublicSupabase();
   if (!supabase) return SECURITY_TRUST_FUND;
   const { data, error } = await supabase.from("security_trust_fund").select("*").eq("id", true).maybeSingle();
   if (error || !data || data.target_amount == null) return SECURITY_TRUST_FUND;

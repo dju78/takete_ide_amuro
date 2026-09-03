@@ -1,8 +1,8 @@
 import { Megaphone } from "lucide-react";
-import { createClient } from "@/lib/supabase/server";
+import { getPublicSupabase } from "@/lib/supabase/server";
 
 export async function AnnouncementBanner() {
-  const supabase = await createClient();
+  const supabase = getPublicSupabase();
   if (!supabase) return null;
 
   const today = new Date().toISOString().slice(0, 10);

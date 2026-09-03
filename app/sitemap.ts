@@ -27,6 +27,8 @@ const staticRoutes = [
  * /search is deliberately absent: it is marked noindex, and query-string result
  * pages would only dilute the canonical section pages.
  */
+export const revalidate = 86400;
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [news, families, oriki, events, people, projects, archive] = await Promise.all([
     getAllNews(),
@@ -38,16 +40,32 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     getArchiveItems(),
   ]);
 
-  const now = new Date();
-
   return [
-    ...staticRoutes.map((route) => ({ url: `${siteConfig.url}${route}`, lastModified: now })),
-    ...news.map((a) => ({ url: `${siteConfig.url}/news/${a.slug}`, lastModified: now })),
-    ...families.map((f) => ({ url: `${siteConfig.url}/families/${f.slug}`, lastModified: now })),
-    ...oriki.map((o) => ({ url: `${siteConfig.url}/oriki/${o.slug}`, lastModified: now })),
-    ...events.map((e) => ({ url: `${siteConfig.url}/takete-ide-day/${e.year}`, lastModified: now })),
-    ...people.map((p) => ({ url: `${siteConfig.url}/our-people/${p.slug}`, lastModified: now })),
-    ...projects.map((p) => ({ url: `${siteConfig.url}/development/projects/${p.slug}`, lastModified: now })),
-    ...archive.map((a) => ({ url: `${siteConfig.url}/archive/${a.slug}`, lastModified: now })),
+    ...staticRoutes.map((route) => ({
+      url: `${siteConfig.url}${route}`,
+    })),
+    ...news.map((a) => ({
+      url: `${siteConfig.url}/news/${a.slug}`,
+      ...(a.published_at ? { lastModified: new Date(a.published_at) } : {}),
+    })),
+    ...families.map((f) => ({
+      url: `${siteConfig.url}/families/${f.slug}`,
+    })),
+    ...oriki.map((o) => ({
+      url: `${siteConfig.url}/oriki/${o.slug}`,
+    })),
+    ...events.map((e) => ({
+      url: `${siteConfig.url}/takete-ide-day/${e.year}`,
+      ...(e.event_date ? { lastModified: new Date(e.event_date) } : {}),
+    })),
+    ...people.map((p) => ({
+      url: `${siteConfig.url}/our-people/${p.slug}`,
+    })),
+    ...projects.map((p) => ({
+      url: `${siteConfig.url}/development/projects/${p.slug}`,
+    })),
+    ...archive.map((a) => ({
+      url: `${siteConfig.url}/archive/${a.slug}`,
+    })),
   ];
 }

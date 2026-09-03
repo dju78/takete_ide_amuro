@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { getPublicSupabase } from "@/lib/supabase/server";
 import type { Compound, Family, Oriki } from "@/types/family";
 
 const FAMILY_SELECT =
@@ -31,7 +31,7 @@ function mapFamily(row: any): Family {
 }
 
 export async function getFamilies(): Promise<Family[]> {
-  const supabase = await createClient();
+  const supabase = getPublicSupabase();
   if (!supabase) return [];
   const { data, error } = await supabase.from("families").select(FAMILY_SELECT).eq("status", "published").order("name");
   if (error || !data) return [];
@@ -39,7 +39,7 @@ export async function getFamilies(): Promise<Family[]> {
 }
 
 export async function getFamilyBySlug(slug: string): Promise<Family | null> {
-  const supabase = await createClient();
+  const supabase = getPublicSupabase();
   if (!supabase) return null;
   const { data, error } = await supabase.from("families").select(FAMILY_SELECT).eq("slug", slug).eq("status", "published").maybeSingle();
   if (error || !data) return null;
@@ -47,7 +47,7 @@ export async function getFamilyBySlug(slug: string): Promise<Family | null> {
 }
 
 export async function getCompounds(): Promise<Compound[]> {
-  const supabase = await createClient();
+  const supabase = getPublicSupabase();
   if (!supabase) return [];
   const { data, error } = await supabase.from("compounds").select("*").eq("status", "published").order("name");
   if (error || !data) return [];
@@ -84,7 +84,7 @@ function mapOriki(row: any): Oriki {
 }
 
 export async function getOrikiList(): Promise<Oriki[]> {
-  const supabase = await createClient();
+  const supabase = getPublicSupabase();
   if (!supabase) return [];
   const { data, error } = await supabase
     .from("oriki")
@@ -105,7 +105,7 @@ export async function getOrikiList(): Promise<Oriki[]> {
  * hold on every route that can reach the row, not just the one that lists it.
  */
 export async function getOrikiBySlug(slug: string): Promise<Oriki | null> {
-  const supabase = await createClient();
+  const supabase = getPublicSupabase();
   if (!supabase) return null;
   const { data, error } = await supabase
     .from("oriki")

@@ -1,4 +1,4 @@
-﻿import { createClient } from "@/lib/supabase/server";
+import { getPublicSupabase } from "@/lib/supabase/server";
 
 export interface OrikiRecord {
   id: string;
@@ -38,7 +38,7 @@ export async function getOrikiRecords(options?: { query?: string; publishedOnly?
   const publishedOnly = options?.publishedOnly ?? true;
   const query = options?.query?.trim().toLowerCase();
 
-  const supabase = await createClient();
+  const supabase = getPublicSupabase();
   if (supabase) {
     let q = supabase.from("oriki_records").select("*");
     if (publishedOnly) {
@@ -77,7 +77,7 @@ export async function getOrikiRecords(options?: { query?: string; publishedOnly?
 }
 
 export async function getOrikiRecordById(id: string): Promise<OrikiRecord | null> {
-  const supabase = await createClient();
+  const supabase = getPublicSupabase();
   if (supabase) {
     const { data, error } = await supabase.from("oriki_records").select("*").eq("id", id).maybeSingle();
     if (!error && data) return data as OrikiRecord;

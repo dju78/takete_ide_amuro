@@ -16,8 +16,7 @@ export const metadata: Metadata = {
     "Support approved community, heritage and development initiatives through the Takete-Ide Progressive Union.",
 };
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
+export const revalidate = 3600;
 
 export default async function SupportPage() {
   const account = await getSupportAccount();

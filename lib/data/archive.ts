@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { getPublicSupabase } from "@/lib/supabase/server";
 import type { ArchiveItem, OralHistory } from "@/types/content";
 
 /**
@@ -41,7 +41,7 @@ export const CANONICAL_ARCHIVE_ITEMS: ArchiveItem[] = [
 ];
 
 export async function getArchiveItems(options?: { category?: string; search?: string }): Promise<ArchiveItem[]> {
-  const supabase = await createClient();
+  const supabase = getPublicSupabase();
   let dbItems: ArchiveItem[] = [];
   if (supabase) {
     let query = supabase
@@ -77,7 +77,7 @@ export async function getArchiveItemBySlug(slug: string): Promise<ArchiveItem | 
   const canonical = CANONICAL_ARCHIVE_ITEMS.find((item) => item.slug === slug);
   if (canonical) return canonical;
 
-  const supabase = await createClient();
+  const supabase = getPublicSupabase();
   if (!supabase) return null;
   const { data, error } = await supabase
     .from("archive_items")
@@ -91,7 +91,7 @@ export async function getArchiveItemBySlug(slug: string): Promise<ArchiveItem | 
 }
 
 export async function getOralHistories(): Promise<OralHistory[]> {
-  const supabase = await createClient();
+  const supabase = getPublicSupabase();
   if (!supabase) return [];
   const { data, error } = await supabase
     .from("oral_histories")

@@ -5,10 +5,17 @@ import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { VerificationBadge } from "@/components/ui/Badge";
 import { AudioPlayer } from "@/components/heritage/AudioPlayer";
-import { getOrikiBySlug } from "@/lib/data/families";
+import { getOrikiBySlug, getOrikiList } from "@/lib/data/families";
 
 interface Props {
   params: Promise<{ slug: string }>;
+}
+
+export const revalidate = 3600;
+
+export async function generateStaticParams() {
+  const orikiList = await getOrikiList();
+  return orikiList.map((o) => ({ slug: o.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

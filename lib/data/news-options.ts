@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { getPublicSupabase } from "@/lib/supabase/server";
 import { getBranchNetwork } from "@/lib/data/tipu-branches";
 
 export interface FormOption {
@@ -17,7 +17,7 @@ export async function getNewsFormOptions(): Promise<{
   branches: FormOption[];
   projects: FormOption[];
 }> {
-  const supabase = await createClient();
+  const supabase = getPublicSupabase();
   const branchList = await getBranchNetwork({ includeInactive: true });
   const branches = branchList.map((b) => ({ value: b.slug, label: b.name }));
 

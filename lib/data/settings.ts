@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { getPublicSupabase } from "@/lib/supabase/server";
 import { siteConfig } from "@/lib/site-config";
 import { env } from "@/lib/env";
 
@@ -31,7 +31,7 @@ const defaults: SiteSettings = {
 };
 
 export async function getSiteSettings(): Promise<SiteSettings> {
-  const supabase = await createClient();
+  const supabase = getPublicSupabase();
   if (!supabase) return defaults;
   const { data, error } = await supabase.from("site_settings").select("*").eq("id", true).maybeSingle();
   if (error || !data) return defaults;

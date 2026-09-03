@@ -12,6 +12,8 @@ export const metadata: Metadata = {
   description: "Traditional leaders, community leaders, public servants, academics and achievers from Takete-Ide Amuro.",
 };
 
+export const revalidate = 3600;
+
 const categories = [
   { key: "traditional_leaders", label: "Traditional Leaders" },
   { key: "community_leaders", label: "Community Leaders" },

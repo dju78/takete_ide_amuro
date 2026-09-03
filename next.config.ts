@@ -6,6 +6,7 @@ const supabaseHostname = process.env.NEXT_PUBLIC_SUPABASE_URL
 
 const nextConfig: NextConfig = {
   images: {
+    formats: ["image/webp"],
     remotePatterns: supabaseHostname
       ? [{ protocol: "https" as const, hostname: supabaseHostname, pathname: "/storage/v1/object/public/**" }]
       : [],

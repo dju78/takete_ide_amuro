@@ -5,11 +5,18 @@ import { User, ExternalLink } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { VerificationBadge } from "@/components/ui/Badge";
-import { getPersonBySlug } from "@/lib/data/people";
+import { getPeople, getPersonBySlug } from "@/lib/data/people";
 import { siteConfig } from "@/lib/site-config";
 
 interface Props {
   params: Promise<{ slug: string }>;
+}
+
+export const revalidate = 3600;
+
+export async function generateStaticParams() {
+  const people = await getPeople();
+  return people.map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

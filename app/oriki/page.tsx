@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Sparkles, Music4, ScrollText, HeartHandshake } from "lucide-react";
 import { Container } from "@/components/ui/Container";
@@ -12,8 +12,7 @@ export const metadata: Metadata = {
     "Explore the consolidated Takete-Ide community family Oríkì records — traditional praise names for men and women celebrating ancestry, identity and heritage.",
 };
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
+export const revalidate = 3600;
 
 export default async function OrikiPage() {
   const records = await getOrikiRecords({ publishedOnly: true });

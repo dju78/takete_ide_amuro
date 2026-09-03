@@ -8,15 +8,19 @@ import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { NewsCard } from "@/components/cards/NewsCard";
 import { formatDate } from "@/lib/utils";
-import { getNewsBySlug, getRelatedNews } from "@/lib/data/news";
+import { getAllNews, getNewsBySlug, getRelatedNews } from "@/lib/data/news";
 import { siteConfig } from "@/lib/site-config";
 
 interface Props {
   params: Promise<{ slug: string }>;
 }
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
+export const revalidate = 3600;
+
+export async function generateStaticParams() {
+  const articles = await getAllNews();
+  return articles.map((a) => ({ slug: a.slug }));
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;

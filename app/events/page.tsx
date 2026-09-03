@@ -18,8 +18,7 @@ export const metadata: Metadata = {
     "Upcoming and past Takete-Ide community events — Takete-Ide Day, the Centenary Celebration and TIPU branch gatherings.",
 };
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
+export const revalidate = 3600;
 
 export default async function EventsPage() {
   const [{ upcoming, past }, centenary, programmes] = await Promise.all([

@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { getPublicSupabase } from "@/lib/supabase/server";
 import { communityMedia, type CommunityMediaItem } from "@/lib/media/community-media";
 import { categoryOrder } from "@/lib/media/gallery-categories";
 import type { GalleryItem } from "@/types/content";
@@ -53,7 +53,7 @@ function merge(base: CommunityMediaItem, o: OverrideRow | undefined): ResolvedMe
 }
 
 async function fetchOverrides(): Promise<Map<string, OverrideRow>> {
-  const supabase = await createClient();
+  const supabase = getPublicSupabase();
   if (!supabase) return new Map();
   const { data, error } = await supabase.from("community_media_overrides").select("*");
   if (error || !data) return new Map();

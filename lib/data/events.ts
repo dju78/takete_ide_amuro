@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { getPublicSupabase } from "@/lib/supabase/server";
 import type { TaketeIdeEvent } from "@/types/content";
 
 const SELECT = "*, event_media(media_type, url, caption), event_speeches(speaker, title, body, document_url), event_awards(recipient, award_title, description), event_fundraising(purpose, target_amount, amount_raised, currency)";
@@ -24,7 +24,7 @@ function mapEvent(row: any): TaketeIdeEvent {
 }
 
 export async function getPublishedEvents(): Promise<TaketeIdeEvent[]> {
-  const supabase = await createClient();
+  const supabase = getPublicSupabase();
   if (!supabase) return [];
   const { data, error } = await supabase.from("events").select(SELECT).eq("status", "published").order("year", { ascending: false });
   if (error || !data) return [];
@@ -37,7 +37,7 @@ export async function getLatestEvent(): Promise<TaketeIdeEvent | null> {
 }
 
 export async function getEventByYear(year: number): Promise<TaketeIdeEvent | null> {
-  const supabase = await createClient();
+  const supabase = getPublicSupabase();
   if (!supabase) return null;
   const { data, error } = await supabase.from("events").select(SELECT).eq("year", year).eq("status", "published").maybeSingle();
   if (error || !data) return null;
