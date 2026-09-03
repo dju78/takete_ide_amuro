@@ -111,7 +111,10 @@ export function KogiQuestGame() {
 
             <div className="mt-6 rounded-2xl bg-white/10 p-4 text-xs text-white/90 ring-1 ring-inset ring-white/15 sm:text-sm">
               <p className="font-medium">
-                Sign in or create a free player account to begin the quest and record your score on the leaderboard.
+                No account is required to play. Sign in only if you want to save your score to the global leaderboard.
+              </p>
+              <p className="mt-1.5 font-semibold text-gold-300">
+                Start playing instantly&mdash;no registration required.
               </p>
             </div>
 

@@ -108,7 +108,11 @@ test.describe("Kogi Quest — Interactive Confluence Challenge Experience", () =
     ).toBeVisible();
 
     await expect(
-      page.getByText("Sign in or create a free player account to begin the quest and record your score on the leaderboard.")
+      page.getByText("No account is required to play. Sign in only if you want to save your score to the global leaderboard.")
+    ).toBeVisible();
+
+    await expect(
+      page.getByText("Start playing instantly—no registration required.")
     ).toBeVisible();
 
     await expect(page.getByRole("button", { name: "Start the Quest" })).toBeVisible();
