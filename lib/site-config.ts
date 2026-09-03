@@ -156,7 +156,6 @@ export const footerGroups: { heading: string; items: NavItem[] }[] = [
       { label: "Get Involved", href: "/get-involved" },
       { label: "News", href: "/news" },
       { label: "Weather", href: "/weather" },
-      { label: "Kogi Quest", href: "/kogi-quest" },
     ],
   },
 ];

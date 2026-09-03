@@ -15,15 +15,16 @@ test.describe("Kogi Quest — Interactive Confluence Challenge Experience", () =
     await expect(playBtn).toBeVisible();
   });
 
-  test("navigation and footer contain valid links to /kogi-quest", async ({ page }) => {
+  test("navigation and footer contain exactly one valid link to /kogi-quest", async ({ page }) => {
     await page.goto("/");
 
     const navLink = page.locator("nav a[href='/kogi-quest']").first();
     await expect(navLink).toBeAttached();
 
-    const footerLink = page.locator("footer a[href='/kogi-quest']").first();
-    await expect(footerLink).toBeVisible();
-    await expect(footerLink).toHaveText("Kogi Quest");
+    const footerLinks = page.locator("footer a[href='/kogi-quest']");
+    await expect(footerLinks).toHaveCount(1);
+    await expect(footerLinks.first()).toBeVisible();
+    await expect(footerLinks.first()).toHaveText("Kogi Quest");
   });
 
   test("education page contains promotional callout for Kogi Quest", async ({ page }) => {
@@ -84,6 +85,43 @@ test.describe("Kogi Quest — Interactive Confluence Challenge Experience", () =
     const directLink = page.getByRole("link", { name: /Open Direct Game Link/i });
     await expect(directLink).toBeVisible();
     await expect(directLink).toHaveAttribute("href", "https://dju78.github.io/kogiqest/");
+  });
+
+  test("iframe permissions contain only valid Permissions Policy tokens without sandbox tokens", async ({ page }) => {
+    await page.goto("/kogi-quest");
+    await page.getByRole("button", { name: "Start the Quest" }).click();
+
+    const iframe = page.locator("iframe");
+    await expect(iframe).toBeVisible();
+
+    const allowAttr = await iframe.getAttribute("allow");
+    expect(allowAttr).toBeTruthy();
+    expect(allowAttr).not.toContain("scripts");
+    expect(allowAttr).not.toContain("forms");
+    expect(allowAttr).not.toContain("same-origin");
+    expect(allowAttr).toContain("fullscreen");
+    expect(allowAttr).toContain("clipboard-write");
+  });
+
+  test("reload button genuinely remounts iframe and removes loading overlay on load", async ({ page }) => {
+    await page.goto("/kogi-quest");
+    await page.getByRole("button", { name: "Start the Quest" }).click();
+
+    const iframe = page.locator("iframe");
+    await expect(iframe).toBeVisible();
+
+    // Wait for initial load
+    const loadingOverlay = page.locator("[data-testid='kogi-quest-loading']");
+    await expect(loadingOverlay).toHaveCount(0, { timeout: 15000 });
+
+    // Click Reload button
+    const reloadBtn = page.getByRole("button", { name: "Reload game frame" });
+    await expect(reloadBtn).toBeVisible();
+    await reloadBtn.click();
+
+    // The iframe remounts and load completes, removing loading overlay
+    await expect(loadingOverlay).toHaveCount(0, { timeout: 15000 });
+    await expect(page.locator("iframe")).toBeVisible();
   });
 
   test("sharing features include WhatsApp and copy-link with canonical URL", async ({ page }) => {

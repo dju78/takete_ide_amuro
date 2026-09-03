@@ -1,25 +1,57 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { Play, Maximize2, ExternalLink, RotateCcw, AlertCircle, Sparkles, Shield, Trophy } from "lucide-react";
 
 export const KOGI_QUEST_GAME_URL = "https://dju78.github.io/kogiqest/";
+const LOAD_TIMEOUT_MS = 12000;
 
 export function KogiQuestGame() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [loadError, setLoadError] = useState(false);
+  const [iframeKey, setIframeKey] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
+  const loadTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const clearLoadTimeout = useCallback(() => {
+    if (loadTimeoutRef.current) {
+      clearTimeout(loadTimeoutRef.current);
+      loadTimeoutRef.current = null;
+    }
+  }, []);
+
+  const startLoadTimeout = useCallback(() => {
+    clearLoadTimeout();
+    loadTimeoutRef.current = setTimeout(() => {
+      setIsLoading(false);
+      setLoadError(true);
+    }, LOAD_TIMEOUT_MS);
+  }, [clearLoadTimeout]);
+
+  useEffect(() => {
+    return () => {
+      clearLoadTimeout();
+    };
+  }, [clearLoadTimeout]);
 
   const handleStartGame = () => {
     setIsPlaying(true);
     setIsLoading(true);
     setLoadError(false);
+    startLoadTimeout();
+  };
+
+  const handleReload = () => {
+    setIsLoading(true);
+    setLoadError(false);
+    setIframeKey((prev) => prev + 1);
+    startLoadTimeout();
   };
 
   const handleFullScreen = () => {
     if (!isPlaying) {
-      setIsPlaying(true);
+      handleStartGame();
     }
     if (containerRef.current) {
       if (document.fullscreenElement) {
@@ -37,6 +69,18 @@ export function KogiQuestGame() {
     if (shareSection) {
       shareSection.scrollIntoView({ behavior: "smooth" });
     }
+  };
+
+  const handleIframeLoad = () => {
+    clearLoadTimeout();
+    setIsLoading(false);
+    setLoadError(false);
+  };
+
+  const handleIframeError = () => {
+    clearLoadTimeout();
+    setIsLoading(false);
+    setLoadError(true);
   };
 
   return (
@@ -137,10 +181,7 @@ export function KogiQuestGame() {
 
               <button
                 type="button"
-                onClick={() => {
-                  setIsLoading(true);
-                  setLoadError(false);
-                }}
+                onClick={handleReload}
                 className="inline-flex items-center gap-1.5 rounded-lg bg-white/10 px-2.5 py-1.5 text-xs text-white transition hover:bg-white/20"
                 title="Reload game frame"
                 aria-label="Reload game frame"
@@ -152,7 +193,7 @@ export function KogiQuestGame() {
 
           <div className="relative min-h-[600px] h-[75vh] max-h-[900px] w-full bg-charcoal">
             {isLoading && !loadError && (
-              <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-purple-950/90 text-white">
+              <div data-testid="kogi-quest-loading" className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-purple-950/90 text-white">
                 <div className="h-10 w-10 animate-spin rounded-full border-4 border-gold-400 border-t-transparent" />
                 <p className="mt-4 font-serif text-base font-medium">Loading Kogi Quest...</p>
                 <p className="mt-1 text-xs text-white/60">Preparing Confluence challenges & leaderboard</p>
@@ -160,7 +201,7 @@ export function KogiQuestGame() {
             )}
 
             {loadError && (
-              <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-purple-950 px-6 text-center text-white">
+              <div data-testid="kogi-quest-error" className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-purple-950 px-6 text-center text-white">
                 <AlertCircle className="h-10 w-10 text-gold-400" aria-hidden="true" />
                 <h3 className="mt-3 font-serif text-lg font-bold">Unable to load embedded game</h3>
                 <p className="mt-2 max-w-md text-sm text-white/80">
@@ -179,17 +220,15 @@ export function KogiQuestGame() {
             )}
 
             <iframe
+              key={iframeKey}
               src={KOGI_QUEST_GAME_URL}
               title="Kogi Quest — Confluence State Interactive Challenge"
               className="h-full w-full border-0 bg-white"
-              allow="fullscreen; clipboard-write; autoplay; scripts; forms; same-origin"
+              allow="fullscreen; clipboard-write; autoplay"
               allowFullScreen
               loading="lazy"
-              onLoad={() => setIsLoading(false)}
-              onError={() => {
-                setIsLoading(false);
-                setLoadError(true);
-              }}
+              onLoad={handleIframeLoad}
+              onError={handleIframeError}
             />
           </div>
 
