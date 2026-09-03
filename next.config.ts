@@ -11,6 +11,22 @@ const nextConfig: NextConfig = {
       ? [{ protocol: "https" as const, hostname: supabaseHostname, pathname: "/storage/v1/object/public/**" }]
       : [],
   },
+  async redirects() {
+    return [
+      {
+        source: "/admin",
+        has: [{ type: "host", value: "takete.netlify.app" }],
+        destination: "https://takete-ide.org/admin",
+        permanent: true,
+      },
+      {
+        source: "/admin/:path*",
+        has: [{ type: "host", value: "takete.netlify.app" }],
+        destination: "https://takete-ide.org/admin/:path*",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

@@ -1,6 +1,6 @@
 # Deployment
 
-**Takete-Ide Amuro deploys to Netlify.** The live site is <https://takete.netlify.app>.
+**Takete-Ide Amuro deploys to Netlify.** The live site is <https://takete-ide.org>.
 
 > **Note for maintainers:** earlier revisions of this document described a Vercel deployment. That
 > was never the production platform and the instructions have been removed. If you find Vercel
@@ -39,7 +39,7 @@ Copy `.env.example` to `.env.local` for local development, and set the same name
 Minimum for a functioning site: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`,
 `SUPABASE_SERVICE_ROLE_KEY`, `NEXT_PUBLIC_SITE_URL`.
 
-`NEXT_PUBLIC_SITE_URL` must be the real origin (`https://takete.netlify.app`). It builds the Paystack
+`NEXT_PUBLIC_SITE_URL` must be the real origin (`https://takete-ide.org`). It builds the Paystack
 callback URL, so a wrong value returns contributors to the wrong host after payment.
 
 ## 3. Online Contributions (Paystack)
@@ -80,7 +80,7 @@ stays portable.
 2. Apply migration `0019_contributions.sql` to the Supabase project.
 3. Set live keys in Netlify environment variables.
 4. In the Paystack dashboard, set the webhook URL to
-   `https://takete.netlify.app/api/paystack/webhook`.
+   `https://takete-ide.org/api/paystack/webhook`.
 5. Confirm which payment channels the merchant account has enabled. The site never hard-codes a
    channel list — Paystack's hosted checkout presents whatever the account supports — so nothing in
    the code needs changing, but the Support page copy should not promise more than the account offers.
@@ -114,11 +114,10 @@ npm run build
 Netlify builds automatically from the connected GitHub repository. `npm run build` is the build
 command and `.next` the publish output; the Next.js Runtime handles the rest.
 
-## 8. Domain
+## 8. Domain & Admin Routing
 
-No custom domain has been purchased. The site is served at `takete.netlify.app`. Once a domain is
-registered, add it in **Netlify → Domain management** and update `NEXT_PUBLIC_SITE_URL` to match —
-it drives canonical URLs, the sitemap, Open Graph metadata and the Paystack callback.
+The canonical production domain is **`https://takete-ide.org`** with canonical Admin at **`https://takete-ide.org/admin`**.
+Any incoming requests to legacy aliases (such as `takete.netlify.app/admin` or `takete.netlify.app/admin/*`) are permanently redirected via HTTP 308 to `https://takete-ide.org/admin/*` while preserving query parameters and strict destination integrity.
 
 ## 9. Post-Deploy Checklist
 
