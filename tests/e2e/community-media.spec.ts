@@ -119,7 +119,8 @@ test.describe("Gallery after the archive import", () => {
     await page.goto("/gallery?category=Places+of+Worship");
     await expect(page.getByRole("button", { name: /First Baptist Church/i })).toBeVisible();
     await expect(page.getByRole("button", { name: /Church of God in Christ/i })).toBeVisible();
-    await expect(page.getByRole("button", { name: /ECWA/i })).toBeVisible();
+    await expect(page.getByRole("button", { name: /First ECWA Church/i })).toBeVisible();
+    await expect(page.getByRole("button", { name: /Second ECWA Church/i })).toBeVisible();
     await expect(page.getByText("First Apostolic Church, Takete-Ide")).toBeVisible();
     await expect(page.getByText("Authentic community photograph coming soon")).toBeVisible();
 

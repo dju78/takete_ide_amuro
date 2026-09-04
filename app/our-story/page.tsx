@@ -303,7 +303,7 @@ export default function OurStoryPage() {
             <SourcedSection
               title="Faith, Civic Self-Help & Community Progress"
               status="community_tradition"
-              sourceNote="Dates of introduction per community records (1919 SIM/ECWA; 1939 Bell; 1975 School resolution)."
+              sourceNote="SIM Christianity introduced c.1919 per community historical record; 1939 Bell; 1975 School resolution."
             >
               <p>
                 In the twentieth century, Takete-Ide embraced faith, education, and civic self-help as
@@ -314,8 +314,8 @@ export default function OurStoryPage() {
                   <Church className="h-6 w-6 text-purple-600" aria-hidden="true" />
                   <h4 className="mt-3 font-serif font-bold text-purple-900">Christian Faith (c.1919)</h4>
                   <p className="mt-1 text-xs leading-relaxed text-charcoal/75">
-                    Christianity was introduced through the Sudan Interior Mission (now ECWA), followed by the
-                    memorable arrival of the historic church bell in May 1939.
+                    SIM Christianity was introduced according to the community historical record around 1919, followed
+                    by the establishment of First Baptist Church in 1922 and the arrival of the church bell in May 1939.
                   </p>
                 </div>
                 <div className="rounded-2xl border border-purple-600/10 bg-white p-5 shadow-sm">
@@ -334,6 +334,14 @@ export default function OurStoryPage() {
                     roads, security, and civic infrastructure.
                   </p>
                 </div>
+              </div>
+              <div className="mt-6">
+                <Link
+                  href="/heritage/faith"
+                  className="inline-flex items-center text-sm font-semibold text-purple-700 hover:underline"
+                >
+                  Explore the full Faith &amp; Religious Heritage archive →
+                </Link>
               </div>
             </SourcedSection>
           </section>

@@ -8,7 +8,9 @@ import { getProjects } from "@/lib/data/projects";
 import { getArchiveItems } from "@/lib/data/archive";
 
 const staticRoutes = [
-  "/", "/our-story", "/heritage", "/heritage/traditional-institution", "/takete-ide-day",
+  "/", "/our-story", "/heritage", "/heritage/faith", "/heritage/faith/first-baptist-church",
+  "/heritage/agado", "/heritage/ate", "/heritage/agbagba-ide", "/heritage/takete-ide-anthem",
+  "/heritage/traditional-institution", "/heritage/traditional-marriage", "/takete-ide-day",
   "/development", "/our-people", "/news", "/events", "/gallery", "/weather", "/diaspora", "/archive",
   "/archive/oral-history", "/tipu", "/tipu/branches", "/tipu/branches/lokoja",
   "/tipu/branches/ilorin", "/diaspora/uk-europe", "/takete-ide-day/cultural-attire", "/centenary", "/support",

@@ -182,10 +182,11 @@ export default async function HeritagePage() {
         {/* Places of worship + landscape, side by side. */}
         <section className="mt-16 grid gap-8 lg:grid-cols-2">
           <div>
-            <SectionHeading eyebrow="Faith" title="Places of Worship" align="left" className="mx-0" />
+            <SectionHeading eyebrow="Faith" title="Faith &amp; Religious Heritage" align="left" className="mx-0" />
             <p className="mt-3 text-sm leading-relaxed text-charcoal/70">
-              Christianity has a long history in Takete-Ide. Its churches — from older mud-and-timber
-              buildings to more recent construction — are part of the community&rsquo;s built heritage.
+              Faith has been part of Takete-Ide’s cultural and community life across generations. From indigenous
+              religious traditions to the arrival and growth of Christianity, the community’s religious heritage preserves
+              an important part of its historical journey.
             </p>
             <div className="mt-5 grid grid-cols-2 gap-3">
               {worship.slice(0, 4).map((item) => (
@@ -201,12 +202,20 @@ export default async function HeritagePage() {
                 </div>
               ))}
             </div>
-            <Link
-              href="/gallery?category=Places+of+Worship"
-              className="mt-4 inline-flex min-h-6 items-center text-sm font-semibold text-community-green hover:underline"
-            >
-              All places of worship →
-            </Link>
+            <div className="mt-5 flex flex-wrap items-center gap-4">
+              <Link
+                href="/heritage/faith"
+                className="inline-flex min-h-6 items-center text-sm font-semibold text-purple-700 hover:underline"
+              >
+                Explore Faith &amp; Religious Heritage →
+              </Link>
+              <Link
+                href="/gallery?category=Places+of+Worship"
+                className="inline-flex min-h-6 items-center text-sm font-semibold text-community-green hover:underline"
+              >
+                Places of Worship Gallery →
+              </Link>
+            </div>
           </div>
 
           <div>
@@ -314,6 +323,13 @@ export default async function HeritagePage() {
           />
           <IconCard
             icon={Church}
+            title="Faith & Religious Heritage"
+            description="From indigenous spiritual heritage to the churches and places of worship in Takete-Ide."
+            href="/heritage/faith"
+            tone="purple"
+          />
+          <IconCard
+            icon={Landmark}
             title="Our History"
             description="Origins, settlement, faith and the making of the community."
             href="/our-story"
