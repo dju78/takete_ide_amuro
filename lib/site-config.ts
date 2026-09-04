@@ -28,6 +28,10 @@ export const siteConfig = {
     state: "Kogi State",
     country: "Nigeria",
   },
+  contact: {
+    email: "taketeideamuro@gmail.com",
+    youtube: "https://www.youtube.com/channel/UCsLauLD7WlDBneUhDxl2VRw",
+  },
   url: getCanonicalSiteUrl(),
 } as const;
 

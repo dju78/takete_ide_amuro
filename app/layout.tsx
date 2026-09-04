@@ -45,6 +45,8 @@ const organizationJsonLd = {
   "@type": "Organization",
   name: siteConfig.name,
   url: siteConfig.url,
+  email: siteConfig.contact.email,
+  sameAs: [siteConfig.contact.youtube],
   description: siteConfig.description,
   address: {
     "@type": "PostalAddress",

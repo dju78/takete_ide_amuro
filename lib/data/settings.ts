@@ -19,9 +19,11 @@ export interface SiteSettings {
 const defaults: SiteSettings = {
   site_title: siteConfig.name,
   tagline: siteConfig.tagline,
-  contact_email: null,
+  contact_email: siteConfig.contact.email,
   contact_phone: null,
-  social_links: {},
+  social_links: {
+    youtube: siteConfig.contact.youtube,
+  },
   footer_text: null,
   weather_enabled: true,
   weather_location_label: "Takete-Ide Amuro",
@@ -35,5 +37,13 @@ export async function getSiteSettings(): Promise<SiteSettings> {
   if (!supabase) return defaults;
   const { data, error } = await supabase.from("site_settings").select("*").eq("id", true).maybeSingle();
   if (error || !data) return defaults;
-  return { ...defaults, ...data };
+  return {
+    ...defaults,
+    ...data,
+    contact_email: data.contact_email || defaults.contact_email,
+    social_links: {
+      ...defaults.social_links,
+      ...(data.social_links ?? {}),
+    },
+  };
 }

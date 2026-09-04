@@ -15,6 +15,7 @@ export async function updateSiteSettingsAction(_prev: AdminFormState, formData: 
     facebook: String(formData.get("social_facebook") ?? "") || undefined,
     instagram: String(formData.get("social_instagram") ?? "") || undefined,
     whatsapp: String(formData.get("social_whatsapp") ?? "") || undefined,
+    youtube: String(formData.get("social_youtube") ?? "") || undefined,
   };
 
   const { error } = await supabase

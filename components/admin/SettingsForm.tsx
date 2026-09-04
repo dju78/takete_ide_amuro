@@ -34,10 +34,11 @@ export function SettingsForm({ settings }: { settings: SiteSettings }) {
           <TextField label="Contact Email" name="contact_email" type="email" defaultValue={settings.contact_email ?? ""} />
           <TextField label="Contact Phone" name="contact_phone" defaultValue={settings.contact_phone ?? ""} />
         </div>
-        <div className="grid gap-5 sm:grid-cols-3">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           <TextField label="Facebook URL" name="social_facebook" defaultValue={settings.social_links?.facebook ?? ""} />
           <TextField label="Instagram URL" name="social_instagram" defaultValue={settings.social_links?.instagram ?? ""} />
           <TextField label="WhatsApp Link" name="social_whatsapp" defaultValue={settings.social_links?.whatsapp ?? ""} />
+          <TextField label="YouTube Channel URL" name="social_youtube" defaultValue={settings.social_links?.youtube ?? ""} />
         </div>
       </fieldset>
 

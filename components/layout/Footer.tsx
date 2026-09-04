@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Mail, MessageCircle } from "lucide-react";
-import { FacebookGlyph, InstagramGlyph } from "@/components/layout/BrandGlyphs";
+import { FacebookGlyph, InstagramGlyph, YouTubeGlyph } from "@/components/layout/BrandGlyphs";
 import { footerGroups, siteConfig } from "@/lib/site-config";
 import { Container } from "@/components/ui/Container";
 import { ButtonLink } from "@/components/ui/Button";
@@ -82,8 +82,19 @@ export function Footer() {
           <div className="flex gap-3">
             <SocialIcon href="#" label="Facebook" Icon={FacebookGlyph} disabled />
             <SocialIcon href="#" label="Instagram" Icon={InstagramGlyph} disabled />
+            <SocialIcon
+              href={siteConfig.contact.youtube}
+              label="Takete-Ide Amuro on YouTube"
+              Icon={YouTubeGlyph}
+              external
+            />
             <SocialIcon href="/contact" label="Contact via WhatsApp" Icon={MessageCircle} />
-            <SocialIcon href="/contact" label="Email" Icon={Mail} />
+            <SocialIcon
+              href={`mailto:${siteConfig.contact.email}`}
+              label="Email Takete-Ide Amuro"
+              Icon={Mail}
+              external
+            />
           </div>
         </div>
       </Container>
@@ -105,11 +116,13 @@ function SocialIcon({
   label,
   Icon,
   disabled,
+  external,
 }: {
   href: string;
   label: string;
   Icon: React.ComponentType<{ className?: string }>;
   disabled?: boolean;
+  external?: boolean;
 }) {
   if (disabled) {
     return (
@@ -122,11 +135,24 @@ function SocialIcon({
       </span>
     );
   }
+  if (external || href.startsWith("http") || href.startsWith("mailto:")) {
+    const isHttp = href.startsWith("http");
+    return (
+      <a
+        href={href}
+        aria-label={label}
+        {...(isHttp ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+        className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-gold-500 hover:text-purple-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-300"
+      >
+        <Icon className="h-4 w-4" />
+      </a>
+    );
+  }
   return (
     <Link
       href={href}
       aria-label={label}
-      className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-gold-500 hover:text-purple-900"
+      className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-gold-500 hover:text-purple-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-300"
     >
       <Icon className="h-4 w-4" />
     </Link>
