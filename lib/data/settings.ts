@@ -14,6 +14,10 @@ export interface SiteSettings {
   weather_forecast_url: string;
   weather_show_on_homepage: boolean;
   weather_show_in_header: boolean;
+  google_photos_url: string | null;
+  google_photos_enabled: boolean;
+  google_photos_title: string;
+  google_photos_description: string;
 }
 
 const defaults: SiteSettings = {
@@ -30,6 +34,10 @@ const defaults: SiteSettings = {
   weather_forecast_url: env.accuweatherForecastUrl,
   weather_show_on_homepage: true,
   weather_show_in_header: true,
+  google_photos_url: process.env.NEXT_PUBLIC_GOOGLE_PHOTOS_URL?.trim() || null,
+  google_photos_enabled: true,
+  google_photos_title: siteConfig.photoArchive.title,
+  google_photos_description: siteConfig.photoArchive.description,
 };
 
 export async function getSiteSettings(): Promise<SiteSettings> {
@@ -45,5 +53,9 @@ export async function getSiteSettings(): Promise<SiteSettings> {
       ...defaults.social_links,
       ...(data.social_links ?? {}),
     },
+    google_photos_url: data.google_photos_url !== undefined ? data.google_photos_url : defaults.google_photos_url,
+    google_photos_enabled: data.google_photos_enabled !== undefined ? Boolean(data.google_photos_enabled) : defaults.google_photos_enabled,
+    google_photos_title: data.google_photos_title || defaults.google_photos_title,
+    google_photos_description: data.google_photos_description || defaults.google_photos_description,
   };
 }

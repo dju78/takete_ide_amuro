@@ -33,7 +33,42 @@ export const siteConfig = {
     youtube: "https://www.youtube.com/channel/UCsLauLD7WlDBneUhDxl2VRw",
   },
   url: getCanonicalSiteUrl(),
+  photoArchive: {
+    title: "Explore More Takete-Ide Photographs",
+    description:
+      "Explore more photographs documenting the people, places, celebrations, institutions and community life of Takete-Ide in our extended Google Photos archive.",
+    buttonLabel: "View Full Photo Archive",
+  },
 } as const;
+
+/**
+ * Validates a Google Photos public shared album URL.
+ * Strictly rejects account-specific session identifiers (e.g., /u/3/, /u/0/)
+ * and guarantees only valid, public shared-album URLs are rendered.
+ */
+export function validateGooglePhotosUrl(url?: string | null): string | null {
+  if (!url) return null;
+  const trimmed = url.trim();
+  if (!trimmed) return null;
+
+  // Strictly block account-specific identifiers like /u/3/ or /u/0/
+  if (/\/u\/\d+/i.test(trimmed)) {
+    return null;
+  }
+
+  try {
+    const parsed = new URL(trimmed);
+    if (parsed.protocol !== "https:" && parsed.protocol !== "http:") return null;
+    const host = parsed.hostname.toLowerCase();
+    if (!host.includes("photos.google.com") && !host.includes("photos.app.goo.gl") && !host.includes("goo.gl")) {
+      return null;
+    }
+    return trimmed;
+  } catch {
+    return null;
+  }
+}
+
 
 export type NavItem = {
   label: string;

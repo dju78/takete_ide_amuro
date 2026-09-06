@@ -69,7 +69,7 @@ export function CentenaryForm({ centenary }: { centenary: CentenaryDetails }) {
         <TextField
           label="Main event time"
           name="main_event_time"
-          hint="e.g. “10:00 AM Prompt”"
+          hint="e.g. “10:00 AM”"
           defaultValue={centenary.mainEventTime}
         />
       </div>

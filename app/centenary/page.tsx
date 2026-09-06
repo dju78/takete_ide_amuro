@@ -21,11 +21,30 @@ import { getCentenaryGuestGroups, getCentenaryRSVP } from "@/lib/data/centenary-
 import { getFeaturedBranches } from "@/lib/data/tipu-branches";
 import { getCommunityMedia } from "@/lib/data/community-media";
 import { getLatestNews } from "@/lib/data/news";
+import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
   title: "Takete-Ide Day & Centenary Celebration 2026",
   description:
     "Official Takete-Ide Centenary 2026 Celebration (29–31 October 2026) — programme schedule, official invitation, dignitaries, guests & hosts, event highlights, venue and RSVP information.",
+  alternates: {
+    canonical: `${siteConfig.url}/centenary`,
+  },
+  openGraph: {
+    title: "Takete-Ide Day & Centenary Celebration 2026",
+    description:
+      "Official Takete-Ide Centenary 2026 Celebration (29–31 October 2026) — programme schedule, official invitation, dignitaries, guests & hosts, event highlights, venue and RSVP information.",
+    url: `${siteConfig.url}/centenary`,
+    siteName: siteConfig.name,
+    locale: "en_GB",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Takete-Ide Day & Centenary Celebration 2026",
+    description:
+      "Official Takete-Ide Centenary 2026 Celebration (29–31 October 2026) — programme schedule, official invitation, dignitaries, guests & hosts, event highlights, venue and RSVP information.",
+  },
 };
 
 export const revalidate = 3600;

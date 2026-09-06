@@ -349,6 +349,24 @@ export default async function HeritagePage() {
             tone="green"
           />
         </div>
+
+        {/* Subtle Extended Photo Archive Link */}
+        <div className="mt-12 flex flex-col items-start justify-between gap-4 rounded-2xl border border-purple-100 bg-white p-6 shadow-xs sm:flex-row sm:items-center">
+          <div>
+            <h3 className="font-serif text-base font-bold text-purple-950">
+              Takete-Ide Digital Archive &amp; Extended Photography
+            </h3>
+            <p className="mt-1 text-xs text-charcoal/75">
+              Curated historical records, landmarks, places of worship and community celebrations.
+            </p>
+          </div>
+          <Link
+            href="/gallery"
+            className="inline-flex shrink-0 items-center gap-1.5 rounded-xl border border-purple-200 bg-purple-50/70 px-4 py-2 text-xs font-semibold text-purple-900 shadow-2xs transition-colors hover:bg-purple-100"
+          >
+            Browse the Extended Photo Archive →
+          </Link>
+        </div>
       </Container>
     </div>
   );

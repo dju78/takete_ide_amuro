@@ -129,7 +129,7 @@ export interface CentenaryHighlight {
  * Confirmed Centenary details from the official invitation.
  * Venue: UBE School Field, Takete-Ide, Mopamuro L.G.A., Kogi State.
  * Overall event period: 29–31 October 2026.
- * Invitation time: 10:00 AM Prompt (detailed daily timetable awaiting confirmation).
+ * Invitation time: 10:00 AM (detailed daily timetable awaiting confirmation).
  * Theme: FAITH, UNITY AND PROGRESS.
  */
 export const CENTENARY: CentenaryDetails = {
@@ -140,7 +140,7 @@ export const CENTENARY: CentenaryDetails = {
   eventDates: "29–31 October 2026",
   eventDate: "2026-10-31",
   eventDateLabel: "Saturday, 31 October 2026",
-  mainEventTime: "10:00 AM Prompt (Invitation time)",
+  mainEventTime: "10:00 AM",
   venue: "UBE School Field, Takete-Ide, Mopamuro L.G.A., Kogi State",
   theme: "FAITH, UNITY AND PROGRESS",
   motto: "AGBAGBA IDE AGBE WA O",

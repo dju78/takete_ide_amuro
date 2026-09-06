@@ -58,6 +58,36 @@ export function SettingsForm({ settings }: { settings: SiteSettings }) {
       </fieldset>
 
       <fieldset className="flex flex-col gap-5">
+        <legend className="mb-1 font-serif text-lg font-bold text-purple-600">Extended Photo Archive (Google Photos)</legend>
+        <CheckboxField
+          name="google_photos_enabled"
+          label="Enable extended Google Photos archive integration"
+          defaultChecked={settings.google_photos_enabled}
+        />
+        <TextField
+          label="Public Google Photos Shared Album URL"
+          name="google_photos_url"
+          placeholder="https://photos.app.goo.gl/..."
+          defaultValue={settings.google_photos_url ?? ""}
+        />
+        <div className="grid gap-5 sm:grid-cols-2">
+          <TextField
+            label="Section Heading"
+            name="google_photos_title"
+            defaultValue={settings.google_photos_title}
+          />
+          <TextField
+            label="Section Description"
+            name="google_photos_description"
+            defaultValue={settings.google_photos_description}
+          />
+        </div>
+        <p className="text-xs text-charcoal/50">
+          Must be the verified public shared-album link. Account-specific URLs containing &ldquo;/u/3/&rdquo; or similar will automatically be rejected by safeguards.
+        </p>
+      </fieldset>
+
+      <fieldset className="flex flex-col gap-5">
         <legend className="mb-1 font-serif text-lg font-bold text-purple-600">Footer</legend>
         <TextField label="Footer Text" name="footer_text" defaultValue={settings.footer_text ?? ""} />
       </fieldset>

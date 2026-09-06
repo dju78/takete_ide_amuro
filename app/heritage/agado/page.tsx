@@ -34,8 +34,8 @@ export default function AgadoFestivalPage() {
           />
         </div>
         <p className="mt-2 text-xs text-charcoal/50">
-          Video supplied by the community. A transcript/caption track has not yet been produced for
-          this recording — see docs/DECISIONS.md.
+          Video supplied by the community. Detailed captions and transcripts are added progressively
+          as community verifications proceed.
         </p>
 
         <section className="prose-heritage mt-10">

@@ -20,9 +20,8 @@ export default function CookiesPage() {
           <p>
             Because no non-essential cookies are currently set, this site does not show a cookie consent
             banner — a banner would have nothing meaningful to gate. If privacy-respecting analytics are
-            enabled in future (see <code>docs/DECISIONS.md</code> and the <code>NEXT_PUBLIC_ANALYTICS_*</code>{" "}
-            environment variables), a real consent banner that actually controls those technologies will be
-            added at that time, replacing this page.
+            enabled in future, an updated consent banner and cookie controls will be provided in
+            accordance with applicable data protection standards.
           </p>
 
           <h2>Essential Cookies We Set</h2>

@@ -21,19 +21,26 @@ import { RELIGIOUS_HERITAGE_TIMELINE } from "@/content/heritage/faith/timeline";
 import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
-  title: "Faith & Religious Heritage | Takete-Ide Amuro",
+  title: "Faith & Religious Heritage",
   description:
     "Explore the religious heritage of Takete-Ide, from indigenous beliefs and traditions to the arrival of Christianity and the histories of the community's churches.",
   alternates: {
     canonical: `${siteConfig.url}/heritage/faith`,
   },
   openGraph: {
-    title: "Faith & Religious Heritage | Takete-Ide Amuro",
+    title: "Faith & Religious Heritage",
     description:
       "Explore the religious heritage of Takete-Ide, from indigenous beliefs and traditions to the arrival of Christianity and the histories of the community's churches.",
     url: `${siteConfig.url}/heritage/faith`,
     siteName: siteConfig.name,
+    locale: "en_GB",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Faith & Religious Heritage",
+    description:
+      "Explore the religious heritage of Takete-Ide, from indigenous beliefs and traditions to the arrival of Christianity and the histories of the community's churches.",
   },
 };
 

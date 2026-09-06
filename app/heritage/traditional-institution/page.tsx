@@ -9,15 +9,34 @@ import { HeritageImage } from "@/components/ui/HeritageImage";
 import { VerificationBadge } from "@/components/ui/Badge";
 import { getTraditionalRulers, getTraditionalCouncil } from "@/lib/data/people";
 import { formatDate } from "@/lib/utils";
+import { siteConfig } from "@/lib/site-config";
 import {
   CONFIRMED_OLUDE_REGISTER,
   type HistoricalOludeEntry,
 } from "@/content/history/web/historical-family-compounds";
 
 export const metadata: Metadata = {
-  title: "Traditional Institution | Takete-Ide Amuro",
+  title: "Traditional Institution",
   description:
     "Explore the supplied community historical account of the Olu’de, the Takete-Ide Traditional Council and the community’s place within the wider Amuro traditional structure.",
+  alternates: {
+    canonical: `${siteConfig.url}/heritage/traditional-institution`,
+  },
+  openGraph: {
+    title: "Traditional Institution",
+    description:
+      "Explore the supplied community historical account of the Olu’de, the Takete-Ide Traditional Council and the community’s place within the wider Amuro traditional structure.",
+    url: `${siteConfig.url}/heritage/traditional-institution`,
+    siteName: siteConfig.name,
+    locale: "en_GB",
+    type: "article",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Traditional Institution",
+    description:
+      "Explore the supplied community historical account of the Olu’de, the Takete-Ide Traditional Council and the community’s place within the wider Amuro traditional structure.",
+  },
 };
 
 export type { HistoricalOludeEntry };

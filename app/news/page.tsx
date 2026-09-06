@@ -132,7 +132,7 @@ export default async function NewsPage({ searchParams }: Props) {
               message={
                 q || category
                   ? "Try a different category or search term, or browse all news."
-                  : "Community news and announcements will be published here as the newsroom is populated. Nothing is drafted automatically — every article is written and approved by the community."
+                  : "Community news and verified announcements will be published here as they become available. Nothing is drafted automatically — every article is written and approved by the community."
               }
             />
           )}

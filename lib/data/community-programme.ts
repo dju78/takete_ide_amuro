@@ -96,7 +96,7 @@ export async function getCentenaryProgramme(): Promise<CentenaryProgrammeItem[]>
     dateLabel: d.date_label || formatEventDate(d.date) || d.date,
     startTime: d.start_time || undefined,
     endTime: d.end_time || undefined,
-    timeLabel: d.time_label || (d.start_time ? `${d.start_time} Prompt` : undefined),
+    timeLabel: d.time_label || (d.start_time ? `${d.start_time}` : undefined),
     venue: d.venue || CENTENARY.venue,
     description: d.description || undefined,
     category: d.category || undefined,

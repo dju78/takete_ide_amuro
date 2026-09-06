@@ -15,11 +15,30 @@ import { SourcedSection } from "@/components/heritage/SourcedSection";
 import { ResearchDisclaimer } from "@/components/heritage/ResearchDisclaimer";
 import { MigrationTimeline } from "@/components/history/MigrationTimeline";
 import { MIGRATION_TIMELINE } from "@/content/history/web/migration-timeline";
+import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
-  title: "Our Story | Takete-Ide Amuro",
+  title: "Our Story",
   description:
     "Explore the community historical account of Takete-Ide — from earlier settlements and upland migrations to the present settlement around 1926.",
+  alternates: {
+    canonical: `${siteConfig.url}/our-story`,
+  },
+  openGraph: {
+    title: "Our Story",
+    description:
+      "Explore the community historical account of Takete-Ide — from earlier settlements and upland migrations to the present settlement around 1926.",
+    url: `${siteConfig.url}/our-story`,
+    siteName: siteConfig.name,
+    locale: "en_GB",
+    type: "article",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Our Story",
+    description:
+      "Explore the community historical account of Takete-Ide — from earlier settlements and upland migrations to the present settlement around 1926.",
+  },
 };
 
 const toc = [

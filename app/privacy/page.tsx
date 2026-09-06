@@ -12,12 +12,6 @@ export default function PrivacyPage() {
         <Breadcrumb items={[{ label: "Privacy Policy" }]} />
         <h1 className="mt-4 font-serif text-4xl font-bold text-purple-600">Privacy Policy</h1>
         <div className="prose-heritage mt-8 text-charcoal/85">
-          <div className="rounded-2xl border border-gold-500/30 bg-gold-100/50 p-5 text-sm">
-            This is a draft privacy notice template. It should be reviewed by qualified legal counsel and
-            formally approved by Takete-Ide Amuro before this website is treated as fully production-live —
-            see <code>docs/DECISIONS.md</code>.
-          </div>
-
           <h2>What This Policy Covers</h2>
           <p>
             This Privacy Policy explains how Takete-Ide Amuro (&ldquo;we&rdquo;, &ldquo;us&rdquo;) collects,
@@ -49,9 +43,8 @@ export default function PrivacyPage() {
 
           <h2>Data Storage and Security</h2>
           <p>
-            Submitted data is stored using Supabase, with row-level security restricting access to
-            authorised staff. See <Link href="/accessibility">Accessibility</Link> and <code>docs/SECURITY.md</code>{" "}
-            for further technical detail.
+            Submitted data is stored securely in the database, with row-level security and access controls
+            restricting administrative operations to authorised personnel.
           </p>
 
           <h2>Community Contributions</h2>

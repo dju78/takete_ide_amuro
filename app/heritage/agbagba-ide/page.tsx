@@ -6,11 +6,30 @@ import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ButtonLink } from "@/components/ui/Button";
 import { AGBAGBA_IDE_TRADITION } from "@/content/history/web/agbagba-ide";
+import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
-  title: "Agbagba Ide — Symbol, Memory and Community Tradition | Takete-Ide Amuro",
+  title: "Agbagba Ide — Symbol, Memory and Community Tradition",
   description:
     "Explore the sacred cultural memory, praise poetry, and protective symbolism of Agbagba Ide in Takete-Ide heritage.",
+  alternates: {
+    canonical: `${siteConfig.url}/heritage/agbagba-ide`,
+  },
+  openGraph: {
+    title: "Agbagba Ide — Symbol, Memory and Community Tradition",
+    description:
+      "Explore the sacred cultural memory, praise poetry, and protective symbolism of Agbagba Ide in Takete-Ide heritage.",
+    url: `${siteConfig.url}/heritage/agbagba-ide`,
+    siteName: siteConfig.name,
+    locale: "en_GB",
+    type: "article",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Agbagba Ide — Symbol, Memory and Community Tradition",
+    description:
+      "Explore the sacred cultural memory, praise poetry, and protective symbolism of Agbagba Ide in Takete-Ide heritage.",
+  },
 };
 
 export default function AgbagbaIdePage() {

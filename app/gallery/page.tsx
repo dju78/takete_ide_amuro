@@ -4,7 +4,9 @@ import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { GalleryLightbox } from "@/components/gallery/GalleryLightbox";
 import { GalleryFilters } from "@/components/gallery/GalleryFilters";
+import { GooglePhotosArchiveSection } from "@/components/gallery/GooglePhotosArchiveSection";
 import { getGalleryItems, getGalleryCategories } from "@/lib/data/gallery";
+import { getSiteSettings } from "@/lib/data/settings";
 
 export const metadata: Metadata = {
   title: "Gallery",
@@ -19,9 +21,10 @@ interface Props {
 
 export default async function GalleryPage({ searchParams }: Props) {
   const { category, year } = await searchParams;
-  const [items, categories] = await Promise.all([
+  const [items, categories, settings] = await Promise.all([
     getGalleryItems({ category, year: year ? Number(year) : undefined }),
     getGalleryCategories(),
+    getSiteSettings(),
   ]);
 
   return (
@@ -44,10 +47,17 @@ export default async function GalleryPage({ searchParams }: Props) {
           ) : (
             <EmptyState
               title="This gallery is being curated"
-              message="Photographs for this category will appear here as they are uploaded and approved by the media team."
+              message="Photographs for this category will appear here as they are uploaded and approved by the media team. You are also welcome to contribute photographs to the Takete-Ide Digital Archive."
             />
           )}
         </div>
+
+        <GooglePhotosArchiveSection
+          url={settings.google_photos_url}
+          enabled={settings.google_photos_enabled}
+          title={settings.google_photos_title}
+          description={settings.google_photos_description}
+        />
       </Container>
     </div>
   );

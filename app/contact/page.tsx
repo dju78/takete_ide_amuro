@@ -78,15 +78,14 @@ export default async function ContactPage() {
                 <Phone className="mt-0.5 h-4 w-4 shrink-0 text-purple-600/60" aria-hidden="true" />
                 <dd>
                   {settings.contact_phone ?? (
-                    <span className="italic text-charcoal/50">Phone number to be published by the admin team.</span>
+                    <span className="italic text-charcoal/50">Phone contact available upon request via email.</span>
                   )}
                 </dd>
               </div>
             </dl>
           </div>
           <p className="text-xs text-charcoal/50">
-            Contact details are managed by site administrators and will appear here once configured — see{" "}
-            <code>docs/DECISIONS.md</code>.
+            For official community enquiries, union correspondence, and verification of historical records, please use the contact form or official email address above.
           </p>
         </div>
 

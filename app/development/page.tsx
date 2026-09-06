@@ -86,8 +86,8 @@ export default async function DevelopmentPage({ searchParams }: Props) {
             </div>
           ) : (
             <EmptyState
-              title="Project records are being compiled"
-              message="Development projects will appear here as they are added by the project management team, each with a transparent status, funding information (where supplied) and progress updates."
+              title="Community Development Projects"
+              message="Verified community development project records and progress updates will be published here as the project register is populated."
             />
           )}
         </div>

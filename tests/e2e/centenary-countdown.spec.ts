@@ -43,7 +43,7 @@ const MOCK_PROGRAMMES: CentenaryProgrammeItem[] = [
     dateLabel: "Saturday, 31 October 2026",
     startTime: "10:00",
     endTime: "17:00",
-    timeLabel: "10:00 AM Prompt",
+    timeLabel: "10:00 AM",
     venue: "UBE School Field, Takete-Ide, Mopamuro L.G.A., Kogi State",
     isGrandCelebration: true,
     confirmed: true,

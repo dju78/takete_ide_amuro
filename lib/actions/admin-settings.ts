@@ -32,6 +32,12 @@ export async function updateSiteSettingsAction(_prev: AdminFormState, formData: 
       weather_forecast_url: String(formData.get("weather_forecast_url") ?? "").trim(),
       weather_show_on_homepage: formData.get("weather_show_on_homepage") === "on",
       weather_show_in_header: formData.get("weather_show_in_header") === "on",
+      google_photos_url: String(formData.get("google_photos_url") ?? "").trim() || null,
+      google_photos_enabled: formData.get("google_photos_enabled") === "on",
+      google_photos_title: String(formData.get("google_photos_title") ?? "").trim() || "Explore More Takete-Ide Photographs",
+      google_photos_description:
+        String(formData.get("google_photos_description") ?? "").trim() ||
+        "Explore more photographs documenting the people, places, celebrations, institutions and community life of Takete-Ide in our extended Google Photos archive.",
       updated_by: user.id,
     })
     .eq("id", true);

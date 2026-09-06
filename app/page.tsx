@@ -29,7 +29,7 @@ import { getLatestNews } from "@/lib/data/news";
 import { getHomepageGallery, getHomepagePlaceMedia } from "@/lib/data/gallery";
 import { getFeaturedBranches } from "@/lib/data/tipu-branches";
 import { getCentenary, getCentenaryProgramme, getSupportAccount } from "@/lib/data/community-programme";
-import { getPublishedEvents } from "@/lib/data/events";
+import { getGroupedEvents } from "@/lib/data/community-events";
 import { formatDate } from "@/lib/utils";
 
 export const revalidate = 3600;
@@ -63,6 +63,15 @@ const placeCaptions: Record<string, string> = {
   "okuta-gbooro": "Natural heritage",
 };
 
+/** Category badge label shown on each featured place image. */
+const placeCategoryLabels: Record<string, string> = {
+  "obasoro-hill": "Natural landmark",
+  "eba-river-bank": "Omi Ebba",
+  "first-baptist-church": "Built heritage",
+  "okuta-gboro": "Natural heritage",
+  "okuta-gbooro": "Natural heritage",
+};
+
 /** Where each place photograph sends you in the gallery. */
 const placeLinks: Record<string, string> = {
   "obasoro-hill": "/gallery?category=Nature",
@@ -76,7 +85,7 @@ const heroImageSrc = "/images/takete-ide/children-traditional-attire.jpg";
 const heroImageAlt = "Two children in traditional Takete-Ide attire, wearing beaded necklaces and matching caps";
 
 export default async function HomePage() {
-  const [news, gallery, place, branches, centenary, programmes, account, events] = await Promise.all([
+  const [news, gallery, place, branches, centenary, programmes, account, { upcoming }] = await Promise.all([
     getLatestNews(3),
     getHomepageGallery(),
     getHomepagePlaceMedia(),
@@ -84,8 +93,10 @@ export default async function HomePage() {
     getCentenary(),
     getCentenaryProgramme(),
     getSupportAccount(),
-    getPublishedEvents(),
+    getGroupedEvents(),
   ]);
+
+  const otherUpcomingEvents = upcoming.filter((e) => e.category !== "centenary").slice(0, 2);
 
   // The hero renders two <Image> instances (mobile + desktop compositions) of the
   // same source file. next/image's `priority` prop always injects a <link rel="preload">
@@ -102,53 +113,42 @@ export default async function HomePage() {
       <link rel="preload" as="image" imageSrcSet={mobileHeroImg.srcSet} imageSizes="100vw" media="(max-width: 1023px)" fetchPriority="high" />
       <link rel="preload" as="image" imageSrcSet={desktopHeroImg.srcSet} imageSizes="55vw" media="(min-width: 1024px)" fetchPriority="high" />
 
-      {/* Hero — deliberately two different compositions, not one squeezed into the other.
-          Mobile: stacked text -> buttons -> contained image, generous breathing room.
-          Desktop (lg+): cinematic edge-to-edge side-by-side. */}
-      <section className="relative overflow-hidden bg-purple-700">
-        <div className="px-5 pb-12 pt-12 text-white lg:hidden">
-          <h1 className="font-serif text-[2.25rem] font-bold leading-[1.1]">Takete-Ide Amuro</h1>
-          <p className="mt-3 text-xl font-semibold text-gold-300">Heritage &bull; Unity &bull; Progress</p>
-          <p className="mt-4 text-base leading-relaxed text-white/85">
-            A historic community in Mopamuro Local Government Area, Kogi State, Nigeria.
-          </p>
-          <div className="mt-8 flex flex-col gap-4">
-            <ButtonLink href="/our-story" size="lg" className="w-full justify-center">
-              Explore Our History
-            </ButtonLink>
-            <ButtonLink href="/centenary" variant="secondary" size="lg" className="w-full justify-center">
-              Centenary 2026
-            </ButtonLink>
-          </div>
-          <div className="relative mt-10 aspect-[4/5] w-full overflow-hidden rounded-3xl shadow-xl">
-            <HeritageImage
-              src={heroImageSrc}
-              alt={heroImageAlt}
-              label="Children in Traditional Attire, Takete-Ide Amuro"
-              fill
-              sizes="100vw"
-              className="object-cover object-top"
-            />
-          </div>
-        </div>
-
-        <div className="mx-auto hidden min-h-[650px] w-full max-w-7xl lg:grid lg:grid-cols-[45%_55%] lg:items-stretch">
-          <div className="relative z-10 flex flex-col justify-center px-8 text-white">
-            <h1 className="font-serif text-5xl font-bold leading-tight lg:text-6xl">Takete-Ide Amuro</h1>
-            <p className="mt-3 text-2xl font-semibold text-gold-300">Heritage &bull; Unity &bull; Progress</p>
-            <p className="mt-5 max-w-lg text-lg leading-relaxed text-white/85">
+      {/* Hero — single semantic H1 responsive composition */}
+      <section className="relative overflow-hidden bg-purple-700 text-white">
+        <div className="mx-auto w-full max-w-7xl px-5 pb-12 pt-12 lg:min-h-[650px] lg:px-8 lg:py-0 lg:grid lg:grid-cols-[45%_55%] lg:items-stretch">
+          <div className="relative z-10 flex flex-col justify-center">
+            <h1 className="font-serif text-[2.25rem] font-bold leading-[1.1] sm:text-5xl lg:text-6xl lg:leading-tight">
+              Takete-Ide Amuro
+            </h1>
+            <p className="mt-3 text-xl font-semibold text-gold-300 sm:text-2xl">
+              Heritage &bull; Unity &bull; Progress
+            </p>
+            <p className="mt-4 max-w-lg text-base leading-relaxed text-white/85 sm:text-lg lg:mt-5">
               A historic community in Mopamuro Local Government Area, Kogi State, Nigeria.
             </p>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <ButtonLink href="/our-story" size="lg">
+            <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
+              <ButtonLink href="/our-story" size="lg" className="w-full justify-center sm:w-auto">
                 Explore Our History
               </ButtonLink>
-              <ButtonLink href="/centenary" variant="secondary" size="lg">
+              <ButtonLink href="/centenary" variant="secondary" size="lg" className="w-full justify-center sm:w-auto">
                 Centenary 2026
               </ButtonLink>
             </div>
+            {/* Mobile hero image */}
+            <div className="relative mt-10 aspect-[4/5] w-full overflow-hidden rounded-3xl shadow-xl lg:hidden">
+              <HeritageImage
+                src={heroImageSrc}
+                alt={heroImageAlt}
+                label="Children in Traditional Attire, Takete-Ide Amuro"
+                fill
+                sizes="100vw"
+                className="object-cover object-top"
+              />
+            </div>
           </div>
-          <div className="relative">
+
+          {/* Desktop hero image */}
+          <div className="relative hidden lg:block">
             <HeritageImage
               src={heroImageSrc}
               alt={heroImageAlt}
@@ -511,10 +511,16 @@ export default async function HomePage() {
               </>
             );
           })()}
-          <div className="mt-8 text-center">
+          <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <ButtonLink href="/gallery" variant="secondary" className="w-full justify-center sm:w-auto">
               View Gallery
             </ButtonLink>
+            <Link
+              href="/gallery"
+              className="inline-flex items-center text-sm font-semibold text-purple-700 hover:text-purple-900 hover:underline"
+            >
+              See more community photographs →
+            </Link>
           </div>
         </Container>
       </section>
@@ -549,10 +555,15 @@ export default async function HomePage() {
         </Container>
       </section>
 
-      {/* Upcoming Events — the Centenary always, plus any published event records. */}
+      {/* Upcoming Events — the Centenary always, plus any upcoming event records. */}
       <section className="bg-white py-12 sm:py-16">
         <Container>
-          <SectionHeading eyebrow="What's next" title="Upcoming Events" align="left" className="mx-0" />
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <SectionHeading eyebrow="What's next" title="Upcoming Events" align="left" className="mx-0" />
+            <ButtonLink href="/events" variant="outline" size="sm">
+              View All Events
+            </ButtonLink>
+          </div>
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <Link
               href="/centenary"
@@ -566,19 +577,19 @@ export default async function HomePage() {
               </h3>
               <p className="mt-2 text-sm text-charcoal/70">{centenary.venue}</p>
             </Link>
-            {events.slice(0, 2).map((event) => (
+            {otherUpcomingEvents.map((event) => (
               <Link
                 key={event.id}
-                href={`/takete-ide-day/${event.year}`}
+                href={event.href}
                 className="group rounded-2xl border border-purple-600/10 bg-ivory p-6 shadow-sm transition-shadow hover:shadow-lg"
               >
                 <p className="text-xs font-semibold uppercase tracking-wide text-gold-700">
-                  {event.event_date ? formatDate(event.event_date) : `Takete-Ide Day ${event.year}`}
+                  {formatDate(event.date)}
                 </p>
                 <h3 className="mt-2 font-serif text-lg font-bold text-purple-600 group-hover:text-purple-400">
-                  Takete-Ide Day {event.year}
+                  {event.title}
                 </h3>
-                {event.theme && <p className="mt-2 text-sm text-charcoal/70">{event.theme}</p>}
+                {event.description && <p className="mt-2 text-sm text-charcoal/70 line-clamp-2">{event.description}</p>}
               </Link>
             ))}
           </div>

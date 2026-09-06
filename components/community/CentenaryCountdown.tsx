@@ -95,7 +95,7 @@ export function CentenaryCountdown({
 
   const programmeTitle = programme?.title ?? "Takete-Ide Day & Centenary Celebration 2026";
   const programmeDateLabel = programme?.dateLabel ?? "29–31 October 2026";
-  const programmeTimeLabel = programme?.timeLabel ?? "10:00 AM Prompt (Invitation time)";
+  const programmeTimeLabel = programme?.timeLabel ?? "10:00 AM";
 
   const accessibleText = mounted && timeRemaining
     ? `${timeRemaining.days} days, ${timeRemaining.hours} hours, ${timeRemaining.minutes} minutes and ${timeRemaining.seconds} seconds until ${programmeTitle}.`

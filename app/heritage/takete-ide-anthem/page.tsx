@@ -5,11 +5,30 @@ import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { ButtonLink } from "@/components/ui/Button";
 import { TAKETE_IDE_ANTHEM, ORIKI_AGBAGBA_IDE } from "@/content/history/web/living-heritage";
+import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
-  title: "Takete-Ide Anthem & Living Oral Heritage | Takete-Ide Amuro",
+  title: "Community Anthem & Living Oral Heritage",
   description:
     "The preserved Takete-Ide Community Anthem and Oríkì Agbagba Ide, recorded verbatim from the canonical community historical account.",
+  alternates: {
+    canonical: `${siteConfig.url}/heritage/takete-ide-anthem`,
+  },
+  openGraph: {
+    title: "Takete-Ide Community Anthem & Living Oral Heritage",
+    description:
+      "The preserved Takete-Ide Community Anthem and Oríkì Agbagba Ide, recorded verbatim from the canonical community historical account.",
+    url: `${siteConfig.url}/heritage/takete-ide-anthem`,
+    siteName: siteConfig.name,
+    locale: "en_GB",
+    type: "article",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Takete-Ide Community Anthem & Living Oral Heritage",
+    description:
+      "The preserved Takete-Ide Community Anthem and Oríkì Agbagba Ide, recorded verbatim from the canonical community historical account.",
+  },
 };
 
 export default function TaketeIdeAnthemPage() {

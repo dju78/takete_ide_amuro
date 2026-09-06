@@ -15,8 +15,9 @@ export function TextField({
   required,
   hint,
   type = "text",
+  placeholder,
   defaultValue,
-}: BaseProps & { type?: string; defaultValue?: string }) {
+}: BaseProps & { type?: string; placeholder?: string; defaultValue?: string }) {
   return (
     <Field label={label} name={name} error={error} required={required} hint={hint}>
       <input
@@ -24,6 +25,7 @@ export function TextField({
         name={name}
         type={type}
         required={required}
+        placeholder={placeholder}
         defaultValue={defaultValue}
         aria-invalid={Boolean(error)}
         aria-describedby={error ? `${name}-error` : undefined}
