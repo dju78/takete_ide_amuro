@@ -161,10 +161,8 @@ test.describe("Faith & Religious Heritage Section — Takete-Ide Archive", () =>
       await expect(breadcrumb.getByText("Faith & Religious Heritage")).toBeVisible();
       await expect(breadcrumb.getByText("First Baptist Church")).toBeVisible();
 
-      // Verification note
-      await expect(page.getByText("Community Heritage Record")).toBeVisible();
-      await expect(page.getByText(/Points Subject to Elder & Register Confirmation/i)).toBeVisible();
-      await expect(page.getByText(/Noah Omoyele.*Noah Eseyin/i).first()).toBeVisible();
+      // Verification note is omitted from public presentation
+      await expect(page.getByText(/Points Subject to Elder & Register Confirmation/i)).toHaveCount(0);
 
       // Authentic Image
       await expect(

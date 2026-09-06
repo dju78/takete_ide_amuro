@@ -10,10 +10,30 @@ import { SupportAccountCard } from "@/components/community/SupportAccountCard";
 import { getSupportAccount } from "@/lib/data/community-programme";
 import { SUPPORT_PURPOSES } from "@/lib/media/community-programme";
 
+import { siteConfig } from "@/lib/site-config";
+
 export const metadata: Metadata = {
   title: "Support Takete-Ide",
   description:
     "Support approved community, heritage and development initiatives through the Takete-Ide Progressive Union.",
+  alternates: {
+    canonical: `${siteConfig.url}/support`,
+  },
+  openGraph: {
+    title: "Support Takete-Ide | Takete-Ide",
+    description:
+      "Support approved community, heritage and development initiatives through the Takete-Ide Progressive Union.",
+    url: `${siteConfig.url}/support`,
+    siteName: siteConfig.name,
+    locale: "en_GB",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Support Takete-Ide | Takete-Ide",
+    description:
+      "Support approved community, heritage and development initiatives through the Takete-Ide Progressive Union.",
+  },
 };
 
 export const revalidate = 3600;

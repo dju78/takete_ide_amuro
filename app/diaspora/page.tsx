@@ -8,9 +8,27 @@ import { DiasporaForm } from "@/components/forms/DiasporaForm";
 import { HeritageImage } from "@/components/ui/HeritageImage";
 import { ButtonLink } from "@/components/ui/Button";
 
+import { siteConfig } from "@/lib/site-config";
+
 export const metadata: Metadata = {
   title: "Diaspora",
   description: "Takete-Ide people around the world — connect with the community wherever you are.",
+  alternates: {
+    canonical: `${siteConfig.url}/diaspora`,
+  },
+  openGraph: {
+    title: "Diaspora | Takete-Ide",
+    description: "Takete-Ide people around the world — connect with the community wherever you are.",
+    url: `${siteConfig.url}/diaspora`,
+    siteName: siteConfig.name,
+    locale: "en_GB",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Diaspora | Takete-Ide",
+    description: "Takete-Ide people around the world — connect with the community wherever you are.",
+  },
 };
 
 const regions: { name: string; note: string; href?: string }[] = [

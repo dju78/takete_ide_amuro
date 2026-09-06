@@ -9,11 +9,30 @@ import { LivingHeritageCard } from "@/components/cards/LivingHeritageCard";
 import { HeritageImage } from "@/components/ui/HeritageImage";
 import { ResearchDisclaimer } from "@/components/heritage/ResearchDisclaimer";
 import { getCommunityMedia } from "@/lib/data/community-media";
+import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
   title: "Culture & Heritage",
   description:
     "The festivals, dress, places of worship, landscape and community life that shape Takete-Ide's identity.",
+  alternates: {
+    canonical: `${siteConfig.url}/heritage`,
+  },
+  openGraph: {
+    title: "Culture & Heritage",
+    description:
+      "The festivals, dress, places of worship, landscape and community life that shape Takete-Ide's identity.",
+    url: `${siteConfig.url}/heritage`,
+    siteName: siteConfig.name,
+    locale: "en_GB",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Culture & Heritage",
+    description:
+      "The festivals, dress, places of worship, landscape and community life that shape Takete-Ide's identity.",
+  },
 };
 
 export default async function HeritagePage() {

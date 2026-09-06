@@ -28,9 +28,32 @@ import { HomeBranchShowcase } from "@/components/tipu/HomeBranchShowcase";
 import { getLatestNews } from "@/lib/data/news";
 import { getHomepageGallery, getHomepagePlaceMedia } from "@/lib/data/gallery";
 import { getFeaturedBranches } from "@/lib/data/tipu-branches";
+import type { Metadata } from "next";
+import { siteConfig } from "@/lib/site-config";
 import { getCentenary, getCentenaryProgramme, getSupportAccount } from "@/lib/data/community-programme";
 import { getGroupedEvents } from "@/lib/data/community-events";
 import { formatDate } from "@/lib/utils";
+
+export const metadata: Metadata = {
+  title: `${siteConfig.name} | ${siteConfig.tagline}`,
+  description: siteConfig.description,
+  alternates: {
+    canonical: siteConfig.url,
+  },
+  openGraph: {
+    title: `${siteConfig.name} | ${siteConfig.tagline}`,
+    description: siteConfig.description,
+    url: siteConfig.url,
+    siteName: siteConfig.name,
+    locale: "en_GB",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${siteConfig.name} | ${siteConfig.tagline}`,
+    description: siteConfig.description,
+  },
+};
 
 export const revalidate = 3600;
 

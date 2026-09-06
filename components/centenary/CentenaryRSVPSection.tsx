@@ -1,6 +1,7 @@
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import type { CentenaryRSVPContact } from "@/lib/media/centenary-guests";
-import { Phone, ShieldCheck } from "lucide-react";
+import { Phone, ShieldCheck, UserCheck } from "lucide-react";
+import { CentenaryRSVPForm } from "@/components/centenary/CentenaryRSVPForm";
 import { cn } from "@/lib/utils";
 
 interface CentenaryRSVPSectionProps {
@@ -17,38 +18,61 @@ export function CentenaryRSVPSection({ contacts, className }: CentenaryRSVPSecti
           title="RSVP & Enquiries"
           align="left"
           className="mx-0"
-          description="For enquiries, confirmations, sponsorships, and participation, kindly contact:"
+          description="Register your expected attendance online for the Centenary 2026 celebration or reach out to the official committee contacts."
         />
 
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {contacts.map((contact, index) => (
-            <div
-              key={contact.id}
-              className="flex flex-col justify-between rounded-2xl border border-purple-600/10 bg-purple-50/50 p-5 transition hover:border-purple-600/30 hover:bg-purple-50"
-            >
-              <div>
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-purple-600/10 text-purple-700">
-                  <Phone className="h-4 w-4" aria-hidden="true" />
+        {/* Web RSVP Form */}
+        <div className="mt-8 rounded-2xl border border-purple-600/15 bg-purple-50/40 p-6 sm:p-8">
+          <div className="flex items-center gap-2.5 mb-6">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-purple-700 text-white">
+              <UserCheck className="h-4 w-4" aria-hidden="true" />
+            </div>
+            <div>
+              <h3 className="font-serif text-lg font-bold text-purple-950">Online Attendance RSVP</h3>
+              <p className="text-xs text-charcoal/70">Register your expected attendance with the planning committee.</p>
+            </div>
+          </div>
+          <CentenaryRSVPForm />
+        </div>
+
+        {/* Phone Enquiries */}
+        <div className="mt-10">
+          <h4 className="text-xs font-bold uppercase tracking-wider text-purple-900 mb-2">
+            Official Invitation Contacts
+          </h4>
+          <p className="mb-4 text-sm text-charcoal/80">
+            For enquiries, confirmations, sponsorships, and participation, kindly contact:
+          </p>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {contacts.map((contact, index) => (
+              <div
+                key={contact.id}
+                className="flex flex-col justify-between rounded-2xl border border-purple-600/10 bg-purple-50/50 p-5 transition hover:border-purple-600/30 hover:bg-purple-50"
+              >
+                <div>
+                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-purple-600/10 text-purple-700">
+                    <Phone className="h-4 w-4" aria-hidden="true" />
+                  </div>
+
+                  <p className="mt-3 text-xs font-semibold text-purple-900">
+                    Official Centenary Contact {index + 1}
+                  </p>
+
+                  <a
+                    href={`tel:${contact.phone}`}
+                    className="mt-1 block font-mono text-lg font-bold text-purple-700 hover:text-purple-950 hover:underline tracking-tight"
+                    aria-label={`Call ${contact.displayPhone} for Centenary enquiry`}
+                  >
+                    {contact.displayPhone}
+                  </a>
                 </div>
 
-                <p className="mt-3 text-xs font-semibold text-purple-900">
-                  Official Centenary Contact {index + 1}
-                </p>
-
-                <a
-                  href={`tel:${contact.phone}`}
-                  className="mt-1 block font-mono text-lg font-bold text-purple-700 hover:text-purple-950 hover:underline tracking-tight"
-                  aria-label={`Call ${contact.displayPhone} for Centenary enquiry`}
-                >
-                  {contact.displayPhone}
-                </a>
+                <div className="mt-4 pt-3 border-t border-purple-600/10 text-[0.65rem] text-charcoal/60">
+                  Official Invitation Line
+                </div>
               </div>
-
-              <div className="mt-4 pt-3 border-t border-purple-600/10 text-[0.65rem] text-charcoal/60">
-                Official Invitation Line
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
         <div className="mt-6 rounded-2xl bg-gold-100/50 p-4 sm:p-5 flex items-start gap-3">

@@ -22,10 +22,30 @@ import { getBranchNetwork, getBranchUpdates, summariseUpdates } from "@/lib/data
 import { getCentenary } from "@/lib/data/community-programme";
 import { getLatestNews } from "@/lib/data/news";
 
+import { siteConfig } from "@/lib/site-config";
+
 export const metadata: Metadata = {
   title: "TIPU — Takete-Ide Progressive Union",
   description:
     "Connecting Takete-Ide people at home, across Nigeria and around the world in support of heritage, unity and community development.",
+  alternates: {
+    canonical: `${siteConfig.url}/tipu`,
+  },
+  openGraph: {
+    title: "TIPU — Takete-Ide Progressive Union | Takete-Ide",
+    description:
+      "Connecting Takete-Ide people at home, across Nigeria and around the world in support of heritage, unity and community development.",
+    url: `${siteConfig.url}/tipu`,
+    siteName: siteConfig.name,
+    locale: "en_GB",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "TIPU — Takete-Ide Progressive Union | Takete-Ide",
+    description:
+      "Connecting Takete-Ide people at home, across Nigeria and around the world in support of heritage, unity and community development.",
+  },
 };
 
 export const revalidate = 3600;

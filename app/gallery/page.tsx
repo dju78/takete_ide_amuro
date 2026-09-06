@@ -8,9 +8,27 @@ import { GooglePhotosArchiveSection } from "@/components/gallery/GooglePhotosArc
 import { getGalleryItems, getGalleryCategories } from "@/lib/data/gallery";
 import { getSiteSettings } from "@/lib/data/settings";
 
+import { siteConfig } from "@/lib/site-config";
+
 export const metadata: Metadata = {
   title: "Gallery",
   description: "Photographs of community life, Takete-Ide Day, the traditional institution and development projects.",
+  alternates: {
+    canonical: `${siteConfig.url}/gallery`,
+  },
+  openGraph: {
+    title: "Gallery | Takete-Ide",
+    description: "Photographs of community life, Takete-Ide Day, the traditional institution and development projects.",
+    url: `${siteConfig.url}/gallery`,
+    siteName: siteConfig.name,
+    locale: "en_GB",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Gallery | Takete-Ide",
+    description: "Photographs of community life, Takete-Ide Day, the traditional institution and development projects.",
+  },
 };
 
 export const revalidate = 3600;

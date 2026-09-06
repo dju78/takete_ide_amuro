@@ -125,6 +125,14 @@ export default async function CentenaryPage() {
 
           <div className="mt-8 flex flex-wrap gap-3">
             <ButtonLink href="/support">Support the Centenary</ButtonLink>
+            <a
+              href="/centenary/calendar.ics"
+              download="takete-ide-centenary-2026.ics"
+              className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-gold-500 px-5 py-2.5 text-sm font-bold text-purple-950 shadow-xs transition hover:bg-gold-400"
+            >
+              <CalendarDays className="h-4 w-4" aria-hidden="true" />
+              Add to Calendar (.ics)
+            </a>
             <ButtonLink
               href="/takete-ide-day"
               variant="outline"

@@ -11,9 +11,27 @@ import { HeritageImage } from "@/components/ui/HeritageImage";
 import { getProjects } from "@/lib/data/projects";
 import { getCommunityMedia } from "@/lib/data/community-media";
 
+import { siteConfig } from "@/lib/site-config";
+
 export const metadata: Metadata = {
   title: "Development",
   description: "Community development projects across roads, education, healthcare, water, electricity and more.",
+  alternates: {
+    canonical: `${siteConfig.url}/development`,
+  },
+  openGraph: {
+    title: "Development | Takete-Ide",
+    description: "Community development projects across roads, education, healthcare, water, electricity and more.",
+    url: `${siteConfig.url}/development`,
+    siteName: siteConfig.name,
+    locale: "en_GB",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Development | Takete-Ide",
+    description: "Community development projects across roads, education, healthcare, water, electricity and more.",
+  },
 };
 
 export const revalidate = 3600;

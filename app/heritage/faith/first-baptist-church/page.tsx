@@ -12,7 +12,6 @@ import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { SourcedSection } from "@/components/heritage/SourcedSection";
 import { HeritageImage } from "@/components/ui/HeritageImage";
-import { VerificationBox } from "@/components/faith/VerificationBox";
 import { FIRST_BAPTIST_HISTORY } from "@/content/heritage/faith/first-baptist";
 import { siteConfig } from "@/lib/site-config";
 
@@ -88,15 +87,8 @@ export default function FirstBaptistChurchHistoryPage() {
       </div>
 
       <Container className="py-14 sm:py-16">
-        {/* Verification Alert / Archive Note */}
-        <VerificationBox
-          title="Community Heritage Record"
-          sourceDescription="This history is based on a historical account preserved by the church and community. Some names, dates and details remain subject to confirmation from church registers and elders."
-          notes={FIRST_BAPTIST_HISTORY.verificationNotes}
-        />
-
         {/* Lead Image & Caption */}
-        <div className="mt-12 overflow-hidden rounded-3xl border border-purple-600/10 bg-white shadow-sm">
+        <div className="overflow-hidden rounded-3xl border border-purple-600/10 bg-white shadow-sm">
           <div className="relative aspect-[16/9] w-full max-h-[28rem] bg-purple-900/10">
             <HeritageImage
               src="/images/takete-ide/places/first-baptist-church.jpg"
