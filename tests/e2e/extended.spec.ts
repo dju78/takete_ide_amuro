@@ -26,7 +26,7 @@ test.describe("Primary navigation", () => {
     await page.goto("/");
     const primaryNav = page.getByRole("navigation", { name: "Primary" });
     for (const [group, sampleItem] of [
-      ["About", "Our History"],
+      ["About", "Our Story"],
       ["Explore", "Digital Archive"],
       ["Community", "The TIPU Network"],
       ["News & Events", "Takete-Ide Day"],

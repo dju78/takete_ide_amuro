@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useActionState } from "react";
 import { CheckCircle2, Send, AlertCircle } from "lucide-react";
@@ -15,9 +15,12 @@ export function CentenaryRSVPForm() {
         <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-community-green/20 text-community-green">
           <CheckCircle2 className="h-6 w-6" aria-hidden="true" />
         </div>
-        <h4 className="mt-4 font-serif text-xl font-bold text-purple-950">RSVP Confirmed</h4>
+        <h4 className="mt-4 font-serif text-xl font-bold text-purple-950">RSVP Received</h4>
         <p className="mt-2 text-sm leading-relaxed text-charcoal/80">
           {state.message}
+        </p>
+        <p className="mt-2 text-xs text-charcoal/70">
+          The organising committee will contact you if any additional information or confirmation is required.
         </p>
         <p className="mt-4 text-xs text-charcoal/60">
           We look forward to welcoming you to the historic Takete-Ide Centenary Celebration (29–31 October 2026).
@@ -28,6 +31,15 @@ export function CentenaryRSVPForm() {
 
   return (
     <form action={formAction} className="space-y-4">
+      {/* Anti-spam honeypot */}
+      <div className="hidden" aria-hidden="true">
+        <input
+          type="text"
+          name="bot_field"
+          tabIndex={-1}
+          autoComplete="off"
+        />
+      </div>
       {state.message && !state.success && (
         <div className="flex items-start gap-2.5 rounded-xl border border-red-200 bg-red-50 p-3.5 text-xs text-red-800">
           <AlertCircle className="h-4 w-4 shrink-0 text-red-600 mt-0.5" aria-hidden="true" />
@@ -158,7 +170,6 @@ export function CentenaryRSVPForm() {
             type="checkbox"
             name="consent"
             required
-            defaultChecked
             className="mt-0.5 h-4 w-4 rounded border-purple-300 text-purple-600 focus:ring-purple-500"
           />
           <span className="text-xs leading-relaxed text-charcoal/80">

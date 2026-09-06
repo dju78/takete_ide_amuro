@@ -98,10 +98,13 @@ export const navGroups: NavGroup[] = [
     heading: "About",
     href: "/our-story",
     items: [
-      { label: "Our History", href: "/our-story", description: "Origins, settlement and how we became Takete-Ide" },
-      { label: "Traditional Institution", href: "/heritage/traditional-institution", description: "The Olude and the traditional council" },
-      { label: "Education", href: "/education", description: "Schooling in Takete-Ide, in the community's own words" },
+      { label: "Our Story", href: "/our-story", description: "Origins, settlement and how we became Takete-Ide" },
       { label: "Our People", href: "/our-people", description: "Community leaders, achievers and profiles" },
+      { label: "Traditional Institution", href: "/heritage/traditional-institution", description: "The Olude and the traditional council" },
+      { label: "Families & Compounds", href: "/families", description: "Family names, compounds and praise poetry" },
+      { label: "Oríkì", href: "/oriki", description: "Community directory of family praise names" },
+      { label: "Faith & Religious Heritage", href: "/heritage/faith", description: "Churches, ECWA, Muslim community and spiritual traditions" },
+      { label: "Education", href: "/education", description: "Schooling in Takete-Ide, in the community's own words" },
     ],
   },
   {
@@ -109,6 +112,7 @@ export const navGroups: NavGroup[] = [
     href: "/heritage",
     items: [
       { label: "Culture & Heritage", href: "/heritage", description: "Festivals, dress, faith and the land", featured: true },
+      { label: "Faith & Religious Heritage", href: "/heritage/faith", description: "Churches, ECWA, Muslim community and spiritual traditions" },
       { label: "Gallery", href: "/gallery", description: "Photographs from community life" },
       { label: "Families & Oríkì", href: "/families", description: "Family names, compounds and praise poetry" },
       { label: "Family Oríkì", href: "/oriki", description: "Community directory of family praise names" },
@@ -165,6 +169,7 @@ export const footerGroups: { heading: string; items: NavItem[] }[] = [
     items: [
       { label: "About", href: "/our-story" },
       { label: "History", href: "/our-story" },
+      { label: "Faith & Religious Heritage", href: "/heritage/faith" },
       { label: "Culture", href: "/heritage" },
       { label: "Kogi Quest", href: "/kogi-quest" },
       { label: "Gallery", href: "/gallery" },
