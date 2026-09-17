@@ -100,6 +100,22 @@ test.describe("Gallery after the archive import", () => {
     await expect(baptistCards).toHaveCount(1);
   });
 
+  test("Redeemed Christian Church of God renders with approved metadata in Places of Worship gallery", async ({ page }) => {
+    await page.goto("/gallery?category=Places+of+Worship");
+    const rccgButton = page.getByRole("button", { name: /Redeemed Christian Church of God/i });
+    await expect(rccgButton).toBeVisible();
+    await expect(rccgButton.locator("img")).toHaveAttribute(
+      "alt",
+      "Redeemed Christian Church of God (RCCG) church building in Takete-Ide.",
+    );
+    await rccgButton.click();
+    const dialog = page.getByRole("dialog");
+    await expect(dialog).toBeVisible();
+    await expect(dialog).toContainText("Redeemed Christian Church of God (RCCG), Takete-Ide.");
+    await page.keyboard.press("Escape");
+    await expect(dialog).toBeHidden();
+  });
+
   test("landmarks and placeholders are presented respectfully", async ({ page }) => {
     await page.goto("/gallery?category=Landmarks");
     await expect(page.getByText("Okuta Gbooro").first()).toBeVisible();
