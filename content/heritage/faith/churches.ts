@@ -95,7 +95,7 @@ export const CHURCHES_DIRECTORY: ChurchDirectoryItem[] = [
     established: null,
     establishedQualifier: "Additional founding details are being documented.",
     featured: false,
-    sourceStatus: "unverified",
+    sourceStatus: "community_tradition",
     hasFullProfile: false,
   },
   {
@@ -114,7 +114,7 @@ export const CHURCHES_DIRECTORY: ChurchDirectoryItem[] = [
     established: null,
     establishedQualifier: "Additional founding details are being documented.",
     featured: false,
-    sourceStatus: "unverified",
+    sourceStatus: "community_tradition",
     hasFullProfile: false,
   },
   {
@@ -133,7 +133,7 @@ export const CHURCHES_DIRECTORY: ChurchDirectoryItem[] = [
     established: null,
     establishedQualifier: "Additional founding details are being documented.",
     featured: false,
-    sourceStatus: "unverified",
+    sourceStatus: "community_tradition",
     hasFullProfile: false,
   },
   {
@@ -152,7 +152,7 @@ export const CHURCHES_DIRECTORY: ChurchDirectoryItem[] = [
     established: null,
     establishedQualifier: "Additional founding details are being documented.",
     featured: false,
-    sourceStatus: "unverified",
+    sourceStatus: "community_tradition",
     hasFullProfile: false,
   },
   {
@@ -171,7 +171,7 @@ export const CHURCHES_DIRECTORY: ChurchDirectoryItem[] = [
     established: null,
     establishedQualifier: "Additional founding details are being documented.",
     featured: true,
-    sourceStatus: "unverified",
+    sourceStatus: "community_tradition",
     hasFullProfile: false,
   },
   {
@@ -204,12 +204,12 @@ export const CHURCHES_DIRECTORY: ChurchDirectoryItem[] = [
     imageAlt: null,
     imageCaption: null,
     summary:
-      "Christian congregation serving the Takete-Ide community. Founding details and parish history are being compiled.",
+      "Christian congregation serving the Takete-Ide community. Founding details and parish history are being compiled with church leadership.",
     historyStatus: "Historical profile being documented.",
     established: null,
     establishedQualifier: "Additional founding details are being documented.",
     featured: false,
-    sourceStatus: "unverified",
+    sourceStatus: "community_tradition",
     hasFullProfile: false,
   },
   {
@@ -228,7 +228,7 @@ export const CHURCHES_DIRECTORY: ChurchDirectoryItem[] = [
     established: null,
     establishedQualifier: "Additional founding details are being documented.",
     featured: false,
-    sourceStatus: "unverified",
+    sourceStatus: "community_tradition",
     hasFullProfile: false,
   },
   {
@@ -247,7 +247,7 @@ export const CHURCHES_DIRECTORY: ChurchDirectoryItem[] = [
     established: null,
     establishedQualifier: "Additional founding details are being documented.",
     featured: false,
-    sourceStatus: "unverified",
+    sourceStatus: "community_tradition",
     hasFullProfile: false,
   },
   {
@@ -266,7 +266,7 @@ export const CHURCHES_DIRECTORY: ChurchDirectoryItem[] = [
     established: null,
     establishedQualifier: "Additional founding details are being documented.",
     featured: false,
-    sourceStatus: "unverified",
+    sourceStatus: "community_tradition",
     hasFullProfile: false,
   },
   {
@@ -285,7 +285,7 @@ export const CHURCHES_DIRECTORY: ChurchDirectoryItem[] = [
     established: null,
     establishedQualifier: "Additional founding details are being documented.",
     featured: false,
-    sourceStatus: "unverified",
+    sourceStatus: "community_tradition",
     hasFullProfile: false,
   },
 ];

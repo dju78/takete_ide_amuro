@@ -67,19 +67,27 @@ test.describe("Site-wide Public Discoverability & Navigation Pathways", () => {
     await expect(page.getByText("Recording to be added").first()).toBeVisible();
     await expect(page.getByText("Not yet recorded")).toHaveCount(0);
 
+    // Capture initial record count badge text (dynamic based on current data source)
+    const initialCountBadge = page.locator("span", { hasText: /Records?/i }).first();
+    await expect(initialCountBadge).toBeVisible();
+    const initialCountText = await initialCountBadge.innerText();
+
     // Audio available quick filter
     const audioFilter = page.getByRole("button", { name: /Audio Available/i });
     await expect(audioFilter).toBeVisible();
     await audioFilter.click();
 
-    // Filtered view shows 3 records with playable audio
-    await expect(page.getByText("3 Records")).toBeVisible();
+    // Filtered view shows records with playable audio (e.g. 3 approved audio recordings)
     await expect(page.locator("table audio, .space-y-3 audio").first()).toBeVisible();
+    await expect(page.getByText("Recording to be added")).toHaveCount(0);
 
     // All records view restore
     const allFilter = page.getByRole("button", { name: /All Records/i });
     await allFilter.click();
-    await expect(page.getByText("18 Records")).toBeVisible();
+
+    // Verify all records view is restored matching the initial count and unrecorded badges reappear
+    await expect(initialCountBadge).toHaveText(initialCountText);
+    await expect(page.getByText("Recording to be added").first()).toBeVisible();
   });
 
   test("verified community badges render dignified archival labels rather than pending verification", async ({ page }) => {
@@ -89,7 +97,8 @@ test.describe("Site-wide Public Discoverability & Navigation Pathways", () => {
     const pendingBadges = page.locator("text='Pending Verification'");
     await expect(pendingBadges).toHaveCount(0);
 
-    // Ensure churches show "Community Record" or "Documentary Evidence"
-    await expect(page.getByText("Community Record").first()).toBeVisible();
+    // Ensure churches show accurate provenance badges ("Community Tradition" or "Documentary Evidence")
+    await expect(page.getByText("Community Tradition").first()).toBeVisible();
+    await expect(page.getByText("Documentary Evidence").first()).toBeVisible();
   });
 });

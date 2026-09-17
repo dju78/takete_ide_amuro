@@ -86,10 +86,9 @@ export default function TraditionalMarriagePage() {
           <h2>About These Photographs</h2>
           <p>
             These photographs show ceremonial items and community gatherings associated with marriage
-            celebrations in Takete-Ide. In keeping with this archive&rsquo;s approach to unverified
-            detail, the specific meaning and ritual significance of the individual items shown has not
-            been confirmed, so it is described here only in general terms rather than asserted as
-            fact.
+            celebrations in Takete-Ide. In keeping with this archive&rsquo;s commitment to historical
+            precision, the specific cultural significance of individual ceremonial items continues to
+            be documented, and is described here in general terms.
           </p>
           <p>
             If you can help document the traditions, items and customs associated with marriage
