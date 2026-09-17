@@ -60,6 +60,12 @@ export const BOOK_HEALTH_MILESTONES = [
 
 export const BOOK_DEVELOPMENT_INTERVENTIONS = [
   {
+    period: "Colonial era",
+    title: "Community road opening",
+    detail:
+      "The manuscript records a long tradition of community service in opening roads linking Takete-Ide with neighbouring communities, with some early road work taking place under colonial district administration.",
+  },
+  {
     period: "Around 1979",
     title: "Pilot irrigation project",
     detail:
