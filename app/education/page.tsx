@@ -110,7 +110,7 @@ export default function EducationPage() {
             title="Milestones from an oral-history account"
             align="left"
             className="mx-0"
-            description="Dates as given in a first-hand recollection held in the community archive. They have not been cross-checked against school or local government records."
+            description="Dates as given in a first-hand recollection preserved in the community archive. Additional institutional records continue to be documented."
           />
           <ol className="mt-8 space-y-5 border-l-2 border-purple-600/15 pl-6">
             {milestones.map((m) => (
@@ -130,7 +130,7 @@ export default function EducationPage() {
           <SourcedSection
             title="Government Day Secondary School, Takete-Ide"
             status="oral_history"
-            sourceNote="First-person recollection shared in the community archive by a participant in the delegation. Awaiting confirmation against school and local government records."
+            sourceNote="First-person historical account preserved in the community archive. Additional institutional records continue to be documented."
           >
             <p>
               The community&rsquo;s secondary school began as a self-funded Community Secondary School,

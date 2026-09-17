@@ -61,10 +61,9 @@ export default async function CommunityAtWorkPage() {
           </p>
           <p>
             It is deliberately <strong>not</strong> presented as a named road project. The specific road,
-            the nature of the work and any responsible organisation have not been confirmed, so attaching a
-            project name to it would be a guess dressed as a fact. Once the community confirms the details,
-            an administrator can update the description and link this footage to the relevant project
-            record.
+            the nature of the work and project details continue to be documented, so no specific project name is
+            attached. As additional documentation becomes available, the archive will update the description
+            and link this footage to the relevant project record.
           </p>
         </div>
 
@@ -91,12 +90,12 @@ export default async function CommunityAtWorkPage() {
         <div className="mt-16 rounded-3xl bg-white p-8 shadow-sm">
           <h2 className="font-serif text-xl font-bold text-purple-600">Know more about this work?</h2>
           <p className="mt-3 text-charcoal/80">
-            If you can confirm the road, the project or the organisation behind the work in this footage,
-            the archive team would like to hear from you — accurate records depend on people who were there.
+            If you have additional details regarding the road, project or community members participating in this footage,
+            the archive team welcomes your contribution — comprehensive records grow through community participation.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <ButtonLink href="/contact" variant="secondary">
-              Help confirm the details
+              Help document details
             </ButtonLink>
             <ButtonLink href="/development" variant="outline">
               All development projects

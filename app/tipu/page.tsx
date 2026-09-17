@@ -137,8 +137,8 @@ export default async function TipuPage() {
             <Stat value={stats.growing} label="Records still being documented" />
           </dl>
           <p className="mt-4 text-sm text-charcoal/60">
-            A growing network across Nigeria and the diaspora. Some records are still being confirmed with
-            union leadership — the network page shows the position for each.
+            A growing network across Nigeria and the diaspora. Additional branch records continue to be compiled with
+            union leadership — the network page displays information for each branch.
           </p>
         </section>
 

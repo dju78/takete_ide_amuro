@@ -129,7 +129,7 @@ export interface CentenaryHighlight {
  * Confirmed Centenary details from the official invitation.
  * Venue: UBE School Field, Takete-Ide, Mopamuro L.G.A., Kogi State.
  * Overall event period: 29–31 October 2026.
- * Invitation time: 10:00 AM (detailed daily timetable awaiting confirmation).
+ * Invitation time: 10:00 AM (detailed daily timetable will be published when released).
  * Theme: FAITH, UNITY AND PROGRESS.
  */
 export const CENTENARY: CentenaryDetails = {
@@ -146,7 +146,7 @@ export const CENTENARY: CentenaryDetails = {
   motto: "AGBAGBA IDE AGBE WA O",
   tagline: "A CENTURY OF HERITAGE. A FUTURE OF GREATER GLORY.",
   programmeStatus:
-    "Three historic days celebrating a century of Takete-Ide's heritage, unity and progress. Daily timetable awaiting confirmation by the Central Planning Committee.",
+    "Three historic days celebrating a century of Takete-Ide's heritage, unity and progress. Detailed session timetable will be published when released by the Central Planning Committee.",
   attireStatus:
     "The official Centenary attire has not yet been confirmed for publication. Details will appear here once the organising committee releases them.",
 };
@@ -166,7 +166,7 @@ export const CENTENARY_PROGRAMME: CentenaryProgrammeItem[] = [
     dateLabel: "Thursday, 29 October 2026",
     venue: "UBE School Field, Takete-Ide, Mopamuro L.G.A., Kogi State",
     description:
-      "Detailed daily schedule and session start times to be confirmed by the Central Planning Committee.",
+      "Detailed daily schedule and session start times will be published when released by the Central Planning Committee.",
     confirmed: true,
     displayOrder: 1,
   },
@@ -179,7 +179,7 @@ export const CENTENARY_PROGRAMME: CentenaryProgrammeItem[] = [
     dateLabel: "Friday, 30 October 2026",
     venue: "UBE School Field, Takete-Ide, Mopamuro L.G.A., Kogi State",
     description:
-      "Detailed daily schedule and session start times to be confirmed by the Central Planning Committee.",
+      "Detailed daily schedule and session start times will be published when released by the Central Planning Committee.",
     confirmed: true,
     displayOrder: 2,
   },
@@ -192,7 +192,7 @@ export const CENTENARY_PROGRAMME: CentenaryProgrammeItem[] = [
     dateLabel: "Saturday, 31 October 2026",
     venue: "UBE School Field, Takete-Ide, Mopamuro L.G.A., Kogi State",
     description:
-      "The flagship Centenary gathering featuring cultural displays, historical reflections, awards, recognitions and community development launch. Detailed programme information is awaiting confirmation.",
+      "The flagship Centenary gathering featuring cultural displays, historical reflections, awards, recognitions and community development launch. Detailed session timetable will be published when released by the Central Planning Committee.",
     theme: "FAITH, UNITY AND PROGRESS",
     isGrandCelebration: true,
     confirmed: true,

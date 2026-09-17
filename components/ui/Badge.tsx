@@ -7,8 +7,8 @@ const verificationConfig: Record<
   string,
   { label: string; className: string; icon: React.ComponentType<{ className?: string }> }
 > = {
-  unverified: { label: "Pending Verification", className: "bg-ivory text-charcoal/70 ring-1 ring-charcoal/15", icon: Clock },
-  pending_verification: { label: "Pending Verification", className: "bg-ivory text-charcoal/70 ring-1 ring-charcoal/15", icon: Clock },
+  unverified: { label: "Community Record", className: "bg-purple-50 text-purple-700 ring-1 ring-purple-600/20", icon: BookOpen },
+  pending_verification: { label: "Historical Profile", className: "bg-purple-50 text-purple-700 ring-1 ring-purple-600/20", icon: BookOpen },
   draft: { label: "Draft Record", className: "bg-charcoal/5 text-charcoal/60 ring-1 ring-charcoal/10", icon: Clock },
   family_submitted: { label: "Family Contributed", className: "bg-purple-50 text-purple-700 ring-1 ring-purple-600/20", icon: FileText },
   oral_history: { label: "Oral History", className: "bg-gold-100/70 text-gold-900 ring-1 ring-gold-600/25", icon: BookOpen },

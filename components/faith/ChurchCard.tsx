@@ -31,7 +31,7 @@ export function ChurchCard({ church }: ChurchCardProps) {
             <p className="mt-3 font-serif text-sm font-bold text-purple-950">{church.shortName}</p>
             <span className="mt-1 inline-flex items-center gap-1 rounded-full bg-gold-100/80 px-2.5 py-0.5 text-[11px] font-semibold text-gold-800">
               <Clock className="h-3 w-3" aria-hidden="true" />
-              Archival photo pending
+              Photograph to be added
             </span>
           </div>
         )}
