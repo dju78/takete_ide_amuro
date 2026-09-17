@@ -330,9 +330,11 @@ export const communityMedia: CommunityMediaItem[] = [
     id: "new-yam-ilorin-award-presentation-01",
     mediaType: "image",
     src: "/images/takete-ide/new-yam-festival/award-presentation-01.jpg",
-    title: "An award and recognition moment",
-    description: "An award and recognition moment during the TIPU Ilorin Branch cultural gathering.",
-    altText: "A commemorative plaque being presented during the TIPU Ilorin Branch New Yam celebration",
+    title: "Award presentation — Folorunso Omoniyi (Bontoro)",
+    description:
+      "Folorunso Omoniyi (Bontoro) receiving an award on behalf of Cheche during the TIPU Ilorin Branch New Yam Festival in Ilorin.",
+    altText:
+      "Folorunso Omoniyi (Bontoro) receiving an award on behalf of Cheche at the TIPU Ilorin Branch New Yam Festival in Ilorin.",
     category: "Culture & Events",
     event: EVENTS.newYamIlorin,
     branch: "Ilorin Branch",
