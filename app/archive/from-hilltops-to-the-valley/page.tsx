@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 };
 
 const chapterLinks: Record<number, { label: string; href: string }> = {
-  1: { label: "Land, culture and everyday heritage", href: "/heritage/land-and-landscape" },
+  1: { label: "Amuro, Yagba and Okun context", href: "/heritage/amuro-okun-context" },
   2: { label: "Our Story and migration", href: "/our-story" },
   3: { label: "Faith and indigenous heritage", href: "/heritage/faith" },
   4: { label: "Faith and missionary history", href: "/heritage/faith/manuscript-milestones" },
