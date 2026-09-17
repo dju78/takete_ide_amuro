@@ -29,6 +29,7 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
         "the-search-for-peace",
         "journey",
         "home-at-last",
+        "related-communities",
         "faith-and-development",
         "community-memory",
       ];

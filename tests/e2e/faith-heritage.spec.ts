@@ -115,12 +115,12 @@ test.describe("Faith & Religious Heritage Section — Takete-Ide Archive", () =>
       await expect(secondEcwa.locator("img")).toHaveAttribute("src", /second-ecwa-church-takete-ide\.jpg/);
       await expect(secondEcwa).toContainText("present-day church building");
 
-      // RCCG uses its authentic image, caption and does not show "Archival photo pending"
+      // RCCG uses its authentic image, caption and does not show "Photograph to be added"
       const rccg = churchCards.nth(6);
       await expect(rccg.locator("img")).toHaveAttribute("src", /rccg-takete-ide\.png/);
       await expect(rccg.locator("img")).toHaveAttribute("alt", "Redeemed Christian Church of God (RCCG) church building in Takete-Ide.");
       await expect(rccg).toContainText("Redeemed Christian Church of God (RCCG), Takete-Ide.");
-      await expect(rccg).not.toContainText("Archival photo pending");
+      await expect(rccg).not.toContainText("Photograph to be added");
 
       // First Baptist displays November 1922 and links to full history
       const firstBaptist = churchCards.nth(1);
@@ -137,17 +137,17 @@ test.describe("Faith & Religious Heritage Section — Takete-Ide Archive", () =>
       const healing = churchCards.nth(10);
       await expect(healing).toContainText("Healing Church, Takete-Ide");
       await expect(healing).toContainText("Historical profile being documented");
-      await expect(healing).toContainText("Archival photo pending");
+      await expect(healing).toContainText("Photograph to be added");
 
       const deeperLife = churchCards.nth(11);
       await expect(deeperLife).toContainText("Deeper Life Bible Church, Takete-Ide");
       await expect(deeperLife).toContainText("Historical profile being documented");
-      await expect(deeperLife).toContainText("Archival photo pending");
+      await expect(deeperLife).toContainText("Photograph to be added");
 
       const christBibleBaptist = churchCards.nth(12);
       await expect(christBibleBaptist).toContainText("Christ Bible Baptist Church, Takete-Ide");
       await expect(christBibleBaptist).toContainText("Historical profile being documented");
-      await expect(christBibleBaptist).toContainText("Archival photo pending");
+      await expect(christBibleBaptist).toContainText("Photograph to be added");
     });
   });
 

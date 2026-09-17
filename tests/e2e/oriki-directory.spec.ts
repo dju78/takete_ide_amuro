@@ -230,7 +230,7 @@ test.describe("Takete-Ide Family Oríkì Directory", () => {
     await expect(desktopEseyinAudio.locator("source")).toHaveAttribute("src", "/audio/oriki/eseyin-telu.ogg");
 
     // Records without audio show fallback indicator
-    await expect(page.getByText("Not yet recorded").first()).toBeVisible();
+    await expect(page.getByText("Recording to be added").first()).toBeVisible();
 
     // 3. Mobile verification
     await page.setViewportSize({ width: 375, height: 667 });
@@ -252,5 +252,21 @@ test.describe("Takete-Ide Family Oríkì Directory", () => {
     const searchInput = page.getByPlaceholder("Search family name or Oríkì...");
     await searchInput.fill("Eseha");
     await expect(page.locator('.space-y-3 audio[aria-label="Oríkì Eseha Jare"]')).toBeVisible();
+  });
+
+  test("audio filter toggle filters directory to records with audio", async ({ page }) => {
+    await page.goto("/oriki");
+    await expect(page.getByText("18 Records")).toBeVisible();
+
+    const audioFilterBtn = page.getByRole("button", { name: /Audio Available/i });
+    await audioFilterBtn.click();
+    await expect(page.getByText("3 Records")).toBeVisible();
+    await expect(page.getByText("Eseha", { exact: true }).first()).toBeVisible();
+    await expect(page.getByText("Attemesami Olu", { exact: true }).first()).toBeVisible();
+    await expect(page.getByText("Eseyin Telu", { exact: true }).first()).toBeVisible();
+
+    const allRecordsBtn = page.getByRole("button", { name: /All Records/i });
+    await allRecordsBtn.click();
+    await expect(page.getByText("18 Records")).toBeVisible();
   });
 });
