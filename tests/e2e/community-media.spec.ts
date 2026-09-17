@@ -169,7 +169,39 @@ test.describe("Gallery after the archive import", () => {
 });
 
 test.describe("Video delivery and accessibility", () => {
-  test("players are labelled, controllable and fetch nothing until played", async ({ page }) => {
+  test("Oko Loke rocky running-water video is prominently visible on Land & Landscape page", async ({ page }) => {
+    await page.goto("/heritage/land-and-landscape");
+    await expect(page.getByRole("heading", { name: "Oko Loke", level: 2 })).toBeVisible();
+    await expect(
+      page.getByText("Oko Loke — a natural and community landmark in Takete-Ide"),
+    ).toBeVisible();
+
+    const video = page.locator("video").first();
+    await expect(video).toBeVisible();
+    await expect(video.locator("source")).toHaveAttribute("src", "/videos/takete-ide/oko-loke.mp4");
+    await expect(video).toHaveAttribute("poster", "/images/takete-ide/video-posters/oko-loke.jpg");
+
+    const attrs = await video.evaluate((el) => {
+      const v = el as HTMLVideoElement;
+      return {
+        controls: v.controls,
+        playsInline: v.playsInline,
+        preload: v.preload,
+        autoplay: v.autoplay,
+        muted: v.muted,
+      };
+    });
+
+    expect(attrs.controls).toBe(true);
+    expect(attrs.playsInline).toBe(true);
+    expect(attrs.preload).toBe("metadata");
+    expect(attrs.autoplay).toBe(false);
+
+    // No placeholder, temporary media, or broken video message
+    await expect(page.getByText(/video unavailable|coming soon|placeholder|temporary/i)).toHaveCount(0);
+  });
+
+  test("players are labelled, controllable and set to preload metadata", async ({ page }) => {
     await page.goto("/development/community-at-work");
     const videos = page.locator("video");
     await expect(videos).toHaveCount(2);
@@ -183,18 +215,15 @@ test.describe("Video delivery and accessibility", () => {
           controls: v.controls,
           playsInline: v.playsInline,
           label: v.getAttribute("aria-label") ?? "",
-          // NETWORK_EMPTY (0) or NETWORK_IDLE (1) both mean no media bytes fetched.
-          fetching: v.networkState === 2,
         };
       }),
     );
     for (const v of state) {
-      expect(v.preload).toBe("none");
+      expect(v.preload).toBe("metadata");
       expect(v.hasPoster).toBe(true);
       expect(v.controls).toBe(true);
       expect(v.playsInline).toBe(true);
       expect(v.label.length).toBeGreaterThan(3);
-      expect(v.fetching).toBe(false);
     }
   });
 
