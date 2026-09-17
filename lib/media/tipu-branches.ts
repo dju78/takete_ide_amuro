@@ -116,7 +116,7 @@ export const GROUP_LABELS: Record<BranchGroup, { title: string; heading: string;
     title: "Growing Network",
     heading: "Growing Network",
     description:
-      "Branches recorded in the community archive whose details are still being confirmed with union leadership.",
+      "Branches recorded in the community archive whose details continue to be compiled with union leadership.",
   },
 };
 

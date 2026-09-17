@@ -68,17 +68,19 @@ test.describe("Gallery after the archive import", () => {
       await expect(filters.getByRole("link", { name: category, exact: true })).toBeVisible();
     }
 
-    const allCount = await page.locator("main .grid button").count();
-    await filters.getByRole("link", { name: "Places of Worship", exact: true }).click();
-    await expect(page).toHaveURL(/category=Places\+of\+Worship|category=Places%20of%20Worship/);
-    const filteredCount = await page.locator("main .grid button").count();
+    const allCount = await page.locator("main .grid button, .grid button").count();
+    await Promise.all([
+      page.waitForURL(/category=Places/),
+      filters.getByRole("link", { name: "Places of Worship", exact: true }).click(),
+    ]);
+    const filteredCount = await page.locator("main .grid button, .grid button").count();
     expect(filteredCount).toBeGreaterThan(0);
     expect(filteredCount).toBeLessThan(allCount);
   });
 
   test("lightbox opens on a photograph and closes with Escape", async ({ page }) => {
     await page.goto("/gallery?category=Nature");
-    await page.locator("main .grid button").first().click();
+    await page.locator("main .grid button, .grid button").first().click();
     const dialog = page.getByRole("dialog");
     await expect(dialog).toBeVisible();
     await page.keyboard.press("Escape");
@@ -87,7 +89,7 @@ test.describe("Gallery after the archive import", () => {
 
   test("every gallery photograph has non-empty alt text", async ({ page }) => {
     await page.goto("/gallery");
-    const alts = await page.locator("main .grid button img").evaluateAll((imgs) =>
+    const alts = await page.locator("main .grid button img, .grid button img").evaluateAll((imgs) =>
       imgs.map((i) => (i as HTMLImageElement).alt),
     );
     expect(alts.length).toBeGreaterThan(0);
@@ -120,7 +122,7 @@ test.describe("Gallery after the archive import", () => {
     await page.goto("/gallery?category=Landmarks");
     await expect(page.getByText("Okuta Gbooro").first()).toBeVisible();
     await expect(page.getByText("Takete-Ide Town Hall")).toBeVisible();
-    await expect(page.getByText("Authentic current photograph coming soon")).toBeVisible();
+    await expect(page.getByText("Town Hall photograph to be added")).toBeVisible();
   });
 
   test("verified-place placeholders render with correct categories and distinct identities", async ({ page }) => {
@@ -131,7 +133,7 @@ test.describe("Gallery after the archive import", () => {
     await expect(page.getByRole("button", { name: /Eba River.*in flow/i })).toBeVisible();
     await expect(page.getByText("Igboruku / Gboruku")).toBeVisible();
     await expect(page.getByText("Owowo River")).toBeVisible();
-    const riverPlaceholders = page.getByText("Authentic river photograph coming soon");
+    const riverPlaceholders = page.getByText("Community landscape photograph to be added");
     await expect(riverPlaceholders).toHaveCount(2);
 
     // 2. Places of Worship
@@ -142,13 +144,13 @@ test.describe("Gallery after the archive import", () => {
     await expect(page.getByRole("button", { name: /Second ECWA Church/i })).toBeVisible();
     await expect(page.getByRole("button", { name: /Redeemed Christian Church of God/i })).toBeVisible();
     await expect(page.getByText("First Apostolic Church, Takete-Ide")).toBeVisible();
-    await expect(page.getByText("Authentic community photograph coming soon")).toBeVisible();
+    await expect(page.getByText("Photograph to be added")).toBeVisible();
 
     // 3. Education
     await page.goto("/gallery?category=Education");
     await expect(page.getByText("Takete-Ide Primary School")).toBeVisible();
     await expect(page.getByText("Government Day Secondary School, Takete-Ide")).toBeVisible();
-    const schoolPlaceholders = page.getByText("Authentic school photograph coming soon");
+    const schoolPlaceholders = page.getByText("Educational institution photograph to be added");
     await expect(schoolPlaceholders).toHaveCount(2);
   });
 
@@ -203,7 +205,7 @@ test.describe("Video delivery and accessibility", () => {
     await page.goto("/development/community-at-work");
     await expect(page.getByRole("heading", { name: "Community at Work", level: 1 })).toBeVisible();
     await expect(
-      page.getByText(/The specific road and the exact nature of the work are not yet confirmed/),
+      page.getByText(/The specific road, the nature of the work and project details continue to be documented/),
     ).toBeVisible();
   });
 

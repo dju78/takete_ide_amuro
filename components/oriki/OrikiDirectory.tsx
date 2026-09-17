@@ -1,9 +1,10 @@
-﻿"use client";
+"use client";
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import { Search, X, PlusCircle, ShieldCheck, BookOpen, Volume2 } from "lucide-react";
 import type { OrikiRecord } from "@/lib/data/oriki-records";
+import { cn } from "@/lib/utils";
 
 interface Props {
   records: OrikiRecord[];
@@ -33,45 +34,82 @@ function OrikiAudio({ record }: { record: OrikiRecord }) {
 
 export function OrikiDirectory({ records }: Props) {
   const [search, setSearch] = useState("");
+  const [audioOnly, setAudioOnly] = useState(false);
+
+  const totalWithAudio = useMemo(() => records.filter((r) => Boolean(r.audio_url)).length, [records]);
 
   const filtered = useMemo(() => {
+    let list = records;
+    if (audioOnly) {
+      list = list.filter((r) => Boolean(r.audio_url));
+    }
     const q = search.trim().toLowerCase();
-    if (!q) return records;
-    return records.filter(
+    if (!q) return list;
+    return list.filter(
       (r) =>
         r.family_origin.toLowerCase().includes(q) ||
         r.male_oriki.toLowerCase().includes(q) ||
         r.female_oriki.toLowerCase().includes(q) ||
         (r.notes && r.notes.toLowerCase().includes(q))
     );
-  }, [records, search]);
+  }, [records, search, audioOnly]);
 
   return (
     <div className="space-y-8">
-      {/* Search and stats bar */}
+      {/* Filter and stats bar */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div className="relative flex-1 max-w-md">
-          <label htmlFor="oriki-search" className="sr-only">
-            Search Oríkì records
-          </label>
-          <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-charcoal/40" />
-          <input
-            id="oriki-search"
-            type="search"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search family name or Oríkì..."
-            className="w-full rounded-full border border-purple-600/20 bg-white py-2.5 pl-10 pr-10 text-sm placeholder:text-charcoal/40 focus:border-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-600/20 shadow-xs"
-          />
-          {search && (
+        <div className="flex flex-1 flex-col gap-3 sm:flex-row sm:items-center">
+          <div className="relative flex-1 max-w-md">
+            <label htmlFor="oriki-search" className="sr-only">
+              Search Oríkì records
+            </label>
+            <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-charcoal/40" />
+            <input
+              id="oriki-search"
+              type="search"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search family name or Oríkì..."
+              className="w-full rounded-full border border-purple-600/20 bg-white py-2.5 pl-10 pr-10 text-sm placeholder:text-charcoal/40 focus:border-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-600/20 shadow-xs"
+            />
+            {search && (
+              <button
+                onClick={() => setSearch("")}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-charcoal/40 hover:text-charcoal p-1"
+                aria-label="Clear search"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            )}
+          </div>
+
+          <div className="flex items-center gap-2">
             <button
-              onClick={() => setSearch("")}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-charcoal/40 hover:text-charcoal p-1"
-              aria-label="Clear search"
+              type="button"
+              onClick={() => setAudioOnly(false)}
+              className={cn(
+                "rounded-full px-3.5 py-1.5 text-xs font-semibold transition cursor-pointer",
+                !audioOnly
+                  ? "bg-purple-700 text-white shadow-2xs"
+                  : "bg-white text-purple-900 border border-purple-200 hover:bg-purple-50"
+              )}
             >
-              <X className="h-4 w-4" />
+              All Records ({records.length})
             </button>
-          )}
+            <button
+              type="button"
+              onClick={() => setAudioOnly(true)}
+              className={cn(
+                "inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-semibold transition cursor-pointer",
+                audioOnly
+                  ? "bg-purple-700 text-white shadow-2xs"
+                  : "bg-white text-purple-900 border border-purple-200 hover:bg-purple-50"
+              )}
+            >
+              <Volume2 className="h-3.5 w-3.5" aria-hidden="true" />
+              Audio Available ({totalWithAudio})
+            </button>
+          </div>
         </div>
 
         <div className="flex items-center gap-3 text-xs text-charcoal/70">
@@ -158,7 +196,7 @@ export function OrikiDirectory({ records }: Props) {
                         {record.audio_url ? (
                           <OrikiAudio record={record} />
                         ) : (
-                          <span className="text-xs text-charcoal/40">Not yet recorded</span>
+                          <span className="text-xs text-charcoal/45">Recording to be added</span>
                         )}
                       </td>
                     </tr>
