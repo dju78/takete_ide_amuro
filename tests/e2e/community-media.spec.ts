@@ -15,6 +15,9 @@ test.describe("Community media story pages", () => {
     ).toBeVisible();
     await expect(page.getByText("Ilorin, Kwara State").first()).toBeVisible();
     await expect(page.locator("video")).toHaveCount(2);
+    await expect(
+      page.getByText(/Folorunso Omoniyi \(Bontoro\) receiving an award on behalf of Cheche/).first(),
+    ).toBeVisible();
   });
 
   test("Lokoja branch page records the meeting date", async ({ page }) => {

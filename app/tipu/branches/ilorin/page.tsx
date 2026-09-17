@@ -92,10 +92,9 @@ export default async function IlorinBranchPage() {
               clearest expressions of Takete-Ide identity away from home.
             </p>
             <p>
-              The photographs and recordings below were supplied to the Takete-Ide archive by the branch.
-              Where an award or presentation appears, the recipients and the wording of the citations are
-              being confirmed with the branch before anything is published here — so this page records the
-              occasion rather than attributing it.
+              The photographs and recordings below were supplied to the Takete-Ide archive by the branch,
+              documenting the celebration and award presentations — including Folorunso Omoniyi (Bontoro)
+              receiving an award on behalf of Cheche.
             </p>
           </div>
         </article>
