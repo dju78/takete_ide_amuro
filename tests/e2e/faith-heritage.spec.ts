@@ -115,6 +115,11 @@ test.describe("Faith & Religious Heritage Section — Takete-Ide Archive", () =>
       await expect(secondEcwa.locator("img")).toHaveAttribute("src", /second-ecwa-church-takete-ide\.jpg/);
       await expect(secondEcwa).toContainText("present-day church building");
 
+      // RCCG uses its authentic image and caption
+      const rccg = churchCards.nth(6);
+      await expect(rccg.locator("img")).toHaveAttribute("src", /rccg-takete-ide\.png/);
+      await expect(rccg).toContainText("present-day church building");
+
       // First Baptist displays November 1922 and links to full history
       const firstBaptist = churchCards.nth(1);
       await expect(firstBaptist).toContainText("November 1922");
