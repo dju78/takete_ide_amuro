@@ -21,7 +21,7 @@ const recordings = [
   },
   {
     name: "mesami-olu",
-    sourcePrefix: "mesami-olu.clean.part",
+    sourcePrefix: "mesami-olu.part",
     bytes: 24672,
     sha256: "8877210eddb3ba24ddcefd9b453edd7fbf37d28a390cf379534ee25f281d977c",
   },
@@ -31,8 +31,9 @@ await mkdir(outputDir, { recursive: true });
 const directoryEntries = await readdir(sourceDir);
 
 for (const recording of recordings) {
+  const chunkRegex = new RegExp(`^${recording.name}\\.part\\d+\\.b64$`);
   const files = directoryEntries
-    .filter((name) => name.startsWith(recording.sourcePrefix) && name.endsWith(".b64"))
+    .filter((name) => chunkRegex.test(name))
     .sort();
 
   if (files.length === 0) {

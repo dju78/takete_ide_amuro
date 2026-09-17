@@ -104,4 +104,54 @@ test.describe("Takete-Ide Family Oríkì Directory", () => {
     await expect(page.getByRole("heading", { name: "Eseha" })).toBeVisible();
     await expect(page.getByRole("heading", { name: "Attemogbe" })).toBeVisible();
   });
+
+  test("loads verified audio players for Eseha Jare, Attemesami Olu, and Eseyin Telu on desktop and mobile", async ({ page, request }) => {
+    // 1. Verify audio static assets resolve over HTTP with 200 OK
+    const esehaRes = await request.get("/audio/oriki/eseha-jare.ogg");
+    expect(esehaRes.status()).toBe(200);
+    expect(Number(esehaRes.headers()["content-length"])).toBe(23187);
+
+    const mesamiRes = await request.get("/audio/oriki/mesami-olu.ogg");
+    expect(mesamiRes.status()).toBe(200);
+    expect(Number(mesamiRes.headers()["content-length"])).toBe(24672);
+
+    const eseyinRes = await request.get("/audio/oriki/eseyin-telu.ogg");
+    expect(eseyinRes.status()).toBe(200);
+    expect(Number(eseyinRes.headers()["content-length"])).toBe(14021);
+
+    // 2. Desktop verification
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await page.goto("/oriki");
+
+    const desktopEsehaAudio = page.locator('table audio[aria-label="Oríkì Eseha Jare"]');
+    await expect(desktopEsehaAudio).toBeVisible();
+    await expect(desktopEsehaAudio.locator("source")).toHaveAttribute("src", "/audio/oriki/eseha-jare.ogg");
+
+    const desktopMesamiAudio = page.locator('table audio[aria-label="Oríkì Mesami Olu"]');
+    await expect(desktopMesamiAudio).toBeVisible();
+    await expect(desktopMesamiAudio.locator("source")).toHaveAttribute("src", "/audio/oriki/mesami-olu.ogg");
+
+    const desktopEseyinAudio = page.locator('table audio[aria-label="Oríkì Eseyin Telu"]');
+    await expect(desktopEseyinAudio).toBeVisible();
+    await expect(desktopEseyinAudio.locator("source")).toHaveAttribute("src", "/audio/oriki/eseyin-telu.ogg");
+
+    // Records without audio show fallback indicator
+    await expect(page.getByText("Not yet recorded").first()).toBeVisible();
+
+    // 3. Mobile verification
+    await page.setViewportSize({ width: 375, height: 667 });
+    await page.goto("/oriki");
+
+    const mobileEsehaAudio = page.locator('.space-y-3 audio[aria-label="Oríkì Eseha Jare"]');
+    await expect(mobileEsehaAudio).toBeVisible();
+    await expect(mobileEsehaAudio.locator("source")).toHaveAttribute("src", "/audio/oriki/eseha-jare.ogg");
+
+    const mobileMesamiAudio = page.locator('.space-y-3 audio[aria-label="Oríkì Mesami Olu"]');
+    await expect(mobileMesamiAudio).toBeVisible();
+    await expect(mobileMesamiAudio.locator("source")).toHaveAttribute("src", "/audio/oriki/mesami-olu.ogg");
+
+    const mobileEseyinAudio = page.locator('.space-y-3 audio[aria-label="Oríkì Eseyin Telu"]');
+    await expect(mobileEseyinAudio).toBeVisible();
+    await expect(mobileEseyinAudio.locator("source")).toHaveAttribute("src", "/audio/oriki/eseyin-telu.ogg");
+  });
 });
