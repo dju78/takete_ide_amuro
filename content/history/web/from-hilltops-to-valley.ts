@@ -2,7 +2,7 @@ export const BOOK_SOURCE_TITLE =
   "From the Hilltops to the Valley: The History, Heritage and People of Takete Ide";
 
 export const BOOK_SOURCE_NOTE =
-  "Summarised from the supplied community historical manuscript. Dates, names and descriptions are presented as the manuscript records them and remain open to documentary or community verification where appropriate.";
+  "Summarised from the supplied community historical manuscript. For this website update, the manuscript is treated as the primary community source for Takete-Ide history and heritage, except for Baptist Church-specific material, which continues to use separate Baptist church and archival sources. Where the manuscript itself contains incomplete dates, unclear wording or internal differences, the website preserves that uncertainty rather than inventing a correction.";
 
 export const BOOK_EDUCATION_MILESTONES = [
   {
@@ -81,13 +81,13 @@ export const BOOK_DEVELOPMENT_INTERVENTIONS = [
     period: "2007/08–2012",
     title: "Owowo Bridge and access road works",
     detail:
-      "The manuscript says the Ibrahim Idris administration re-awarded works on the River Owowo bridge and the Effo–Takete-Ide–Aghara road, but the works were not completed before the administration ended in January 2012.",
+      "The manuscript records the re-award of works on the River Owowo bridge and the Effo–Takete-Ide–Aghara road during this period and says the works were not completed before the administration ended in January 2012.",
   },
   {
     period: "Later interventions",
     title: "Health, ICT, water and agriculture",
     detail:
-      "The manuscript records a local-government primary-health outlet, the Governor Yahaya Bello Clinic, NCC-supported computers for the UBE/JSS school, motorised boreholes, FADAMA activity and ACReSAL seedlings for environmental restoration.",
+      "The manuscript records a local-government primary-health outlet, a donated community clinic, NCC-supported computers for the UBE/JSS school, motorised boreholes, FADAMA activity and ACReSAL seedlings for environmental restoration.",
   },
 ] as const;
 
