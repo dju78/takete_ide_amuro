@@ -1,4 +1,4 @@
-﻿import { test, expect } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { validateGooglePhotosUrl } from "@/lib/site-config";
 
 test.describe("Google Photos — Extended Community Photo Archive Integration", () => {
@@ -28,15 +28,22 @@ test.describe("Google Photos — Extended Community Photo Archive Integration", 
     expect(pageHtml).not.toContain("/u/3/");
     expect(pageHtml).not.toContain("/u/0/");
 
-    // If extended archive button is visible, ensure security attributes
-    const archiveButton = page.locator("a:has-text('View Full Photo Archive')");
-    const count = await archiveButton.count();
-    if (count > 0) {
-      await expect(archiveButton).toHaveAttribute("target", "_blank");
-      await expect(archiveButton).toHaveAttribute("rel", /noopener/);
-      await expect(archiveButton).toHaveAttribute("rel", /noreferrer/);
-      await expect(archiveButton).toHaveAttribute("aria-label", /Photo Archive/i);
-    }
+    // Check Explore More Community Photos section and both album links
+    await expect(page.getByRole("heading", { name: "Explore More Community Photos" })).toBeVisible();
+
+    const album1 = page.getByRole("link", { name: "View Community Photo Album" });
+    await expect(album1).toBeVisible();
+    await expect(album1).toHaveAttribute("href", "https://photos.app.goo.gl/Fg9JZ7Bo8Qh76MS88");
+    await expect(album1).toHaveAttribute("target", "_blank");
+    await expect(album1).toHaveAttribute("rel", /noopener/);
+    await expect(album1).toHaveAttribute("rel", /noreferrer/);
+
+    const album2 = page.getByRole("link", { name: "View More Takete-Ide Photos" });
+    await expect(album2).toBeVisible();
+    await expect(album2).toHaveAttribute("href", "https://photos.app.goo.gl/xgqqHrcE9isZDhUP8");
+    await expect(album2).toHaveAttribute("target", "_blank");
+    await expect(album2).toHaveAttribute("rel", /noopener/);
+    await expect(album2).toHaveAttribute("rel", /noreferrer/);
   });
 
   test("heritage page (/heritage) includes subtle browse extended archive link", async ({ page }) => {

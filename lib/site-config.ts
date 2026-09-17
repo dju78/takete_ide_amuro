@@ -34,10 +34,19 @@ export const siteConfig = {
   },
   url: getCanonicalSiteUrl(),
   photoArchive: {
-    title: "Explore More Takete-Ide Photographs",
+    title: "Explore More Community Photos",
     description:
-      "Explore more photographs documenting the people, places, celebrations, institutions and community life of Takete-Ide in our extended Google Photos archive.",
-    buttonLabel: "View Full Photo Archive",
+      "Explore additional photographs documenting Takete-Ide, its landmarks, community life and heritage.",
+    albums: [
+      {
+        label: "View Community Photo Album",
+        url: "https://photos.app.goo.gl/Fg9JZ7Bo8Qh76MS88",
+      },
+      {
+        label: "View More Takete-Ide Photos",
+        url: "https://photos.app.goo.gl/xgqqHrcE9isZDhUP8",
+      },
+    ],
   },
 } as const;
 
