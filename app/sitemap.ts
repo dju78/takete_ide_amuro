@@ -8,12 +8,13 @@ import { getProjects } from "@/lib/data/projects";
 import { getArchiveItems } from "@/lib/data/archive";
 
 const staticRoutes = [
-  "/", "/our-story", "/heritage", "/heritage/faith", "/heritage/faith/first-baptist-church",
-  "/heritage/agado", "/heritage/ate", "/heritage/agbagba-ide", "/heritage/takete-ide-anthem",
-  "/heritage/traditional-institution", "/heritage/traditional-marriage", "/heritage/festivals",
-  "/heritage/pacesetters", "/heritage/community-organisations", "/takete-ide-day",
+  "/", "/our-story", "/our-story/takete-tedo", "/heritage", "/heritage/faith", "/heritage/faith/first-baptist-church",
+  "/heritage/faith/manuscript-milestones", "/heritage/agado", "/heritage/ate", "/heritage/agbagba-ide", "/heritage/takete-ide-anthem",
+  "/heritage/traditional-institution", "/heritage/traditional-council", "/heritage/traditional-marriage", "/heritage/festivals",
+  "/heritage/pacesetters", "/heritage/community-organisations", "/heritage/land-and-landscape", "/heritage/music-games",
+  "/heritage/health-history", "/takete-ide-day",
   "/development", "/our-people", "/news", "/events", "/gallery", "/weather", "/diaspora", "/archive",
-  "/archive/oral-history", "/tipu", "/tipu/branches", "/tipu/branches/lokoja",
+  "/archive/from-hilltops-to-the-valley", "/archive/oral-history", "/tipu", "/tipu/branches", "/tipu/branches/lokoja",
   "/tipu/branches/ilorin", "/diaspora/uk-europe", "/takete-ide-day/cultural-attire", "/centenary", "/support",
   "/education", "/kogi-quest",
   "/development/community-at-work", "/families", "/families/compounds", "/families/contribute",
