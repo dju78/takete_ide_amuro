@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { GraduationCap, School, HeartPulse } from "lucide-react";
+import { GraduationCap, School, HeartPulse, UsersRound } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -13,6 +13,11 @@ import {
   BOOK_SOURCE_NOTE,
   BOOK_SOURCE_TITLE,
 } from "@/content/history/web/from-hilltops-to-valley";
+import {
+  BOOK_1943_PIONEER_PUPILS,
+  BOOK_1953_PIONEER_PUPILS,
+  BOOK_1963_FIRST_GRADUATES,
+} from "@/content/history/web/from-hilltops-to-valley-expanded";
 
 export const metadata: Metadata = {
   title: "Education in Takete-Ide",
@@ -49,6 +54,25 @@ const milestones = [
     text: "Following the creation of Oyi Local Government Area, a community delegation asked the new authority to take the school over. The request was accepted and the school passed into local government administration after its first two terms.",
   },
 ];
+
+function NamesCard({ title, period, names }: { title: string; period: string; names: readonly string[] }) {
+  return (
+    <article className="rounded-3xl border border-purple-600/10 bg-white p-6 shadow-sm">
+      <div className="flex items-center gap-3">
+        <UsersRound className="h-5 w-5 text-purple-600" aria-hidden="true" />
+        <div>
+          <p className="text-xs font-bold uppercase tracking-wider text-gold-700">{period}</p>
+          <h3 className="font-serif text-lg font-bold text-purple-950">{title}</h3>
+        </div>
+      </div>
+      <ul className="mt-4 grid gap-2 text-sm text-charcoal/80 sm:grid-cols-2">
+        {names.map((name) => (
+          <li key={name} className="rounded-xl bg-purple-50/50 px-3 py-2">{name}</li>
+        ))}
+      </ul>
+    </article>
+  );
+}
 
 export default function EducationPage() {
   return (
@@ -155,6 +179,24 @@ export default function EducationPage() {
 
         <section className="mt-16">
           <SectionHeading
+            eyebrow="Names preserved in the manuscript"
+            title="Pioneer pupils and the first graduating class"
+            align="left"
+            className="mx-0"
+            description="The second manuscript review recovered names attached to the 1943 school, the 1953 re-establishment and the first full-primary graduates in 1963."
+          />
+          <div className="mt-8 space-y-6">
+            <NamesCard title="Pioneer pupils of S.I.M Primary School" period="1943" names={BOOK_1943_PIONEER_PUPILS} />
+            <NamesCard title="Pioneer pupils of Native Authority School" period="1953" names={BOOK_1953_PIONEER_PUPILS} />
+            <NamesCard title="First full-primary graduates" period="1963" names={BOOK_1963_FIRST_GRADUATES} />
+          </div>
+          <p className="mt-4 text-xs italic leading-relaxed text-charcoal/60">
+            Names follow the manuscript spelling and honorifics as closely as possible. Family and school records can be used to refine spellings where necessary.
+          </p>
+        </section>
+
+        <section className="mt-16">
+          <SectionHeading
             eyebrow="Health history"
             title="Education, mission work and early healthcare"
             align="left"
@@ -171,6 +213,9 @@ export default function EducationPage() {
               </article>
             ))}
           </div>
+          <Link href="/heritage/health-history" className="mt-5 inline-flex min-h-6 items-center text-sm font-semibold text-community-green hover:underline">
+            Explore the full health-history record →
+          </Link>
         </section>
 
         <section className="mt-14 grid gap-6 sm:grid-cols-2">
