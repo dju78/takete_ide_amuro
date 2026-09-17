@@ -105,6 +105,7 @@ export const navGroups: NavGroup[] = [
       { label: "Oríkì", href: "/oriki", description: "Community directory of family praise names" },
       { label: "Faith & Religious Heritage", href: "/heritage/faith", description: "Churches, ECWA, Muslim community and spiritual traditions" },
       { label: "Education", href: "/education", description: "Schooling in Takete-Ide, in the community's own words" },
+      { label: "Pacesetters & Firsts", href: "/heritage/pacesetters", description: "Notable community firsts recorded in the historical manuscript" },
     ],
   },
   {
@@ -112,6 +113,8 @@ export const navGroups: NavGroup[] = [
     href: "/heritage",
     items: [
       { label: "Culture & Heritage", href: "/heritage", description: "Festivals, dress, faith and the land", featured: true },
+      { label: "Festivals", href: "/heritage/festivals", description: "Christmas, New Year, Easter, New Yam, Egungun, Ogun and Takete-Ide Day" },
+      { label: "Community Organisations", href: "/heritage/community-organisations", description: "TIPU, Jet Club, Owe, TISU and Egbe Ode in the historical record" },
       { label: "Faith & Religious Heritage", href: "/heritage/faith", description: "Churches, ECWA, Muslim community and spiritual traditions" },
       { label: "Gallery", href: "/gallery", description: "Photographs from community life" },
       { label: "Families & Oríkì", href: "/families", description: "Family names, compounds and praise poetry" },
@@ -171,6 +174,8 @@ export const footerGroups: { heading: string; items: NavItem[] }[] = [
       { label: "History", href: "/our-story" },
       { label: "Faith & Religious Heritage", href: "/heritage/faith" },
       { label: "Culture", href: "/heritage" },
+      { label: "Festivals", href: "/heritage/festivals" },
+      { label: "Pacesetters", href: "/heritage/pacesetters" },
       { label: "Kogi Quest", href: "/kogi-quest" },
       { label: "Gallery", href: "/gallery" },
     ],
@@ -181,6 +186,7 @@ export const footerGroups: { heading: string; items: NavItem[] }[] = [
       { label: "TIPU", href: "/tipu" },
       { label: "Branches", href: "/tipu/branches" },
       { label: "Diaspora", href: "/diaspora" },
+      { label: "Community Organisations", href: "/heritage/community-organisations" },
       { label: "Development", href: "/development" },
     ],
   },
