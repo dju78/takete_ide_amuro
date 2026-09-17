@@ -15,6 +15,9 @@ test.describe("Community media story pages", () => {
     ).toBeVisible();
     await expect(page.getByText("Ilorin, Kwara State").first()).toBeVisible();
     await expect(page.locator("video")).toHaveCount(2);
+    await expect(
+      page.getByText(/Folorunso Omoniyi \(Bontoro\) receiving an award on behalf of Cheche/).first(),
+    ).toBeVisible();
   });
 
   test("Lokoja branch page records the meeting date", async ({ page }) => {
@@ -95,6 +98,22 @@ test.describe("Gallery after the archive import", () => {
     await page.goto("/gallery?category=Places+of+Worship");
     const baptistCards = page.getByRole("button", { name: /First Baptist Church/ });
     await expect(baptistCards).toHaveCount(1);
+  });
+
+  test("Redeemed Christian Church of God renders with approved metadata in Places of Worship gallery", async ({ page }) => {
+    await page.goto("/gallery?category=Places+of+Worship");
+    const rccgButton = page.getByRole("button", { name: /Redeemed Christian Church of God/i });
+    await expect(rccgButton).toBeVisible();
+    await expect(rccgButton.locator("img")).toHaveAttribute(
+      "alt",
+      "Redeemed Christian Church of God (RCCG) church building in Takete-Ide.",
+    );
+    await rccgButton.click();
+    const dialog = page.getByRole("dialog");
+    await expect(dialog).toBeVisible();
+    await expect(dialog).toContainText("Redeemed Christian Church of God (RCCG), Takete-Ide.");
+    await page.keyboard.press("Escape");
+    await expect(dialog).toBeHidden();
   });
 
   test("landmarks and placeholders are presented respectfully", async ({ page }) => {

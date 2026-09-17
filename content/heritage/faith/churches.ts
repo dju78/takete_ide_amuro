@@ -163,15 +163,15 @@ export const CHURCHES_DIRECTORY: ChurchDirectoryItem[] = [
     displayOrder: 7,
     denomination: "The Redeemed Christian Church of God (RCCG)",
     image: "/images/takete-ide/places/rccg-takete-ide.png",
-    imageAlt: "Redeemed Christian Church of God (RCCG) building in Takete-Ide",
-    imageCaption: "Redeemed Christian Church of God (RCCG), Takete-Ide — present-day church building.",
+    imageAlt: "Redeemed Christian Church of God (RCCG) church building in Takete-Ide.",
+    imageCaption: "Redeemed Christian Church of God (RCCG), Takete-Ide.",
     summary:
       "A Christian parish serving the Takete-Ide community. Detailed branch establishment records are being compiled.",
     historyStatus: "Historical profile being documented.",
     established: null,
     establishedQualifier: "Date to be confirmed from church records",
     featured: true,
-    sourceStatus: "community_tradition",
+    sourceStatus: "unverified",
     hasFullProfile: false,
   },
   {
