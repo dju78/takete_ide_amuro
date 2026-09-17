@@ -10,7 +10,7 @@ import { getArchiveItems } from "@/lib/data/archive";
 const staticRoutes = [
   "/", "/our-story", "/our-story/takete-tedo", "/heritage", "/heritage/faith", "/heritage/faith/first-baptist-church",
   "/heritage/faith/manuscript-milestones", "/heritage/agado", "/heritage/ate", "/heritage/agbagba-ide", "/heritage/takete-ide-anthem",
-  "/heritage/traditional-institution", "/heritage/traditional-council", "/heritage/traditional-marriage", "/heritage/festivals",
+  "/heritage/amuro-okun-context", "/heritage/traditional-institution", "/heritage/traditional-council", "/heritage/traditional-marriage", "/heritage/festivals",
   "/heritage/pacesetters", "/heritage/community-organisations", "/heritage/land-and-landscape", "/heritage/music-games",
   "/heritage/health-history", "/takete-ide-day",
   "/development", "/our-people", "/news", "/events", "/gallery", "/weather", "/diaspora", "/archive",
