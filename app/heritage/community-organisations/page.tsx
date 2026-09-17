@@ -10,6 +10,7 @@ import {
   BOOK_SOURCE_NOTE,
   BOOK_SOURCE_TITLE,
 } from "@/content/history/web/from-hilltops-to-valley";
+import { BOOK_COMMUNITY_ORGANISATION_DETAILS } from "@/content/history/web/from-hilltops-to-valley-expanded";
 
 export const metadata: Metadata = {
   title: "Community Organisations",
@@ -63,28 +64,42 @@ export default function CommunityOrganisationsPage() {
         </div>
 
         <div className="mt-10 space-y-5">
-          {BOOK_COMMUNITY_ORGANISATIONS.map((organisation, index) => (
-            <article
-              key={organisation.name}
-              className="rounded-3xl border border-purple-600/10 bg-white p-6 shadow-sm sm:p-7"
-            >
-              <div className="flex items-start gap-4">
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gold-100 font-serif text-sm font-bold text-gold-900">
-                  {index + 1}
-                </span>
-                <div>
-                  <h2 className="font-serif text-xl font-bold text-purple-950">{organisation.name}</h2>
-                  <p className="mt-2 text-sm leading-relaxed text-charcoal/80">{organisation.role}</p>
+          {BOOK_COMMUNITY_ORGANISATIONS.map((organisation, index) => {
+            const expanded = BOOK_COMMUNITY_ORGANISATION_DETAILS.find((item) => item.name === organisation.name);
+            return (
+              <article
+                key={organisation.name}
+                className="rounded-3xl border border-purple-600/10 bg-white p-6 shadow-sm sm:p-7"
+              >
+                <div className="flex items-start gap-4">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gold-100 font-serif text-sm font-bold text-gold-900">
+                    {index + 1}
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <h2 className="font-serif text-xl font-bold text-purple-950">{organisation.name}</h2>
+                    <p className="mt-2 text-sm leading-relaxed text-charcoal/80">{organisation.role}</p>
+                    {expanded && (
+                      <ul className="mt-4 space-y-2 border-t border-purple-100 pt-4 text-sm leading-relaxed text-charcoal/75">
+                        {expanded.details.map((detail) => (
+                          <li key={detail} className="flex gap-2">
+                            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-community-green" aria-hidden="true" />
+                            <span>{detail}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
                 </div>
-              </div>
-            </article>
-          ))}
+              </article>
+            );
+          })}
         </div>
 
         <div className="mt-10 rounded-2xl border border-gold-500/25 bg-gold-50 p-5 text-sm leading-relaxed text-charcoal/80">
           This is a historical-source view of the organisations. Current officers, constitutions, branch details,
           programmes and contact information should continue to come from the organisations themselves or verified
-          community records.
+          community records. The website does not reproduce the violent incident described near the end of the manuscript;
+          the historical role of Egbe Ode is preserved without publishing that anecdote as current security information.
         </div>
       </Container>
     </div>
