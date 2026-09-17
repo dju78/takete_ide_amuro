@@ -294,3 +294,20 @@ test.describe("Homepage media selection", () => {
     await expect(page.locator("video")).toHaveCount(0);
   });
 });
+
+test.describe("TIPU Ilorin Branch Award Presentation Media", () => {
+  test("renders Cheche and Bldr Dare Fiki award photographs on gallery and branch pages", async ({ page }) => {
+    await page.goto("/tipu/branches/ilorin");
+
+    // Check Cheche award presentation photograph and caption
+    const checheImg = page.locator('img[src*="award-presentation-cheche.jpg"]');
+    await expect(checheImg).toBeVisible();
+    await expect(page.getByText("Chief Oluabimbo Bola Ipinlaye", { exact: false }).first()).toBeVisible();
+
+    // Check Bldr Dare Fiki award presentation photograph and caption
+    const dareFikiImg = page.locator('img[src*="award-presentation-01.jpg"]');
+    await expect(dareFikiImg).toBeVisible();
+    await expect(page.getByText("Bldr Dare Fiki", { exact: false }).first()).toBeVisible();
+  });
+});
+

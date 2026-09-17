@@ -37,12 +37,12 @@ test.describe("Site-wide Public Discoverability & Navigation Pathways", () => {
     await page.goto("/");
 
     // Footer contains direct link to Video Archives
-    const footerVideoLink = page.locator('footer a[href="/archive/video"]');
+    const footerVideoLink = page.locator('footer a[href="/archive?category=video"]');
     await expect(footerVideoLink).toBeVisible();
 
     // Navigate to Video Archives
     await footerVideoLink.click();
-    await expect(page).toHaveURL("/archive/video");
+    await expect(page).toHaveURL("/archive?category=video");
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   });
 
