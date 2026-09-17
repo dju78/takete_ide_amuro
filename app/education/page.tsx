@@ -25,6 +25,13 @@ const educationalFacilities = [
     description: "The NCC Computer Centre in Takete-Ide, providing digital access and technology facilities.",
     badge: "Digital & Technology",
   },
+  {
+    title: "Government Day Secondary School, Takete-Ide",
+    src: "/images/takete-ide/places/gdss-takete-ide.jpg",
+    alt: "Government Day Secondary School classroom buildings and compound in Takete-Ide",
+    description: "The community secondary school founded through communal effort before passing into public administration.",
+    badge: "Secondary Education",
+  },
 ];
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";

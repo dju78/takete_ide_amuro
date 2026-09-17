@@ -25,18 +25,18 @@ export const metadata: Metadata = {
 
 const naturalLandmarks = [
   {
-    title: "Omi Pandara",
-    src: "/images/takete-ide/places/omi-pandara.jpg",
-    alt: "Omi Pandara natural water landmark in Takete-Ide",
-    description: "A natural water feature and community landmark in Takete-Ide.",
-    type: "Natural Spring / Water Landmark",
-  },
-  {
     title: "Igboruku",
     src: "/images/takete-ide/places/igboruku.jpg",
     alt: "Igboruku river landmark with cascading water over rocks in Takete-Ide",
-    description: "One of the natural landmarks and rocky waterways associated with the Takete-Ide community.",
-    type: "River & Rock Formation",
+    description: "One of the most prominent natural landmarks and rocky waterways associated with the Takete-Ide community.",
+    type: "Featured River & Rock Formation",
+  },
+  {
+    title: "Omi Pandara",
+    src: "/images/takete-ide/places/omi-pandara.jpg",
+    alt: "Omi Pandara natural water landmark in Takete-Ide",
+    description: "A natural water spring and cherished community landmark in Takete-Ide.",
+    type: "Natural Spring / Water Landmark",
   },
   {
     title: "Okuta Gbooro",

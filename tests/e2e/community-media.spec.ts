@@ -157,9 +157,7 @@ test.describe("Gallery after the archive import", () => {
     await expect(page.getByRole("button", { name: /Takete-Ide Primary School/i })).toBeVisible();
     await expect(page.getByRole("button", { name: /Universal Basic Education/i })).toBeVisible();
     await expect(page.getByRole("button", { name: /Takete-Ide NCC Computer Centre/i })).toBeVisible();
-    await expect(page.getByText("Government Day Secondary School, Takete-Ide")).toBeVisible();
-    const schoolPlaceholders = page.getByText("Educational institution photograph to be added");
-    await expect(schoolPlaceholders).toHaveCount(1);
+    await expect(page.getByRole("button", { name: /Government Day Secondary School/i })).toBeVisible();
   });
 
   test("no authentic place image is reused for another distinct place", async ({ page }) => {
@@ -343,6 +341,7 @@ test.describe("Natural Landmarks & Oko Loke Video Integration", () => {
     await expect(page.getByRole("heading", { name: "Takete-Ide Primary School" })).toBeVisible();
     await expect(page.getByRole("heading", { name: "Universal Basic Education, Takete-Ide" })).toBeVisible();
     await expect(page.getByRole("heading", { name: "Takete-Ide NCC Computer Centre" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Government Day Secondary School, Takete-Ide", level: 3 })).toBeVisible();
   });
 
   test("renders health facilities on health-history page", async ({ page }) => {
