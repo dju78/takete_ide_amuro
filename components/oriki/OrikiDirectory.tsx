@@ -230,7 +230,7 @@ export function OrikiDirectory({ records }: Props) {
               Community Heritage Record
             </h4>
             <p className="mt-1 text-xs sm:text-sm text-charcoal/80 leading-relaxed max-w-2xl">
-              This is a developing community heritage record. Verified corrections, additional family Oríkì and approved audio recordings may be submitted for inclusion.
+              This is a developing community heritage record. Verified corrections and additional family Oríkì may be submitted for inclusion. Approved audio recordings may also be submitted.
             </p>
           </div>
         </div>
