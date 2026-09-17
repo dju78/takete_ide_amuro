@@ -55,7 +55,13 @@ export async function getSiteSettings(): Promise<SiteSettings> {
     },
     google_photos_url: data.google_photos_url !== undefined ? data.google_photos_url : defaults.google_photos_url,
     google_photos_enabled: data.google_photos_enabled !== undefined ? Boolean(data.google_photos_enabled) : defaults.google_photos_enabled,
-    google_photos_title: data.google_photos_title || defaults.google_photos_title,
-    google_photos_description: data.google_photos_description || defaults.google_photos_description,
+    google_photos_title:
+      data.google_photos_title && data.google_photos_title !== "Explore More Takete-Ide Photographs"
+        ? data.google_photos_title
+        : defaults.google_photos_title,
+    google_photos_description:
+      data.google_photos_description && !data.google_photos_description.includes("in our extended Google Photos archive")
+        ? data.google_photos_description
+        : defaults.google_photos_description,
   };
 }
