@@ -160,7 +160,7 @@ export default async function TaketeIdeDayYearPage({ params }: Props) {
               )}
             </section>
           ) : (
-            <EmptyState title="Photographs coming soon" message="Photos from this celebration will be added to the gallery shortly." />
+            <EmptyState title="Photographs not archived" message="Photographs from this celebration year are not currently documented in the community archive." />
           )}
 
           {event.speeches.length > 0 && (

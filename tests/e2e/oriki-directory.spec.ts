@@ -231,7 +231,7 @@ test.describe("Takete-Ide Family Oríkì Directory", () => {
     await expect(desktopEseyinAudio.locator("source")).toHaveAttribute("src", "/audio/oriki/eseyin-telu.ogg");
 
     // Records without audio show fallback indicator
-    await expect(page.getByText("Recording to be added").first()).toBeVisible();
+    await expect(page.getByText("Text only").first()).toBeVisible();
 
     // 3. Mobile verification
     await page.setViewportSize({ width: 375, height: 667 });

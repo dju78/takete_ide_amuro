@@ -9,7 +9,7 @@ interface BranchMediaPlaceholderProps {
   region?: string;
   /** Two-letter monogram. Falls back to the branch's initials. */
   acronym?: string;
-  /** Overrides the default "Community archive image coming soon". */
+  /** Overrides the default "Takete-Ide Progressive Union". */
   statusMessage?: string;
   /** "card" fills a branch card; "compact" suits the homepage strip. */
   size?: "card" | "compact";

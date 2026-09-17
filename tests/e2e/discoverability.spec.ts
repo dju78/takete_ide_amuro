@@ -64,7 +64,7 @@ test.describe("Site-wide Public Discoverability & Navigation Pathways", () => {
     await page.goto("/oriki");
 
     // Check fallback unrecorded label
-    await expect(page.getByText("Recording to be added").first()).toBeVisible();
+    await expect(page.getByText("Text only").first()).toBeVisible();
     await expect(page.getByText("Not yet recorded")).toHaveCount(0);
 
     // Capture initial record count badge text (dynamic based on current data source)
@@ -79,7 +79,7 @@ test.describe("Site-wide Public Discoverability & Navigation Pathways", () => {
 
     // Filtered view shows records with playable audio (e.g. 3 approved audio recordings)
     await expect(page.locator("table audio, .space-y-3 audio").first()).toBeVisible();
-    await expect(page.getByText("Recording to be added")).toHaveCount(0);
+    await expect(page.getByText("Text only")).toHaveCount(0);
 
     // All records view restore
     const allFilter = page.getByRole("button", { name: /All Records/i });
@@ -87,7 +87,7 @@ test.describe("Site-wide Public Discoverability & Navigation Pathways", () => {
 
     // Verify all records view is restored matching the initial count and unrecorded badges reappear
     await expect(initialCountBadge).toHaveText(initialCountText);
-    await expect(page.getByText("Recording to be added").first()).toBeVisible();
+    await expect(page.getByText("Text only").first()).toBeVisible();
   });
 
   test("verified community badges render dignified archival labels rather than pending verification", async ({ page }) => {

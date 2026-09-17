@@ -128,7 +128,7 @@ function SocialIcon({
     return (
       <span
         aria-hidden="true"
-        title={`${label} — coming soon`}
+        title={label}
         className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white/40"
       >
         <Icon className="h-4 w-4" />

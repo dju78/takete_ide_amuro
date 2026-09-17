@@ -80,7 +80,7 @@ export function GalleryCard({
             {item.placeholder_title ?? item.title ?? "Takete-Ide Archive"}
           </span>
           <span className="max-w-full truncate rounded-full bg-ivory/10 px-1.5 py-0.5 text-[0.6rem] font-medium text-gold-300 ring-1 ring-inset ring-ivory/15 sm:px-2 sm:text-[0.65rem]">
-            {item.placeholder_subtitle ?? "Authentic photograph coming soon"}
+            {item.placeholder_subtitle ?? "Takete-Ide Community Archive"}
           </span>
         </div>
       </div>

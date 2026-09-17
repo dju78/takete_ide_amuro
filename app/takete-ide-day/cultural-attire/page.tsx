@@ -86,7 +86,7 @@ export default async function CentenaryAttirePage() {
               </h2>
               <p className="mt-2 text-sm leading-relaxed text-charcoal/75">
                 The official attire for the 2026 Centenary Celebration has not yet been confirmed for
-                publication. Information coming soon following official confirmation.
+                publication. Official announcement will be published following committee confirmation.
               </p>
               <Link
                 href="/centenary"

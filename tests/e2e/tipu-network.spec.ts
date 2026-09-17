@@ -63,7 +63,7 @@ test.describe("TIPU Network page", () => {
 
   test("branches without photographs show the branded placeholder, not a gap", async ({ page }) => {
     await page.goto("/tipu/branches");
-    const pending = page.getByText(/Community archive image coming soon|Branch information being documented/);
+    const pending = page.getByText("Takete-Ide Progressive Union");
     // More branches than photographs, so at least one placeholder must render.
     expect(await pending.count()).toBeGreaterThan(0);
     // Never the language of a broken image.

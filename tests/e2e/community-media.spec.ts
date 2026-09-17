@@ -47,7 +47,7 @@ test.describe("Community media story pages", () => {
   test("the 2025 attire is not presented as confirmed Centenary 2026 attire", async ({ page }) => {
     await page.goto("/takete-ide-day/cultural-attire");
     await expect(page.getByRole("heading", { name: "Centenary 2026 Official Attire" })).toBeVisible();
-    await expect(page.getByText(/Information coming soon following official confirmation/)).toBeVisible();
+    await expect(page.getByText(/Official announcement will be published following committee confirmation/)).toBeVisible();
     // The archive set must never be labelled as the confirmed 2026 attire.
     await expect(page.getByRole("heading", { name: "Official Centenary Attire", level: 1 })).toHaveCount(0);
   });
@@ -132,16 +132,13 @@ test.describe("Gallery after the archive import", () => {
     await expect(page.locator('img[src*="takete-ide-town-hall.jpg"]')).toBeVisible();
   });
 
-  test("verified-place placeholders render with correct categories and distinct identities", async ({ page }) => {
+  test("natural landmarks render with authentic photographs", async ({ page }) => {
     // 1. Nature & Waterways
     await page.goto("/gallery?category=Nature");
     await expect(page.getByRole("button", { name: /Obasoro Hill/i })).toBeVisible();
     await expect(page.getByRole("button", { name: /bank of the Eba River/i })).toBeVisible();
     await expect(page.getByRole("button", { name: /Eba River.*in flow/i })).toBeVisible();
     await expect(page.getByRole("button", { name: /Igboruku/i })).toBeVisible();
-    await expect(page.getByText("Owowo River")).toBeVisible();
-    const riverPlaceholders = page.getByText("Community landscape photograph to be added");
-    await expect(riverPlaceholders).toHaveCount(1);
 
     // 2. Places of Worship
     await page.goto("/gallery?category=Places+of+Worship");

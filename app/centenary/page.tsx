@@ -250,7 +250,7 @@ export default async function CentenaryPage() {
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-charcoal/75">{centenary.attireStatus}</p>
               <p className="mt-4 rounded-xl bg-purple-50 px-4 py-3 text-xs font-medium text-purple-600">
-                Information coming soon following official confirmation
+                Official announcement will be published following committee confirmation
               </p>
             </div>
 

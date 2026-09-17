@@ -83,10 +83,10 @@ export const DEFAULT_BRANCH_DESCRIPTION =
   "Part of the Takete-Ide Progressive Union network connecting members and supporting the wider Takete-Ide community.";
 
 /** Wording for a branch whose photographic archive is still being built. */
-export const BRANCH_PLACEHOLDER_MESSAGE = "Community archive image coming soon";
+export const BRANCH_PLACEHOLDER_MESSAGE = "Takete-Ide Progressive Union";
 
 /** Wording for a branch the archive describes as still forming. */
-export const BRANCH_FORMING_PLACEHOLDER_MESSAGE = "Branch information being documented";
+export const BRANCH_FORMING_PLACEHOLDER_MESSAGE = "Takete-Ide Progressive Union";
 
 /**
  * Public wording for records still being confirmed. Deliberately neutral — a

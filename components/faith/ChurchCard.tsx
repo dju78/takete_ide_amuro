@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { Church, BookOpen, Clock, AlertCircle } from "lucide-react";
+import { Church, BookOpen, AlertCircle } from "lucide-react";
 import { HeritageImage } from "@/components/ui/HeritageImage";
 import { VerificationBadge } from "@/components/ui/Badge";
 import type { ChurchDirectoryItem } from "@/content/heritage/faith/churches";
@@ -29,10 +29,6 @@ export function ChurchCard({ church }: ChurchCardProps) {
               <Church className="h-7 w-7" aria-hidden="true" />
             </div>
             <p className="mt-3 font-serif text-sm font-bold text-purple-950">{church.shortName}</p>
-            <span className="mt-1 inline-flex items-center gap-1 rounded-full bg-gold-100/80 px-2.5 py-0.5 text-[11px] font-semibold text-gold-800">
-              <Clock className="h-3 w-3" aria-hidden="true" />
-              Photograph to be added
-            </span>
           </div>
         )}
 

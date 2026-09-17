@@ -196,7 +196,7 @@ export function OrikiDirectory({ records }: Props) {
                         {record.audio_url ? (
                           <OrikiAudio record={record} />
                         ) : (
-                          <span className="text-xs text-charcoal/45">Recording to be added</span>
+                          <span className="text-xs text-charcoal/45">Text only</span>
                         )}
                       </td>
                     </tr>
