@@ -6,11 +6,35 @@ export interface OrikiRecord {
   male_oriki: string;
   female_oriki: string;
   notes?: string | null;
+  audio_url?: string | null;
+  audio_title?: string | null;
   display_order: number;
   published: boolean;
   created_at?: string;
   updated_at?: string;
   updated_by?: string | null;
+}
+
+const ORIKI_AUDIO_BY_ID: Record<string, Pick<OrikiRecord, "audio_url" | "audio_title">> = {
+  "1": {
+    audio_url: "/audio/oriki/eseha-jare.mp3",
+    audio_title: "Oríkì Eseha Jare",
+  },
+  "7": {
+    audio_url: "/audio/oriki/mesami-olu.mp3",
+    audio_title: "Oríkì Mesami Olu",
+  },
+  "9": {
+    audio_url: "/audio/oriki/eseyin-telu.mp3",
+    audio_title: "Oríkì Eseyin Telu",
+  },
+};
+
+function withApprovedAudio(record: OrikiRecord): OrikiRecord {
+  return {
+    ...record,
+    ...(ORIKI_AUDIO_BY_ID[record.id] ?? {}),
+  };
 }
 
 export const APPROVED_ORIKI_RECORDS: OrikiRecord[] = [
@@ -32,7 +56,7 @@ export const APPROVED_ORIKI_RECORDS: OrikiRecord[] = [
   { id: "16", family_origin: "Atte Meya", male_oriki: "Atte Meya", female_oriki: "Anu Meya", display_order: 16, published: true },
   { id: "17", family_origin: "Eseyin Meta", male_oriki: "Eseyin Meta", female_oriki: "Anu Meta", display_order: 17, published: true },
   { id: "18", family_origin: "Obanro", male_oriki: "Obanro", female_oriki: "Omosinla", display_order: 18, published: true },
-];
+].map(withApprovedAudio);
 
 export async function getOrikiRecords(options?: { query?: string; publishedOnly?: boolean }): Promise<OrikiRecord[]> {
   const publishedOnly = options?.publishedOnly ?? true;
@@ -48,7 +72,7 @@ export async function getOrikiRecords(options?: { query?: string; publishedOnly?
 
     const { data, error } = await q;
     if (!error && data && data.length > 0) {
-      let results = data as OrikiRecord[];
+      let results = (data as OrikiRecord[]).map(withApprovedAudio);
       if (query) {
         results = results.filter(
           (r) =>
@@ -80,7 +104,7 @@ export async function getOrikiRecordById(id: string): Promise<OrikiRecord | null
   const supabase = getPublicSupabase();
   if (supabase) {
     const { data, error } = await supabase.from("oriki_records").select("*").eq("id", id).maybeSingle();
-    if (!error && data) return data as OrikiRecord;
+    if (!error && data) return withApprovedAudio(data as OrikiRecord);
   }
   return APPROVED_ORIKI_RECORDS.find((r) => r.id === id) ?? null;
 }
