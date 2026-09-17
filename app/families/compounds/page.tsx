@@ -174,11 +174,10 @@ export default async function CompoundsPage() {
                 <Users className="h-6 w-6" aria-hidden="true" />
               </div>
               <h3 className="mt-3 font-serif text-lg font-bold text-purple-950">
-                Community Compound Profiles Under Compilation
+                Community Compounds Directory
               </h3>
               <p className="mx-auto mt-2 max-w-xl text-sm leading-relaxed text-charcoal/75">
-                Detailed compound profiles, photographs and oral histories will be added as they are confirmed
-                with families and community representatives.
+                Compound lineages and historical family settlements preserved across Takete-Ide Amuro.
               </p>
               <div className="mt-4">
                 <Link

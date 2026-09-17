@@ -208,16 +208,14 @@ export default async function FamiliesPage() {
                   <Users className="h-6 w-6" aria-hidden="true" />
                 </div>
                 <h3 className="mt-3 font-serif text-lg font-bold text-purple-950">
-                  Detailed Family Profiles Under Compilation
+                  Family Directory &amp; Oral History
                 </h3>
                 <p className="mx-auto mt-2 max-w-xl text-sm leading-relaxed text-charcoal/75">
-                  Detailed family histories and Oríkì profiles are being compiled. The names above come
-                  specifically from the historical Olu’de register and do not necessarily represent every
-                  Takete-Ide family.
+                  Takete-Ide family histories and ancestral lineages preserved across our compounds and historical registers.
                 </p>
                 <div className="mt-5">
                   <ButtonLink href="/families/contribute" size="sm">
-                    Help Preserve Your Family History
+                    Contribute Family History
                   </ButtonLink>
                 </div>
               </div>

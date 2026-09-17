@@ -114,8 +114,8 @@ export default async function TaketeIdeDayPage() {
             ) : (
               <EmptyState
                 icon={Calendar}
-                title="Event archive is being compiled"
-                message="Detailed pages for each Takete-Ide Day celebration — including 2025 and 2024 — will appear here as the programme, photographs and speeches are added by the archive team."
+                title="Takete-Ide Day Archive"
+                message="Takete-Ide Day celebration records, themes, programmes and honours."
               />
             )}
           </div>

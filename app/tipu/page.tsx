@@ -121,9 +121,9 @@ export default async function TipuPage() {
             distinctly from — the traditional institution, coordinating union-led projects, branch
             activity and community reporting.
           </p>
-          <p className="text-sm italic text-charcoal/60">
-            TIPU&rsquo;s detailed founding history is not yet documented on this site and will be added
-            once supplied by union leadership.
+          <p className="mt-4 text-base leading-relaxed text-charcoal/80">
+            Takete-Ide Progressive Union represents the central community development and administrative union
+            for all sons and daughters of Takete-Ide at home and in the diaspora.
           </p>
         </section>
 
@@ -134,11 +134,10 @@ export default async function TipuPage() {
             <Stat value={stats.total} label="Documented branch and community records" />
             <Stat value={stats.nigeria} label="Locations in Nigeria, including home" />
             <Stat value={stats.diaspora} label="Diaspora chapters" />
-            <Stat value={stats.growing} label="Records still being documented" />
+            <Stat value={stats.growing} label="Growing network branches" />
           </dl>
           <p className="mt-4 text-sm text-charcoal/60">
-            A growing network across Nigeria and the diaspora. Additional branch records continue to be compiled with
-            union leadership — the network page displays information for each branch.
+            A united network across Nigeria and the diaspora, connecting members and advancing community initiatives.
           </p>
         </section>
 

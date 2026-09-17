@@ -47,7 +47,7 @@ test.describe("Community media story pages", () => {
   test("the 2025 attire is not presented as confirmed Centenary 2026 attire", async ({ page }) => {
     await page.goto("/takete-ide-day/cultural-attire");
     await expect(page.getByRole("heading", { name: "Centenary 2026 Official Attire" })).toBeVisible();
-    await expect(page.getByText(/Official announcement will be published following committee confirmation/)).toBeVisible();
+    await expect(page.getByText("Official attire and commemorative textile details for the Takete-Ide Centenary Celebration.")).toBeVisible();
     // The archive set must never be labelled as the confirmed 2026 attire.
     await expect(page.getByRole("heading", { name: "Official Centenary Attire", level: 1 })).toHaveCount(0);
   });

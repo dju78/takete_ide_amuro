@@ -56,7 +56,7 @@ test.describe("Public site smoke tests", () => {
 
   test("empty states render instead of fabricated content", async ({ page }) => {
     await page.goto("/families");
-    await expect(page.getByRole("heading", { name: /Detailed Family Profiles Under Compilation/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Family Directory & Oral History/i })).toBeVisible();
   });
 
   test("public Kogi Quest link exists in navigation and footer pointing to /kogi-quest", async ({ page }) => {

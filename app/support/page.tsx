@@ -63,8 +63,8 @@ export default async function SupportPage() {
             ) : (
               <EmptyState
                 icon={HeartHandshake}
-                title="Contribution details are being updated"
-                message="The union's official contribution account is not published at the moment. Please contact the union directly to arrange a contribution."
+                title="Direct Contribution Information"
+                message="To arrange a direct community contribution or donation, please contact union leadership directly."
               />
             )}
           </div>

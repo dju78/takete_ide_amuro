@@ -128,24 +128,24 @@ test.describe("Faith & Religious Heritage Section — Takete-Ide Archive", () =>
       await expect(readHistoryBtn).toBeVisible();
       await expect(readHistoryBtn).toHaveAttribute("href", "/heritage/faith/first-baptist-church");
 
-      // Incomplete/newly confirmed churches show "Historical profile being documented" and render clean cards without placeholder text
+      // Churches render clean cards with denomination and title
       const sebioba = churchCards.nth(8);
       await expect(sebioba).toContainText("Seed of Christ Golden Church (Sebioba), Takete-Ide");
-      await expect(sebioba).toContainText("Historical profile being documented");
+      await expect(sebioba).not.toContainText("Historical profile being documented");
 
       const healing = churchCards.nth(10);
       await expect(healing).toContainText("Healing Church, Takete-Ide");
-      await expect(healing).toContainText("Historical profile being documented");
+      await expect(healing).not.toContainText("Historical profile being documented");
       await expect(healing).not.toContainText("Photograph to be added");
 
       const deeperLife = churchCards.nth(11);
       await expect(deeperLife).toContainText("Deeper Life Bible Church, Takete-Ide");
-      await expect(deeperLife).toContainText("Historical profile being documented");
+      await expect(deeperLife).not.toContainText("Historical profile being documented");
       await expect(deeperLife).not.toContainText("Photograph to be added");
 
       const christBibleBaptist = churchCards.nth(12);
       await expect(christBibleBaptist).toContainText("Christ Bible Baptist Church, Takete-Ide");
-      await expect(christBibleBaptist).toContainText("Historical profile being documented");
+      await expect(christBibleBaptist).not.toContainText("Historical profile being documented");
       await expect(christBibleBaptist).not.toContainText("Photograph to be added");
     });
   });

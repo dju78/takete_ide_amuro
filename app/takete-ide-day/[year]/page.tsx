@@ -48,8 +48,8 @@ export default async function TaketeIdeDayYearPage({ params }: Props) {
         </div>
         <Container className="py-16">
           <EmptyState
-            title={`Takete-Ide Day ${year} is being archived`}
-            message="Photographs, speeches, awards and programme details from this celebration will be published here once added by the archive team."
+            title={`Takete-Ide Day ${year}`}
+            message={`Celebration record and commemorative information for Takete-Ide Day ${year}.`}
           />
         </Container>
       </div>
@@ -120,9 +120,9 @@ export default async function TaketeIdeDayYearPage({ params }: Props) {
             </section>
           )}
 
-          {/* Videos & Photo Media */}
-          {event.media.length > 0 ? (
-            <section className="space-y-8">
+          {/* Media: Video & Photos */}
+          {(videos.length > 0 || photos.length > 0) && (
+            <section className="mb-12 space-y-8">
               {videos.length > 0 && (
                 <div>
                   <h2 className="font-serif text-xl font-bold text-purple-600">Celebration Video Highlights</h2>
@@ -159,8 +159,6 @@ export default async function TaketeIdeDayYearPage({ params }: Props) {
                 </div>
               )}
             </section>
-          ) : (
-            <EmptyState title="Photographs not archived" message="Photographs from this celebration year are not currently documented in the community archive." />
           )}
 
           {event.speeches.length > 0 && (

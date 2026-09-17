@@ -312,9 +312,9 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
       // Cross link to Traditional Institution
       await expect(page.getByRole("link", { name: /View Traditional Institution register/i })).toBeVisible();
 
-      // Safeguard note for community profiles
+      // Clean directory section
       await expect(
-        page.getByText(/Detailed compound profiles, photographs and oral histories will be added/i),
+        page.getByRole("heading", { name: "Community Compounds Directory" }),
       ).toBeVisible();
     });
 
@@ -327,12 +327,12 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
         page.getByText("Explore documented Takete-Ide compounds and their historical family associations."),
       ).toBeVisible();
 
-      // Section heading and safeguard
+      // Section heading and directory
       await expect(
         page.getByRole("heading", { name: "Families Documented in the Historical Olu’de Register" }),
       ).toBeVisible();
       await expect(
-        page.getByText(/do not necessarily represent every Takete-Ide family/i),
+        page.getByRole("heading", { name: "Family Directory & Oral History" }),
       ).toBeVisible();
 
       // 10 unique families

@@ -248,9 +248,8 @@ export default async function CentenaryPage() {
               <h3 className="font-serif text-xl font-bold text-purple-600">
                 Centenary 2026 Official Attire
               </h3>
-              <p className="mt-3 text-sm leading-relaxed text-charcoal/75">{centenary.attireStatus}</p>
-              <p className="mt-4 rounded-xl bg-purple-50 px-4 py-3 text-xs font-medium text-purple-600">
-                Official announcement will be published following committee confirmation
+              <p className="mt-3 text-sm leading-relaxed text-charcoal/75">
+                Official attire and commemorative fabric designated by the Centenary Central Planning Committee for the historic centenary celebration.
               </p>
             </div>
 

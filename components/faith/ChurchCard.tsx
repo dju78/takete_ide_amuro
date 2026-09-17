@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { Church, BookOpen, AlertCircle } from "lucide-react";
+import { Church, BookOpen } from "lucide-react";
 import { HeritageImage } from "@/components/ui/HeritageImage";
 import { VerificationBadge } from "@/components/ui/Badge";
 import type { ChurchDirectoryItem } from "@/content/heritage/faith/churches";
@@ -69,8 +69,8 @@ export function ChurchCard({ church }: ChurchCardProps) {
         </p>
 
         {/* Card Footer / Action */}
-        <div className="mt-auto pt-5">
-          {church.hasFullProfile && church.profileHref ? (
+        {church.hasFullProfile && church.profileHref && (
+          <div className="mt-auto pt-5">
             <Link
               href={church.profileHref}
               className="inline-flex min-h-10 w-full items-center justify-center gap-2 rounded-xl bg-purple-700 px-4 py-2 text-sm font-semibold text-white shadow-xs transition-colors hover:bg-purple-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-700"
@@ -78,13 +78,8 @@ export function ChurchCard({ church }: ChurchCardProps) {
               <BookOpen className="h-4 w-4" aria-hidden="true" />
               Read church history →
             </Link>
-          ) : (
-            <div className="flex items-center gap-2 rounded-xl border border-gold-200 bg-gold-50/60 px-3.5 py-2.5 text-xs font-medium text-gold-900">
-              <AlertCircle className="h-4 w-4 shrink-0 text-gold-700" aria-hidden="true" />
-              <span>Historical profile being documented.</span>
-            </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </article>
   );

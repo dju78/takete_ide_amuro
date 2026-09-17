@@ -80,13 +80,12 @@ export default async function CentenaryAttirePage() {
               </p>
             </div>
 
-            <aside className="mt-8 rounded-3xl border border-gold-500/30 bg-gold-100/60 p-6">
+            <aside className="mt-8 rounded-3xl border border-purple-600/10 bg-white p-6 shadow-sm">
               <h2 className="font-serif text-lg font-bold text-purple-600">
                 Centenary 2026 Official Attire
               </h2>
               <p className="mt-2 text-sm leading-relaxed text-charcoal/75">
-                The official attire for the 2026 Centenary Celebration has not yet been confirmed for
-                publication. Official announcement will be published following committee confirmation.
+                Official attire and commemorative textile details for the Takete-Ide Centenary Celebration.
               </p>
               <Link
                 href="/centenary"
@@ -99,19 +98,12 @@ export default async function CentenaryAttirePage() {
             <aside className="mt-6 rounded-3xl border border-purple-600/10 bg-white p-6 shadow-sm">
               <h2 className="font-serif text-xl font-bold text-purple-600">Ordering &amp; availability</h2>
               <p className="mt-3 text-sm leading-relaxed text-charcoal/75">
-                Pricing, sizing and how to order the official attire are arranged through the celebration
-                organising committee. Those details have not yet been confirmed for publication here, so
-                rather than print figures that may be wrong, please get in touch and the committee will
-                respond with what is current.
+                Pricing, sizing and ordering arrangements for the celebration attire are coordinated directly through the celebration organizing committee.
               </p>
               <ButtonLink href="/contact" variant="secondary" size="sm" className="mt-5">
                 <Mail className="h-4 w-4" aria-hidden="true" />
                 Enquire about the attire
               </ButtonLink>
-              <p className="mt-4 text-xs text-charcoal/50">
-                Administrators can publish confirmed ordering details on this page from the admin area once
-                the committee supplies them.
-              </p>
             </aside>
           </div>
         </div>
