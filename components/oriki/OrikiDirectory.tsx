@@ -2,11 +2,33 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
-import { Search, Sparkles, X, PlusCircle, ShieldCheck, BookOpen } from "lucide-react";
+import { Search, X, PlusCircle, ShieldCheck, BookOpen, Volume2 } from "lucide-react";
 import type { OrikiRecord } from "@/lib/data/oriki-records";
 
 interface Props {
   records: OrikiRecord[];
+}
+
+function OrikiAudio({ record }: { record: OrikiRecord }) {
+  if (!record.audio_url) return null;
+
+  return (
+    <div className="min-w-[12rem]">
+      <div className="mb-1.5 flex items-center gap-1.5 text-[11px] font-semibold text-purple-800">
+        <Volume2 className="h-3.5 w-3.5" aria-hidden="true" />
+        <span>{record.audio_title ?? `Listen to ${record.family_origin}`}</span>
+      </div>
+      <audio
+        controls
+        preload="none"
+        className="h-9 w-full max-w-[17rem]"
+        aria-label={record.audio_title ?? `Oríkì audio for ${record.family_origin}`}
+      >
+        <source src={record.audio_url} type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
+    </div>
+  );
 }
 
 export function OrikiDirectory({ records }: Props) {
@@ -97,8 +119,11 @@ export function OrikiDirectory({ records }: Props) {
                     <th scope="col" className="py-4 px-4">
                       Male Oríkì
                     </th>
-                    <th scope="col" className="py-4 pr-6 pl-4">
+                    <th scope="col" className="py-4 px-4">
                       Female Oríkì
+                    </th>
+                    <th scope="col" className="py-4 pr-6 pl-4">
+                      Audio
                     </th>
                   </tr>
                 </thead>
@@ -124,10 +149,17 @@ export function OrikiDirectory({ records }: Props) {
                           {record.male_oriki}
                         </span>
                       </td>
-                      <td className="py-4 pr-6 pl-4">
+                      <td className="py-4 px-4">
                         <span className="inline-flex items-center rounded-lg bg-purple-50 px-2.5 py-1 text-sm font-medium text-purple-900">
                           {record.female_oriki}
                         </span>
+                      </td>
+                      <td className="py-4 pr-6 pl-4 align-top">
+                        {record.audio_url ? (
+                          <OrikiAudio record={record} />
+                        ) : (
+                          <span className="text-xs text-charcoal/40">Not yet recorded</span>
+                        )}
                       </td>
                     </tr>
                   ))}
@@ -172,6 +204,12 @@ export function OrikiDirectory({ records }: Props) {
                   </div>
                 </div>
 
+                {record.audio_url && (
+                  <div className="mt-4 rounded-xl border border-purple-100 bg-purple-50/30 p-3">
+                    <OrikiAudio record={record} />
+                  </div>
+                )}
+
                 {record.notes && (
                   <p className="mt-3 text-xs text-charcoal/70 bg-purple-50/30 rounded-lg p-2">
                     {record.notes}
@@ -192,7 +230,7 @@ export function OrikiDirectory({ records }: Props) {
               Community Heritage Record
             </h4>
             <p className="mt-1 text-xs sm:text-sm text-charcoal/80 leading-relaxed max-w-2xl">
-              This is a developing community heritage record. Verified corrections and additional family Oríkì may be submitted for inclusion.
+              This is a developing community heritage record. Verified corrections, additional family Oríkì and approved audio recordings may be submitted for inclusion.
             </p>
           </div>
         </div>
