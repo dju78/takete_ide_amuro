@@ -125,7 +125,7 @@ export const navGroups: NavGroup[] = [
       { label: "Faith & Religious Heritage", href: "/heritage/faith", description: "Churches, ECWA, Muslim community and spiritual traditions" },
       { label: "Early Christian Manuscript Milestones", href: "/heritage/faith/manuscript-milestones", description: "Non-Baptist milestones from the supplied community manuscript" },
       { label: "Gallery", href: "/gallery", description: "Photographs from community life" },
-      { label: "Video Archives", href: "/archive/video", description: "Historic community video recordings and event coverage" },
+      { label: "Video Archives", href: "/archive?category=video", description: "Historic community video recordings and event coverage" },
       { label: "Families & Oríkì", href: "/families", description: "Family names, compounds and praise poetry" },
       { label: "Family Oríkì", href: "/oriki", description: "Community directory of family praise names" },
       { label: "Voices of Takete-Ide", href: "/archive/oral-history", description: "Oral history recordings" },
@@ -188,7 +188,7 @@ export const footerGroups: { heading: string; items: NavItem[] }[] = [
       { label: "Pacesetters", href: "/heritage/pacesetters" },
       { label: "Kogi Quest", href: "/kogi-quest" },
       { label: "Gallery", href: "/gallery" },
-      { label: "Video Archives", href: "/archive/video" },
+      { label: "Video Archives", href: "/archive?category=video" },
     ],
   },
   {
