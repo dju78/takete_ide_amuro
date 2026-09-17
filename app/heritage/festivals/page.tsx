@@ -10,6 +10,7 @@ import {
   BOOK_SOURCE_NOTE,
   BOOK_SOURCE_TITLE,
 } from "@/content/history/web/from-hilltops-to-valley";
+import { BOOK_FESTIVAL_DETAILS } from "@/content/history/web/from-hilltops-to-valley-expanded";
 
 export const metadata: Metadata = {
   title: "Festivals of Takete-Ide",
@@ -63,18 +64,31 @@ export default function FestivalsPage() {
         </div>
 
         <div className="mt-10 grid gap-6 md:grid-cols-2">
-          {BOOK_FESTIVALS.map((festival) => (
-            <article
-              key={festival.name}
-              className="rounded-3xl border border-purple-600/10 bg-white p-6 shadow-sm"
-            >
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-gold-700">
-                {festival.timing}
-              </p>
-              <h2 className="mt-2 font-serif text-xl font-bold text-purple-950">{festival.name}</h2>
-              <p className="mt-3 text-sm leading-relaxed text-charcoal/80">{festival.summary}</p>
-            </article>
-          ))}
+          {BOOK_FESTIVALS.map((festival) => {
+            const expanded = BOOK_FESTIVAL_DETAILS.find((item) => item.name === festival.name);
+            return (
+              <article
+                key={festival.name}
+                className="rounded-3xl border border-purple-600/10 bg-white p-6 shadow-sm"
+              >
+                <p className="text-xs font-bold uppercase tracking-[0.16em] text-gold-700">
+                  {festival.timing}
+                </p>
+                <h2 className="mt-2 font-serif text-xl font-bold text-purple-950">{festival.name}</h2>
+                <p className="mt-3 text-sm leading-relaxed text-charcoal/80">{festival.summary}</p>
+                {expanded && (
+                  <ul className="mt-4 space-y-2 border-t border-purple-100 pt-4 text-sm leading-relaxed text-charcoal/75">
+                    {expanded.details.map((detail) => (
+                      <li key={detail} className="flex gap-2">
+                        <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-gold-500" aria-hidden="true" />
+                        <span>{detail}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </article>
+            );
+          })}
         </div>
 
         <div className="mt-10 rounded-2xl border border-purple-200 bg-purple-50/60 p-6 text-sm leading-relaxed text-charcoal/80">
