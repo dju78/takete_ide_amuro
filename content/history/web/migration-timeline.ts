@@ -1,5 +1,6 @@
 /**
- * Structured migration timeline of Takete-Ide from ancestral settlements to the present site.
+ * Structured migration timeline of Takete-Ide from ancestral settlements to the present site
+ * and the later movement to Takete-Tedo, Okegada.
  *
  * Cautionary timeline: preserves relative chronological sequence without inventing
  * precise calendar dates where unrecorded. The present settlement date uses "c.1926".
@@ -85,5 +86,19 @@ export const MIGRATION_TIMELINE: TimelineEntry[] = [
     verificationStatus: "community-account",
     significance: "Establishment of modern Takete-Ide on the fertile low plain, commemorated by the 2026 Centenary.",
     locationNote: "Current town site in Amuro District, MopAmuro LGA, Kogi State.",
+  },
+  {
+    id: "takete-tedo-okegada",
+    stepNumber: 6,
+    place: "Takete-Tedo, Okegada",
+    period: "1949 onward",
+    title: "Further Migration to Takete-Tedo",
+    description:
+      "Chapter Six of the supplied manuscript records a later movement toward the more accessible Okegada area near the Kabba–Ilorin road. Overseer Cornelius Maiye is identified as the first Takete-Ide indigene to move to the Takete-Tedo section in 1949, after which other families followed.",
+    sourceType: "community-historical-account",
+    verificationStatus: "community-account",
+    significance:
+      "A later extension of Takete-Ide settlement history, remembered for road access, kinship continuity and communal labour in building new homes.",
+    locationNote: "Takete-Tedo section of Okegada, linked by the manuscript to the wider Takete-Ide community.",
   },
 ];

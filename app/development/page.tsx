@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Route, GraduationCap, HeartPulse, Droplet, Zap, Building2, Cpu, Sprout, ShieldCheck, Landmark, Lightbulb, Crown, Trees } from "lucide-react";
+import { Route, GraduationCap, HeartPulse, Droplet, Zap, Building2, Cpu, Sprout, ShieldCheck, Landmark, Lightbulb, Crown, Trees, BookOpen } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -10,6 +10,11 @@ import { VideoPosterCard } from "@/components/media/VideoPosterCard";
 import { HeritageImage } from "@/components/ui/HeritageImage";
 import { getProjects } from "@/lib/data/projects";
 import { getCommunityMedia } from "@/lib/data/community-media";
+import {
+  BOOK_DEVELOPMENT_INTERVENTIONS,
+  BOOK_SOURCE_NOTE,
+  BOOK_SOURCE_TITLE,
+} from "@/content/history/web/from-hilltops-to-valley";
 
 import { siteConfig } from "@/lib/site-config";
 
@@ -78,6 +83,36 @@ export default async function DevelopmentPage({ searchParams }: Props) {
       </div>
 
       <Container className="py-16">
+        <section className="mb-14 overflow-hidden rounded-3xl border border-purple-600/10 bg-white shadow-sm">
+          <div className="border-b border-purple-100 bg-purple-50/60 p-6 sm:p-8">
+            <div className="flex items-start gap-4">
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-purple-100 text-purple-700">
+                <BookOpen className="h-5 w-5" aria-hidden="true" />
+              </span>
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.18em] text-gold-700">Historical manuscript</p>
+                <h2 className="mt-1 font-serif text-2xl font-bold text-purple-950">Development interventions recorded in the book</h2>
+                <p className="mt-2 max-w-3xl text-sm leading-relaxed text-charcoal/75">
+                  These are historical interventions described in the supplied community manuscript. They are kept separate
+                  from the live project register below, which tracks current or formally registered development projects.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="grid gap-px bg-purple-100 sm:grid-cols-2 lg:grid-cols-3">
+            {BOOK_DEVELOPMENT_INTERVENTIONS.map((item) => (
+              <article key={`${item.period}-${item.title}`} className="bg-white p-6">
+                <p className="text-xs font-bold uppercase tracking-wider text-gold-700">{item.period}</p>
+                <h3 className="mt-2 font-serif text-lg font-bold text-purple-950">{item.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-charcoal/75">{item.detail}</p>
+              </article>
+            ))}
+          </div>
+          <p className="border-t border-purple-100 px-6 py-4 text-xs italic leading-relaxed text-charcoal/60 sm:px-8">
+            Source: {BOOK_SOURCE_TITLE}. {BOOK_SOURCE_NOTE}
+          </p>
+        </section>
+
         <div className="flex flex-wrap gap-2">
           <Link href="/development" className="rounded-full bg-purple-600 px-4 py-2 text-sm font-medium text-white">
             All Categories
