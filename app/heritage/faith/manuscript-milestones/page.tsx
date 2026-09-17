@@ -8,6 +8,7 @@ import { SourcedSection } from "@/components/heritage/SourcedSection";
 import { siteConfig } from "@/lib/site-config";
 import { BOOK_EARLY_FAITH_MILESTONES, BOOK_EDITORIAL_NOTE } from "@/content/history/web/from-hilltops-to-valley-expanded";
 import { BOOK_SOURCE_NOTE, BOOK_SOURCE_TITLE } from "@/content/history/web/from-hilltops-to-valley";
+import { BOOK_MULTIPLE_CONGREGATIONS_NOTE, BOOK_NON_BAPTIST_CONGREGATIONS } from "@/content/heritage/faith/book-non-baptist";
 
 export const metadata: Metadata = {
   title: "Early Christian Milestones — Manuscript Record",
@@ -62,7 +63,7 @@ export default function ManuscriptFaithMilestonesPage() {
 
         <section className="mt-10">
           <div className="space-y-5">
-            {BOOK_EARLY_FAITH_MILESTONES.map((item, index) => (
+            {BOOK_EARLY_FAITH_MILESTONES.map((item) => (
               <article key={`${item.period}-${item.title}`} className="rounded-3xl border border-purple-600/10 bg-white p-6 shadow-sm sm:p-7">
                 <div className="flex items-start gap-4">
                   <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gold-100 text-gold-900">
@@ -81,6 +82,28 @@ export default function ManuscriptFaithMilestonesPage() {
               </article>
             ))}
           </div>
+        </section>
+
+        <section className="mt-14">
+          <h2 className="font-serif text-2xl font-bold text-purple-950">Non-Baptist congregations recorded in the manuscript</h2>
+          <p className="mt-3 max-w-3xl text-sm leading-relaxed text-charcoal/70">
+            This list preserves the manuscript’s denominational record while deliberately excluding Baptist Church material.
+            Where the manuscript does not give a complete year, the website leaves the date open rather than guessing.
+          </p>
+          <div className="mt-7 grid gap-5 md:grid-cols-2">
+            {BOOK_NON_BAPTIST_CONGREGATIONS.map((church) => (
+              <article key={church.name} className="rounded-3xl border border-purple-600/10 bg-white p-6 shadow-sm">
+                <p className="text-xs font-bold uppercase tracking-[0.16em] text-gold-700">
+                  {church.manuscriptDate ? `Manuscript date: ${church.manuscriptDate}` : "Date not clearly supplied"}
+                </p>
+                <h3 className="mt-2 font-serif text-xl font-bold text-purple-950">{church.name}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-charcoal/80">{church.note}</p>
+              </article>
+            ))}
+          </div>
+          <p className="mt-5 rounded-2xl border border-purple-200 bg-purple-50/60 p-5 text-sm leading-relaxed text-charcoal/80">
+            {BOOK_MULTIPLE_CONGREGATIONS_NOTE}
+          </p>
         </section>
 
         <div className="mt-10 rounded-2xl border border-purple-200 bg-purple-50/60 p-5 text-sm leading-relaxed text-charcoal/80">
