@@ -17,15 +17,15 @@ export interface OrikiRecord {
 
 const ORIKI_AUDIO_BY_ID: Record<string, Pick<OrikiRecord, "audio_url" | "audio_title">> = {
   "1": {
-    audio_url: "/audio/oriki/eseha-jare.mp3",
+    audio_url: "/audio/oriki/eseha-jare.ogg",
     audio_title: "Oríkì Eseha Jare",
   },
   "7": {
-    audio_url: "/audio/oriki/mesami-olu.mp3",
+    audio_url: "/audio/oriki/mesami-olu.ogg",
     audio_title: "Oríkì Mesami Olu",
   },
   "9": {
-    audio_url: "/audio/oriki/eseyin-telu.mp3",
+    audio_url: "/audio/oriki/eseyin-telu.ogg",
     audio_title: "Oríkì Eseyin Telu",
   },
 };
