@@ -1,17 +1,23 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { GraduationCap, School } from "lucide-react";
+import { GraduationCap, School, HeartPulse } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ButtonLink } from "@/components/ui/Button";
 import { SourcedSection } from "@/components/heritage/SourcedSection";
 import { ResearchDisclaimer } from "@/components/heritage/ResearchDisclaimer";
+import {
+  BOOK_EDUCATION_MILESTONES,
+  BOOK_HEALTH_MILESTONES,
+  BOOK_SOURCE_NOTE,
+  BOOK_SOURCE_TITLE,
+} from "@/content/history/web/from-hilltops-to-valley";
 
 export const metadata: Metadata = {
   title: "Education in Takete-Ide",
   description:
-    "Schooling in Takete-Ide — from early primary classes to the founding of the community secondary school, told from the community's own historical account.",
+    "Schooling in Takete-Ide — from early primary classes to the founding of the community secondary school, told from the community's own historical accounts.",
 };
 
 /**
@@ -77,7 +83,7 @@ export default function EducationPage() {
         <section className="mt-14">
           <SectionHeading
             eyebrow="Community historical account"
-            title="Milestones"
+            title="Milestones from an oral-history account"
             align="left"
             className="mx-0"
             description="Dates as given in a first-hand recollection held in the community archive. They have not been cross-checked against school or local government records."
@@ -114,27 +120,72 @@ export default function EducationPage() {
               granted, and the school passed into local government administration after two terms of
               community operation.
             </p>
-            <p className="text-sm italic text-charcoal/60">
-              The school&rsquo;s current name, enrolment, staffing and facilities are not documented in
-              this archive. Those details will be published once supplied by the school or the community.
-            </p>
           </SourcedSection>
         </div>
+
+        <section className="mt-16">
+          <SectionHeading
+            eyebrow="Historical manuscript"
+            title="Education milestones recorded in the book"
+            align="left"
+            className="mx-0"
+            description="A second source now added to the website: the supplied community historical manuscript."
+          />
+          <div className="mt-8 space-y-4">
+            {BOOK_EDUCATION_MILESTONES.map((item) => (
+              <article key={`${item.period}-${item.title}`} className="rounded-2xl border border-purple-100 bg-white p-5 shadow-sm">
+                <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                  <span className="text-xs font-bold uppercase tracking-wider text-gold-700">{item.period}</span>
+                  <h3 className="font-serif text-lg font-bold text-purple-950">{item.title}</h3>
+                </div>
+                <p className="mt-2 text-sm leading-relaxed text-charcoal/80">{item.detail}</p>
+              </article>
+            ))}
+          </div>
+          <p className="mt-4 text-xs italic leading-relaxed text-charcoal/60">
+            Source: {BOOK_SOURCE_TITLE}. {BOOK_SOURCE_NOTE}
+          </p>
+          <div className="mt-5 rounded-2xl border border-gold-500/25 bg-gold-50 p-5 text-sm leading-relaxed text-charcoal/80">
+            <strong className="text-purple-950">Source reconciliation:</strong> the manuscript dates the local-government
+            secondary school to 1980, while the oral-history account describes community teaching beginning earlier and a
+            later takeover by the new local authority. Both accounts are retained until school or local-government records
+            can establish the exact administrative sequence.
+          </div>
+        </section>
+
+        <section className="mt-16">
+          <SectionHeading
+            eyebrow="Health history"
+            title="Education, mission work and early healthcare"
+            align="left"
+            className="mx-0"
+            description="The manuscript links the growth of education and mission activity with the development of modern health services in Takete-Ide."
+          />
+          <div className="mt-8 grid gap-5 sm:grid-cols-3">
+            {BOOK_HEALTH_MILESTONES.map((item) => (
+              <article key={`${item.period}-${item.title}`} className="rounded-2xl border border-purple-100 bg-white p-5 shadow-sm">
+                <HeartPulse className="h-5 w-5 text-community-green" aria-hidden="true" />
+                <p className="mt-3 text-xs font-bold uppercase tracking-wider text-gold-700">{item.period}</p>
+                <h3 className="mt-1 font-serif text-base font-bold text-purple-950">{item.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-charcoal/75">{item.detail}</p>
+              </article>
+            ))}
+          </div>
+        </section>
 
         <section className="mt-14 grid gap-6 sm:grid-cols-2">
           <div className="rounded-3xl border border-purple-600/10 bg-white p-6 shadow-sm">
             <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-purple-50 text-purple-600">
               <School className="h-5 w-5" aria-hidden="true" />
             </span>
-            <h2 className="mt-4 font-serif text-lg font-bold text-purple-600">
-              Schools today
-            </h2>
+            <h2 className="mt-4 font-serif text-lg font-bold text-purple-600">Schools in the historical record</h2>
             <p className="mt-2 text-sm leading-relaxed text-charcoal/70">
-              A current directory of schools serving Takete-Ide has not yet been compiled for this site.
-              If you can supply verified details, the archive team would like to hear from you.
+              The manuscript identifies the historic primary school, Christ Nursery and Primary School and Government Day
+              Secondary School. A verified current directory covering all schools, enrolment, staffing and facilities is still
+              being compiled.
             </p>
             <Link href="/contact" className="mt-3 inline-flex min-h-6 items-center text-sm font-semibold text-community-green hover:underline">
-              Contribute what you know →
+              Contribute verified school information →
             </Link>
           </div>
           <div className="rounded-3xl border border-purple-600/10 bg-white p-6 shadow-sm">
@@ -174,8 +225,8 @@ export default function EducationPage() {
         <div className="mt-14 rounded-3xl bg-white p-8 shadow-sm">
           <h2 className="font-serif text-xl font-bold text-purple-600">Were you there?</h2>
           <p className="mt-3 text-charcoal/80">
-            If you attended the community secondary school in its early years, or remember the years
-            before local Senior Primary classes, your account would strengthen this record considerably.
+            If you attended the community secondary school in its early years, remember the earlier primary school,
+            or hold school records, your evidence can help reconcile and strengthen this history.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <ButtonLink href="/families/contribute" variant="secondary">
