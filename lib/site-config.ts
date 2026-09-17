@@ -117,6 +117,7 @@ export const navGroups: NavGroup[] = [
     items: [
       { label: "Culture & Heritage", href: "/heritage", description: "Festivals, dress, faith and the land", featured: true },
       { label: "Community History Manuscript", href: "/archive/from-hilltops-to-the-valley", description: "A chapter-by-chapter guide to From the Hilltops to the Valley", featured: true },
+      { label: "Amuro, Yagba & Okun Context", href: "/heritage/amuro-okun-context", description: "Wider historical setting, identity and origin traditions" },
       { label: "Land & Landscape", href: "/heritage/land-and-landscape", description: "Location, neighbouring settlements, hills, rivers and streams" },
       { label: "Music, Games & Everyday Heritage", href: "/heritage/music-games", description: "Traditional music, instruments, childhood games and older cultural practices" },
       { label: "Festivals", href: "/heritage/festivals", description: "Christmas, New Year, Easter, New Yam, Egungun, Ogun and Takete-Ide Day" },
