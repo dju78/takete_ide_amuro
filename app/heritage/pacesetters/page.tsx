@@ -10,6 +10,7 @@ import {
   BOOK_SOURCE_NOTE,
   BOOK_SOURCE_TITLE,
 } from "@/content/history/web/from-hilltops-to-valley";
+import { BOOK_ADDITIONAL_PACESETTERS } from "@/content/history/web/from-hilltops-to-valley-expanded";
 
 export const metadata: Metadata = {
   title: "Pacesetters & Community Firsts",
@@ -19,6 +20,39 @@ export const metadata: Metadata = {
     canonical: `${siteConfig.url}/heritage/pacesetters`,
   },
 };
+
+function FirstsTable({
+  entries,
+  startAt = 1,
+}: {
+  entries: readonly (readonly [string, string])[];
+  startAt?: number;
+}) {
+  return (
+    <div className="overflow-hidden rounded-3xl border border-purple-600/10 bg-white shadow-sm">
+      <div className="hidden grid-cols-[1fr_1.5fr] bg-purple-50 px-6 py-3 text-xs font-semibold uppercase tracking-wider text-purple-950 sm:grid">
+        <span>Community first</span>
+        <span>Person / milestone recorded</span>
+      </div>
+      <div className="divide-y divide-purple-50">
+        {entries.map(([label, value], index) => (
+          <div
+            key={`${label}-${value}`}
+            className="grid gap-1 px-6 py-4 sm:grid-cols-[1fr_1.5fr] sm:gap-6"
+          >
+            <div className="flex items-start gap-3">
+              <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gold-100 text-xs font-bold text-gold-900">
+                {startAt + index}
+              </span>
+              <p className="font-semibold text-purple-950">{label}</p>
+            </div>
+            <p className="pl-9 text-sm leading-relaxed text-charcoal/80 sm:pl-0">{value}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export default function PacesettersPage() {
   return (
@@ -64,28 +98,20 @@ export default function PacesettersPage() {
           </SourcedSection>
         </div>
 
-        <div className="mt-10 overflow-hidden rounded-3xl border border-purple-600/10 bg-white shadow-sm">
-          <div className="hidden grid-cols-[1fr_1.5fr] bg-purple-50 px-6 py-3 text-xs font-semibold uppercase tracking-wider text-purple-950 sm:grid">
-            <span>Community first</span>
-            <span>Person / milestone recorded</span>
-          </div>
-          <div className="divide-y divide-purple-50">
-            {BOOK_PACESETTERS.map(([label, value], index) => (
-              <div
-                key={`${label}-${value}`}
-                className="grid gap-1 px-6 py-4 sm:grid-cols-[1fr_1.5fr] sm:gap-6"
-              >
-                <div className="flex items-start gap-3">
-                  <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gold-100 text-xs font-bold text-gold-900">
-                    {index + 1}
-                  </span>
-                  <p className="font-semibold text-purple-950">{label}</p>
-                </div>
-                <p className="pl-9 text-sm leading-relaxed text-charcoal/80 sm:pl-0">{value}</p>
-              </div>
-            ))}
-          </div>
+        <div className="mt-10">
+          <FirstsTable entries={BOOK_PACESETTERS} />
         </div>
+
+        <section className="mt-12">
+          <h2 className="font-serif text-2xl font-bold text-purple-950">Additional firsts preserved in the manuscript</h2>
+          <p className="mt-3 max-w-3xl text-sm leading-relaxed text-charcoal/70">
+            A second pass through the manuscript identified additional entries that were not included in the first
+            website update. Where the source itself is incomplete or unclear, that uncertainty is shown rather than filled in.
+          </p>
+          <div className="mt-7">
+            <FirstsTable entries={BOOK_ADDITIONAL_PACESETTERS} startAt={BOOK_PACESETTERS.length + 1} />
+          </div>
+        </section>
 
         <div className="mt-8 rounded-2xl border border-gold-500/25 bg-gold-50 p-5 text-sm leading-relaxed text-charcoal/80">
           <strong className="text-purple-950">Verification note:</strong> The website is publishing these entries
