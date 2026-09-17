@@ -24,7 +24,7 @@ function OrikiAudio({ record }: { record: OrikiRecord }) {
         className="h-9 w-full max-w-[17rem]"
         aria-label={record.audio_title ?? `Oríkì audio for ${record.family_origin}`}
       >
-        <source src={record.audio_url} type="audio/mpeg" />
+        <source src={record.audio_url} type="audio/ogg; codecs=opus" />
         Your browser does not support the audio element.
       </audio>
     </div>
