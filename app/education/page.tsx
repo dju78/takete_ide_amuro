@@ -1,6 +1,31 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { GraduationCap, School, HeartPulse, UsersRound } from "lucide-react";
+import Image from "next/image";
+import { GraduationCap, School, HeartPulse, UsersRound, BookOpen } from "lucide-react";
+
+const educationalFacilities = [
+  {
+    title: "Takete-Ide Primary School",
+    src: "/images/takete-ide/places/takete-ide-primary-school.jpg",
+    alt: "Takete-Ide Primary School building and compound in Takete-Ide",
+    description: "Takete-Ide Primary School, one of the community's foundational educational institutions.",
+    badge: "Primary Education",
+  },
+  {
+    title: "Universal Basic Education, Takete-Ide",
+    src: "/images/takete-ide/places/universal-basic-education-takete-ide.jpg",
+    alt: "Universal Basic Education classroom buildings and compound in Takete-Ide",
+    description: "Educational facilities supporting basic education and community learning in Takete-Ide.",
+    badge: "Basic Education",
+  },
+  {
+    title: "Takete-Ide NCC Computer Centre",
+    src: "/images/takete-ide/places/takete-ide-ncc-computer-centre.png",
+    alt: "Takete-Ide NCC Computer Centre building with solar panels",
+    description: "The NCC Computer Centre in Takete-Ide, providing digital access and technology facilities.",
+    badge: "Digital & Technology",
+  },
+];
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -216,6 +241,41 @@ export default function EducationPage() {
           <Link href="/heritage/health-history" className="mt-5 inline-flex min-h-6 items-center text-sm font-semibold text-community-green hover:underline">
             Explore the full health-history record →
           </Link>
+        </section>
+
+        {/* Community Educational Facilities Showcase */}
+        <section className="mt-14">
+          <SectionHeading
+            eyebrow="Educational Infrastructure"
+            title="Community Educational Facilities"
+            align="left"
+            className="mx-0"
+            description="Photographic record of foundational schools and digital education centres serving the Takete-Ide community."
+          />
+
+          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {educationalFacilities.map((facility) => (
+              <article
+                key={facility.title}
+                className="overflow-hidden rounded-3xl border border-purple-600/10 bg-white shadow-sm transition hover:shadow-md"
+              >
+                <div className="relative aspect-4/3 w-full overflow-hidden bg-purple-50">
+                  <Image
+                    src={facility.src}
+                    alt={facility.alt}
+                    fill
+                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                    className="object-cover transition-transform duration-300 hover:scale-105"
+                  />
+                </div>
+                <div className="p-5">
+                  <p className="text-xs font-bold uppercase tracking-wide text-community-green">{facility.badge}</p>
+                  <h3 className="mt-1 font-serif text-lg font-bold text-purple-950">{facility.title}</h3>
+                  <p className="mt-2 text-xs leading-relaxed text-charcoal/75">{facility.description}</p>
+                </div>
+              </article>
+            ))}
+          </div>
         </section>
 
         <section className="mt-14 grid gap-6 sm:grid-cols-2">

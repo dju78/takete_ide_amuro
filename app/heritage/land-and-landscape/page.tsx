@@ -11,6 +11,9 @@ import {
   BOOK_SOURCE_TITLE,
 } from "@/content/history/web/from-hilltops-to-valley";
 
+import Image from "next/image";
+import { CommunityVideo } from "@/components/media/CommunityVideo";
+
 export const metadata: Metadata = {
   title: "Land & Landscape of Takete-Ide",
   description:
@@ -19,6 +22,44 @@ export const metadata: Metadata = {
     canonical: `${siteConfig.url}/heritage/land-and-landscape`,
   },
 };
+
+const naturalLandmarks = [
+  {
+    title: "Omi Pandara",
+    src: "/images/takete-ide/places/omi-pandara.jpg",
+    alt: "Omi Pandara natural water landmark in Takete-Ide",
+    description: "A natural water feature and community landmark in Takete-Ide.",
+    type: "Natural Spring / Water Landmark",
+  },
+  {
+    title: "Igboruku",
+    src: "/images/takete-ide/places/igboruku.jpg",
+    alt: "Igboruku river landmark with cascading water over rocks in Takete-Ide",
+    description: "One of the natural landmarks and rocky waterways associated with the Takete-Ide community.",
+    type: "River & Rock Formation",
+  },
+  {
+    title: "Okuta Gbooro",
+    src: "/images/takete-ide/places/okuta-gboro.png",
+    alt: "Okuta Gbooro, a prominent rock formation at Takete-Ide",
+    description: "A prominent natural rock formation and landscape landmark in Takete-Ide.",
+    type: "Geological Landmark",
+  },
+  {
+    title: "Obasoro Hill",
+    src: "/images/takete-ide/places/obasoro-hill.jpg",
+    alt: "Obasoro Hill rising above dense green vegetation at Takete-Ide",
+    description: "A wooded upland rising above the treeline in Takete-Ide.",
+    type: "Upland Landscape",
+  },
+  {
+    title: "Eba River",
+    src: "/images/takete-ide/places/eba-river.jpg",
+    alt: "The Eba River in flow at Takete-Ide",
+    description: "The Eba River (Omi Ebba) in flow, with lush palm vegetation along the banks.",
+    type: "Historic Riverway",
+  },
+];
 
 export default function LandLandscapePage() {
   return (
@@ -50,7 +91,72 @@ export default function LandLandscapePage() {
       <Container className="max-w-6xl py-14 sm:py-16">
         <ResearchDisclaimer />
 
-        <div className="mt-12">
+        {/* Featured Landmark: Oko Loke Video */}
+        <section className="mt-12 rounded-3xl border border-purple-600/15 bg-white p-6 shadow-sm sm:p-8">
+          <div className="flex items-center gap-3">
+            <Waves className="h-6 w-6 text-community-green" aria-hidden="true" />
+            <div>
+              <p className="text-xs font-bold uppercase tracking-wider text-gold-700">Featured Natural Landmark</p>
+              <h2 className="font-serif text-2xl font-bold text-purple-950 sm:text-3xl">Oko Loke</h2>
+            </div>
+          </div>
+          <p className="mt-3 text-sm leading-relaxed text-charcoal/80 sm:text-base">
+            <em>Oko Loke — a natural and community landmark in Takete-Ide, remembered within the community in connection with traditional local activities.</em>
+          </p>
+          <div className="mt-6 max-w-3xl">
+            <CommunityVideo
+              src="/videos/takete-ide/oko-loke.mp4"
+              poster="/images/takete-ide/video-posters/oko-loke.jpg"
+              title="Oko Loke — Natural Rocky Stream Environment"
+              description="A natural landmark in Takete-Ide, remembered within the community in connection with traditional local activities."
+              durationLabel="About 1 minute"
+              verificationNote="Community landmark recording. Historical connection with traditional local activities is preserved from community oral tradition."
+              orientation="landscape"
+              headingLevel={3}
+            />
+          </div>
+        </section>
+
+        {/* Natural Landmarks Photographic Record */}
+        <section className="mt-12">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-wider text-gold-700">Physical Heritage Gallery</p>
+              <h2 className="mt-1 font-serif text-2xl font-bold text-purple-950 sm:text-3xl">
+                Natural Landmarks of Takete-Ide
+              </h2>
+            </div>
+          </div>
+          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-charcoal/80">
+            A visual record of the natural springs, rivers, rock formations and uplands that form the landscape heritage of Takete-Ide.
+          </p>
+
+          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {naturalLandmarks.map((landmark) => (
+              <article
+                key={landmark.title}
+                className="overflow-hidden rounded-3xl border border-purple-600/10 bg-white shadow-sm transition hover:shadow-md"
+              >
+                <div className="relative aspect-4/3 w-full overflow-hidden bg-purple-50">
+                  <Image
+                    src={landmark.src}
+                    alt={landmark.alt}
+                    fill
+                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                    className="object-cover transition-transform duration-300 hover:scale-105"
+                  />
+                </div>
+                <div className="p-5">
+                  <p className="text-xs font-bold uppercase tracking-wide text-community-green">{landmark.type}</p>
+                  <h3 className="mt-1 font-serif text-lg font-bold text-purple-950">{landmark.title}</h3>
+                  <p className="mt-2 text-xs leading-relaxed text-charcoal/75">{landmark.description}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <div className="mt-14">
           <SourcedSection
             title="A fertile plain surrounded by uplands"
             status="documentary_evidence"

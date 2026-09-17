@@ -86,9 +86,9 @@ export const CHURCHES_DIRECTORY: ChurchDirectoryItem[] = [
     shortName: "The Apostolic Church",
     displayOrder: 3,
     denomination: "The Apostolic Church Nigeria",
-    image: null,
-    imageAlt: null,
-    imageCaption: null,
+    image: "/images/takete-ide/places/the-apostolic-church-takete-ide.jpg",
+    imageAlt: "The Apostolic Church building in Takete-Ide",
+    imageCaption: "The Apostolic Church, Takete-Ide — present-day church building.",
     summary:
       "An established Christian congregation serving the spiritual and community life of Takete-Ide across generations.",
     historyStatus: "Historical profile being documented.",

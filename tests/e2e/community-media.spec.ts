@@ -128,8 +128,8 @@ test.describe("Gallery after the archive import", () => {
   test("landmarks and placeholders are presented respectfully", async ({ page }) => {
     await page.goto("/gallery?category=Landmarks");
     await expect(page.getByText("Okuta Gbooro").first()).toBeVisible();
-    await expect(page.getByText("Takete-Ide Town Hall")).toBeVisible();
-    await expect(page.getByText("Town Hall photograph to be added")).toBeVisible();
+    await expect(page.getByRole("button", { name: /Takete-Ide Town Hall/i })).toBeVisible();
+    await expect(page.locator('img[src*="takete-ide-town-hall.jpg"]')).toBeVisible();
   });
 
   test("verified-place placeholders render with correct categories and distinct identities", async ({ page }) => {
@@ -138,10 +138,10 @@ test.describe("Gallery after the archive import", () => {
     await expect(page.getByRole("button", { name: /Obasoro Hill/i })).toBeVisible();
     await expect(page.getByRole("button", { name: /bank of the Eba River/i })).toBeVisible();
     await expect(page.getByRole("button", { name: /Eba River.*in flow/i })).toBeVisible();
-    await expect(page.getByText("Igboruku / Gboruku")).toBeVisible();
+    await expect(page.getByRole("button", { name: /Igboruku/i })).toBeVisible();
     await expect(page.getByText("Owowo River")).toBeVisible();
     const riverPlaceholders = page.getByText("Community landscape photograph to be added");
-    await expect(riverPlaceholders).toHaveCount(2);
+    await expect(riverPlaceholders).toHaveCount(1);
 
     // 2. Places of Worship
     await page.goto("/gallery?category=Places+of+Worship");
@@ -150,15 +150,16 @@ test.describe("Gallery after the archive import", () => {
     await expect(page.getByRole("button", { name: /First ECWA Church/i })).toBeVisible();
     await expect(page.getByRole("button", { name: /Second ECWA Church/i })).toBeVisible();
     await expect(page.getByRole("button", { name: /Redeemed Christian Church of God/i })).toBeVisible();
-    await expect(page.getByText("First Apostolic Church, Takete-Ide")).toBeVisible();
-    await expect(page.getByText("Photograph to be added")).toBeVisible();
+    await expect(page.getByRole("button", { name: /The Apostolic Church/i })).toBeVisible();
 
     // 3. Education
     await page.goto("/gallery?category=Education");
-    await expect(page.getByText("Takete-Ide Primary School")).toBeVisible();
+    await expect(page.getByRole("button", { name: /Takete-Ide Primary School/i })).toBeVisible();
+    await expect(page.getByRole("button", { name: /Universal Basic Education/i })).toBeVisible();
+    await expect(page.getByRole("button", { name: /Takete-Ide NCC Computer Centre/i })).toBeVisible();
     await expect(page.getByText("Government Day Secondary School, Takete-Ide")).toBeVisible();
     const schoolPlaceholders = page.getByText("Educational institution photograph to be added");
-    await expect(schoolPlaceholders).toHaveCount(2);
+    await expect(schoolPlaceholders).toHaveCount(1);
   });
 
   test("no authentic place image is reused for another distinct place", async ({ page }) => {
@@ -315,6 +316,58 @@ test.describe("TIPU Ilorin Branch Award Presentation Media", () => {
     const dareFikiImg = page.locator('img[src*="award-presentation-01.jpg"]');
     await expect(dareFikiImg).toBeVisible();
     await expect(page.getByText("Bldr Dare Fiki", { exact: false }).first()).toBeVisible();
+  });
+});
+
+test.describe("Natural Landmarks & Oko Loke Video Integration", () => {
+  test("renders featured Oko Loke video player and natural landmarks on land-and-landscape page", async ({ page }) => {
+    await page.goto("/heritage/land-and-landscape");
+
+    // Check featured Oko Loke video
+    const video = page.locator("video");
+    await expect(video).toBeVisible();
+    await expect(video).toHaveAttribute("poster", /oko-loke\.jpg/);
+    await expect(page.getByText("Oko Loke — a natural and community landmark in Takete-Ide", { exact: false })).toBeVisible();
+
+    // Check natural landmarks grid
+    await expect(page.getByRole("heading", { name: "Omi Pandara" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Igboruku" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Okuta Gbooro" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Obasoro Hill" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Eba River" })).toBeVisible();
+  });
+
+  test("renders educational facilities on education page", async ({ page }) => {
+    await page.goto("/education");
+
+    await expect(page.getByRole("heading", { name: "Takete-Ide Primary School" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Universal Basic Education, Takete-Ide" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Takete-Ide NCC Computer Centre" })).toBeVisible();
+  });
+
+  test("renders health facilities on health-history page", async ({ page }) => {
+    await page.goto("/heritage/health-history");
+
+    await expect(page.getByRole("heading", { name: "Takete-Ide Primary Health Centre" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Old Health Centre" })).toBeVisible();
+  });
+
+  test("renders civic and community landmarks in public gallery categories", async ({ page }) => {
+    // Landmarks category
+    await page.goto("/gallery?category=Landmarks");
+    await expect(page.getByRole("button", { name: /Takete-Ide Town Hall/i })).toBeVisible();
+    await expect(page.getByRole("button", { name: /Area Court/i })).toBeVisible();
+    await expect(page.getByRole("button", { name: /Police Station/i })).toBeVisible();
+    await expect(page.getByRole("button", { name: /Civil Defence Office/i })).toBeVisible();
+
+    // Places of Worship category
+    await page.goto("/gallery?category=Places+of+Worship");
+    await expect(page.getByRole("button", { name: /The Apostolic Church/i })).toBeVisible();
+
+    // Community Life category
+    await page.goto("/gallery?category=Community+Life");
+    await expect(page.getByRole("button", { name: /Takete-Ide Market/i })).toBeVisible();
+    await expect(page.getByRole("button", { name: /Aiyedayo Junction/i })).toBeVisible();
   });
 });
 

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { HeartPulse, Stethoscope, UsersRound } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
@@ -11,6 +12,23 @@ import {
   BOOK_SOURCE_NOTE,
   BOOK_SOURCE_TITLE,
 } from "@/content/history/web/from-hilltops-to-valley";
+
+const healthFacilities = [
+  {
+    title: "Takete-Ide Primary Health Centre",
+    src: "/images/takete-ide/places/takete-ide-primary-health-centre.jpg",
+    alt: "Takete-Ide Primary Health Centre building in Takete-Ide",
+    description: "The Primary Health Centre serving residents of Takete-Ide and the surrounding community in Mopamuro LGA.",
+    badge: "Community Healthcare",
+  },
+  {
+    title: "Old Health Centre",
+    src: "/images/takete-ide/places/takete-ide-old-health-centre.jpg",
+    alt: "The former Old Health Centre building in Takete-Ide",
+    description: "The former health centre facility preserved in the community's historical architectural record.",
+    badge: "Historical Health Facility",
+  },
+];
 
 export const metadata: Metadata = {
   title: "Health History of Takete-Ide",
@@ -51,7 +69,46 @@ export default function HealthHistoryPage() {
       <Container className="max-w-5xl py-14 sm:py-16">
         <ResearchDisclaimer />
 
-        <div className="mt-12">
+        {/* Health Facilities Photographic Record */}
+        <section className="mt-12">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-wider text-gold-700">Health Infrastructure</p>
+              <h2 className="mt-1 font-serif text-2xl font-bold text-purple-950 sm:text-3xl">
+                Community Health Facilities
+              </h2>
+            </div>
+          </div>
+          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-charcoal/80">
+            Photographic record of health facilities serving Takete-Ide residents across generations.
+          </p>
+
+          <div className="mt-8 grid gap-6 sm:grid-cols-2">
+            {healthFacilities.map((facility) => (
+              <article
+                key={facility.title}
+                className="overflow-hidden rounded-3xl border border-purple-600/10 bg-white shadow-sm transition hover:shadow-md"
+              >
+                <div className="relative aspect-4/3 w-full overflow-hidden bg-purple-50">
+                  <Image
+                    src={facility.src}
+                    alt={facility.alt}
+                    fill
+                    sizes="(min-width: 640px) 50vw, 100vw"
+                    className="object-cover transition-transform duration-300 hover:scale-105"
+                  />
+                </div>
+                <div className="p-5">
+                  <p className="text-xs font-bold uppercase tracking-wide text-community-green">{facility.badge}</p>
+                  <h3 className="mt-1 font-serif text-lg font-bold text-purple-950">{facility.title}</h3>
+                  <p className="mt-2 text-xs leading-relaxed text-charcoal/75">{facility.description}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <div className="mt-14">
           <SourcedSection
             title="From indigenous healing to modern community health services"
             status="documentary_evidence"
