@@ -367,6 +367,16 @@ test.describe("Natural Landmarks & Oko Loke Video Integration", () => {
     await page.goto("/gallery?category=Community+Life");
     await expect(page.getByRole("button", { name: /Takete-Ide Market/i })).toBeVisible();
     await expect(page.getByRole("button", { name: /Aiyedayo Junction/i })).toBeVisible();
+
+    // Culture & Events category
+    await page.goto("/gallery?category=Culture+%26+Events");
+    await expect(page.getByRole("button", { name: /Otegun.*Orisa Deity House/i })).toBeVisible();
+  });
+
+  test("renders Otegun Orisa deity house on faith heritage page", async ({ page }) => {
+    await page.goto("/heritage/faith");
+    await expect(page.getByRole("heading", { name: "Otegun – Orisa Deity House" })).toBeVisible();
+    await expect(page.locator('img[src*="otegun-orisa-deity-house.jpg"]')).toBeVisible();
   });
 });
 

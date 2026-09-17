@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import {
   Church,
   Sparkles,
@@ -142,21 +143,34 @@ export default function FaithHeritagePage() {
                   </p>
                 </div>
 
-                <div className="rounded-2xl border border-purple-200/70 bg-purple-50/40 p-5">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-purple-900">
-                    Masquerade &amp; Cultural Lineages
-                  </span>
-                  <h3 className="mt-1 font-serif text-lg font-bold text-purple-950">
-                    Sacred Masks &amp; Deities
-                  </h3>
-                  <p className="mt-2 text-xs leading-relaxed text-charcoal/80">
-                    The manuscript preserves traditions of diverse masquerades including <strong>Akorowo</strong> (the
-                    whistling opening herald), <strong>Ate</strong> (feathered and glass-laced), <strong>Origi</strong>,{" "}
-                    <strong>Apa Rege Rege</strong>, and <strong>Otutumoba</strong>, alongside veneration of goddesses{" "}
-                    <strong>Otegun</strong> and <strong>Orisa</strong> by women, and cultural associations such as{" "}
-                    <strong>Alase</strong>, <strong>Ojingindo</strong>, <strong>Saaji</strong>, <strong>Erembe</strong>, and{" "}
-                    <strong>Iro</strong>.
-                  </p>
+                <div className="overflow-hidden rounded-2xl border border-purple-200/70 bg-purple-50/40 p-5">
+                  <div className="flex flex-col sm:flex-row sm:items-start gap-4">
+                    <div className="relative aspect-4/5 w-full sm:w-36 shrink-0 overflow-hidden rounded-xl bg-purple-100 shadow-xs">
+                      <Image
+                        src="/images/takete-ide/places/otegun-orisa-deity-house.jpg"
+                        alt="Otegun traditional Orisa deity house in Takete-Ide"
+                        fill
+                        sizes="(min-width: 640px) 144px, 100vw"
+                        className="object-cover"
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-purple-900">
+                        Traditional Deity House
+                      </span>
+                      <h3 className="mt-1 font-serif text-lg font-bold text-purple-950">
+                        Otegun – Orisa Deity House
+                      </h3>
+                      <p className="mt-2 text-xs leading-relaxed text-charcoal/80">
+                        Otegun, a traditional Orisa deity house in Takete-Ide. The manuscript preserves traditions of diverse masquerades including <strong>Akorowo</strong> (the
+                        whistling opening herald), <strong>Ate</strong> (feathered and glass-laced), <strong>Origi</strong>,{" "}
+                        <strong>Apa Rege Rege</strong>, and <strong>Otutumoba</strong>, alongside veneration of goddesses{" "}
+                        <strong>Otegun</strong> and <strong>Orisa</strong> by women, and cultural associations such as{" "}
+                        <strong>Alase</strong>, <strong>Ojingindo</strong>, <strong>Saaji</strong>, <strong>Erembe</strong>, and{" "}
+                        <strong>Iro</strong>.
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
 
