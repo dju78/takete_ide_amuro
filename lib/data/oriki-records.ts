@@ -15,25 +15,99 @@ export interface OrikiRecord {
   updated_by?: string | null;
 }
 
-const ORIKI_AUDIO_BY_ID: Record<string, Pick<OrikiRecord, "audio_url" | "audio_title">> = {
-  "1": {
+interface ApprovedAudioInfo {
+  audio_url: string;
+  audio_title: string;
+}
+
+const APPROVED_AUDIO_MAP: Record<"eseha" | "mesami" | "eseyintelu", ApprovedAudioInfo> = {
+  eseha: {
     audio_url: "/audio/oriki/eseha-jare.ogg",
     audio_title: "Oríkì Eseha Jare",
   },
-  "7": {
+  mesami: {
     audio_url: "/audio/oriki/mesami-olu.ogg",
     audio_title: "Oríkì Mesami Olu",
   },
-  "9": {
+  eseyintelu: {
     audio_url: "/audio/oriki/eseyin-telu.ogg",
     audio_title: "Oríkì Eseyin Telu",
   },
 };
 
-function withApprovedAudio(record: OrikiRecord): OrikiRecord {
+function normalizeKey(str: string): string {
+  return str.toLowerCase().replace(/[^a-z0-9]/g, "");
+}
+
+/**
+ * Resolves verified audio recordings for approved Oríkì families safely.
+ * Works seamlessly whether records come from static dataset (IDs "1", "7", "9")
+ * or live Supabase rows (UUIDs) with standard community name variations.
+ */
+export function resolveApprovedAudio(record: Pick<OrikiRecord, "id" | "family_origin" | "male_oriki" | "audio_url" | "audio_title">): ApprovedAudioInfo | null {
+  // If record already has a custom audio_url explicitly provided, preserve it
+  if (record.audio_url && record.audio_url.trim().length > 0) {
+    return {
+      audio_url: record.audio_url.trim(),
+      audio_title: record.audio_title?.trim() || `Oríkì ${record.family_origin}`,
+    };
+  }
+
+  // Check static record ID fallback
+  if (record.id === "1") return APPROVED_AUDIO_MAP.eseha;
+  if (record.id === "7") return APPROVED_AUDIO_MAP.mesami;
+  if (record.id === "9") return APPROVED_AUDIO_MAP.eseyintelu;
+
+  const familyNorm = normalizeKey(record.family_origin || "");
+  const maleNorm = normalizeKey(record.male_oriki || "");
+
+  // 1. Eseha Jare / Eseha / Eseha Jaree
+  if (
+    familyNorm.startsWith("eseha") ||
+    maleNorm.startsWith("eseha") ||
+    familyNorm === "esehajare" ||
+    familyNorm === "esehajaree" ||
+    familyNorm === "eseha"
+  ) {
+    return APPROVED_AUDIO_MAP.eseha;
+  }
+
+  // 2. Attemesami Olu / Mesami Olu / Atte Mesami Olu
+  // Strictly matches "mesami", distinguishing from other Atte/Attem families (Attemogbe, Attemoyi, Attejagbo, etc.)
+  if (
+    familyNorm.includes("mesami") ||
+    maleNorm.includes("mesami")
+  ) {
+    return APPROVED_AUDIO_MAP.mesami;
+  }
+
+  // 3. Eseyin Telu
+  // Strictly matches "eseyin" + "telu" (or contains "telu"), distinguishing from Eseyinmeleun and Eseyin Meta
+  if (
+    (familyNorm.includes("eseyin") && familyNorm.includes("telu")) ||
+    (maleNorm.includes("eseyin") && maleNorm.includes("telu")) ||
+    familyNorm === "eseyintelu" ||
+    maleNorm === "eseyintelu"
+  ) {
+    return APPROVED_AUDIO_MAP.eseyintelu;
+  }
+
+  return null;
+}
+
+export function withApprovedAudio(record: OrikiRecord): OrikiRecord {
+  const audioInfo = resolveApprovedAudio(record);
+  if (!audioInfo) {
+    return {
+      ...record,
+      audio_url: record.audio_url ?? null,
+      audio_title: record.audio_title ?? null,
+    };
+  }
   return {
     ...record,
-    ...(ORIKI_AUDIO_BY_ID[record.id] ?? {}),
+    audio_url: record.audio_url || audioInfo.audio_url,
+    audio_title: record.audio_title || audioInfo.audio_title,
   };
 }
 

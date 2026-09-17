@@ -632,6 +632,21 @@ export const communityMedia: CommunityMediaItem[] = [
     source: COMMUNITY_SUPPLIED,
   },
   {
+    id: "rccg-church",
+    mediaType: "image",
+    src: "/images/takete-ide/places/rccg-takete-ide.png",
+    title: "Redeemed Christian Church of God (RCCG), Takete-Ide",
+    description:
+      "The Redeemed Christian Church of God (RCCG) building in Takete-Ide.",
+    altText: "Redeemed Christian Church of God (RCCG) building with blue pitched roof in Takete-Ide",
+    category: "Places of Worship",
+    location: "Takete-Ide, Amuro, Kogi State",
+    featured: true,
+    published: true,
+    verificationStatus: "community-record",
+    source: COMMUNITY_SUPPLIED,
+  },
+  {
     id: "first-apostolic-church",
     mediaType: "image",
     src: "/images/takete-ide/tipu-emblem.png",

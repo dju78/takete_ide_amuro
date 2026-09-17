@@ -115,6 +115,11 @@ test.describe("Faith & Religious Heritage Section — Takete-Ide Archive", () =>
       await expect(secondEcwa.locator("img")).toHaveAttribute("src", /second-ecwa-church-takete-ide\.jpg/);
       await expect(secondEcwa).toContainText("present-day church building");
 
+      // RCCG uses its authentic image and caption
+      const rccg = churchCards.nth(6);
+      await expect(rccg.locator("img")).toHaveAttribute("src", /rccg-takete-ide\.png/);
+      await expect(rccg).toContainText("present-day church building");
+
       // First Baptist displays November 1922 and links to full history
       const firstBaptist = churchCards.nth(1);
       await expect(firstBaptist).toContainText("November 1922");
@@ -274,29 +279,34 @@ test.describe("Faith & Religious Heritage Section — Takete-Ide Archive", () =>
   });
 
   test.describe("Responsive Layout & Safeguards", () => {
-    test("no horizontal overflow across viewports on faith heritage pages", async ({ page }) => {
-      test.setTimeout(60000);
-      const viewports = [
-        { name: "320", width: 320, height: 568 },
-        { name: "375", width: 375, height: 667 },
-        { name: "768", width: 768, height: 1024 },
-        { name: "1280", width: 1280, height: 800 },
-      ];
+    const viewports = [
+      { name: "mobile-320", width: 320, height: 568 },
+      { name: "mobile-375", width: 375, height: 667 },
+      { name: "tablet-768", width: 768, height: 1024 },
+      { name: "desktop-1280", width: 1280, height: 800 },
+    ];
 
-      for (const vp of viewports) {
+    for (const vp of viewports) {
+      test(`no horizontal overflow on /heritage/faith at ${vp.name}`, async ({ page }) => {
         await page.setViewportSize({ width: vp.width, height: vp.height });
-        for (const route of ["/heritage/faith", "/heritage/faith/first-baptist-church"]) {
-          await page.goto(route);
-          const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
-          const clientWidth = await page.evaluate(() => document.documentElement.clientWidth);
-          expect(scrollWidth).toBeLessThanOrEqual(clientWidth + 1);
-        }
-      }
-    });
+        await page.goto("/heritage/faith", { waitUntil: "domcontentloaded" });
+        const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
+        const clientWidth = await page.evaluate(() => document.documentElement.clientWidth);
+        expect(scrollWidth).toBeLessThanOrEqual(clientWidth + 1);
+      });
+
+      test(`no horizontal overflow on /heritage/faith/first-baptist-church at ${vp.name}`, async ({ page }) => {
+        await page.setViewportSize({ width: vp.width, height: vp.height });
+        await page.goto("/heritage/faith/first-baptist-church", { waitUntil: "domcontentloaded" });
+        const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
+        const clientWidth = await page.evaluate(() => document.documentElement.clientWidth);
+        expect(scrollWidth).toBeLessThanOrEqual(clientWidth + 1);
+      });
+    }
 
     test("safeguards check: no derogatory words or unverified founded dates", async ({ page }) => {
       for (const path of ["/heritage/faith", "/heritage/faith/first-baptist-church"]) {
-        await page.goto(path);
+        await page.goto(path, { waitUntil: "domcontentloaded" });
         const bodyText = await page.innerText("body");
 
         // Ensure "pagan" only appears within historical terminology note if at all
