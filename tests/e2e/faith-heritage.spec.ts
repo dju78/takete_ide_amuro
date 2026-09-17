@@ -115,10 +115,12 @@ test.describe("Faith & Religious Heritage Section — Takete-Ide Archive", () =>
       await expect(secondEcwa.locator("img")).toHaveAttribute("src", /second-ecwa-church-takete-ide\.jpg/);
       await expect(secondEcwa).toContainText("present-day church building");
 
-      // RCCG uses its authentic image and caption
+      // RCCG uses its authentic image, caption and does not show "Archival photo pending"
       const rccg = churchCards.nth(6);
       await expect(rccg.locator("img")).toHaveAttribute("src", /rccg-takete-ide\.png/);
-      await expect(rccg).toContainText("present-day church building");
+      await expect(rccg.locator("img")).toHaveAttribute("alt", "Redeemed Christian Church of God (RCCG) church building in Takete-Ide.");
+      await expect(rccg).toContainText("Redeemed Christian Church of God (RCCG), Takete-Ide.");
+      await expect(rccg).not.toContainText("Archival photo pending");
 
       // First Baptist displays November 1922 and links to full history
       const firstBaptist = churchCards.nth(1);
