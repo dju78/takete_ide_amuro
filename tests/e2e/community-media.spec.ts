@@ -102,6 +102,13 @@ test.describe("Gallery after the archive import", () => {
     await expect(baptistCards).toHaveCount(1);
   });
 
+  test("First ECWA Church is deduplicated in Places of Worship", async ({ page }) => {
+    await page.goto("/gallery?category=Places+of+Worship");
+    const ecwaCards = page.getByRole("button", { name: /First ECWA Church/ });
+    await expect(ecwaCards).toHaveCount(1);
+    await expect(page.locator('img[src*="ecwa-church.jpg"]')).toHaveCount(0);
+  });
+
   test("Redeemed Christian Church of God renders with approved metadata in Places of Worship gallery", async ({ page }) => {
     await page.goto("/gallery?category=Places+of+Worship");
     const rccgButton = page.getByRole("button", { name: /Redeemed Christian Church of God/i });

@@ -633,7 +633,7 @@ export const communityMedia: CommunityMediaItem[] = [
     category: "Places of Worship",
     location: "Takete-Ide, Amuro, Kogi State",
     featured: false,
-    published: true,
+    published: false,
     verificationStatus: "community-record",
     source: COMMUNITY_SUPPLIED,
   },
