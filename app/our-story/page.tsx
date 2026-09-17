@@ -6,6 +6,7 @@ import {
   GraduationCap,
   Users2,
   FileText,
+  MapPin,
 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
@@ -48,6 +49,7 @@ const toc = [
   { label: "The Search for Peace", id: "the-search-for-peace" },
   { label: "Migration Journey", id: "journey" },
   { label: "Home at Last (c.1926)", id: "home-at-last" },
+  { label: "Takete-Tedo & Related Communities", id: "related-communities" },
   { label: "Faith & Development", id: "faith-and-development" },
   { label: "Community Memory", id: "community-memory" },
 ];
@@ -317,6 +319,33 @@ export default function OurStoryPage() {
             </SourcedSection>
           </section>
 
+          {/* Section: Takete-Tedo & Related Communities */}
+          <section id="related-communities">
+            <div className="rounded-3xl border border-purple-600/10 bg-white p-6 shadow-sm sm:p-8">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div className="max-w-2xl">
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-purple-100 px-3 py-1 text-xs font-semibold text-purple-900">
+                    <MapPin className="h-3.5 w-3.5" aria-hidden="true" />
+                    Related Historical Communities
+                  </span>
+                  <h3 className="mt-3 font-serif text-2xl font-bold text-purple-950">
+                    Takete-Tedo / Okegada &amp; Ancestral Migrations
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-charcoal/80">
+                    Discover the history of Takete-Tedo (Okegada), the post-1949 migration, family relationships,
+                    shared cultural heritage, and the historic bonds connecting both communities across generations.
+                  </p>
+                </div>
+                <Link
+                  href="/our-story/takete-tedo"
+                  className="inline-flex shrink-0 items-center justify-center rounded-2xl bg-purple-700 px-6 py-3 text-sm font-semibold text-white shadow-xs transition-colors hover:bg-purple-800"
+                >
+                  Read Takete-Tedo History →
+                </Link>
+              </div>
+            </div>
+          </section>
+
           {/* Section 7: Faith & Development */}
           <section id="faith-and-development">
             <SourcedSection
@@ -379,8 +408,7 @@ export default function OurStoryPage() {
                   </h2>
                   <p className="mt-3 text-sm leading-relaxed text-white/85 sm:text-base">
                     This account draws on preserved community historical narratives and oral traditions.
-                    Some names, dates and interpretations remain subject to continuing documentation and
-                    verification by community elders and historians.
+                    Additional historical details and archival records continue to be compiled and documented.
                   </p>
                 </div>
                 <div className="flex flex-wrap items-center gap-3">

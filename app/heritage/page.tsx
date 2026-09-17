@@ -1,6 +1,22 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Crown, Landmark, Mic2, Image as ImageIcon, Music4, Sparkles, Shirt, Church, Mountain, Users2 } from "lucide-react";
+import {
+  Crown,
+  Landmark,
+  Mic2,
+  Image as ImageIcon,
+  Music4,
+  Sparkles,
+  Shirt,
+  Church,
+  Mountain,
+  Users2,
+  Calendar,
+  Award,
+  Compass,
+  Users,
+  HeartPulse,
+} from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -289,47 +305,75 @@ export default async function HeritagePage() {
           <IconCard
             icon={Crown}
             title="Traditional Institution"
-            description="The Olude of Takete-Ide Amuro, the traditional council and their responsibilities."
+            description="The Olude of Takete-Ide Amuro, royal lineage and institutional history."
             href="/heritage/traditional-institution"
           />
           <IconCard
             icon={Landmark}
-            title="Our Families"
-            description="The families and compounds that form the Takete-Ide community."
+            title="Traditional Council & Governance"
+            description="Council hierarchy, ward rotation, chieftaincy categories and traditional governance."
+            href="/heritage/traditional-council"
+            tone="gold"
+          />
+          <IconCard
+            icon={Calendar}
+            title="Festivals & Cultural Calendar"
+            description="Oro, Egungun, Ogun, New Yam and the community annual festival calendar."
+            href="/heritage/festivals"
+            tone="purple"
+          />
+          <IconCard
+            icon={Compass}
+            title="Land & Landscape"
+            description="Location, neighbouring settlements, sacred hills, rivers and streams across Takete-Ide."
+            href="/heritage/land-and-landscape"
+            tone="green"
+          />
+          <IconCard
+            icon={Users}
+            title="Community Organisations"
+            description="TIPU, youth associations, women's clubs, and development societies in the historical record."
+            href="/heritage/community-organisations"
+            tone="purple"
+          />
+          <IconCard
+            icon={Award}
+            title="Pacesetters & Pioneers"
+            description="Notable community firsts, pioneering scholars and education leaders recorded in history."
+            href="/heritage/pacesetters"
+            tone="gold"
+          />
+          <IconCard
+            icon={Music4}
+            title="Music, Games & Folk Traditions"
+            description="Traditional music, indigenous instruments, folk songs and community games."
+            href="/heritage/music-games"
+            tone="green"
+          />
+          <IconCard
+            icon={Landmark}
+            title="Our Families & Compounds"
+            description="The families, compounds and lineages that form the Takete-Ide community."
             href="/families"
             tone="gold"
           />
           <IconCard
             icon={Music4}
             title="Our Oríkì"
-            description="Praise poetry and oral traditions passed down through generations."
+            description="Praise poetry and ancestral names passed down through generations."
             href="/oriki"
             tone="green"
           />
           <IconCard
             icon={Mic2}
             title="Voices of Takete-Ide"
-            description="Community history from those who carry its memory."
+            description="Community oral history recordings from those who carry its memory."
             href="/archive/oral-history"
           />
           <IconCard
             icon={Sparkles}
-            title="Traditional Marriage"
-            description="Ceremonial items and gatherings associated with marriage celebrations."
-            href="/heritage/traditional-marriage"
-            tone="gold"
-          />
-          <IconCard
-            icon={ImageIcon}
-            title="Community Life"
-            description="Everyday moments and celebrations from across the community."
-            href="/gallery"
-            tone="green"
-          />
-          <IconCard
-            icon={Sparkles}
             title="Agbagba Ide"
-            description="Sacred sanctuary, cultural memory and symbol of community resilience."
+            description="Sacred sanctuary, cultural memory and enduring symbol of community resilience."
             href="/heritage/agbagba-ide"
             tone="purple"
           />
@@ -341,6 +385,13 @@ export default async function HeritagePage() {
             tone="gold"
           />
           <IconCard
+            icon={Sparkles}
+            title="Traditional Marriage"
+            description="Ceremonial customs, gifts and gatherings associated with marriage celebrations."
+            href="/heritage/traditional-marriage"
+            tone="gold"
+          />
+          <IconCard
             icon={Church}
             title="Faith & Religious Heritage"
             description="From indigenous spiritual heritage to the churches and places of worship in Takete-Ide."
@@ -348,15 +399,22 @@ export default async function HeritagePage() {
             tone="purple"
           />
           <IconCard
+            icon={HeartPulse}
+            title="Health History"
+            description="Traditional healing, early dispensary, nurses, maternity care and clinic history."
+            href="/heritage/health-history"
+            tone="green"
+          />
+          <IconCard
             icon={Landmark}
             title="Our History"
-            description="Origins, settlement, faith and the making of the community."
+            description="From the hilltops to the valley — the migration and settlement story."
             href="/our-story"
           />
           <IconCard
             icon={Mountain}
             title="Landmarks"
-            description="Obasoro Hill, Okuta Gbooro and the places that mark our land."
+            description="Obasoro Hill, Okuta Gbooro and the natural landmarks that define our land."
             href="/gallery?category=Landmarks"
             tone="gold"
           />
