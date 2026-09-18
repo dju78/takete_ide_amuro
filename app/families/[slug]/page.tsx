@@ -88,7 +88,7 @@ export default async function FamilyPage({ params }: Props) {
             <h2>Known Ancestral Accounts</h2>
             <p>{family.known_ancestral_accounts}</p>
             <p className="text-sm italic text-charcoal/60">
-              Where community accounts differ, they are presented neutrally pending further documentation.
+              Where community accounts differ, they are presented neutrally alongside family oral tradition.
             </p>
           </section>
         )}

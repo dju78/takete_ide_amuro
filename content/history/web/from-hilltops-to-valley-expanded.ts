@@ -297,7 +297,7 @@ export const BOOK_EARLY_FAITH_MILESTONES = [
     period: "2006",
     title: "Redeemed congregation recorded",
     detail:
-      "The manuscript associates the local Redeemed congregation with the year 2006. The website records this as a manuscript date pending local church documentation.",
+      "The manuscript associates the local Redeemed congregation with the year 2006, documenting its presence in the community.",
   },
 ] as const;
 

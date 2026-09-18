@@ -322,7 +322,7 @@ export default function FaithHeritagePage() {
                       <strong>1919</strong> as the year SIM Christianity was first introduced into Takete-Ide. In
                       accordance with archival standards, this milestone is recorded as{" "}
                       <em>&ldquo;1919 — SIM Christianity introduced in Takete-Ide, according to the community historical record&rdquo;</em>,
-                      rather than an uncorroborated church founding date, pending ongoing verification from early mission registers.
+                      preserving the living community tradition.
                     </p>
                   </div>
                 </div>
