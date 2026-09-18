@@ -75,7 +75,7 @@ export const RELIGIOUS_HERITAGE_TIMELINE: ReligiousTimelineEntry[] = [
     yearLabel: "1919",
     title: "SIM Christianity Introduced in Takete-Ide",
     description:
-      "According to the community historical record, SIM Christianity was introduced to Takete-Ide around 1919, establishing the early Christian fellowship in the community.",
+      "SIM Christianity was introduced to Takete-Ide around 1919, establishing the early Christian fellowship in the community.",
     status: "community_tradition",
     statusNote: "Preserved community historical tradition.",
   },

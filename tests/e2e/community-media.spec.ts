@@ -364,10 +364,10 @@ test.describe("Natural Landmarks & Oko Loke Video Integration", () => {
   test("renders educational facilities on education page", async ({ page }) => {
     await page.goto("/education");
 
-    await expect(page.getByRole("heading", { name: "Takete-Ide Primary School" })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Universal Basic Education, Takete-Ide" })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Takete-Ide NCC Computer Centre" })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Government Day Secondary School, Takete-Ide", level: 3 })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Community High School Building" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Universal Basic Education (UBE) Block" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Digital Economy Centre" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Government Day Secondary School, Takete-Ide" })).toBeVisible();
   });
 
   test("renders health facilities on health-history page", async ({ page }) => {

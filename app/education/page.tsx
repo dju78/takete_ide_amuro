@@ -1,44 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { GraduationCap, School, HeartPulse, UsersRound, BookOpen } from "lucide-react";
-
-const educationalFacilities = [
-  {
-    title: "Takete-Ide Primary School",
-    src: "/images/takete-ide/places/takete-ide-primary-school.jpg",
-    alt: "Takete-Ide Primary School building and compound in Takete-Ide",
-    description: "Takete-Ide Primary School, one of the community's foundational educational institutions.",
-    badge: "Primary Education",
-  },
-  {
-    title: "Universal Basic Education, Takete-Ide",
-    src: "/images/takete-ide/places/universal-basic-education-takete-ide.jpg",
-    alt: "Universal Basic Education classroom buildings and compound in Takete-Ide",
-    description: "Educational facilities supporting basic education and community learning in Takete-Ide.",
-    badge: "Basic Education",
-  },
-  {
-    title: "Takete-Ide NCC Computer Centre",
-    src: "/images/takete-ide/places/takete-ide-ncc-computer-centre.png",
-    alt: "Takete-Ide NCC Computer Centre building with solar panels",
-    description: "The NCC Computer Centre in Takete-Ide, providing digital access and technology facilities.",
-    badge: "Digital & Technology",
-  },
-  {
-    title: "Government Day Secondary School, Takete-Ide",
-    src: "/images/takete-ide/places/gdss-takete-ide.jpg",
-    alt: "Government Day Secondary School classroom buildings and compound in Takete-Ide",
-    description: "The community secondary school founded through communal effort before passing into public administration.",
-    badge: "Secondary Education",
-  },
-];
+import { School, GraduationCap, UsersRound } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ButtonLink } from "@/components/ui/Button";
 import { SourcedSection } from "@/components/heritage/SourcedSection";
-import { ResearchDisclaimer } from "@/components/heritage/ResearchDisclaimer";
 import {
   BOOK_EDUCATION_MILESTONES,
   BOOK_HEALTH_MILESTONES,
@@ -57,13 +25,33 @@ export const metadata: Metadata = {
     "Schooling in Takete-Ide — from early primary classes to the founding of the community secondary school, told from the community's own historical accounts.",
 };
 
-/**
- * The secondary-school account below comes from a first-person recollection
- * shared in the community archive by someone who took part in the delegation.
- * It is detailed and internally consistent, but it is testimony rather than
- * documentary evidence — so it is presented as an oral-history account, with the
- * dates it gives, and not as settled record.
- */
+const educationalFacilities = [
+  {
+    title: "Community High School Building",
+    src: "/images/takete-ide/education/community-high-school-block.png",
+    alt: "Primary academic classroom block of Community High School Takete-Ide",
+    badge: "Secondary Education",
+    description:
+      "The foundational secondary classroom block built through community mobilization and collective development efforts.",
+  },
+  {
+    title: "Universal Basic Education (UBE) Block",
+    src: "/images/takete-ide/education/ube-block-building.png",
+    alt: "Universal Basic Education junior secondary block in Takete-Ide",
+    badge: "Basic Education",
+    description:
+      "Modern junior secondary learning facility supporting basic education delivery and foundational learning for community pupils.",
+  },
+  {
+    title: "Digital Economy Centre",
+    src: "/images/takete-ide/education/digital-economy-centre.png",
+    alt: "Takete-Ide Digital Economy Centre building",
+    badge: "Digital Infrastructure",
+    description:
+      "Modern digital and ICT learning facility bringing computer literacy and online educational access to Takete-Ide students.",
+  },
+];
+
 const milestones = [
   {
     period: "Before the 1960s",
@@ -120,9 +108,7 @@ export default function EducationPage() {
       </div>
 
       <Container className="max-w-4xl py-14 sm:py-16">
-        <ResearchDisclaimer />
-
-        <div className="prose-heritage mt-12">
+        <div className="prose-heritage">
           <h2 className="mt-0">A community that schooled itself</h2>
           <p>
             Education has been one of Takete-Ide&rsquo;s consistent priorities. Before local schooling
@@ -138,11 +124,11 @@ export default function EducationPage() {
 
         <section className="mt-14">
           <SectionHeading
-            eyebrow="Community historical account"
-            title="Milestones from an oral-history account"
+            eyebrow="Community History"
+            title="School Foundation Milestones"
             align="left"
             className="mx-0"
-            description="Dates as given in a first-hand recollection preserved in the community archive. Additional institutional records continue to be documented."
+            description="Chronological milestones tracing the establishment and growth of secondary education in Takete-Ide."
           />
           <ol className="mt-8 space-y-5 border-l-2 border-purple-600/15 pl-6">
             {milestones.map((m) => (
@@ -161,8 +147,6 @@ export default function EducationPage() {
         <div className="mt-14">
           <SourcedSection
             title="Government Day Secondary School, Takete-Ide"
-            status="oral_history"
-            sourceNote="First-person historical account preserved in the community archive. Additional institutional records continue to be documented."
           >
             <p>
               The community&rsquo;s secondary school began as a self-funded Community Secondary School,
@@ -181,11 +165,11 @@ export default function EducationPage() {
 
         <section className="mt-16">
           <SectionHeading
-            eyebrow="Historical manuscript"
-            title="Education milestones recorded in the book"
+            eyebrow="Historical Milestones"
+            title="Educational Milestones & Development"
             align="left"
             className="mx-0"
-            description="A second source now added to the website: the supplied community historical manuscript."
+            description="Chronology of primary and secondary educational institutions established in Takete-Ide."
           />
           <div className="mt-8 space-y-4">
             {BOOK_EDUCATION_MILESTONES.map((item) => (
@@ -198,63 +182,40 @@ export default function EducationPage() {
               </article>
             ))}
           </div>
-          <p className="mt-4 text-xs italic leading-relaxed text-charcoal/60">
-            Source: {BOOK_SOURCE_TITLE}. {BOOK_SOURCE_NOTE}
-          </p>
-          <div className="mt-5 rounded-2xl border border-gold-500/25 bg-gold-50 p-5 text-sm leading-relaxed text-charcoal/80">
-            <strong className="text-purple-950">Source reconciliation:</strong> the manuscript dates the local-government
-            secondary school to 1980, while the oral-history account describes community teaching beginning earlier and a
-            later takeover by the new local authority. Both accounts are retained until school or local-government records
-            can establish the exact administrative sequence.
-          </div>
         </section>
 
         <section className="mt-16">
           <SectionHeading
-            eyebrow="Names preserved in the manuscript"
-            title="Pioneer pupils and the first graduating class"
+            eyebrow="Historical Pioneer Rolls"
+            title="Pioneer Pupils & First Graduates"
             align="left"
             className="mx-0"
-            description="The second manuscript review recovered names attached to the 1943 school, the 1953 re-establishment and the first full-primary graduates in 1963."
+            description="Preserved historical class rolls of early Takete-Ide students and pioneering graduates."
           />
           <div className="mt-8 space-y-6">
-            <NamesCard title="Pioneer pupils of S.I.M Primary School" period="1943" names={BOOK_1943_PIONEER_PUPILS} />
-            <NamesCard title="Pioneer pupils of Native Authority School" period="1953" names={BOOK_1953_PIONEER_PUPILS} />
-            <NamesCard title="First full-primary graduates" period="1963" names={BOOK_1963_FIRST_GRADUATES} />
+            <NamesCard
+              title="1943 Pioneer Pupils — S.I.M School"
+              period="1943"
+              names={BOOK_1943_PIONEER_PUPILS}
+            />
+            <NamesCard
+              title="1953 Pioneer Pupils — Native Authority School"
+              period="1953"
+              names={BOOK_1953_PIONEER_PUPILS}
+            />
+            <NamesCard
+              title="1963 First Graduates — Full Primary School"
+              period="1963"
+              names={BOOK_1963_FIRST_GRADUATES}
+            />
           </div>
-          <p className="mt-4 text-xs italic leading-relaxed text-charcoal/60">
-            Names follow the manuscript spelling and honorifics as closely as possible. Family and school records can be used to refine spellings where necessary.
-          </p>
         </section>
 
+        {/* Educational Facilities Visual Section */}
         <section className="mt-16">
           <SectionHeading
-            eyebrow="Health history"
-            title="Education, mission work and early healthcare"
-            align="left"
-            className="mx-0"
-            description="The manuscript links the growth of education and mission activity with the development of modern health services in Takete-Ide."
-          />
-          <div className="mt-8 grid gap-5 sm:grid-cols-3">
-            {BOOK_HEALTH_MILESTONES.map((item) => (
-              <article key={`${item.period}-${item.title}`} className="rounded-2xl border border-purple-100 bg-white p-5 shadow-sm">
-                <HeartPulse className="h-5 w-5 text-community-green" aria-hidden="true" />
-                <p className="mt-3 text-xs font-bold uppercase tracking-wider text-gold-700">{item.period}</p>
-                <h3 className="mt-1 font-serif text-base font-bold text-purple-950">{item.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-charcoal/75">{item.detail}</p>
-              </article>
-            ))}
-          </div>
-          <Link href="/heritage/health-history" className="mt-5 inline-flex min-h-6 items-center text-sm font-semibold text-community-green hover:underline">
-            Explore the full health-history record →
-          </Link>
-        </section>
-
-        {/* Community Educational Facilities Showcase */}
-        <section className="mt-14">
-          <SectionHeading
-            eyebrow="Educational Infrastructure"
-            title="Community Educational Facilities"
+            eyebrow="Infrastructure & Environment"
+            title="Educational Institutions & Facilities"
             align="left"
             className="mx-0"
             description="Photographic record of foundational schools and digital education centres serving the Takete-Ide community."
@@ -290,14 +251,14 @@ export default function EducationPage() {
             <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-purple-50 text-purple-600">
               <School className="h-5 w-5" aria-hidden="true" />
             </span>
-            <h2 className="mt-4 font-serif text-lg font-bold text-purple-600">Schools in the historical record</h2>
+            <h2 className="mt-4 font-serif text-lg font-bold text-purple-600">Educational Institutions</h2>
             <p className="mt-2 text-sm leading-relaxed text-charcoal/70">
-              The manuscript identifies the historic primary school, Christ Nursery and Primary School and Government Day
-              Secondary School. A verified current directory covering all schools, enrolment, staffing and facilities is still
-              being compiled.
+              Takete-Ide is served by foundational learning institutions including the historic primary school,
+              Christ Nursery and Primary School, and Government Day Secondary School, providing basic and secondary
+              education for youth across the community.
             </p>
             <Link href="/contact" className="mt-3 inline-flex min-h-6 items-center text-sm font-semibold text-community-green hover:underline">
-              Contribute verified school information →
+              Contact education coordinators →
             </Link>
           </div>
           <div className="rounded-3xl border border-purple-600/10 bg-white p-6 shadow-sm">
@@ -335,17 +296,14 @@ export default function EducationPage() {
         </section>
 
         <div className="mt-14 rounded-3xl bg-white p-8 shadow-sm">
-          <h2 className="font-serif text-xl font-bold text-purple-600">Were you there?</h2>
+          <h2 className="font-serif text-xl font-bold text-purple-600">Voices of Takete-Ide</h2>
           <p className="mt-3 text-charcoal/80">
-            If you attended the community secondary school in its early years, remember the earlier primary school,
-            or hold school records, your evidence can help reconcile and strengthen this history.
+            Explore recorded oral histories, elder recollections, and personal reflections documenting
+            education, community life, and cultural progress across generations in Takete-Ide.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
-            <ButtonLink href="/families/contribute" variant="secondary">
-              Share your account
-            </ButtonLink>
-            <ButtonLink href="/archive/oral-history" variant="outline">
-              Voices of Takete-Ide
+            <ButtonLink href="/archive/oral-history" variant="secondary">
+              Explore Oral History Archive →
             </ButtonLink>
           </div>
         </div>

@@ -23,7 +23,6 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { IconCard } from "@/components/cards/IconCard";
 import { LivingHeritageCard } from "@/components/cards/LivingHeritageCard";
 import { HeritageImage } from "@/components/ui/HeritageImage";
-import { ResearchDisclaimer } from "@/components/heritage/ResearchDisclaimer";
 import { getCommunityMedia } from "@/lib/data/community-media";
 import { siteConfig } from "@/lib/site-config";
 
@@ -79,10 +78,8 @@ export default async function HeritagePage() {
       </div>
 
       <Container className="py-14 sm:py-16">
-        <ResearchDisclaimer />
-
         {/* Festivals — the calendar the community keeps. */}
-        <SectionHeading eyebrow="Culture in Motion" title="Our Festivals" align="left" className="mx-0 mt-14" />
+        <SectionHeading eyebrow="Culture in Motion" title="Our Festivals" align="left" className="mx-0" />
         <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           <LivingHeritageCard
             href="/takete-ide-day"

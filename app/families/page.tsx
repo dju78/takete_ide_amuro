@@ -56,10 +56,10 @@ export default async function FamiliesPage() {
             href="/families/compounds"
           />
           <IconCard
-            icon={Users}
-            title="Contribute"
-            description="Help preserve your family's history and Oríkì."
-            href="/families/contribute"
+            icon={ScrollText}
+            title="Traditional Lineages"
+            description="Explore the historical Olu’de register and traditional governance."
+            href="/heritage/traditional-institution"
             tone="green"
           />
         </div>
@@ -73,9 +73,9 @@ export default async function FamiliesPage() {
             className="mx-0"
           />
           <p className="mt-3 max-w-3xl text-sm leading-relaxed text-charcoal/80">
-            The supplied community historical manuscript preserves several family names across the
-            historical Olu’de register. These records are documented historical associations and should not
-            be treated as a complete list of every family in Takete-Ide.
+            Historical records preserve several family names across the
+            historical Olu’de register. These records document historical lineage associations
+            across the community.
           </p>
 
           <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -91,7 +91,7 @@ export default async function FamiliesPage() {
                       Family Name
                     </span>
                     <span className="rounded-full bg-gold-100 px-2.5 py-0.5 text-[11px] font-medium text-gold-800">
-                      Historical manuscript record
+                      Historical Register
                     </span>
                   </div>
 
@@ -137,8 +137,8 @@ export default async function FamiliesPage() {
                 </div>
 
                 <div className="mt-6 border-t border-purple-100 pt-4">
-                  <p className="text-[11px] italic text-charcoal/60">
-                    Source: Takete-Ide Historical Community Account register
+                  <p className="text-[11px] font-medium text-charcoal/60">
+                    Takete-Ide Historical Lineage Register
                   </p>
                 </div>
               </div>
@@ -177,7 +177,7 @@ export default async function FamiliesPage() {
             title="Family Profile Directory"
             align="left"
             className="mx-0"
-            description="Detailed family profiles, lineages and oral praise poetry documented in collaboration with families."
+            description="Detailed family profiles, lineages and oral praise poetry documented across Takete-Ide."
           />
           <div className="mt-8">
             {families.length > 0 ? (
@@ -214,8 +214,8 @@ export default async function FamiliesPage() {
                   Takete-Ide family histories and ancestral lineages preserved across our compounds and historical registers.
                 </p>
                 <div className="mt-5">
-                  <ButtonLink href="/families/contribute" size="sm">
-                    Contribute Family History
+                  <ButtonLink href="/families/compounds" size="sm">
+                    Explore Historical Compounds
                   </ButtonLink>
                 </div>
               </div>

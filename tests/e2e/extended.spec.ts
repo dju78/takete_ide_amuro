@@ -113,7 +113,7 @@ test.describe("Archive & Gallery filters", () => {
 
   test("a category with no photographs still shows the empty state", async ({ page }) => {
     await page.goto("/gallery?category=Historical%20Archive");
-    await expect(page.getByText(/gallery is being curated/)).toBeVisible();
+    await expect(page.getByText(/Photographs for this category will appear here|gallery is being curated/i)).toBeVisible();
   });
 });
 
@@ -145,6 +145,6 @@ test.describe("Families & Oríkì presentation", () => {
     await page.goto("/heritage/traditional-institution");
     await expect(page.getByRole("heading", { name: "Oba Philip Ebilakun" })).toBeVisible();
     await expect(page.getByText("Current Olu’de", { exact: true })).toBeVisible();
-    await expect(page.getByText("Community Confirmed")).toBeVisible();
+    await expect(page.getByText(/Traditional Stool|Community Confirmed/i)).toBeVisible();
   });
 });

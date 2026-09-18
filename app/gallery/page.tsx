@@ -64,8 +64,8 @@ export default async function GalleryPage({ searchParams }: Props) {
             <GalleryLightbox items={items} />
           ) : (
             <EmptyState
-              title="This gallery is being curated"
-              message="Photographs for this category will appear here as they are uploaded and approved by the media team. You are also welcome to contribute photographs to the Takete-Ide Digital Archive."
+              title="Photographs for this category will appear here as they are published by the media team."
+              message="Explore other categories or check back soon for updated photo albums."
             />
           )}
         </div>

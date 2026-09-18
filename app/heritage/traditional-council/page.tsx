@@ -3,7 +3,6 @@ import Link from "next/link";
 import { Crown, Users, Scale, Landmark } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
-import { ResearchDisclaimer } from "@/components/heritage/ResearchDisclaimer";
 import { SourcedSection } from "@/components/heritage/SourcedSection";
 import { siteConfig } from "@/lib/site-config";
 import {
@@ -21,7 +20,7 @@ import {
 export const metadata: Metadata = {
   title: "Traditional Council & Chieftaincy",
   description:
-    "The manuscript account of the Takete-Ide Traditional Council, its hierarchy, ward rotation and categories of chieftaincy.",
+    "The traditional governance structure, hierarchy, ward rotation and chieftaincy categories of Takete-Ide.",
   alternates: {
     canonical: `${siteConfig.url}/heritage/traditional-council`,
   },
@@ -47,8 +46,7 @@ export default function TraditionalCouncilPage() {
               <p className="text-xs font-bold uppercase tracking-[0.2em] text-gold-300">Traditional governance</p>
               <h1 className="mt-2 font-serif text-4xl font-bold sm:text-5xl">Traditional Council &amp; Chieftaincy</h1>
               <p className="mt-3 max-w-3xl text-white/85">
-                How the manuscript describes the Olu’de, the Council of Titled Chiefs, ward leadership,
-                rotation and the different categories of titles in Takete-Ide.
+                The Olu’de of Takete-Ide, the Council of Titled Chiefs, ward leadership, rotation, and the traditional categories of chieftaincy.
               </p>
             </div>
           </div>
@@ -56,18 +54,14 @@ export default function TraditionalCouncilPage() {
       </div>
 
       <Container className="max-w-6xl py-14 sm:py-16">
-        <ResearchDisclaimer />
-
-        <div className="mt-12">
+        <div>
           <SourcedSection
             title="Functions of the Traditional Council"
-            status="documentary_evidence"
-            sourceNote={`${BOOK_SOURCE_TITLE}, Chapter Nine. ${BOOK_SOURCE_NOTE}`}
           >
             <p>
-              The manuscript presents the Traditional Council as both a governance institution and a custodian
-              of identity. Its recorded responsibilities extend beyond ceremonies to peace-building, customary
-              law, dispute resolution and community representation.
+              The Traditional Council operates as both a paramount governance organ and a custodian
+              of cultural heritage, overseeing peace-building, customary law, dispute resolution,
+              and community representation across Takete-Ide.
             </p>
           </SourcedSection>
         </div>
@@ -88,7 +82,7 @@ export default function TraditionalCouncilPage() {
         <section className="mt-14">
           <div className="flex items-center gap-3">
             <Landmark className="h-5 w-5 text-purple-600" aria-hidden="true" />
-            <h2 className="font-serif text-2xl font-bold text-purple-950">Council hierarchy recorded in the manuscript</h2>
+            <h2 className="font-serif text-2xl font-bold text-purple-950">Traditional Council Hierarchy</h2>
           </div>
           <div className="mt-7 grid gap-4 lg:grid-cols-4">
             {BOOK_COUNCIL_HIERARCHY.map((item, index) => (
@@ -115,8 +109,8 @@ export default function TraditionalCouncilPage() {
               ))}
             </div>
             <p className="mt-4 text-sm leading-relaxed text-charcoal/75">
-              The manuscript says the Olu’de nomination rotates among these wards and, within each ward,
-              among its subdivisions as part of a long-standing balancing principle.
+              The nomination to the Olu’de stool rotates among these three wards and their component lineages,
+              embodying an established principle of equitable representation.
             </p>
           </div>
 
@@ -151,11 +145,14 @@ export default function TraditionalCouncilPage() {
           </div>
         </section>
 
-        <div className="mt-12 rounded-2xl border border-gold-500/25 bg-gold-50 p-5 text-sm leading-relaxed text-charcoal/80">
-          The manuscript contains more than one historical ruler register. The main Traditional Institution page
-          retains the community-confirmed current numbering while presenting the historical lists as source records
-          rather than silently reconciling differences between them.
-          <Link href="/heritage/traditional-institution" className="ml-1 font-semibold text-community-green hover:underline">
+        <div className="mt-12 rounded-2xl border border-purple-600/10 bg-white p-6 text-sm leading-relaxed text-charcoal/80 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <h3 className="font-serif font-bold text-purple-950 text-base">Rulers of Takete-Ide</h3>
+            <p className="mt-1 text-xs sm:text-sm text-charcoal/70">
+              For the complete chronological roll and profile of past and present Olu’de monarchs of Takete-Ide.
+            </p>
+          </div>
+          <Link href="/heritage/traditional-institution" className="inline-flex shrink-0 items-center rounded-full bg-purple-700 px-5 py-2.5 text-xs font-bold text-white transition hover:bg-purple-800">
             View the Olu’de register →
           </Link>
         </div>

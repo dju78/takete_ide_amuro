@@ -35,23 +35,44 @@ import { getGroupedEvents } from "@/lib/data/community-events";
 import { formatDate } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: `${siteConfig.name} | ${siteConfig.tagline}`,
-  description: siteConfig.description,
+  title: "Takete-Ide Amuro | Heritage, Community & Development",
+  description:
+    "Discover Takete-Ide Amuro, Kogi State — its history, heritage, families, culture, institutions, community development and contemporary life.",
   alternates: {
-    canonical: siteConfig.url,
+    canonical: "https://takete-ide.org/",
   },
   openGraph: {
-    title: `${siteConfig.name} | ${siteConfig.tagline}`,
-    description: siteConfig.description,
-    url: siteConfig.url,
-    siteName: siteConfig.name,
+    title: "Takete-Ide Amuro | Heritage, Community & Development",
+    description:
+      "Discover Takete-Ide Amuro, Kogi State — its history, heritage, families, culture, institutions, community development and contemporary life.",
+    url: "https://takete-ide.org/",
+    siteName: "Takete-Ide Amuro",
     locale: "en_GB",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.name} | ${siteConfig.tagline}`,
-    description: siteConfig.description,
+    title: "Takete-Ide Amuro | Heritage, Community & Development",
+    description:
+      "Discover Takete-Ide Amuro, Kogi State — its history, heritage, families, culture, institutions, community development and contemporary life.",
+  },
+};
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://takete-ide.org/#website",
+  url: "https://takete-ide.org/",
+  name: "Takete-Ide Amuro",
+  alternateName: [
+    "Takete-Ide",
+    "Takete Ide",
+    "Taketeide",
+    "Takete",
+    "takete-ide.org",
+  ],
+  publisher: {
+    "@id": "https://takete-ide.org/#organization",
   },
 };
 
@@ -133,6 +154,10 @@ export default async function HomePage() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+      />
       <link rel="preload" as="image" imageSrcSet={mobileHeroImg.srcSet} imageSizes="100vw" media="(max-width: 1023px)" fetchPriority="high" />
       <link rel="preload" as="image" imageSrcSet={desktopHeroImg.srcSet} imageSizes="55vw" media="(min-width: 1024px)" fetchPriority="high" />
 

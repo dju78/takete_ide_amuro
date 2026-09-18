@@ -2,15 +2,13 @@ import type { Metadata } from "next";
 import { Compass, UsersRound, ScrollText } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
-import { ResearchDisclaimer } from "@/components/heritage/ResearchDisclaimer";
 import { SourcedSection } from "@/components/heritage/SourcedSection";
 import { siteConfig } from "@/lib/site-config";
-import { BOOK_SOURCE_NOTE, BOOK_SOURCE_TITLE } from "@/content/history/web/from-hilltops-to-valley";
 
 export const metadata: Metadata = {
   title: "Amuro, Yagba & Okun Context",
   description:
-    "The wider Amuro, Yagba and Okun historical context recorded in the Takete-Ide community manuscript.",
+    "Explore the wider Amuro, Yagba and Okun historical and cultural context of Takete-Ide.",
   alternates: {
     canonical: `${siteConfig.url}/heritage/amuro-okun-context`,
   },
@@ -45,22 +43,15 @@ export default function AmuroOkunContextPage() {
       </div>
 
       <Container className="max-w-5xl py-14 sm:py-16">
-        <ResearchDisclaimer />
-
-        <div className="mt-12">
+        <div>
           <SourcedSection
-            title="Amuro in the manuscript"
-            status="community_tradition"
-            sourceNote={`${BOOK_SOURCE_TITLE}, Chapter One. ${BOOK_SOURCE_NOTE}`}
+            title="The Amuro Heritage"
           >
             <p>
-              The manuscript explains the name <strong>Amuro</strong> through the traditional expression <em>Amu Oro</em>,
-              which it interprets as a pot associated with poisons. It also remembers an old community symbol as a large
-              pot containing seven arrows, representing the seven Amuro settlements and recalling an era of warfare and defence.
+              Takete-Ide belongs to the historical federation of Amuro settlements. Traditional accounts explain the name <strong>Amuro</strong> through the expression <em>Amu Oro</em>, recalling an era of collective defense symbolised by a large vessel containing seven arrows representing the seven historic Amuro towns.
             </p>
             <p>
-              The source describes the seven settlements as maintaining their own traditional councils while sharing a wider
-              Amuro identity and traditional structure. These descriptions are preserved here as community historical tradition.
+              Each of the seven settlements maintained its own traditional council and local governance while sharing common cultural heritage, defense pacts, and traditional institutions.
             </p>
           </SourcedSection>
         </div>
@@ -68,12 +59,12 @@ export default function AmuroOkunContextPage() {
         <section className="mt-12 rounded-3xl border border-purple-600/10 bg-white p-6 shadow-sm sm:p-8">
           <div className="flex items-center gap-3">
             <UsersRound className="h-5 w-5 text-purple-600" aria-hidden="true" />
-            <h2 className="font-serif text-2xl font-bold text-purple-950">Okun identity</h2>
+            <h2 className="font-serif text-2xl font-bold text-purple-950">Okun Identity &amp; Affinities</h2>
           </div>
           <p className="mt-4 text-sm leading-relaxed text-charcoal/80">
-            The manuscript places Amuro people within the Iyagba or Yagba branch of the wider Okun Yoruba population.
-            It describes Okun identity as bringing together related communities with strong linguistic and cultural affinities,
-            including the following groups:
+            Amuro forms part of the Iyagba (Yagba) branch of the wider Okun Yoruba population in the confluence region.
+            Okun identity brings together closely related communities with strong linguistic, historical, and cultural affinities,
+            including:
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             {okunGroups.map((group) => (
@@ -83,35 +74,35 @@ export default function AmuroOkunContextPage() {
             ))}
           </div>
           <p className="mt-5 text-sm leading-relaxed text-charcoal/75">
-            The source also links the word <em>Okun</em> with the salutation widely used among these communities and notes
-            its associations with strength, vitality and goodwill.
+            The word <em>Okun</em> serves as the ancestral salutation widely shared across these communities, symbolising
+            vitality, resilience, and fellowship.
           </p>
         </section>
 
         <section className="mt-12">
           <div className="flex items-center gap-3">
             <ScrollText className="h-5 w-5 text-gold-700" aria-hidden="true" />
-            <h2 className="font-serif text-2xl font-bold text-purple-950">Two Yagba origin traditions preserved</h2>
+            <h2 className="font-serif text-2xl font-bold text-purple-950">Yagba Origin Traditions</h2>
           </div>
           <p className="mt-3 max-w-3xl text-sm leading-relaxed text-charcoal/70">
-            The manuscript does not present a single uncontested origin story. It preserves two oral traditions and treats
-            their shared themes — migration and Yoruba ancestry — as the important point of convergence.
+            Community historical tradition preserves two key accounts concerning the ancestral origins of the Yagba people,
+            converging on shared Yoruba roots and historical migration into the region.
           </p>
           <div className="mt-7 grid gap-6 md:grid-cols-2">
             <article className="rounded-3xl border border-purple-600/10 bg-white p-6 shadow-sm">
               <p className="text-xs font-bold uppercase tracking-[0.16em] text-gold-700">Tradition one</p>
-              <h3 className="mt-2 font-serif text-xl font-bold text-purple-950">Ile-Ife ancestry</h3>
+              <h3 className="mt-2 font-serif text-xl font-bold text-purple-950">Ile-Ife Ancestry</h3>
               <p className="mt-3 text-sm leading-relaxed text-charcoal/80">
-                One account associates Yagba ancestry with a prince from Ile-Ife whose expedition and later explanation
+                One account associates Yagba ancestry with a royal migration from Ile-Ife whose expedition and later explanation
                 about the absence of an elder adviser became connected in oral memory with the name Iyagba.
               </p>
             </article>
             <article className="rounded-3xl border border-purple-600/10 bg-white p-6 shadow-sm">
               <p className="text-xs font-bold uppercase tracking-[0.16em] text-gold-700">Tradition two</p>
-              <h3 className="mt-2 font-serif text-xl font-bold text-purple-950">Old-Oyo ancestry</h3>
+              <h3 className="mt-2 font-serif text-xl font-bold text-purple-950">Old-Oyo Ancestry</h3>
               <p className="mt-3 text-sm leading-relaxed text-charcoal/80">
                 A second account links the name to <em>Iya-agba</em>, an elder woman or princess from Oyo-Ile who is
-                remembered as leading a migration in search of peace and economic wellbeing.
+                remembered as leading a migration in search of peace and fertile land.
               </p>
             </article>
           </div>

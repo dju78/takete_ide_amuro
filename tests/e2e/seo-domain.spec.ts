@@ -44,7 +44,7 @@ test.describe("Production SEO & Canonical Domain Verification (https://takete-id
     expect(html).toContain('property="og:url" content="https://takete-ide.org"');
 
     // Check JSON-LD Organization URL
-    expect(html).toContain('"url":"https://takete-ide.org"');
+    expect(html).toMatch(/"url":"https:\/\/takete-ide\.org\/?/);
   });
 
   test("Googlebot user-agent receives HTTP 200 with canonical metadata", async ({ request }) => {
@@ -76,5 +76,55 @@ test.describe("Production SEO & Canonical Domain Verification (https://takete-id
       expect(html).not.toContain("takete.netlify.app");
       expect(html).not.toContain("taketeideamuro.org");
     }
+  });
+
+  test("homepage renders valid Schema.org WebSite and Organization JSON-LD with brand alternateNames", async ({ request }) => {
+    const res = await request.get("/");
+    expect(res.status()).toBe(200);
+
+    const html = await res.text();
+
+    // Check Open Graph site name
+    expect(html).toContain('property="og:site_name" content="Takete-Ide Amuro"');
+
+    // Confirm no meta keywords tag
+    expect(html).not.toContain('<meta name="keywords"');
+
+    // Parse all JSON-LD script blocks
+    const scriptRegex = /<script\s+type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/gi;
+    const jsonLdBlocks: any[] = [];
+    let match: RegExpExecArray | null;
+    while ((match = scriptRegex.exec(html)) !== null) {
+      try {
+        jsonLdBlocks.push(JSON.parse(match[1]));
+      } catch (e) {
+        // Skip invalid JSON if any
+      }
+    }
+
+    const websiteNodes = jsonLdBlocks.filter((node) => node["@type"] === "WebSite");
+    const organizationNodes = jsonLdBlocks.filter((node) => node["@type"] === "Organization");
+
+    // Exactly one WebSite entity
+    expect(websiteNodes.length).toBe(1);
+    const website = websiteNodes[0];
+    expect(website["@id"]).toBe("https://takete-ide.org/#website");
+    expect(website.url).toBe("https://takete-ide.org/");
+    expect(website.name).toBe("Takete-Ide Amuro");
+    expect(website.alternateName).toEqual(
+      expect.arrayContaining(["Takete-Ide", "Takete Ide", "Taketeide", "Takete", "takete-ide.org"])
+    );
+
+    // Exactly one Organization entity
+    expect(organizationNodes.length).toBe(1);
+    const org = organizationNodes[0];
+    expect(org["@id"]).toBe("https://takete-ide.org/#organization");
+    expect(org.name).toBe("Takete-Ide Amuro");
+    expect(org.alternateName).toEqual(
+      expect.arrayContaining(["Takete-Ide", "Takete Ide", "Taketeide", "Takete"])
+    );
+    expect(org.url).toBe("https://takete-ide.org/");
+    expect(org.logo).toBe("https://takete-ide.org/images/takete-ide/tipu-emblem.png");
+    expect(org.address?.addressCountry).toBe("NG");
   });
 });

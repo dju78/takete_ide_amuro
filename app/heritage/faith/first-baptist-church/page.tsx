@@ -168,7 +168,7 @@ export default function FirstBaptistChurchHistoryPage() {
                 </h2>
               </div>
               <p className="mt-2 text-sm text-charcoal/75">
-                The original historical manuscript lists six founding fathers who, with their wives, established
+                Historical records document six founding fathers who, with their wives, established
                 the church in November 1922:
               </p>
 

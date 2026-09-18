@@ -15,8 +15,7 @@ test.describe("Takete-Ide Family Oríkì Directory", () => {
     await expect(page.getByText("Oríkì in Takete-Ide, Amuro, are traditional praise names and expressions")).toBeVisible();
     await expect(page.getByText("Within the community, families and ancestral groups have distinctive Oríkì")).toBeVisible();
     await expect(page.getByText("Oríkì may be spoken during greetings, family gatherings")).toBeVisible();
-    await expect(page.getByText("Preserving these traditional names is essential")).toBeVisible();
-    await expect(page.getByText("This collection is a developing community record.")).toBeVisible();
+    await expect(page.getByText(/This collection preserves the traditional praise names/i)).toBeVisible();
   });
 
   test("contains all approved fallback records with no duplicate Eseyin Meleun", async ({ page }) => {
@@ -66,7 +65,7 @@ test.describe("Takete-Ide Family Oríkì Directory", () => {
   test("search by family name and praise name filters records in real time", async ({ page }) => {
     await page.goto("/oriki");
 
-    const searchInput = page.getByPlaceholder("Search family name or Oríkì...");
+    const searchInput = page.getByRole("searchbox", { name: "Search Oríkì records" });
     await searchInput.fill("Attemogbe");
 
     await expect(page.getByText("Attemogbe", { exact: true }).first()).toBeVisible();
@@ -83,14 +82,14 @@ test.describe("Takete-Ide Family Oríkì Directory", () => {
     await expect(page.locator("span", { hasText: /Records?/i }).first()).toBeVisible();
   });
 
-  test("displays developing heritage notice note", async ({ page }) => {
+  test("does not display developing heritage research disclaimer notice", async ({ page }) => {
     await page.goto("/oriki");
 
     await expect(
       page.getByText(
         "This is a developing community heritage record. Verified corrections and additional family Oríkì may be submitted for inclusion."
       )
-    ).toBeVisible();
+    ).toHaveCount(0);
   });
 
   test("responsive layout on mobile has no horizontal overflow", async ({ page }) => {
@@ -251,7 +250,7 @@ test.describe("Takete-Ide Family Oríkì Directory", () => {
     await expect(mobileEseyinAudio.locator("source")).toHaveAttribute("src", "/audio/oriki/eseyin-telu.ogg");
 
     // 4. Search filter maintains audio playback affordance
-    const searchInput = page.getByPlaceholder("Search family name or Oríkì...");
+    const searchInput = page.getByRole("searchbox", { name: "Search Oríkì records" });
     await searchInput.fill("Eseha");
     await expect(page.locator('.space-y-3 audio[aria-label="Oríkì Eseha Jare"]')).toBeVisible();
   });

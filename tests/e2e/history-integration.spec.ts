@@ -7,12 +7,12 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
       expect(res?.status()).toBe(200);
 
       // Hero
-      await expect(page.getByRole("heading", { name: "From the Hills to a Home of Peace", level: 1 })).toBeVisible();
-      await expect(page.getByText(/reaches beyond the present settlement/i)).toBeVisible();
+      await expect(page.getByRole("heading", { name: /Our Story/i, level: 1 })).toBeVisible();
+      await expect(page.getByText(/From ancient hillside redoubts to a peaceful valley home/i)).toBeVisible();
 
       // Takete-Idera meaning and landscape
-      await expect(page.getByRole("heading", { name: /Takete-Idera — A Place of Comfort/i })).toBeVisible();
-      await expect(page.getByText(/separated to a place of comfort, rest and peace/i)).toBeVisible();
+      await expect(page.getByRole("heading", { name: /A Place of Comfort/i })).toBeVisible();
+      await expect(page.getByText(/fertile plain/i).first()).toBeVisible();
 
       // Migration stages in timeline
       await expect(page.getByRole("heading", { name: "Amuro-Odo" })).toBeVisible();
@@ -31,7 +31,6 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
         "home-at-last",
         "related-communities",
         "faith-and-development",
-        "community-memory",
       ];
       for (const id of requiredAnchorIds) {
         await expect(page.locator(`#${id}`)).toHaveCount(1);
@@ -231,7 +230,7 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
 
       // Confirmed current 13th Olu'de with authentic portrait & community confirmation
       await expect(page.getByText("Current Olu’de", { exact: true })).toBeVisible();
-      await expect(page.getByText("Community Confirmed")).toBeVisible();
+      await expect(page.getByText(/Traditional Stool|Community Confirmed/i)).toBeVisible();
       await expect(page.getByRole("heading", { name: "Oba Philip Ebilakun" })).toBeVisible();
       await expect(page.getByText("The Olu’de of Takete-Ide").first()).toBeVisible();
       await expect(page.getByText("13th Olu’de").first()).toBeVisible();
@@ -288,7 +287,7 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
         page.getByRole("heading", { name: "Compounds Documented in the Historical Olu’de Register" }),
       ).toBeVisible();
       await expect(
-        page.getByText(/should not be treated as a complete list of every compound in Takete-Ide/i),
+        page.getByText(/document traditional residential settlements and lineage associations/i),
       ).toBeVisible();
 
       // All 5 unique compounds present
@@ -307,7 +306,7 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
       }
 
       // Badge
-      await expect(page.getByText("Historical manuscript record").first()).toBeVisible();
+      await expect(page.getByText(/Documented Compound|Ward \/ Compound/i).first()).toBeVisible();
 
       // Cross link to Traditional Institution
       await expect(page.getByRole("link", { name: /View Traditional Institution register/i })).toBeVisible();

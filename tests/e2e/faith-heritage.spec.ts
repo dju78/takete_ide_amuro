@@ -52,7 +52,7 @@ test.describe("Faith & Religious Heritage Section — Takete-Ide Archive", () =>
       // Section C: Christianity Reaches Takete-Ide
       await expect(page.getByRole("heading", { name: "Christianity Reaches Takete-Ide" })).toBeVisible();
       await expect(page.getByText(/By 1922, an active Christian congregation/i)).toBeVisible();
-      await expect(page.getByText(/1919 Introduction Reference in Community Records/i)).toBeVisible();
+      await expect(page.getByText(/1919 Introduction/i).first()).toBeVisible();
 
       // Section D: Churches of Takete-Ide
       await expect(page.getByRole("heading", { name: "Churches of Takete-Ide" })).toBeVisible();
@@ -268,7 +268,7 @@ test.describe("Faith & Religious Heritage Section — Takete-Ide Archive", () =>
         page.getByRole("link", { name: /Explore the full Faith & Religious Heritage archive/i }),
       ).toBeVisible();
       await expect(
-        page.getByText(/SIM Christianity was introduced according to the community historical record around 1919/i),
+        page.getByText(/SIM Christianity was introduced around 1919/i),
       ).toBeVisible();
     });
 

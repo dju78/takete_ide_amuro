@@ -72,7 +72,7 @@ export default async function TaketeIdeDayYearPage({ params }: Props) {
             "@type": "PostalAddress",
             addressLocality: siteConfig.location.community,
             addressRegion: siteConfig.location.state,
-            addressCountry: siteConfig.location.country,
+            addressCountry: "NG",
           },
         },
         organizer: { "@type": "Organization", name: siteConfig.name, url: siteConfig.url },

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { UsersRound } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
-import { ResearchDisclaimer } from "@/components/heritage/ResearchDisclaimer";
 import { SourcedSection } from "@/components/heritage/SourcedSection";
 import { siteConfig } from "@/lib/site-config";
 import {
@@ -15,7 +14,7 @@ import { BOOK_COMMUNITY_ORGANISATION_DETAILS } from "@/content/history/web/from-
 export const metadata: Metadata = {
   title: "Community Organisations",
   description:
-    "The community associations recorded in the Takete-Ide historical manuscript, including TIPU, Jet Club, Owe, TISU and Egbe Ode.",
+    "The community associations of Takete-Ide, including TIPU, Jet Club, Owe, TISU and Egbe Ode.",
   alternates: {
     canonical: `${siteConfig.url}/heritage/community-organisations`,
   },
@@ -39,7 +38,7 @@ export default function CommunityOrganisationsPage() {
             <div>
               <h1 className="font-serif text-4xl font-bold sm:text-5xl">Community Organisations</h1>
               <p className="mt-2 max-w-3xl text-white/85">
-                Associations the manuscript describes as part of Takete-Ide&rsquo;s communal strength at home and in the diaspora.
+                Civic and cultural associations that sustain Takete-Ide&rsquo;s communal strength at home and across the diaspora.
               </p>
             </div>
           </div>
@@ -47,18 +46,13 @@ export default function CommunityOrganisationsPage() {
       </div>
 
       <Container className="max-w-5xl py-14 sm:py-16">
-        <ResearchDisclaimer />
-
-        <div className="mt-12">
+        <div>
           <SourcedSection
             title="Weaving the communal soul"
-            status="documentary_evidence"
-            sourceNote={`${BOOK_SOURCE_TITLE}. ${BOOK_SOURCE_NOTE}`}
           >
             <p>
-              Chapter Thirteen presents community associations as institutions that carry cooperation,
-              education, farming support, youth development and security across generations. The page below
-              summarises the roles attributed to them in the manuscript.
+              Community associations serve as foundational civic institutions carrying cooperation,
+              education, mutual farming support, youth development and security across generations in Takete-Ide.
             </p>
           </SourcedSection>
         </div>
@@ -93,13 +87,6 @@ export default function CommunityOrganisationsPage() {
               </article>
             );
           })}
-        </div>
-
-        <div className="mt-10 rounded-2xl border border-gold-500/25 bg-gold-50 p-5 text-sm leading-relaxed text-charcoal/80">
-          This is a historical-source view of the organisations. Current officers, constitutions, branch details,
-          programmes and contact information should continue to come from the organisations themselves or verified
-          community records. The website does not reproduce the violent incident described near the end of the manuscript;
-          the historical role of Egbe Ode is preserved without publishing that anecdote as current security information.
         </div>
       </Container>
     </div>

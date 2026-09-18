@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { HeritageImage } from "@/components/ui/HeritageImage";
-import { ResearchDisclaimer } from "@/components/heritage/ResearchDisclaimer";
 
 export const metadata: Metadata = {
   title: "Traditional Marriage",
@@ -24,9 +22,7 @@ export default function TraditionalMarriagePage() {
       </div>
 
       <Container className="max-w-4xl py-16">
-        <ResearchDisclaimer />
-
-        <div className="mt-10 grid gap-6 sm:grid-cols-2">
+        <div className="grid gap-6 sm:grid-cols-2">
           <div className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-lg">
             <HeritageImage
               src="/images/takete-ide/marriage-celebration-1.jpg"
@@ -83,20 +79,12 @@ export default function TraditionalMarriagePage() {
         </section>
 
         <section className="prose-heritage mt-12">
-          <h2>About These Photographs</h2>
+          <h2>About Traditional Marriage Ceremonies</h2>
           <p>
-            These photographs show ceremonial items and community gatherings associated with marriage
-            celebrations in Takete-Ide. In keeping with this archive&rsquo;s commitment to historical
-            precision, the specific cultural significance of individual ceremonial items continues to
-            be documented, and is described here in general terms.
-          </p>
-          <p>
-            If you can help document the traditions, items and customs associated with marriage
-            celebrations in Takete-Ide, please{" "}
-            <Link href="/families/contribute" className="text-community-green underline underline-offset-2">
-              contribute what you know
-            </Link>
-            .
+            These photographs document ceremonial gifts, household preparations and family gatherings
+            associated with marriage celebrations in Takete-Ide. Traditional marriages unite extended families
+            and compounds across the community through shared hospitality, reciprocal blessing, and time-honoured
+            cultural rites.
           </p>
         </section>
       </Container>

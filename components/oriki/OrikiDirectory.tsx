@@ -1,8 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import Link from "next/link";
-import { Search, X, PlusCircle, ShieldCheck, BookOpen, Volume2 } from "lucide-react";
+import { Search, X, BookOpen, Volume2 } from "lucide-react";
 import type { OrikiRecord } from "@/lib/data/oriki-records";
 import { cn } from "@/lib/utils";
 
@@ -39,43 +38,40 @@ export function OrikiDirectory({ records }: Props) {
   const totalWithAudio = useMemo(() => records.filter((r) => Boolean(r.audio_url)).length, [records]);
 
   const filtered = useMemo(() => {
-    let list = records;
-    if (audioOnly) {
-      list = list.filter((r) => Boolean(r.audio_url));
-    }
     const q = search.trim().toLowerCase();
-    if (!q) return list;
-    return list.filter(
-      (r) =>
+    return records.filter((r) => {
+      if (audioOnly && !r.audio_url) return false;
+      if (!q) return true;
+
+      return (
         r.family_origin.toLowerCase().includes(q) ||
         r.male_oriki.toLowerCase().includes(q) ||
         r.female_oriki.toLowerCase().includes(q) ||
-        (r.notes && r.notes.toLowerCase().includes(q))
-    );
+        (r.notes ? r.notes.toLowerCase().includes(q) : false)
+      );
+    });
   }, [records, search, audioOnly]);
 
   return (
     <div className="space-y-8">
-      {/* Filter and stats bar */}
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex flex-1 flex-col gap-3 sm:flex-row sm:items-center">
-          <div className="relative flex-1 max-w-md">
-            <label htmlFor="oriki-search" className="sr-only">
-              Search Oríkì records
-            </label>
-            <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-charcoal/40" />
+      {/* Search & Filter Toolbar */}
+      <div className="space-y-4 rounded-3xl border border-purple-100 bg-white p-6 shadow-xs sm:p-8">
+        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div className="relative flex-1 max-w-lg">
+            <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-charcoal/40" />
             <input
-              id="oriki-search"
               type="search"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search family name or Oríkì..."
-              className="w-full rounded-full border border-purple-600/20 bg-white py-2.5 pl-10 pr-10 text-sm placeholder:text-charcoal/40 focus:border-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-600/20 shadow-xs"
+              className="w-full rounded-full border border-purple-200 bg-purple-50/40 py-2.5 pl-11 pr-10 text-sm text-charcoal placeholder:text-charcoal/40 focus:border-purple-600 focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-purple-600/20"
+              aria-label="Search Oríkì records"
             />
             {search && (
               <button
+                type="button"
                 onClick={() => setSearch("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-charcoal/40 hover:text-charcoal p-1"
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 rounded-full p-1 text-charcoal/40 hover:text-charcoal"
                 aria-label="Clear search"
               >
                 <X className="h-4 w-4" />
@@ -83,22 +79,26 @@ export function OrikiDirectory({ records }: Props) {
             )}
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <button
               type="button"
-              onClick={() => setAudioOnly(false)}
+              onClick={() => {
+                setAudioOnly(false);
+                setSearch("");
+              }}
               className={cn(
                 "rounded-full px-3.5 py-1.5 text-xs font-semibold transition cursor-pointer",
-                !audioOnly
-                  ? "bg-purple-700 text-white shadow-2xs"
-                  : "bg-white text-purple-900 border border-purple-200 hover:bg-purple-50"
+                !audioOnly && !search
+                  ? "bg-purple-900 text-white shadow-2xs"
+                  : "bg-purple-50/60 text-purple-900 hover:bg-purple-100"
               )}
             >
-              All Records ({records.length})
+              All Records
             </button>
+
             <button
               type="button"
-              onClick={() => setAudioOnly(true)}
+              onClick={() => setAudioOnly(!audioOnly)}
               className={cn(
                 "inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-semibold transition cursor-pointer",
                 audioOnly
@@ -116,13 +116,6 @@ export function OrikiDirectory({ records }: Props) {
           <span className="rounded-full bg-purple-100/70 px-3 py-1 font-semibold text-purple-900">
             {filtered.length} {filtered.length === 1 ? "Record" : "Records"}
           </span>
-          <Link
-            href="/oriki/contribute"
-            className="inline-flex items-center gap-1.5 font-medium text-purple-700 hover:text-purple-900 hover:underline"
-          >
-            <PlusCircle className="h-3.5 w-3.5" />
-            Submit correction / new Oríkì
-          </Link>
         </div>
       </div>
 
@@ -254,28 +247,6 @@ export function OrikiDirectory({ records }: Props) {
           </div>
         </>
       )}
-
-      {/* Developing heritage notice banner */}
-      <div className="rounded-3xl border border-gold-300 bg-gold-50/80 p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
-        <div className="flex items-start gap-4">
-          <ShieldCheck className="h-6 w-6 shrink-0 text-gold-700 mt-0.5" />
-          <div>
-            <h4 className="font-serif font-bold text-purple-950 text-base">
-              Community Heritage Record
-            </h4>
-            <p className="mt-1 text-xs sm:text-sm text-charcoal/80 leading-relaxed max-w-2xl">
-              This is a developing community heritage record. Verified corrections and additional family Oríkì may be submitted for inclusion. Approved audio recordings may also be submitted.
-            </p>
-          </div>
-        </div>
-
-        <Link
-          href="/oriki/contribute"
-          className="inline-flex shrink-0 items-center justify-center rounded-full bg-purple-700 px-5 py-2.5 text-xs font-bold text-white shadow-xs transition hover:bg-purple-800"
-        >
-          Submit Oríkì Record →
-        </Link>
-      </div>
     </div>
   );
 }

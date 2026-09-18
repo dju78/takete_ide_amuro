@@ -29,7 +29,7 @@ export const MIGRATION_TIMELINE: TimelineEntry[] = [
     period: "Pre-19th Century",
     title: "Ancestral Co-existence at Amuro-Odo",
     description:
-      "According to community historical accounts, the kindred groups of Amuro originally lived together in a fertile plain settlement known as Amuro-Odo before regional warfare forced dispersal.",
+      "Community oral tradition holds that the kindred groups of Amuro originally lived together in a fertile plain settlement known as Amuro-Odo before regional warfare forced dispersal.",
     sourceType: "community-historical-account",
     verificationStatus: "community-account",
     significance: "The shared ancestral settlement of Amuro kindred groups before 19th-century regional instability.",
@@ -94,11 +94,11 @@ export const MIGRATION_TIMELINE: TimelineEntry[] = [
     period: "1949 onward",
     title: "Further Migration to Takete-Tedo",
     description:
-      "Chapter Six of the supplied manuscript records a later movement toward the more accessible Okegada area near the Kabba–Ilorin road. Overseer Cornelius Maiye is identified as the first Takete-Ide indigene to move to the Takete-Tedo section in 1949, after which other families followed.",
+      "In 1949, a subsequent movement expanded toward the accessible Okegada area along the Kabba–Ilorin road corridor. Overseer Cornelius Maiye was the pioneer Takete-Ide indigene to settle in Takete-Tedo, with numerous families following to build homes through communal labour.",
     sourceType: "community-historical-account",
     verificationStatus: "community-account",
     significance:
       "A later extension of Takete-Ide settlement history, remembered for road access, kinship continuity and communal labour in building new homes.",
-    locationNote: "Takete-Tedo section of Okegada, linked by the manuscript to the wider Takete-Ide community.",
+    locationNote: "Takete-Tedo section of Okegada, sharing unbroken civic and ancestral ties with Takete-Ide.",
   },
 ];

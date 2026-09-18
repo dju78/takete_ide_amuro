@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { MapPinned, Hammer, UsersRound } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
-import { ResearchDisclaimer } from "@/components/heritage/ResearchDisclaimer";
 import { SourcedSection } from "@/components/heritage/SourcedSection";
 import { siteConfig } from "@/lib/site-config";
 import {
@@ -50,9 +49,7 @@ export default function TaketeTedoPage() {
       </div>
 
       <Container className="max-w-5xl py-14 sm:py-16">
-        <ResearchDisclaimer />
-
-        <div className="mt-12">
+        <div>
           <SourcedSection
             title="A second settlement, one Takete-Ide community"
             status="oral_history"

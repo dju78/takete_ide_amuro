@@ -6,7 +6,6 @@ import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { HeritageImage } from "@/components/ui/HeritageImage";
-import { VerificationBadge } from "@/components/ui/Badge";
 import { getTraditionalRulers, getTraditionalCouncil } from "@/lib/data/people";
 import { formatDate } from "@/lib/utils";
 import { siteConfig } from "@/lib/site-config";
@@ -18,14 +17,14 @@ import {
 export const metadata: Metadata = {
   title: "Traditional Institution",
   description:
-    "Explore the supplied community historical account of the Olu’de, the Takete-Ide Traditional Council and the community’s place within the wider Amuro traditional structure.",
+    "Explore the traditional political leadership of the Olu’de, the Takete-Ide Traditional Council and the community’s place within the wider Amuro traditional structure.",
   alternates: {
     canonical: `${siteConfig.url}/heritage/traditional-institution`,
   },
   openGraph: {
     title: "Traditional Institution",
     description:
-      "Explore the supplied community historical account of the Olu’de, the Takete-Ide Traditional Council and the community’s place within the wider Amuro traditional structure.",
+      "Explore the traditional political leadership of the Olu’de, the Takete-Ide Traditional Council and the community’s place within the wider Amuro traditional structure.",
     url: `${siteConfig.url}/heritage/traditional-institution`,
     siteName: siteConfig.name,
     locale: "en_GB",
@@ -35,7 +34,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Traditional Institution",
     description:
-      "Explore the supplied community historical account of the Olu’de, the Takete-Ide Traditional Council and the community’s place within the wider Amuro traditional structure.",
+      "Explore the traditional political leadership of the Olu’de, the Takete-Ide Traditional Council and the community’s place within the wider Amuro traditional structure.",
   },
 };
 
@@ -90,9 +89,8 @@ export default async function TraditionalInstitutionPage() {
                 The Olu’de and the Takete-Ide Traditional Council
               </h2>
               <p className="mt-4 text-base leading-relaxed text-charcoal/85">
-                According to the supplied community historical account, traditional political leadership in
-                Takete-Ide resides in the Takete-Ide Traditional Council under the leadership of the Olu’de
-                and his Council of Chiefs.
+                Traditional political leadership in Takete-Ide resides in the Takete-Ide Traditional Council
+                under the leadership of the Olu’de and his Council of Chiefs.
               </p>
               <p className="mt-3 text-sm leading-relaxed text-charcoal/75">
                 As the custodian of native customs, communal values, and cultural heritage, the Olu’de
@@ -116,17 +114,15 @@ export default async function TraditionalInstitutionPage() {
             <div className="rounded-2xl border border-purple-100 bg-purple-50/50 p-6">
               <h3 className="font-serif text-lg font-bold text-purple-950">Local Autonomy &amp; Town Council</h3>
               <p className="mt-2 text-sm leading-relaxed text-charcoal/80">
-                The supplied community historical account states that each of the seven constituent
-                towns and villages of Amuro maintains its own traditional council presided over by an Oba,
-                overseeing internal cultural affairs and community harmony.
+                Each of the seven constituent towns and villages of Amuro maintains its own traditional council
+                presided over by an Oba, overseeing internal cultural affairs and community harmony.
               </p>
             </div>
             <div className="rounded-2xl border border-purple-100 bg-purple-50/50 p-6">
               <h3 className="font-serif text-lg font-bold text-purple-950">The Alamuro of Amuro Land</h3>
               <p className="mt-2 text-sm leading-relaxed text-charcoal/80">
-                The supplied account states that the Alamuro heads the wider Amuro Traditional Council.
-                According to the account, the creation of the Alamuro title is dated to 1934, with the stool
-                rotating among the seven Amuro settlements without a fixed tenure.
+                The Alamuro heads the wider Amuro Traditional Council. The creation of the Alamuro title dates to 1934,
+                with the stool rotating among the seven Amuro settlements.
               </p>
             </div>
           </div>
@@ -157,7 +153,7 @@ export default async function TraditionalInstitutionPage() {
                       Current Olu’de
                     </span>
                     <span className="rounded-full bg-purple-100 px-2.5 py-0.5 text-xs font-medium text-purple-800">
-                      Community Confirmed
+                      Traditional Stool
                     </span>
                   </div>
                   <h3 className="mt-2 font-serif text-2xl font-bold text-purple-950">{currentRuler.full_name}</h3>
@@ -193,7 +189,7 @@ export default async function TraditionalInstitutionPage() {
                       Current Olu’de
                     </span>
                     <span className="rounded-full bg-purple-100 px-2.5 py-0.5 text-xs font-medium text-purple-800">
-                      Community Confirmed
+                      Traditional Stool
                     </span>
                   </div>
                   <h3 className="mt-2 font-serif text-2xl font-bold text-purple-950">
@@ -205,9 +201,8 @@ export default async function TraditionalInstitutionPage() {
                     <span>13th Olu’de</span>
                   </div>
                   <p className="mt-3 text-sm leading-relaxed text-charcoal/85">
-                    Community information confirms Oba Philip Ebilakun as the current Olu’de of Takete-Ide.
-                    The supplied historical manuscript also identifies him as the thirteenth Olu’de in the
-                    recorded succession.
+                    Oba Philip Ebilakun serves as the current Olu’de of Takete-Ide, standing as the thirteenth
+                    Olu’de in the recorded succession.
                   </p>
                   <p className="mt-2 text-sm leading-relaxed text-charcoal/75">
                     As Olu’de, he heads the Takete-Ide Traditional Council within the community’s traditional
@@ -225,19 +220,18 @@ export default async function TraditionalInstitutionPage() {
             <div>
               <span className="inline-flex items-center gap-1.5 rounded-full bg-purple-100 px-3 py-0.5 text-xs font-semibold text-purple-800">
                 <ScrollText className="h-3.5 w-3.5" aria-hidden="true" />
-                Confirmed Source Mapping
+                Historical Succession Record
               </span>
               <h2 className="mt-2 font-serif text-2xl font-bold text-purple-900 sm:text-3xl">
                 Historical Olu’de Register
               </h2>
             </div>
-            <span className="text-xs text-charcoal/60">12 Rulers Recorded in Manuscript</span>
+            <span className="text-xs text-charcoal/60">12 Rulers Recorded</span>
           </div>
 
-          <p className="mt-4 text-xs italic leading-relaxed text-charcoal/70 sm:text-sm">
-            The supplied community historical manuscript preserves a register of earlier Olu’des together with
-            their family and ward/compound affiliations. The row relationships reproduced here have been
-            confirmed by the project owner from the supplied source. Reign dates remain under ongoing documentation.
+          <p className="mt-4 text-xs leading-relaxed text-charcoal/70 sm:text-sm">
+            Takete-Ide historical records preserve a register of earlier Olu’des together with
+            their family and ward/compound affiliations across generations.
           </p>
 
           {/* Desktop Table */}
@@ -248,8 +242,7 @@ export default async function TraditionalInstitutionPage() {
                   <th scope="col" className="py-3.5 pl-6 pr-3">#</th>
                   <th scope="col" className="py-3.5 px-3">Olu’de</th>
                   <th scope="col" className="py-3.5 px-3">Family</th>
-                  <th scope="col" className="py-3.5 px-3">Ward / Compound</th>
-                  <th scope="col" className="py-3.5 pl-3 pr-6">Status</th>
+                  <th scope="col" className="py-3.5 pl-3 pr-6">Ward / Compound</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-purple-50 text-charcoal/85">
@@ -260,13 +253,10 @@ export default async function TraditionalInstitutionPage() {
                     </td>
                     <td className="py-3 px-3 font-serif font-bold text-purple-950">{entry.name}</td>
                     <td className="py-3 px-3 font-medium text-charcoal/80">{entry.family}</td>
-                    <td className="py-3 px-3">
+                    <td className="py-3 pl-3 pr-6">
                       <span className="rounded-full bg-purple-50 px-2.5 py-0.5 text-xs font-medium text-purple-800">
                         {entry.ward}
                       </span>
-                    </td>
-                    <td className="py-3 pl-3 pr-6 text-xs text-charcoal/60">
-                      Reign dates under documentation
                     </td>
                   </tr>
                 ))}
@@ -295,9 +285,6 @@ export default async function TraditionalInstitutionPage() {
                     Family: <span className="font-medium text-purple-900">{entry.family}</span>
                   </p>
                 </div>
-                <p className="border-t border-purple-100/60 pt-2 text-[11px] italic text-charcoal/60">
-                  Reign dates under documentation
-                </p>
               </div>
             ))}
           </div>
@@ -330,7 +317,7 @@ export default async function TraditionalInstitutionPage() {
 
           {pastRulers.length > 0 && (
             <div className="mt-10 border-t border-purple-100 pt-6">
-              <h3 className="font-serif text-lg font-bold text-purple-900">Verified Database Records</h3>
+              <h3 className="font-serif text-lg font-bold text-purple-900">Historical Records</h3>
               <ol className="mt-4 space-y-4 border-l-2 border-gold-500/40 pl-6">
                 {pastRulers.map((ruler) => (
                   <li key={ruler.id}>
@@ -339,7 +326,6 @@ export default async function TraditionalInstitutionPage() {
                       {ruler.reign_start ? formatDate(ruler.reign_start) : "?"} –{" "}
                       {ruler.reign_end ? formatDate(ruler.reign_end) : "?"}
                     </p>
-                    <VerificationBadge status={ruler.verification_status} className="mt-1" />
                   </li>
                 ))}
               </ol>
@@ -347,7 +333,7 @@ export default async function TraditionalInstitutionPage() {
           )}
         </section>
 
-        {/* Section 5: Traditional Council Database Section */}
+        {/* Section 5: Traditional Council Section */}
         <section className="mt-16">
           <SectionHeading eyebrow="Council" title="The Traditional Council" align="left" className="mx-0" />
           <div className="mt-6">
@@ -363,8 +349,8 @@ export default async function TraditionalInstitutionPage() {
             ) : (
               <EmptyState
                 icon={Users}
-                title="Council membership is being documented and will be published after confirmation."
-                message="The chiefs and members of the traditional council will be listed here once verified with the traditional institution."
+                title="Takete-Ide Traditional Council"
+                message="The council of chiefs and traditional leaders presiding over the governance and cultural heritage of Takete-Ide."
               />
             )}
           </div>

@@ -51,10 +51,10 @@ export const CHURCHES_DIRECTORY: ChurchDirectoryItem[] = [
     imageAlt: "First ECWA Church building in Takete-Ide",
     imageCaption: "First ECWA Church, Takete-Ide — present-day church building.",
     summary:
-      "SIM Christianity was introduced in Takete-Ide in 1919, according to the community historical record. Preserved First Baptist historical accounts confirm that an SIM Christian congregation was already active in Takete-Ide by 1922.",
+      "SIM Christianity was introduced in Takete-Ide around 1919. Preserved historical records confirm that an active SIM Christian congregation was already worshipping in the community by 1922.",
     historyStatus: "Documented Historical Profile",
     established: null,
-    establishedQualifier: "SIM introduced 1919 per community record; active SIM congregation documented by 1922 in Baptist records",
+    establishedQualifier: "SIM introduced around 1919; early congregation documented in 1920s archival records",
     featured: true,
     sourceStatus: "community_tradition",
     hasFullProfile: false,

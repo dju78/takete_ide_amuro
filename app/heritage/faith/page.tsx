@@ -13,7 +13,6 @@ import {
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { ResearchDisclaimer } from "@/components/heritage/ResearchDisclaimer";
 import { SourcedSection } from "@/components/heritage/SourcedSection";
 import { ChurchCard } from "@/components/faith/ChurchCard";
 import { FaithTimeline } from "@/components/faith/FaithTimeline";
@@ -72,8 +71,7 @@ export default function FaithHeritagePage() {
           </p>
           <p className="mt-2 max-w-3xl text-sm leading-relaxed text-white/80">
             This archive preserves historical accounts, places of worship, photographs and community records
-            relating to the religious life of Takete-Ide. Where dates or details remain under verification, this
-            is clearly indicated.
+            relating to the religious life of Takete-Ide.
           </p>
           <div className="mt-6 flex flex-wrap items-center gap-3">
             <a
@@ -102,14 +100,10 @@ export default function FaithHeritagePage() {
       </div>
 
       <Container className="py-14 sm:py-16">
-        <ResearchDisclaimer />
-
         {/* SECTION A: INDIGENOUS RELIGIOUS HERITAGE */}
-        <section id="indigenous-heritage" className="mt-14 scroll-mt-20">
+        <section id="indigenous-heritage" className="scroll-mt-20">
           <SourcedSection
             title="Indigenous Religious Heritage of Takete-Ide"
-            status="community_tradition"
-            sourceNote="Preserved in the supplied community historical manuscript and living oral traditions."
           >
             <div className="space-y-4">
               <p>
@@ -136,7 +130,7 @@ export default function FaithHeritagePage() {
                     Agado &amp; Oliwo Traditions
                   </h3>
                   <p className="mt-2 text-xs leading-relaxed text-charcoal/80">
-                    The supplied community manuscript records two principal traditional religious groupings in ancient
+                    Takete-Ide historical records preserve two principal traditional religious groupings in ancient
                     Ilu-Oke: <strong>Agado</strong> and <strong>Oliwo</strong>. Each group observed three-day annual
                     ceremonies and worship cycles (associated with Epa, Oro, and Egungun festivities), timed with the onset
                     of the rains between May and June, culminating in communal consultations and declarations of blessing.
@@ -162,10 +156,10 @@ export default function FaithHeritagePage() {
                         Otegun – Orisa Deity House
                       </h3>
                       <p className="mt-2 text-xs leading-relaxed text-charcoal/80">
-                        Otegun, a traditional Orisa deity house in Takete-Ide. The manuscript preserves traditions of diverse masquerades including <strong>Akorowo</strong> (the
+                        Otegun, a traditional Orisa deity house in Takete-Ide. Living traditions celebrate diverse masquerades including <strong>Akorowo</strong> (the
                         whistling opening herald), <strong>Ate</strong> (feathered and glass-laced), <strong>Origi</strong>,{" "}
-                        <strong>Apa Rege Rege</strong>, and <strong>Otutumoba</strong>, alongside veneration of goddesses{" "}
-                        <strong>Otegun</strong> and <strong>Orisa</strong> by women, and cultural associations such as{" "}
+                        <strong>Apa Rege Rege</strong>, and <strong>Otutumoba</strong>, alongside veneration of spiritual guardians{" "}
+                        <strong>Otegun</strong> and <strong>Orisa</strong>, and cultural societies such as{" "}
                         <strong>Alase</strong>, <strong>Ojingindo</strong>, <strong>Saaji</strong>, <strong>Erembe</strong>, and{" "}
                         <strong>Iro</strong>.
                       </p>
@@ -251,8 +245,6 @@ export default function FaithHeritagePage() {
         <section id="christianity-comes-to-yagba" className="mt-16 scroll-mt-20">
           <SourcedSection
             title="Christianity Comes to Yagba"
-            status="documentary_evidence"
-            sourceNote="Regional mission history preserved in Sudan Interior Mission (SIM) records and secondary historical accounts."
           >
             <div className="space-y-4">
               <p>
@@ -290,8 +282,6 @@ export default function FaithHeritagePage() {
         <section id="christianity-reaches-takete-ide" className="mt-16 scroll-mt-20">
           <SourcedSection
             title="Christianity Reaches Takete-Ide"
-            status="documentary_evidence"
-            sourceNote="Preserved First Baptist Church historical account and community archive records."
           >
             <div className="space-y-4">
               <p>
@@ -311,20 +301,16 @@ export default function FaithHeritagePage() {
                 the <strong>First Baptist Church, Takete-Ide</strong>.
               </p>
 
-              {/* 1919 Community Record Verification Callout */}
-              <div className="rounded-2xl border border-gold-300/80 bg-gold-50/70 p-5">
+              {/* 1919 Community Record Callout */}
+              <div className="rounded-2xl border border-purple-100 bg-purple-50/40 p-5">
                 <div className="flex items-start gap-3">
-                  <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-gold-700" aria-hidden="true" />
+                  <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-purple-700" aria-hidden="true" />
                   <div>
                     <h3 className="font-serif text-base font-bold text-purple-950">
-                      1919 Introduction Reference in Community Records
+                      1919 Introduction into Takete-Ide
                     </h3>
                     <p className="mt-1 text-xs leading-relaxed text-charcoal/80">
-                      The Takete-Ide community historical record preserves a traditional reference to{" "}
-                      <strong>1919</strong> as the year SIM Christianity was first introduced into Takete-Ide. In
-                      accordance with archival standards, this milestone is recorded as{" "}
-                      <em>&ldquo;1919 — SIM Christianity introduced in Takete-Ide, according to the community historical record&rdquo;</em>,
-                      preserving the living community tradition.
+                      Community historical records preserve <strong>around 1919</strong> as the initial arrival of SIM Christian ministry in Takete-Ide, laying the foundation for permanent congregational life in the early 1920s.
                     </p>
                   </div>
                 </div>
@@ -340,7 +326,7 @@ export default function FaithHeritagePage() {
             title="Churches of Takete-Ide"
             align="left"
             className="mx-0"
-            description="Christian congregations have played an important role in the religious and community life of Takete-Ide across generations. This directory preserves their names, photographs and historical records as reliable information becomes available."
+            description="Christian congregations have played an important role in the religious and community life of Takete-Ide across generations. This directory preserves their history, architectural heritage, and ministries."
           />
 
           <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

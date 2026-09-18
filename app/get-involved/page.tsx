@@ -10,15 +10,15 @@ import { NominationForm } from "@/components/forms/NominationForm";
 
 export const metadata: Metadata = {
   title: "Get Involved",
-  description: "Volunteer, contribute historical materials, or partner with Takete-Ide Amuro's community development.",
+  description: "Volunteer skills, support development projects, participate in the diaspora network, or partner with Takete-Ide Amuro.",
 };
 
 const options = [
   { icon: HandHeart, title: "Volunteer Skills", description: "Offer your professional or technical skills to community initiatives." },
   { icon: Users, title: "Community Projects", description: "Support ongoing development projects with time, expertise or funding." },
   { icon: Globe2, title: "Diaspora Participation", description: "Join the diaspora network to stay connected and contribute from abroad.", href: "/diaspora" },
-  { icon: BookOpen, title: "Share Historical Materials", description: "Contribute photographs, documents or family records to the digital archive.", href: "/archive" },
-  { icon: Mic, title: "Oral History Contribution", description: "Share or recommend elders for the Voices of Takete-Ide oral history project.", href: "/archive/oral-history" },
+  { icon: BookOpen, title: "Explore the Digital Archive", description: "Explore historical documents, photographs, and migration records.", href: "/archive" },
+  { icon: Mic, title: "Voices of Takete-Ide", description: "Listen to community oral testimonies, audio recordings, and ancestral recollections.", href: "/archive/oral-history" },
   { icon: Handshake, title: "Community Partnerships", description: "Explore institutional or organisational partnerships with Takete-Ide." },
   { icon: Sparkles, title: "Youth Engagement", description: "Get young people involved in heritage, development and leadership." },
 ];

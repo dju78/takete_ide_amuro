@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   openGraph: {
-    title: siteConfig.name,
+    title: `${siteConfig.name} | ${siteConfig.tagline}`,
     description: siteConfig.description,
     siteName: siteConfig.name,
     locale: "en_GB",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: siteConfig.name,
+    title: `${siteConfig.name} | ${siteConfig.tagline}`,
     description: siteConfig.description,
   },
   alternates: {
@@ -42,8 +42,16 @@ export const metadata: Metadata = {
 const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: siteConfig.name,
-  url: siteConfig.url,
+  "@id": "https://takete-ide.org/#organization",
+  name: "Takete-Ide Amuro",
+  alternateName: [
+    "Takete-Ide",
+    "Takete Ide",
+    "Taketeide",
+    "Takete",
+  ],
+  url: "https://takete-ide.org/",
+  logo: "https://takete-ide.org/images/takete-ide/tipu-emblem.png",
   email: siteConfig.contact.email,
   sameAs: [siteConfig.contact.youtube],
   description: siteConfig.description,
@@ -51,7 +59,7 @@ const organizationJsonLd = {
     "@type": "PostalAddress",
     addressLocality: siteConfig.location.community,
     addressRegion: siteConfig.location.state,
-    addressCountry: siteConfig.location.country,
+    addressCountry: "NG",
   },
 };
 

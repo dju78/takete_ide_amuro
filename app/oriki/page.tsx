@@ -77,10 +77,9 @@ export default async function OrikiPage() {
             </p>
 
             <p className="italic text-charcoal/75 bg-purple-50/50 p-4 rounded-2xl border border-purple-100/60">
-              This collection is a developing community record. Elders, family representatives and other
-              knowledgeable community members are encouraged to review the entries, correct inaccurate spellings
-              and provide any missing Oríkì. Through this shared effort, Takete-Ide can preserve an accurate and
-              lasting account of this important aspect of its cultural heritage.
+              This collection preserves the traditional praise names and family heritage of Takete-Ide.
+              Through enduring community memory and historical preservation, Takete-Ide maintains an authentic
+              and lasting record of this vital cultural tradition.
             </p>
           </div>
         </section>

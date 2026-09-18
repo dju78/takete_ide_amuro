@@ -69,7 +69,7 @@ test.describe("Production Smoke Test", () => {
 
     const bodyText = await page.innerText("body");
     expect(bodyText).not.toContain("unverified");
-    expect(bodyText).toContain("commitment to historical precision");
+    expect(bodyText).toContain("Traditional Marriage");
   });
 
   test("Mobile navigation opens and renders cleanly", async ({ page }) => {

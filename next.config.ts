@@ -19,6 +19,16 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: "/families/contribute",
+        destination: "/families",
+        permanent: true,
+      },
+      {
+        source: "/oriki/contribute",
+        destination: "/oriki",
+        permanent: true,
+      },
+      {
         source: "/admin",
         has: [{ type: "host", value: "takete.netlify.app" }],
         destination: "https://takete-ide.org/admin",

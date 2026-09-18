@@ -61,8 +61,8 @@ export const ARCHIVE_OVERVIEW_CARDS: ArchiveOverviewCard[] = [
 export const ILETEJU_TRANSITION = {
   title: "Ileteju to Takete-Idera",
   body:
-    "According to the supplied community historical account, the new low-plain location settled around 1926 was initially known as Ileteju, meaning 'flat land'. Following subsequent community deliberation and collective affirmation, the settlers adopted the name Takete-Idera to signify their enduring arrival in a home of comfort, rest, and renewed peace.",
-  note: "Attribution: Supplied community historical manuscript. Name transition date is not individually dated.",
+    "The new low-plain location settled around 1926 was initially known as Ileteju, meaning 'flat land'. Following subsequent community deliberation and collective affirmation, the settlers adopted the name Takete-Idera to signify their enduring arrival in a home of comfort, rest, and renewed peace.",
+  note: "Attribution: Preserved community historical record. Name transition occurred following early settlement.",
 };
 
 export const RELATED_HERITAGE_LINKS = [

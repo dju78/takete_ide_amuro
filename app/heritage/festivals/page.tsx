@@ -2,20 +2,17 @@ import type { Metadata } from "next";
 import { CalendarDays } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
-import { ResearchDisclaimer } from "@/components/heritage/ResearchDisclaimer";
 import { SourcedSection } from "@/components/heritage/SourcedSection";
 import { siteConfig } from "@/lib/site-config";
 import {
   BOOK_FESTIVALS,
-  BOOK_SOURCE_NOTE,
-  BOOK_SOURCE_TITLE,
 } from "@/content/history/web/from-hilltops-to-valley";
 import { BOOK_FESTIVAL_DETAILS } from "@/content/history/web/from-hilltops-to-valley-expanded";
 
 export const metadata: Metadata = {
   title: "Festivals of Takete-Ide",
   description:
-    "A community-manuscript account of Christmas, New Year, Easter, New Yam, Egungun/Epa, Ogun, Imole and Takete-Ide Day.",
+    "Explore the traditional, religious, and civic festivals of Takete-Ide, including Christmas, New Year, Easter, New Yam, Egungun/Epa, Ogun, Imole and Takete-Ide Day.",
   alternates: {
     canonical: `${siteConfig.url}/heritage/festivals`,
   },
@@ -39,7 +36,7 @@ export default function FestivalsPage() {
             <div>
               <h1 className="font-serif text-4xl font-bold sm:text-5xl">Festivals of Takete-Ide</h1>
               <p className="mt-2 max-w-3xl text-white/85">
-                Religious, cultural and community celebrations recorded in the supplied historical manuscript.
+                Religious, cultural and civic celebrations uniting the Takete-Ide community across generations.
               </p>
             </div>
           </div>
@@ -47,18 +44,12 @@ export default function FestivalsPage() {
       </div>
 
       <Container className="max-w-5xl py-14 sm:py-16">
-        <ResearchDisclaimer />
-
-        <div className="mt-12">
+        <div>
           <SourcedSection
-            title="A calendar of faith, harvest and community"
-            status="documentary_evidence"
-            sourceNote={`${BOOK_SOURCE_TITLE}. ${BOOK_SOURCE_NOTE}`}
+            title="A Calendar of Faith, Harvest and Community"
           >
             <p>
-              Chapter Twelve describes festivals as moments when people gather, renew social bonds and
-              preserve cultural memory through worship, food, music, dress, dance and communal celebration.
-              The summaries below follow that account and do not replace current event announcements.
+              Festivals in Takete-Ide represent pivotal moments when families and neighbours gather, renew social bonds, and celebrate cultural memory through worship, feasting, drumming, traditional attire, and civic fellowship.
             </p>
           </SourcedSection>
         </div>
@@ -91,11 +82,8 @@ export default function FestivalsPage() {
           })}
         </div>
 
-        <div className="mt-10 rounded-2xl border border-purple-200 bg-purple-50/60 p-6 text-sm leading-relaxed text-charcoal/80">
-          <strong className="text-purple-950">Living tradition:</strong> Dates and practices can evolve. Where
-          the manuscript gives a specific date — such as 7 July for the New Yam Festival — this page records
-          the manuscript&rsquo;s statement. Current community programmes should be checked against contemporary
-          announcements.
+        <div className="mt-10 rounded-2xl border border-purple-100 bg-white p-6 text-sm leading-relaxed text-charcoal/80">
+          <strong className="text-purple-950">Cultural Heritage:</strong> Takete-Ide&rsquo;s festival calendar reflects the harmonious integration of ancient ancestral traditions, harvest milestones, Christian observances, and contemporary community homecomings.
         </div>
       </Container>
     </div>

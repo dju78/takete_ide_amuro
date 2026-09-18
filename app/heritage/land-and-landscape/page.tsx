@@ -2,14 +2,9 @@ import type { Metadata } from "next";
 import { MapPin, Mountain, Waves, Route } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
-import { ResearchDisclaimer } from "@/components/heritage/ResearchDisclaimer";
 import { SourcedSection } from "@/components/heritage/SourcedSection";
 import { siteConfig } from "@/lib/site-config";
 import { BOOK_LAND_PROFILE } from "@/content/history/web/from-hilltops-to-valley-expanded";
-import {
-  BOOK_SOURCE_NOTE,
-  BOOK_SOURCE_TITLE,
-} from "@/content/history/web/from-hilltops-to-valley";
 
 import Image from "next/image";
 import { CommunityVideo } from "@/components/media/CommunityVideo";
@@ -17,7 +12,7 @@ import { CommunityVideo } from "@/components/media/CommunityVideo";
 export const metadata: Metadata = {
   title: "Land & Landscape of Takete-Ide",
   description:
-    "The manuscript record of Takete-Ide's location, neighbouring Amuro settlements, hills, rivers and water bodies.",
+    "Explore Takete-Ide's geographic setting, neighbouring Amuro settlements, hills, rivers and natural landmarks.",
   alternates: {
     canonical: `${siteConfig.url}/heritage/land-and-landscape`,
   },
@@ -89,10 +84,8 @@ export default function LandLandscapePage() {
       </div>
 
       <Container className="max-w-6xl py-14 sm:py-16">
-        <ResearchDisclaimer />
-
         {/* Featured Landmark: Oko Loke Video */}
-        <section className="mt-12 rounded-3xl border border-purple-600/15 bg-white p-6 shadow-sm sm:p-8">
+        <section className="rounded-3xl border border-purple-600/15 bg-white p-6 shadow-sm sm:p-8">
           <div className="flex items-center gap-3">
             <Waves className="h-6 w-6 text-community-green" aria-hidden="true" />
             <div>
@@ -159,13 +152,11 @@ export default function LandLandscapePage() {
         <div className="mt-14">
           <SourcedSection
             title="A fertile plain surrounded by uplands"
-            status="documentary_evidence"
-            sourceNote={`${BOOK_SOURCE_TITLE}, Chapters One and Two. ${BOOK_SOURCE_NOTE}`}
           >
             <p>{BOOK_LAND_PROFILE.note}</p>
             <p>
-              The manuscript gives the location as <strong>{BOOK_LAND_PROFILE.coordinates}</strong> and describes
-              Takete-Ide as one of the seven historic settlements of Amuro District.
+              Takete-Ide is situated at <strong>{BOOK_LAND_PROFILE.coordinates}</strong> and stands
+              as one of the seven historic settlements of Amuro District.
             </p>
           </SourcedSection>
         </div>
@@ -217,8 +208,8 @@ export default function LandLandscapePage() {
               ))}
             </div>
             <p className="mt-4 text-sm leading-relaxed text-charcoal/75">
-              The manuscript gives particular prominence to Oke Elegan and remembers the surrounding uplands as
-              central to the community’s earlier defensive settlement history.
+              Historical tradition gives particular prominence to Oke Elegan, with the surrounding uplands
+              serving as central defensive strongholds during earlier settlement history.
             </p>
           </article>
 
@@ -235,8 +226,8 @@ export default function LandLandscapePage() {
               ))}
             </div>
             <p className="mt-4 text-sm leading-relaxed text-charcoal/75">
-              The manuscript links these waters with domestic use, swimming, fishing and the practical experience
-              of approaching Takete-Ide from neighbouring communities.
+              These watercourses have historically sustained domestic life, agriculture, fishing, and connected
+              Takete-Ide with neighbouring communities.
             </p>
           </article>
         </section>

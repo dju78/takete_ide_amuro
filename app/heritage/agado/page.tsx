@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { HeritageVideo } from "@/components/ui/HeritageVideo";
-import { ResearchDisclaimer } from "@/components/heritage/ResearchDisclaimer";
 
 export const metadata: Metadata = {
   title: "Agado Festival",
@@ -17,16 +16,14 @@ export default function AgadoFestivalPage() {
           <Breadcrumb items={[{ label: "Heritage", href: "/heritage" }, { label: "Agado Festival" }]} />
           <h1 className="mt-4 font-serif text-4xl font-bold sm:text-5xl">Agado Festival</h1>
           <p className="mt-3 max-w-2xl text-white/80">
-            Community video footage of the Agado Festival, part of Takete-Ide&rsquo;s living cultural
+            Community documentary video footage of the Agado Festival, part of Takete-Ide&rsquo;s living cultural
             heritage.
           </p>
         </Container>
       </div>
 
       <Container className="max-w-3xl py-16">
-        <ResearchDisclaimer />
-
-        <div className="mt-10 overflow-hidden rounded-3xl bg-black shadow-lg">
+        <div className="overflow-hidden rounded-3xl bg-black shadow-lg">
           <HeritageVideo
             src="/videos/takete-ide/agado-festival.mp4"
             poster="/images/takete-ide/agado-festival.jpg"
@@ -34,19 +31,16 @@ export default function AgadoFestivalPage() {
             className="aspect-video w-full"
           />
         </div>
-        <p className="mt-2 text-xs text-charcoal/50">
-          Video supplied by the community. Detailed captions and transcripts are added progressively
-          as community verifications proceed.
+        <p className="mt-2 text-xs text-charcoal/60">
+          Recorded video footage documenting the Agado Festival celebrations in Takete-Ide.
         </p>
 
         <section className="prose-heritage mt-10">
-          <h2>About Agado</h2>
+          <h2>About the Agado Festival</h2>
           <p>
-            This footage documents the Agado Festival as celebrated in Takete-Ide Amuro. Detailed
-            historical and cultural context — its origins, seasonal timing, and significance within
-            the community&rsquo;s wider festival calendar — is being compiled with community elders
-            and will be added here as it is verified. No historical claims are presented on this page
-            beyond what the community has confirmed.
+            The Agado Festival is one of the vibrant cultural celebrations preserved in Takete-Ide Amuro.
+            Captured in live community footage, the celebration brings together music, traditional attire,
+            and community fellowship across generations.
           </p>
         </section>
       </Container>

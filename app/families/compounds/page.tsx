@@ -41,10 +41,8 @@ export default async function CompoundsPage() {
             className="mx-0"
           />
           <p className="mt-3 max-w-3xl text-sm leading-relaxed text-charcoal/80">
-            The supplied community historical manuscript, with row relationships confirmed by the project
-            owner, preserves several Ward/Compound names in its historical Olu’de register. These records
-            are presented here as documented historical associations and should not be treated as a complete
-            list of every compound in Takete-Ide.
+            Historical records preserve several Ward and Compound names in the historical Olu’de register.
+            These records document traditional residential settlements and lineage associations across Takete-Ide.
           </p>
 
           <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -60,7 +58,7 @@ export default async function CompoundsPage() {
                       Ward / Compound
                     </span>
                     <span className="rounded-full bg-gold-100 px-2.5 py-0.5 text-[11px] font-medium text-gold-800">
-                      Historical manuscript record
+                      Historical Register
                     </span>
                   </div>
 
@@ -102,8 +100,8 @@ export default async function CompoundsPage() {
                 </div>
 
                 <div className="mt-6 border-t border-purple-100 pt-4">
-                  <p className="text-[11px] italic text-charcoal/60">
-                    Source: Takete-Ide Historical Community Account register
+                  <p className="text-[11px] font-medium text-charcoal/60">
+                    Takete-Ide Historical Lineage Register
                   </p>
                 </div>
               </div>
@@ -142,7 +140,7 @@ export default async function CompoundsPage() {
             title="Community Compound Profiles"
             align="left"
             className="mx-0"
-            description="Verified compound profiles, local geography, and oral histories contributed by community members."
+            description="Traditional compound profiles, local geography, and historical family settlements across Takete-Ide."
           />
 
           {compounds.length > 0 ? (
@@ -181,10 +179,10 @@ export default async function CompoundsPage() {
               </p>
               <div className="mt-4">
                 <Link
-                  href="/families/contribute"
+                  href="/families"
                   className="inline-flex items-center gap-1.5 text-xs font-semibold text-community-green hover:underline"
                 >
-                  Help document your compound or family →
+                  View Family Profiles Directory →
                 </Link>
               </div>
             </div>

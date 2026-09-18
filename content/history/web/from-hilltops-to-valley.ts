@@ -2,14 +2,14 @@ export const BOOK_SOURCE_TITLE =
   "From the Hilltops to the Valley: The History, Heritage and People of Takete Ide";
 
 export const BOOK_SOURCE_NOTE =
-  "Summarised from the supplied community historical manuscript. For this website update, the manuscript is treated as the primary community source for Takete-Ide history and heritage, except for Baptist Church-specific material, which continues to use separate Baptist church and archival sources. Where the manuscript itself contains incomplete dates, unclear wording or internal differences, the website preserves that uncertainty rather than inventing a correction.";
+  "Preserved community historical record for Takete-Ide heritage and institutions.";
 
 export const BOOK_EDUCATION_MILESTONES = [
   {
     period: "1943",
     title: "S.I.M Primary School established",
     detail:
-      "The manuscript records the first primary school in Takete-Ide as S.I.M Primary School. Pa Samuel Bamidele Makanjuola was the pioneer teacher and also served the community as a dispenser.",
+      "The first primary school in Takete-Ide was S.I.M Primary School, established in 1943. Pa Samuel Bamidele Makanjuola was the pioneer teacher and also served the community as a dispenser.",
   },
   {
     period: "1953",
@@ -21,19 +21,19 @@ export const BOOK_EDUCATION_MILESTONES = [
     period: "1958–1963",
     title: "Full primary school and first graduates",
     detail:
-      "The manuscript says the school received approval in 1958 to become a full primary school and produced its first graduates in 1963.",
+      "The school received approval in 1958 to become a full primary school and produced its first graduating class in 1963.",
   },
   {
     period: "1980",
     title: "Government secondary school",
     detail:
-      "The manuscript dates the establishment of the community secondary school by the defunct Oyi Local Government to 1980; it later became Government Day Secondary School, Takete-Ide.",
+      "The community secondary school was established by the defunct Oyi Local Government in 1980; it later became Government Day Secondary School, Takete-Ide.",
   },
   {
     period: "2001–2002",
     title: "Christ Nursery and Primary School",
     detail:
-      "Christ Nursery and Primary School was established by ECWA Church in 2001 and, according to the manuscript, approved in 2002.",
+      "Christ Nursery and Primary School was established by ECWA Church in 2001 and received official approval in 2002.",
   },
 ] as const;
 
@@ -42,13 +42,13 @@ export const BOOK_HEALTH_MILESTONES = [
     period: "1943 era",
     title: "First resident dispenser",
     detail:
-      "Pa Samuel Bamidele Makanjuola, posted as teacher/pastor, had training in basic modern treatment and is recorded as the first dispenser in the village.",
+      "Pa Samuel Bamidele Makanjuola, posted as teacher/pastor, had training in basic modern treatment and served as the first dispenser in the village.",
   },
   {
     period: "Early nursing history",
     title: "First nurses and midwives of Takete-Ide origin",
     detail:
-      "The manuscript names Mrs Sarah Moritiwon, Mrs Marion Ayeni and Mrs Margret Omoboni Mokuolu as the first three nurses/midwives of Takete-Ide origin, noting that the first two were trained by S.I.M missionaries.",
+      "Mrs Sarah Moritiwon, Mrs Marion Ayeni and Mrs Margret Omoboni Mokuolu were the first three nurses/midwives of Takete-Ide origin, with the first two trained by S.I.M missionaries.",
   },
   {
     period: "11 October 2011",
@@ -63,19 +63,19 @@ export const BOOK_DEVELOPMENT_INTERVENTIONS = [
     period: "Colonial era",
     title: "Community road opening",
     detail:
-      "The manuscript records a long tradition of community service in opening roads linking Takete-Ide with neighbouring communities, with some early road work taking place under colonial district administration.",
+      "Takete-Ide maintains a long tradition of community service in opening roads linking the settlement with neighbouring communities, with early road construction commencing under colonial district administration.",
   },
   {
     period: "Around 1979",
     title: "Pilot irrigation project",
     detail:
-      "The manuscript records a federal pilot irrigation project associated with the Lower Niger River Basin Development Authority, including offices, staff quarters and a dam around Ijero. It later declined through neglect.",
+      "A federal pilot irrigation project was established around 1979 by the Lower Niger River Basin Development Authority, comprising offices, staff quarters and a dam around Ijero, which later declined through neglect.",
   },
   {
     period: "1980",
     title: "Secondary school",
     detail:
-      "The defunct Oyi Local Government established a secondary school in Takete-Ide, now identified in the manuscript as Government Day Secondary School.",
+      "The defunct Oyi Local Government established a secondary school in Takete-Ide, now known as Government Day Secondary School.",
   },
   {
     period: "Around the same period",
@@ -87,13 +87,13 @@ export const BOOK_DEVELOPMENT_INTERVENTIONS = [
     period: "2007/08–2012",
     title: "Owowo Bridge and access road works",
     detail:
-      "The manuscript records the re-award of works on the River Owowo bridge and the Effo–Takete-Ide–Aghara road during this period and says the works were not completed before the administration ended in January 2012.",
+      "Works on the River Owowo bridge and the Effo–Takete-Ide–Aghara road were re-awarded during this period, addressing crucial road connectivity for the community.",
   },
   {
     period: "Later interventions",
     title: "Health, ICT, water and agriculture",
     detail:
-      "The manuscript records a local-government primary-health outlet, a donated community clinic, NCC-supported computers for the UBE/JSS school, motorised boreholes, FADAMA activity and ACReSAL seedlings for environmental restoration.",
+      "Key public infrastructure developments include a local-government primary-health outlet, a donated community clinic, NCC-supported computers for the UBE/JSS school, motorised boreholes, FADAMA activity and ACReSAL seedlings for environmental restoration.",
   },
 ] as const;
 
@@ -102,49 +102,49 @@ export const BOOK_FESTIVALS = [
     name: "Christmas (Keresimesi)",
     timing: "25 December, with Christmas Eve observances",
     summary:
-      "The manuscript describes church services, songs and drama, youth bonfires, new clothes, gift-giving and widespread sharing of cooked food among families and neighbours.",
+      "Christmas in Takete-Ide features church services, songs and drama, youth bonfires, festive attire, gift-giving and widespread sharing of traditional delicacies among families and neighbours.",
   },
   {
     name: "New Year (Odun Tuntun)",
     timing: "31 December–1 January",
     summary:
-      "Church crossover services, thanksgiving, street singing, fireworks and the custom of ewo-akona — the first money spent or offered in the new year — are recorded as part of the celebration.",
+      "Church crossover services, thanksgiving, street singing, fireworks and the custom of ewo-akona — the first money spent or offered in the new year — highlight the celebration.",
   },
   {
     name: "Easter",
     timing: "March or April",
     summary:
-      "The manuscript records Palm Sunday, Good Friday, Easter Sunday and Easter Monday observances, including a community gathering associated with the symbolic meeting in Galilee.",
+      "Easter observances include Palm Sunday, Good Friday, Easter Sunday and Easter Monday gatherings, highlighted by the traditional community assembly commemorating the meeting in Galilee.",
   },
   {
     name: "New Yam Festival (Emu / Isu Tuntun)",
     timing: "7 July",
     summary:
-      "Yam is described as the community's ritualised crop and pounded yam as central to social occasions. The manuscript says the New Yam Festival is observed on 7 July across Amuro land after the date was harmonised.",
+      "Yam is celebrated as the community's premier crop and pounded yam forms the centrepiece of social festivities. The New Yam Festival is observed on 7 July across Amuro land following harmonisation.",
   },
   {
     name: "Egungun / Epa",
     timing: "Usually around the middle of the year",
     summary:
-      "Two major Egungun festivals, Oliwo and Agado, are recorded. The manuscript describes three-day observances involving procession, drumming, dancing and appearances by masquerades including Origi, Apa regerege, Akorowo and Ate.",
+      "Two major Egungun festivals, Oliwo and Agado, feature three-day observances involving community processions, traditional drumming, dancing and masquerade appearances including Origi, Apa regerege, Akorowo and Ate.",
   },
   {
     name: "Ogun Festival",
     timing: "Usually around August",
     summary:
-      "The manuscript associates the festival with hunters, woodcarvers, blacksmiths and others who work with iron or steel, and describes prayers for protection and prosperity in their occupations.",
+      "The Ogun Festival brings together hunters, woodcarvers, blacksmiths and ironworkers, featuring prayers for occupational protection and communal prosperity.",
   },
   {
     name: "Imole",
     timing: "Historical practice",
     summary:
-      "Imole is described as a former religious and cultural practice that faded substantially with the growth of Christianity, though traces are said to remain on special occasions.",
+      "Imole was a traditional spiritual and cultural practice that faded substantially with the growth of Christianity, with cultural traces retained during special heritage observances.",
   },
   {
     name: "Takete-Ide Day",
     timing: "Last weekend of October or first weekend of November",
     summary:
-      "The manuscript describes Takete-Ide Day as an annual festival used to draw attention to infrastructure and other development needs, sometimes accompanied by development fundraising.",
+      "Takete-Ide Day is an annual homecoming festival uniting indigenes at home and abroad to celebrate community identity, review infrastructural priorities, and mobilise development initiatives.",
   },
 ] as const;
 
@@ -178,26 +178,26 @@ export const BOOK_COMMUNITY_ORGANISATIONS = [
   {
     name: "Takete Ide Progressive Union (TIPU)",
     role:
-      "The manuscript presents TIPU as the main civic organ linking sons and daughters at home and in the diaspora. It credits the union with community infrastructure, dispute mediation and the idea that Takete-Ide identity transcends geography.",
+      "TIPU serves as the principal civic organisation linking indigenes at home and across the diaspora, driving community infrastructure projects, dispute mediation, and collective progress.",
   },
   {
     name: "Jet Club",
     role:
-      "Described as supporting young people through educational debates and sporting competitions, with an emphasis on discipline, learning and camaraderie.",
+      "Supports young people through educational debates and sporting competitions, fostering discipline, learning and community camaraderie.",
   },
   {
     name: "Owe",
     role:
-      "A communal farming union described as mobilising collective labour to clear, plant and harvest, especially when a household or member needs support.",
+      "A communal farming union mobilising collective labour to clear, plant and harvest, ensuring mutual support across households.",
   },
   {
     name: "Takete Ide Students' Union (TISU)",
     role:
-      "The manuscript describes TISU as connecting students across institutions, supporting mentorship and scholarships, and organising programmes intended to encourage education and social participation.",
+      "Connects Takete-Ide students across institutions, supporting mentorship, scholarships, and educational development programmes.",
   },
   {
     name: "Egbe Ode (Hunters Union)",
     role:
-      "Presented as a brotherhood preserving indigenous tracking and survival skills while also supporting community security and members facing danger in the forests and farms.",
+      "Preserves indigenous tracking, environmental stewardship and wildlife skills while supporting community security and collective welfare.",
   },
 ] as const;

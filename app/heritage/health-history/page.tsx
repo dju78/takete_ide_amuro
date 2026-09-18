@@ -4,14 +4,9 @@ import Image from "next/image";
 import { HeartPulse, Stethoscope, UsersRound } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
-import { ResearchDisclaimer } from "@/components/heritage/ResearchDisclaimer";
 import { SourcedSection } from "@/components/heritage/SourcedSection";
 import { siteConfig } from "@/lib/site-config";
 import { BOOK_HEALTH_HISTORY } from "@/content/history/web/from-hilltops-to-valley-expanded";
-import {
-  BOOK_SOURCE_NOTE,
-  BOOK_SOURCE_TITLE,
-} from "@/content/history/web/from-hilltops-to-valley";
 
 const healthFacilities = [
   {
@@ -67,10 +62,8 @@ export default function HealthHistoryPage() {
       </div>
 
       <Container className="max-w-5xl py-14 sm:py-16">
-        <ResearchDisclaimer />
-
         {/* Health Facilities Photographic Record */}
-        <section className="mt-12">
+        <section>
           <div className="flex items-center justify-between">
             <div>
               <p className="text-xs font-bold uppercase tracking-wider text-gold-700">Health Infrastructure</p>
@@ -110,18 +103,12 @@ export default function HealthHistoryPage() {
 
         <div className="mt-14">
           <SourcedSection
-            title="From indigenous healing to modern community health services"
-            status="documentary_evidence"
-            sourceNote={`${BOOK_SOURCE_TITLE}, Chapter Seven. ${BOOK_SOURCE_NOTE}`}
+            title="From Indigenous Healing to Modern Community Health Services"
           >
             <p>
-              The manuscript treats healthcare as an important part of Takete-Ide’s twentieth-century social
-              transformation. It records older indigenous approaches alongside the arrival of missionary medicine
-              and the gradual development of resident health workers and facilities.
-            </p>
-            <p>
-              This page is historical. It does not provide medical advice or describe the present operating status
-              of any facility unless that information is separately verified.
+              Healthcare formed an essential dimension of Takete-Ide&rsquo;s twentieth-century social
+              transformation, bridging older indigenous healing traditions with the advent of missionary healthcare,
+              trained local practitioners, and community-built clinics.
             </p>
           </SourcedSection>
         </div>
@@ -142,10 +129,9 @@ export default function HealthHistoryPage() {
           ))}
         </div>
 
-        <div className="mt-10 rounded-2xl border border-gold-500/25 bg-gold-50 p-5 text-sm leading-relaxed text-charcoal/80">
-          The manuscript’s description of the former government dispensary and the TIWA maternity centre reflects
-          a historical point in time. For current healthcare availability, residents should use contemporary local
-          health-service information.
+        <div className="mt-10 rounded-2xl border border-purple-100 bg-white p-5 text-sm leading-relaxed text-charcoal/80">
+          Historical accounts of the former government dispensary and the TIWA maternity centre document
+          the community&rsquo;s healthcare evolution through the twentieth century.
         </div>
 
         <div className="mt-8 text-sm">

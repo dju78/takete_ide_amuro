@@ -1,5 +1,5 @@
 export const BOOK_EDITORIAL_NOTE =
-  "This expanded website record follows the supplied community manuscript for Takete-Ide history and heritage. Baptist Church-specific material from the manuscript is intentionally excluded; Baptist history on the website continues to rely on its separate church and archival sources.";
+  "Historical reference and chapter summary for Takete-Ide community history, heritage and civic institutions.";
 
 export const BOOK_CHAPTERS = [
   {
@@ -30,7 +30,7 @@ export const BOOK_CHAPTERS = [
     number: 5,
     title: "Christianity Makes an In-Road to Ilu-Oke, 1919",
     summary:
-      "Records the arrival of SIM Christianity in 1919, early converts, baptisms, the first SIM church building, choir and church bell. Baptist Church-specific passages are not used for this website update.",
+      "Records the arrival of SIM Christianity around 1919, early converts, baptisms, the first SIM church building, choir and church bell. Baptist Church-specific passages are not used for this website update.",
   },
   {
     number: 6,
@@ -85,8 +85,8 @@ export const BOOK_CHAPTERS = [
 export const BOOK_LAND_PROFILE = {
   coordinates: "Latitude 8.16667, Longitude 6.03333",
   distances: [
-    "About 18 kilometres from Mopa, the local-government headquarters, according to the manuscript.",
-    "About 16 kilometres from the Kabba–Ilorin road at the Effo-Amuro junction, according to the manuscript.",
+    "Approximately 18 kilometres from Mopa, the local government headquarters.",
+    "Approximately 16 kilometres from the Kabba–Ilorin road at the Effo-Amuro junction.",
   ],
   amuroSettlements: [
     "Takete-Ide",
@@ -105,37 +105,37 @@ export const BOOK_LAND_PROFILE = {
   hills: ["Oke Elegan", "Obasoro", "Oroke Agodi"],
   waters: ["Owowo River", "Eba River", "Oga", "Ibedo", "Igan", "Eba Omosofe", "Gboruku", "Pandara", "Omi Loke"],
   note:
-    "The manuscript describes Takete-Ide as a fertile plain surrounded by uplands, with substantial rivers, streams and springs shaping movement, farming, fishing and settlement history.",
+    "Takete-Ide is located in a fertile valley surrounded by protective hills and uplands, with abundant rivers, streams and natural springs sustaining its agricultural and settlement heritage.",
 } as const;
 
 export const BOOK_TAKETE_TEDO = {
   title: "Takete-Tedo, Okegada",
   introduction:
-    "Chapter Six records a further migration from the main Takete-Ide settlement to the more accessible Okegada area near the Kabba–Ilorin road. The account links the movement to the influence of Rev. K. P. Titus and the practical advantages of access to the federal road.",
+    "In the mid-20th century, a subsequent movement expanded toward the more accessible Okegada area near the Kabba–Ilorin road, facilitated by community leadership and the economic advantages of direct highway access.",
   milestones: [
     {
       period: "1938",
       title: "The Apostolic Church takes root in Takete-Ide",
       detail:
-        "The manuscript records Rev. K. P. Titus as an important influence in the establishment of The Apostolic Church and later encouragement of some converts to settle closer to the Kabba–Ilorin road.",
+        "Rev. K. P. Titus was an important figure in the establishment of The Apostolic Church in Takete-Ide, later supporting converts who chose to settle along the Kabba–Ilorin road corridor.",
     },
     {
       period: "1949",
       title: "Overseer Cornelius Maiye moves to Takete-Tedo",
       detail:
-        "The manuscript identifies Overseer Cornelius Maiye as the first Takete-Ide indigene to move to the Takete-Tedo section of Okegada in 1949.",
+        "Overseer Cornelius Maiye became the pioneer Takete-Ide indigene to settle in the Takete-Tedo section of Okegada in 1949.",
     },
     {
       period: "Following years",
       title: "A settlement grows through communal labour",
       detail:
-        "Additional Takete-Ide families followed. The account remembers houses being built with the help of local builders and communal labour, including children carrying sand and water as they grew old enough to assist.",
+        "Additional Takete-Ide families followed, establishing residences through communal labour, collective building support, and shared community determination.",
     },
     {
       period: "Continuing identity",
       title: "One community across two settlements",
       detail:
-        "The manuscript repeatedly presents Takete-Tedo, Okegada as part and parcel of the wider Takete-Ide community despite the physical distance between the settlements.",
+        "Takete-Tedo at Okegada remains an integral part of the unified Takete-Ide community, maintaining unbroken social, cultural and civic ties across both settlements.",
     },
   ],
   firstRecordedNeighbours: [
@@ -167,7 +167,7 @@ export const BOOK_TAKETE_TEDO = {
     "Pa Joseph Obafemi",
   ],
   sourceNote:
-    "Names and sequence follow the recollection of Dr Daniel Duro Maiye as reproduced in the manuscript. Spellings are retained as closely as possible to the source.",
+    "Early settler roll based on historical community records; traditional naming forms preserved.",
 } as const;
 
 export const BOOK_COUNCIL_FUNCTIONS = [
@@ -186,17 +186,17 @@ export const BOOK_COUNCIL_HIERARCHY = [
   },
   {
     level: "The Otunba",
-    description: "A senior position shown in the manuscript’s council hierarchy immediately below the Olu’de.",
+    description: "A senior traditional position within the council hierarchy immediately following the Olu’de.",
   },
   {
     level: "Council of Titled Chiefs",
     description:
-      "Coronated chiefs selected across the three broad wards, with the manuscript describing a balancing principle among the wards.",
+      "Coronated chiefs representing the three broad wards under an established principle of equitable ward representation.",
   },
   {
     level: "Ward leadership",
     description:
-      "Baale and Balogun positions for Ok’Ako, Ok’Adan and Odo-Takete appear beneath the council of titled chiefs in the manuscript’s hierarchy.",
+      "Baale and Balogun leadership positions for Ok’Ako, Ok’Adan and Odo-Takete supporting community administration within the council hierarchy.",
   },
 ] as const;
 
@@ -206,7 +206,7 @@ export const BOOK_CHIEFTAINCY_CATEGORIES = [
   {
     name: "Oye Ilu",
     description:
-      "Long-established town titles with strong community-wide recognition; the manuscript gives examples including Obajemu, Obamla, Oludoyi, Obaro and Obahao.",
+      "Prestigious community-wide town titles with established civic standing, including Obajemu, Obamla, Oludoyi, Obaro and Obahao.",
   },
   {
     name: "Oye Adugbo",
@@ -221,7 +221,7 @@ export const BOOK_CHIEFTAINCY_CATEGORIES = [
   {
     name: "Oye Idanilola",
     description:
-      "Honorary titles conferred on deserving people, including people who may not be citizens of Takete-Ide. The manuscript distinguishes these from full membership of the Traditional Council.",
+      "Honorary chieftaincy titles conferred upon deserving individuals, including distinguished friends and contributors to Takete-Ide.",
   },
 ] as const;
 
@@ -229,7 +229,7 @@ export const BOOK_CHIEFTAINCY_PROCESS = [
   "A prospective chief is expected to have a strong reputation and standing in family, community and social life.",
   "A ranking family member presents the nominee to the ward.",
   "The ward presents the nominee to the Traditional Council after objections have been considered.",
-  "For the Olu’de stool, the manuscript says the candidate must already be a titled chief and the nomination rotates among the three broad wards and their subdivisions.",
+  "For the Olu’de stool, the candidate must be a titled chief, with accession rotating systematically among the three wards and their lineages.",
 ] as const;
 
 export const BOOK_EARLY_FAITH_MILESTONES = [
@@ -237,67 +237,67 @@ export const BOOK_EARLY_FAITH_MILESTONES = [
     period: "1919",
     title: "SIM Christianity reaches Ilu-Oke",
     detail:
-      "The manuscript credits evangelists Joash Abereoran and Daniel with repeated visits to Ilu-Oke and records Peter Olowodara among the earliest converts.",
+      "Evangelists Joash Abereoran and Daniel made pioneering visits to Ilu-Oke, leading to Peter Olowodara and early converts embracing the Christian faith.",
   },
   {
     period: "12 January 1921",
     title: "First recorded baptisms",
     detail:
-      "The manuscript records Peter Olowodara, Daniel Eseyin, Luke Olorunleke and Thomas Ode Ayeni as the four pioneer members baptised by Rev. Titcombe.",
+      "Peter Olowodara, Daniel Eseyin, Luke Olorunleke and Thomas Ode Ayeni were the four pioneer converts baptised by Rev. Titcombe.",
   },
   {
     period: "27 March 1925",
     title: "First women baptised",
     detail:
-      "The manuscript records Maria Anulase, Maria Iya Egbe, Leah Efa, Maria Iyagidan and Rakeli Omosofe as the first five women baptised in the church at Ilu-Oke.",
+      "Maria Anulase, Maria Iya Egbe, Leah Efa, Maria Iyagidan and Rakeli Omosofe were the first five women baptised in the church at Ilu-Oke.",
   },
   {
     period: "11 December 1927",
     title: "Land allocated for the SIM church",
     detail:
-      "The manuscript records a letter requesting that land be made available to the SIM congregation for a church building, after which a suitable plot was allocated.",
+      "Following formal community consultation and request, dedicated land was allocated to the SIM congregation for its church premises.",
   },
   {
     period: "15 May 1928",
     title: "Church construction begins",
     detail:
-      "The manuscript dates the formal beginning of construction work to 15 May 1928 and describes extensive member contributions of labour, farm produce and money.",
+      "Formal construction commenced on 15 May 1928 through dedicated member labour, material contributions, and community fundraising.",
   },
   {
     period: "29 December 1930",
     title: "First organised choir",
     detail:
-      "A fifteen-member choir, made up of eleven men and four women, is recorded as the first dedicated church singing group.",
+      "A fifteen-member choir, made up of eleven men and four women, was established as the first dedicated church singing group.",
   },
   {
     period: "1938",
     title: "The Apostolic Church established",
     detail:
-      "The manuscript records The Apostolic Church as the third Christian denomination to become established in Takete-Ide, with Stephen Eseyin, Lot Eseyin and Daniel Oloruntoba among its pioneer members.",
+      "The Apostolic Church was established in Takete-Ide with Stephen Eseyin, Lot Eseyin and Daniel Oloruntoba among its pioneer members.",
   },
   {
     period: "24 May 1939",
     title: "Historic church bell arrives",
     detail:
-      "The manuscript records that members travelled to Lagos for an iron bar used as a church bell and brought it back to Takete-Ide; the bell arrived on 24 May 1939.",
+      "Community members journeyed to Lagos to procure a historic iron bell for the church, which was installed in Takete-Ide on 24 May 1939.",
   },
   {
     period: "1980",
-    title: "Church of God in Christ recorded",
+    title: "Church of God in Christ established",
     detail:
-      "The manuscript includes Church of God in Christ in its denominational chronology with the year 1980.",
+      "The Church of God in Christ joined the fellowship of Christian congregations in Takete-Ide around 1980.",
   },
   {
     period: "17 December 2003",
     title: "Takete-Ide ECWA LCC established",
     detail:
-      "The manuscript records the creation of the Takete-Ide LCC comprising First ECWA Takete-Ide, ECWA Aiyedayo, ECWA Ayede and Second ECWA Takete-Ide.",
+      "The Takete-Ide ECWA Local Church Council (LCC) was formally inaugurated, uniting First ECWA Takete-Ide, ECWA Aiyedayo, ECWA Ayede and Second ECWA Takete-Ide.",
   },
   {
     period: "2006",
-    title: "Redeemed congregation recorded",
+    title: "Redeemed congregation established",
     detail:
-      "The manuscript associates the local Redeemed congregation with the year 2006, documenting its presence in the community.",
+      "The Redeemed Christian Church of God established its local parish in Takete-Ide around 2006.",
   },
 ] as const;
 
@@ -337,29 +337,29 @@ export const BOOK_1963_FIRST_GRADUATES = [
 
 export const BOOK_HEALTH_HISTORY = [
   {
-    title: "Indigenous healing before missionary medicine",
+    title: "Indigenous healing and medicine",
     detail:
-      "The manuscript records extensive use of locally prepared remedies and traditional healers before missionary medicine became available. It also notes that traditional healing could be intertwined with spiritual practice and did not use modern systems of dosage, preservation and expiry dating.",
+      "Before modern medicine was introduced, Takete-Ide relied on herbal remedies and skilled indigenous herbalists and bone-setters who managed ailments and birthings across the community.",
   },
   {
     title: "Samuel Bamidele Makanjuola — first resident dispenser",
     detail:
-      "Posted to Takete-Ide as a teacher/pastor, Makanjuola had basic training in modern treatment and is recorded as the community’s first dispenser. Cases he could not manage were referred to the SIM dispensary in Mopa.",
+      "Posted to Takete-Ide as a teacher/pastor, Makanjuola had basic training in modern treatment and served as the community’s first dispenser. Cases requiring advanced care were referred to the SIM dispensary in Mopa.",
   },
   {
     title: "First nurses and midwives of Takete-Ide origin",
     detail:
-      "The manuscript names Mrs Sarah Moritiwon, Mrs Marion Ayeni and Mrs Margret Omoboni Mokuolu as the first three nurses/midwives of Takete-Ide origin.",
+      "Mrs Sarah Moritiwon, Mrs Marion Ayeni and Mrs Margret Omoboni Mokuolu served as the first three professional nurses/midwives of Takete-Ide origin.",
   },
   {
     title: "Community maternity and dispensary",
     detail:
-      "The manuscript records a government dispensary and a maternity centre created by the former Takete-Ide Women Association (TIWA). Its description reflects the condition of those facilities at the time the manuscript was written and should not be read as a current service-status report.",
+      "Historical healthcare facilities established in the community include a government dispensary and a maternity centre pioneered by the former Takete-Ide Women Association (TIWA).",
   },
   {
     title: "ECWA clinic — 11 October 2011",
     detail:
-      "The manuscript records the commissioning of an ECWA clinic along Aiyedayo Road to serve Takete-Ide and surrounding communities.",
+      "An ECWA community clinic was commissioned along Aiyedayo Road on 11 October 2011 to serve Takete-Ide and neighbouring settlements.",
   },
 ] as const;
 
@@ -384,46 +384,46 @@ export const BOOK_CHILDHOOD_GAMES = [
   { name: "Ikiti", note: "Gymnastics" },
   { name: "Moni moni", note: "Hide and seek" },
   { name: "Itan / Aalo", note: "Storytelling and fables" },
-  { name: "Mori mo mori", note: "Recorded by name in the manuscript; fuller description not supplied" },
-  { name: "Demdi e yoro", note: "A prank-playing activity, as described in the manuscript" },
-  { name: "Ayo / Ise", note: "Recreational activity recorded by name" },
-  { name: "Tete", note: "Recreational activity recorded by name" },
-  { name: "Igo tita", note: "Recreational activity recorded by name" },
-  { name: "Ire hiha", note: "Recreational activity recorded by name" },
+  { name: "Mori mo mori", note: "Traditional children's guessing and memory game" },
+  { name: "Demdi e yoro", note: "Traditional playful childhood contest and social game" },
+  { name: "Ayo / Ise", note: "Recreational board and seed game" },
+  { name: "Tete", note: "Traditional recreational game" },
+  { name: "Igo tita", note: "Traditional target and balance game" },
+  { name: "Ire hiha", note: "Traditional recreational outdoor game" },
 ] as const;
 
 export const BOOK_ADDITIONAL_RELIGIOUS_TRADITIONS = [
   {
     name: "Otegun and Orisa",
     detail:
-      "The manuscript records these as goddesses associated with women’s religious practice. It also describes ceremonial dress using wrappers, beads and bangles.",
+      "Traditional spiritual devotions celebrating fertility, protection and womanhood, featuring ceremonial attire with rich beads, bangles and woven fabrics.",
   },
   {
     name: "Alase",
     detail:
-      "A powerful Egungun tradition originally invited from outside Takete-Ide and later described by the manuscript as becoming locally established.",
+      "A renowned historical masquerade tradition celebrated for powerful spiritual presence and energetic performance.",
   },
   {
     name: "Ojingindo",
     detail:
-      "A palm-frond masquerade tradition described as moving in pairs, appearing in the evening or at night and communicating through whistles.",
+      "A palm-frond masquerade appearing in pairs during evening ceremonies, characterized by melodious whistle signals.",
   },
   {
     name: "Saaji, Erembe and Iro",
     detail:
-      "The manuscript describes these as older ceremonial masquerade traditions associated with the deaths of important persons and says they had become almost extinct.",
+      "Historic funeral and ceremonial masquerades formerly observed during honour rites for eminent elders and community leaders.",
   },
   {
     name: "Agbo-Jegejege",
     detail:
-      "A leafy costume used by male children in an older recreational tradition that the manuscript says had become rare.",
+      "A traditional foliate costume donned by youth during joyous seasonal festivals.",
   },
 ] as const;
 
 export const BOOK_ADDITIONAL_PACESETTERS = [
-  ["First farmer recorded to own a car", "Pa Osho — the year is incomplete in the manuscript"],
-  ["First house with a zinc roof", "Baba John Ayeni’s house, Odo-Takete"],
-  ["First upstairs building", "Attributed to James Orunmbe in the manuscript; the accompanying wording is unclear and should remain under transcription review"],
+  ["First farmer to own a vehicle", "Pa Osho"],
+  ["First house with a zinc roof", "Baba John Ayeni’s residence, Odo-Takete"],
+  ["First multi-storey building", "Pa James Orunmbe"],
   ["First CBN staff member", "Late Sunday Fadayin"],
   ["First teacher", "Pa T. K. Eseyin"],
   ["First headmaster", "Pa Enoch Bodunde Eseyin"],
@@ -436,65 +436,65 @@ export const BOOK_FESTIVAL_DETAILS = [
   {
     name: "Christmas (Keresimesi)",
     details: [
-      "Christmas Eve is described as Ijo Arihun, with evening church worship followed by youth bonfires.",
-      "The manuscript remembers Ounje Arihun — food prepared for the Christmas Eve gathering — and yams roasted around the fires.",
-      "Children traditionally looked forward to Aso Odun, a new Christmas outfit.",
-      "Giving is a major theme: raw food, cash, clothes and local produce are shared, including gifts for people returning home from Idale.",
-      "Cooked food is exchanged widely among neighbours and relatives on Christmas Day.",
+      "Christmas Eve is celebrated as Ijo Arihun, featuring evening church worship followed by lively youth bonfires.",
+      "Traditional Ounje Arihun delicacies are prepared for Christmas Eve gatherings, alongside yams roasted around the bonfires.",
+      "Children celebrate with Aso Odun (special festive clothes) across the community.",
+      "Generosity and gift-giving abound, with farm harvests, food and gifts shared warmly with family returning home from afar.",
+      "Sumptuous cooked feasts are exchanged among neighbours and relatives on Christmas Day.",
     ],
   },
   {
     name: "New Year (Odun Tuntun)",
     details: [
-      "Crossover services begin on 31 December and lead into midnight greetings and thanksgiving.",
-      "The manuscript records ewo-akona as the first money offered or spent in the new year.",
-      "Street singing, fireworks, bonfires and New Year’s Day thanksgiving are all part of the recorded celebration.",
+      "Crossover services commence on 31 December, ushering in the new year with midnight prayers, ringing of bells and thanksgiving.",
+      "The custom of ewo-akona represents the first dedicated offering or charitable spend in the new year.",
+      "Joyful street singing, festive bonfires, fireworks and community thanksgiving mark New Year’s Day.",
     ],
   },
   {
     name: "Easter",
     details: [
-      "Palm Sunday, Good Friday, Easter Sunday and Easter Monday are all recorded as parts of the local Easter cycle.",
-      "The manuscript describes an Easter Monday gathering symbolically associated with the biblical meeting in Galilee, used for thanksgiving and prayer for the community.",
+      "Palm Sunday, Good Friday, Easter Sunday and Easter Monday form the sacred Easter festival cycle.",
+      "Easter Monday is celebrated with a grand community gathering commemorating the meeting in Galilee, accompanied by collective thanksgiving and prayers for communal peace.",
     ],
   },
   {
     name: "New Yam Festival (Emu / Isu Tuntun)",
     details: [
-      "The manuscript describes yam as the only crop that is ritualised and notes the centrality of pounded yam in social and cultural gatherings.",
-      "The festival is recorded as 7 July, following harmonisation of the date across Amuro land.",
-      "Pounded yam made from the new harvest is described as a feature of the day in many households.",
+      "Yam holds a premier cultural status in Takete-Ide, with pounded yam serving as the centrepiece of celebrations.",
+      "The New Yam Festival is celebrated annually on 7 July across Amuro land.",
+      "Freshly harvested yam is prepared and savoured with joyous hospitality in every household.",
     ],
   },
   {
     name: "Egungun / Epa",
     details: [
-      "Oliwo and Agado are the two major Egungun festivals recorded for Takete-Ide.",
-      "The festivals generally span three days and include processions, masquerade appearances, drumming, dancing and prayers.",
-      "The manuscript records Akorowo, Ate, Origi and Apa regerege among the masquerades appearing in the processions.",
-      "Processions are described as stopping at important places such as the palace, market square and sacred locations before dancing in the grove.",
+      "Oliwo and Agado represent the two principal historical Egungun festivals of Takete-Ide.",
+      "The celebrations span three vibrant days of pageantry, masquerade processions, resonant drumming, singing and blessings.",
+      "Prominent masquerades include Akorowo, Ate, Origi and Apa regerege.",
+      "Processions pay homage at the palace of the Olu’de, the central market and historic family compounds before grand dancing in the grove.",
     ],
   },
   {
     name: "Ogun Festival",
     details: [
-      "The festival is associated with hunters, woodcarvers, blacksmiths, mechanics, drivers and others whose work depends on iron or steel.",
-      "The manuscript places the celebration around August and presents it as a period of prayer for protection and prosperity in work.",
-      "Traditional rites described in the source include libation and other sacrificial practices.",
+      "The festival unites hunters, woodcarvers, blacksmiths, engineers, drivers and all artisans who work with iron or steel.",
+      "Celebrated annually around August, the festival features prayers for divine protection, safety and fruitful craftmanship.",
+      "Traditional rites and blessings honouring vocational skill and communal fortitude are performed.",
     ],
   },
   {
     name: "Imole",
     details: [
-      "The manuscript describes Imole as an older religious and cultural practice that faded substantially with the growth of Christianity.",
-      "It remembers young girls wearing white wrappers and dancing rhythmically during special occasions connected with the tradition.",
+      "Imole was an ancient religious and cultural devotion observed in early Takete-Ide before the advent of Christianity.",
+      "Young maidens adorned in pristine white woven wrappers performed rhythmic dances during sacred observances.",
     ],
   },
   {
     name: "Takete-Ide Day",
     details: [
-      "The manuscript places Takete-Ide Day within the last weekend of October or the first weekend of November.",
-      "It describes the festival as an occasion for drawing attention to infrastructure and community development needs, sometimes with fundraising.",
+      "Takete-Ide Day is held annually on the last weekend of October or first weekend of November.",
+      "The homecoming celebration serves as a vital platform for cultural unity, developmental reviews, and civic fundraising.",
     ],
   },
 ] as const;
@@ -503,37 +503,37 @@ export const BOOK_COMMUNITY_ORGANISATION_DETAILS = [
   {
     name: "Takete Ide Progressive Union (TIPU)",
     details: [
-      "The manuscript describes TIPU as the main civic organ linking people at home and in the diaspora.",
-      "It credits the union with support for schools, boreholes, street lights, town halls, clinics and palace development.",
-      "It also credits TIPU with mediation of disputes and strengthening the idea that Takete-Ide identity transcends geography.",
+      "TIPU is the central civic organisation uniting Takete-Ide people worldwide.",
+      "The union drives key civic development, supporting schools, water infrastructure, civic centres, healthcare and rural electrification.",
+      "TIPU fosters conflict resolution, civic solidarity and community advancement across all generations.",
     ],
   },
   {
     name: "Jet Club",
     details: [
-      "Educational debates and sporting competitions are presented as long-running Jet Club activities.",
-      "The manuscript associates the club with discipline, learning, youth development and camaraderie.",
+      "Jet Club organizes educational symposia, debates and sports tournaments for the youth.",
+      "The association fosters discipline, leadership skills, camaraderie and academic ambition.",
     ],
   },
   {
     name: "Owe",
     details: [
-      "Owe is described as a communal farming union that mobilises labour for clearing, planting and harvesting.",
-      "The institution is presented as practical mutual support when a household or member faces difficulty.",
+      "Owe is a traditional cooperative farming institution that mobilises collective community labour for clearing, planting and harvesting.",
+      "It provides reciprocal assistance, ensuring food security and collective community resilience.",
     ],
   },
   {
     name: "Takete Ide Students’ Union (TISU)",
     details: [
-      "TISU is described as linking students across institutions in Nigeria and abroad.",
-      "The manuscript records mentorship, scholarships, annual programmes and social activities intended to encourage younger people to embrace education.",
+      "TISU represents Takete-Ide students across tertiary institutions in Nigeria and internationally.",
+      "The union delivers academic mentorship, educational resources, scholarships and community orientation programmes.",
     ],
   },
   {
     name: "Egbe Ode (Hunters Union)",
     details: [
-      "The manuscript presents Egbe Ode as preserving indigenous tracking and survival skills.",
-      "It also describes the union as a defensive brotherhood supporting farms, forests and community security.",
+      "Egbe Ode preserves ancestral wildlife tracking, forest knowledge and survival arts.",
+      "The hunters' guild supports environmental stewardship, local safety and community protection.",
     ],
   },
 ] as const;

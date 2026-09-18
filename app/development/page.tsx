@@ -12,8 +12,6 @@ import { getProjects } from "@/lib/data/projects";
 import { getCommunityMedia } from "@/lib/data/community-media";
 import {
   BOOK_DEVELOPMENT_INTERVENTIONS,
-  BOOK_SOURCE_NOTE,
-  BOOK_SOURCE_TITLE,
 } from "@/content/history/web/from-hilltops-to-valley";
 
 import { siteConfig } from "@/lib/site-config";
@@ -90,11 +88,10 @@ export default async function DevelopmentPage({ searchParams }: Props) {
                 <BookOpen className="h-5 w-5" aria-hidden="true" />
               </span>
               <div>
-                <p className="text-xs font-bold uppercase tracking-[0.18em] text-gold-700">Historical manuscript</p>
-                <h2 className="mt-1 font-serif text-2xl font-bold text-purple-950">Development interventions recorded in the book</h2>
+                <p className="text-xs font-bold uppercase tracking-[0.18em] text-gold-700">Historical Development</p>
+                <h2 className="mt-1 font-serif text-2xl font-bold text-purple-950">Historical Development Milestones</h2>
                 <p className="mt-2 max-w-3xl text-sm leading-relaxed text-charcoal/75">
-                  These are historical interventions described in the supplied community manuscript. They are kept separate
-                  from the live project register below, which tracks current or formally registered development projects.
+                  Historical community infrastructure initiatives that laid the groundwork for modern civic and social development in Takete-Ide.
                 </p>
               </div>
             </div>
@@ -108,8 +105,8 @@ export default async function DevelopmentPage({ searchParams }: Props) {
               </article>
             ))}
           </div>
-          <p className="border-t border-purple-100 px-6 py-4 text-xs italic leading-relaxed text-charcoal/60 sm:px-8">
-            Source: {BOOK_SOURCE_TITLE}. {BOOK_SOURCE_NOTE}
+          <p className="border-t border-purple-100 px-6 py-4 text-xs font-medium leading-relaxed text-charcoal/60 sm:px-8">
+            Takete-Ide Historical Development Archive
           </p>
         </section>
 

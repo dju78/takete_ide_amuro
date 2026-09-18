@@ -3,7 +3,6 @@ import Link from "next/link";
 import { BookOpen, ArrowRight, ShieldCheck } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
-import { ResearchDisclaimer } from "@/components/heritage/ResearchDisclaimer";
 import { siteConfig } from "@/lib/site-config";
 import {
   BOOK_CHAPTERS,
@@ -69,9 +68,7 @@ export default function ManuscriptArchivePage() {
       </div>
 
       <Container className="max-w-6xl py-14 sm:py-16">
-        <ResearchDisclaimer />
-
-        <section className="mt-10 rounded-3xl border border-purple-600/10 bg-white p-6 shadow-sm sm:p-8">
+        <section className="rounded-3xl border border-purple-600/10 bg-white p-6 shadow-sm sm:p-8">
           <div className="flex items-start gap-3">
             <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-community-green" aria-hidden="true" />
             <div>

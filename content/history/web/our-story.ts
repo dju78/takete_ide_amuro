@@ -92,7 +92,7 @@ export const OUR_STORY_SECTIONS: HistoricalSection[] = [
     sourceType: "community-historical-account",
     verificationStatus: "community-account",
     summary:
-      "According to community accounts, the kindred groups of Amuro originally lived together in a fertile plain settlement known as Amuro-Odo. The community flourished in farming and craftsmanship until 19th-century regional instability disrupted the peace of the Confluence basin.",
+      "Community oral tradition holds that the kindred groups of Amuro originally lived together in a fertile plain settlement known as Amuro-Odo. The community flourished in farming and craftsmanship until 19th-century regional instability disrupted the peace of the Confluence basin.",
     keyPoints: [
       "Amuro-Odo was the shared ancestral home of Amuro communities prior to 19th-century dispersal.",
       "The settlement included kin who later settled across Amuro towns as well as Itedo Amuro in Isanlu.",

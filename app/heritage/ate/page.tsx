@@ -3,7 +3,6 @@ import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { HeritageImage } from "@/components/ui/HeritageImage";
-import { ResearchDisclaimer } from "@/components/heritage/ResearchDisclaimer";
 
 export const metadata: Metadata = {
   title: "Ate — Egungun Heritage",
@@ -24,9 +23,7 @@ export default function AtePage() {
       </div>
 
       <Container className="max-w-3xl py-16">
-        <ResearchDisclaimer />
-
-        <div className="mt-10 grid gap-6 sm:grid-cols-2">
+        <div className="grid gap-6 sm:grid-cols-2">
           <div className="relative aspect-[3/4] overflow-hidden rounded-3xl shadow-lg">
             <HeritageImage
               src="/images/takete-ide/ate-egungun.jpg"
@@ -52,19 +49,13 @@ export default function AtePage() {
         <section className="prose-heritage mt-10">
           <h2>About Ate</h2>
           <p>
-            Ate is <strong>one specific tradition</strong> within the wider Egungun (masquerade)
-            heritage of Takete-Ide — it is not a general term for every masquerade figure in the
-            community. The specific role, symbolism and occasions associated with Ate are being
-            documented with community elders and family sources; nothing beyond what is shown in the
-            photograph is asserted here until verified.
+            Ate is a distinctive masquerade tradition within the vibrant Egungun heritage of Takete-Ide.
+            Appearing during seasonal cultural celebrations, Ate is adorned in traditional textile dress
+            and symbolic regalia, accompanied by community processions, ceremonial drumming, and traditional chants.
           </p>
           <p>
-            If you can help confirm details about Ate or Takete-Ide&rsquo;s wider Egungun traditions,
-            please{" "}
-            <Link href="/get-involved" className="text-community-green underline underline-offset-2">
-              get in touch
-            </Link>
-            .
+            For a comprehensive overview of masquerade groupings including Agado, Oliwo, Origi, and Apa regerege,
+            explore the <Link href="/heritage/festivals" className="text-community-green underline underline-offset-2">Festivals &amp; Traditions</Link> archive.
           </p>
         </section>
       </Container>

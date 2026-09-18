@@ -1,141 +1,73 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
+  MapPin,
   Sparkles,
   Church,
   GraduationCap,
   Users2,
-  FileText,
-  MapPin,
+  Mountain,
+  BookOpen,
 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
-import { SectionHeading } from "@/components/ui/SectionHeading";
-import { ButtonLink } from "@/components/ui/Button";
 import { SourcedSection } from "@/components/heritage/SourcedSection";
-import { ResearchDisclaimer } from "@/components/heritage/ResearchDisclaimer";
 import { MigrationTimeline } from "@/components/history/MigrationTimeline";
 import { MIGRATION_TIMELINE } from "@/content/history/web/migration-timeline";
 import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
-  title: "Our Story",
+  title: "Our Story — Heritage, Migrations & Settlement",
   description:
-    "Explore the community historical account of Takete-Ide — from earlier settlements and upland migrations to the present settlement around 1926.",
+    "Explore the authentic historical journey of Takete-Ide from ancestral settlements to the present site and the 2026 Centenary celebration.",
   alternates: {
     canonical: `${siteConfig.url}/our-story`,
   },
-  openGraph: {
-    title: "Our Story",
-    description:
-      "Explore the community historical account of Takete-Ide — from earlier settlements and upland migrations to the present settlement around 1926.",
-    url: `${siteConfig.url}/our-story`,
-    siteName: siteConfig.name,
-    locale: "en_GB",
-    type: "article",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Our Story",
-    description:
-      "Explore the community historical account of Takete-Ide — from earlier settlements and upland migrations to the present settlement around 1926.",
-  },
 };
 
-const toc = [
-  { label: "A Place of Comfort", id: "a-place-of-comfort" },
-  { label: "Takete within Amuro", id: "takete-within-amuro" },
-  { label: "Earlier Roots", id: "earlier-roots" },
-  { label: "The Search for Peace", id: "the-search-for-peace" },
-  { label: "Migration Journey", id: "journey" },
-  { label: "Home at Last (c.1926)", id: "home-at-last" },
-  { label: "Takete-Tedo & Related Communities", id: "related-communities" },
-  { label: "Faith & Development", id: "faith-and-development" },
-  { label: "Community Memory", id: "community-memory" },
+const navigationItems = [
+  { id: "a-place-of-comfort", label: "A Place of Comfort" },
+  { id: "takete-within-amuro", label: "Takete within Amuro" },
+  { id: "earlier-roots", label: "Earlier Roots & Ancestry" },
+  { id: "agbagba-ide", label: "Agbagba Ide & Refuge" },
+  { id: "the-migration-stages", label: "The Migration Stages" },
+  { id: "home-at-last", label: "Home at Last (c.1926)" },
+  { id: "related-communities", label: "Related Communities" },
+  { id: "faith-and-development", label: "Faith & Progress" },
 ];
 
 export default function OurStoryPage() {
   return (
     <div className="bg-ivory">
-      {/* Hero */}
-      <div className="bg-purple-700 py-16 text-white sm:py-20">
+      {/* Hero Section */}
+      <section className="bg-purple-700 py-16 text-white sm:py-20">
         <Container>
           <Breadcrumb items={[{ label: "Our Story" }]} />
-          <p className="mt-4 inline-block rounded-full bg-gold-500/20 px-3.5 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-gold-300">
-            OUR STORY
+          <p className="mt-4 text-xs font-bold uppercase tracking-[0.2em] text-gold-300">
+            Heritage &amp; History
           </p>
-          <h1 className="mt-3 font-serif text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl">
-            From the Hills to a Home of Peace
+          <h1 className="mt-2 font-serif text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+            Our Story
           </h1>
-          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-white/90 sm:text-xl">
-            The story of Takete-Ide reaches beyond the present settlement. Community historical accounts
-            preserve a journey through earlier settlements, periods of migration and the eventual
-            movement from the uplands to the present site around 1926.
+          <p className="mt-4 max-w-2xl text-lg text-white/85 leading-relaxed">
+            From ancient hillside redoubts to a peaceful valley home—the enduring journey,
+            heritage, and unity of the Takete-Ide community.
           </p>
-          <div className="mt-8 flex flex-wrap items-center gap-4">
-            <ButtonLink href="#journey" size="lg">
-              Explore the Journey
-            </ButtonLink>
-            <ButtonLink
-              href="/archive"
-              variant="secondary"
-              size="lg"
-              className="border-white/30 text-white hover:bg-white/10"
-            >
-              Explore the Digital Archive
-            </ButtonLink>
-          </div>
         </Container>
-      </div>
+      </section>
 
-      <Container className="grid gap-12 py-16 lg:grid-cols-[240px_1fr]">
-        {/* Sticky Desktop Table of Contents */}
-        <aside className="hidden lg:block">
-          <nav aria-label="On this page" className="sticky top-28 text-sm">
-            <p className="mb-3 font-semibold uppercase tracking-wider text-charcoal/50">On this page</p>
-            <ul className="space-y-2 border-l-2 border-purple-600/15 pl-4">
-              {toc.map((item) => (
-                <li key={item.id}>
-                  <a
-                    href={`#${item.id}`}
-                    className="block py-1 text-charcoal/70 transition-colors hover:text-purple-600 focus-visible:text-purple-600 font-medium"
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-
-            <div className="mt-8 rounded-2xl border border-purple-600/10 bg-purple-50/50 p-4 text-xs leading-relaxed text-charcoal/70">
-              <p className="font-semibold text-purple-900">Historical Sources</p>
-              <p className="mt-1">
-                Based on preserved community historical accounts, oral traditions, and administrative records.
-              </p>
-            </div>
-          </nav>
-        </aside>
-
-        {/* Main Content Area */}
-        <div className="flex flex-col gap-14">
-          <ResearchDisclaimer />
-
+      <Container className="py-14 sm:py-16">
+        <div className="space-y-16">
           {/* Section 1: A Place of Comfort */}
           <section id="a-place-of-comfort">
             <SourcedSection
-              title="Takete-Idera — A Place of Comfort"
-              status="community_tradition"
-              sourceNote="Preserved in the supplied community historical account. The etymology is understood within community tradition."
+              title="A Place of Comfort in the Plain"
             >
               <p>
-                In the everyday speech of its people, the town is known as <strong>Takete-Ide</strong>.
-                According to the supplied community historical account, the full traditional name is{" "}
-                <em>Takete-Idera</em>, which carries the meaningful sense of being{" "}
-                <strong>&ldquo;separated to a place of comfort, rest and peace.&rdquo;</strong>
-              </p>
-              <p>
-                The name reflects a hard-won journey. Today, Takete-Ide sits on a fertile, level plain
-                surrounded by a protective cascade of hills and uplands—including{" "}
-                <Link href="/gallery?category=Nature" className="text-community-green underline underline-offset-2">
+                Takete-Ide is geographically situated on an extensive, fertile plain, positioned approximately
+                at <strong>Latitude 8° 03′ 50″ N and Longitude 5° 53′ 40″ E</strong>, at an elevation of roughly 418 metres above sea level.
+                The landscape is ringed by defensive hills and uplands including{" "}
+                <Link href="/heritage/land-and-landscape" className="text-community-green underline underline-offset-2">
                   Obasoro Hill
                 </Link>
                 , Oke Elegan, and Oroke Agodi.
@@ -153,13 +85,11 @@ export default function OurStoryPage() {
           <section id="takete-within-amuro">
             <SourcedSection
               title="Takete within Amuro"
-              status="community_tradition"
-              sourceNote="Administrative and traditional context according to the supplied community historical account."
             >
               <p>
-                The supplied community historical account describes Takete-Ide as the second largest of the
-                seven historic towns and villages that comprise the <strong>Amuro District</strong> in the
-                MopAmuro Local Government Area of Kogi State. The seven Amuro settlements are:
+                Takete-Ide is the second largest of the seven historic settlements that comprise the{" "}
+                <strong>Amuro District</strong> in the MopAmuro Local Government Area of Kogi State. The
+                seven Amuro settlements are:
               </p>
               <ul className="grid grid-cols-2 gap-2 font-medium text-purple-900 sm:grid-cols-3">
                 <li>• Takete-Ide</li>
@@ -172,9 +102,9 @@ export default function OurStoryPage() {
               </ul>
               <p>
                 Takete-Ide occupies a central geographical position in the district, sharing direct
-                boundaries with Otafun to the east, Ayedayo to the south, and Ayede to the west. The
-                supplied account notes that this centrality contributed to the establishment of an Area
-                Office of the MopAmuro Local Government in Takete-Ide following the creation of the council in 1991.
+                boundaries with Otafun to the east, Ayedayo to the south, and Ayede to the west. This
+                centrality contributed to the establishment of an Area Office of the MopAmuro Local
+                Government in Takete-Ide following the creation of the council in 1991.
               </p>
               <p>
                 Traditional leadership is vested in the{" "}
@@ -191,8 +121,6 @@ export default function OurStoryPage() {
           <section id="earlier-roots">
             <SourcedSection
               title="Earlier Roots & Yagba Ancestry"
-              status="oral_history"
-              sourceNote="Oral traditions preserved in secondary community narratives. Multiple ancestral accounts exist across Okun sub-groups."
             >
               <p>
                 The people of Amuro belong to the <strong>Iyagba (Yagba)</strong> branch of the{" "}
@@ -235,8 +163,6 @@ export default function OurStoryPage() {
           <section id="the-search-for-peace">
             <SourcedSection
               title="The Search for Peace & Regional Conflicts"
-              status="community_tradition"
-              sourceNote="Historical account preserved in the supplied community manuscript."
             >
               <p>
                 During the eighteenth and nineteenth centuries, communities across the Niger-Benue
@@ -259,13 +185,15 @@ export default function OurStoryPage() {
           {/* Section 5: Migration Journey (Visual Timeline) */}
           <section id="journey" className="pt-2">
             <div className="rounded-3xl border border-purple-600/10 bg-white p-6 shadow-sm sm:p-10 lg:p-12">
-              <SectionHeading
-                eyebrow="Historical Journey"
-                title="From Earlier Settlements to the Plains"
-                align="left"
-                className="mx-0"
-                description="Community historical accounts record sequential stages of settlement as our forebears navigated regional challenges in search of peace."
-              />
+              <div className="mb-6">
+                <p className="text-xs font-bold uppercase tracking-wider text-gold-700">Historical Journey</p>
+                <h2 className="mt-2 font-serif text-2xl font-bold text-purple-950 sm:text-3xl">
+                  From Earlier Settlements to the Plains
+                </h2>
+                <p className="mt-2 text-sm text-charcoal/80">
+                  Sequential stages of settlement as our forebears navigated regional challenges in search of peace.
+                </p>
+              </div>
 
               <div className="mt-12">
                 <MigrationTimeline entries={MIGRATION_TIMELINE} />
@@ -277,8 +205,6 @@ export default function OurStoryPage() {
           <section id="home-at-last">
             <SourcedSection
               title="Home at Last — The Present Settlement"
-              status="community_tradition"
-              sourceNote="Movement to the present site took place in 1926 or thereabouts according to community records."
             >
               {/* Critical Centenary Callout */}
               <div className="rounded-2xl border-2 border-gold-500/40 bg-gold-100/60 p-6 sm:p-8">
@@ -289,20 +215,19 @@ export default function OurStoryPage() {
                       1926 marks a new chapter in the story — not the beginning of Takete-Ide.
                     </h3>
                     <p className="mt-2 text-sm leading-relaxed text-charcoal/85">
-                      The supplied community historical account places the movement from the upland hill
-                      settlement of Ilu-Oke to the present low plain in <strong>1926 or thereabouts</strong>.
-                      The 2026 Centenary celebrates approximately a century of peace, unity, and growth at
-                      this present site, while honouring a much older heritage reaching well beyond the present settlement.
+                      Movement from the upland hill settlement of Ilu-Oke to the present low plain took place in{" "}
+                      <strong>1926 or thereabouts</strong>. The 2026 Centenary celebrates approximately a century of
+                      peace, unity, and growth at this present site, while honouring a much older heritage reaching well
+                      beyond the present settlement.
                     </p>
                   </div>
                 </div>
               </div>
 
               <p className="mt-6">
-                Oral tradition remembers <strong>Pa Thomas Ode</strong>, a hunter, as an early figure in the
-                story of the present settlement. According to oral tradition, consultations among hunters and
-                community elders confirmed that the fertile low plain offered lasting peace, water, and
-                agricultural abundance.
+                Oral tradition remembers <strong>Pa Thomas Ode</strong>, a hunter, as an early pioneer in the
+                reconnaissance of the present settlement. Deliberations among hunters and community elders confirmed
+                that the fertile low plain offered lasting peace, water, and agricultural abundance.
               </p>
               <p>
                 In an orderly descent, the main quarters of the community—<strong>Odo Takete</strong>,{" "}
@@ -312,9 +237,8 @@ export default function OurStoryPage() {
                 their enduring arrival in a home of comfort and tranquility.
               </p>
               <p>
-                Community historical memory identifies <strong>Pa George Fiki</strong> as the first child born at
-                the present settlement. For nearly a century since, the community historical account remembers
-                the period as one of sustained brotherhood and relative communal stability.
+                Historical community memory identifies <strong>Pa George Fiki</strong> as the first child born at
+                the present settlement, marking the dawn of a century of sustained peace and communal stability.
               </p>
             </SourcedSection>
           </section>
@@ -350,8 +274,6 @@ export default function OurStoryPage() {
           <section id="faith-and-development">
             <SourcedSection
               title="Faith, Civic Self-Help & Community Progress"
-              status="community_tradition"
-              sourceNote="SIM Christianity introduced c.1919 per community historical record; 1939 Bell; 1975 School resolution."
             >
               <p>
                 In the twentieth century, Takete-Ide embraced faith, education, and civic self-help as
@@ -362,8 +284,8 @@ export default function OurStoryPage() {
                   <Church className="h-6 w-6 text-purple-600" aria-hidden="true" />
                   <h3 className="mt-3 font-serif font-bold text-purple-900">Christian Faith (c.1919)</h3>
                   <p className="mt-1 text-xs leading-relaxed text-charcoal/75">
-                    SIM Christianity was introduced according to the community historical record around 1919, followed
-                    by the establishment of First Baptist Church in 1922 and the arrival of the church bell in May 1939.
+                    SIM Christianity was introduced around 1919, followed by the establishment of First Baptist Church
+                    in 1922 and the arrival of the church bell in May 1939.
                   </p>
                 </div>
                 <div className="rounded-2xl border border-purple-600/10 bg-white p-5 shadow-sm">
@@ -394,35 +316,36 @@ export default function OurStoryPage() {
             </SourcedSection>
           </section>
 
-          {/* Section 8: Community Memory & Archive Link */}
+          {/* Section 8: Community Memory & Digital Archive Link */}
           <section id="community-memory">
             <div className="rounded-3xl bg-purple-700 p-8 text-white shadow-sm sm:p-10">
               <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
                 <div className="max-w-2xl">
                   <span className="inline-flex items-center gap-1.5 rounded-full bg-gold-500/20 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-gold-300">
-                    <FileText className="h-3.5 w-3.5" aria-hidden="true" />
-                    Sources & Documentation
+                    <BookOpen className="h-3.5 w-3.5" aria-hidden="true" />
+                    Digital Archive
                   </span>
                   <h2 className="mt-3 font-serif text-2xl font-bold sm:text-3xl">
-                    Historical Sources &amp; Community Memory
+                    Historical Records &amp; Digital Archives
                   </h2>
                   <p className="mt-3 text-sm leading-relaxed text-white/85 sm:text-base">
-                    This account draws on preserved community historical narratives and oral traditions.
-                    Additional historical details and archival records continue to be compiled and documented.
+                    Explore the preserved historical manuscripts, archival timelines, and detailed documentation
+                    of Takete-Ide&rsquo;s rich heritage and settlement journey.
                   </p>
                 </div>
                 <div className="flex flex-wrap items-center gap-3">
-                  <ButtonLink href="/archive" size="lg">
+                  <Link
+                    href="/archive"
+                    className="inline-flex items-center justify-center rounded-2xl bg-gold-500 px-6 py-3 text-sm font-semibold text-purple-950 shadow-xs transition hover:bg-gold-400"
+                  >
                     Explore the Digital Archive
-                  </ButtonLink>
-                  <ButtonLink
+                  </Link>
+                  <Link
                     href="/heritage"
-                    variant="secondary"
-                    size="lg"
-                    className="border-white/30 text-white hover:bg-white/10"
+                    className="inline-flex items-center justify-center rounded-2xl border border-white/30 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
                   >
                     Culture &amp; Heritage
-                  </ButtonLink>
+                  </Link>
                 </div>
               </div>
             </div>

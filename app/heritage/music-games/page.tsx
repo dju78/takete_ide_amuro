@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Music2, Gamepad2, Sparkles } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
-import { ResearchDisclaimer } from "@/components/heritage/ResearchDisclaimer";
 import { SourcedSection } from "@/components/heritage/SourcedSection";
 import { siteConfig } from "@/lib/site-config";
 import {
@@ -19,7 +18,7 @@ import {
 export const metadata: Metadata = {
   title: "Music, Games & Everyday Heritage",
   description:
-    "Traditional music groups, instruments, childhood games and older cultural practices recorded in the Takete-Ide community manuscript.",
+    "Traditional music groups, instruments, childhood games and cultural practices of Takete-Ide.",
   alternates: {
     canonical: `${siteConfig.url}/heritage/music-games`,
   },
@@ -44,8 +43,7 @@ export default function MusicGamesPage() {
               <p className="text-xs font-bold uppercase tracking-[0.2em] text-gold-300">Everyday cultural memory</p>
               <h1 className="mt-2 font-serif text-4xl font-bold sm:text-5xl">Music, Games &amp; Everyday Heritage</h1>
               <p className="mt-3 max-w-3xl text-white/85">
-                Community life was also shaped by music, play, storytelling, performance and older cultural
-                traditions. The manuscript preserves many of their local names.
+                Community life in Takete-Ide is richly defined by indigenous music, festive dance, folk games, storytelling, and ceremonial performances.
               </p>
             </div>
           </div>
@@ -53,18 +51,13 @@ export default function MusicGamesPage() {
       </div>
 
       <Container className="max-w-6xl py-14 sm:py-16">
-        <ResearchDisclaimer />
-
-        <div className="mt-12">
+        <div>
           <SourcedSection
             title="Music and entertainment in community memory"
-            status="community_tradition"
-            sourceNote={`${BOOK_SOURCE_TITLE}, Chapters One and Three. ${BOOK_SOURCE_NOTE}`}
           >
             <p>
-              The manuscript remembers organised musical groups alongside drums, bells and other instruments
-              used at ceremonies and rehearsals. These details are important because they preserve the names of
-              cultural forms that may otherwise disappear from everyday memory.
+              Traditional musical ensembles and instruments form a central part of cultural ceremonies,
+              rehearsals and community celebrations across Takete-Ide, preserving enduring heritage for future generations.
             </p>
           </SourcedSection>
         </div>
