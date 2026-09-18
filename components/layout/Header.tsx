@@ -3,13 +3,17 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import dynamic from "next/dynamic";
 import { Menu, Search, Gamepad2 } from "lucide-react";
 import { Logo } from "@/components/layout/Logo";
-import { MobileNav } from "@/components/layout/MobileNav";
 import { MegaMenuGroup } from "@/components/layout/MegaMenuGroup";
 import { ButtonLink } from "@/components/ui/Button";
 import { navGroups } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
+
+const MobileNav = dynamic(() => import("@/components/layout/MobileNav").then((mod) => mod.MobileNav), {
+  ssr: false,
+});
 
 export function Header({ weatherSlot }: { weatherSlot?: React.ReactNode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
