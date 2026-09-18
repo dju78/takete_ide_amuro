@@ -51,4 +51,38 @@ test.describe("Celebration Archive & Takete-Ide Day Media Integration", () => {
     await expect(page.getByRole("heading", { name: "Digital Archive" })).toBeVisible();
     await expect(page.getByText("Takete-Ide Day 2025 Celebration & Cultural Ambassador Conferment")).toBeVisible();
   });
+
+  test("Archive detail pages render valid CreativeWork JSON-LD structured data", async ({ page }) => {
+    // 1. takete-history-original
+    await page.goto("/archive/takete-history-original");
+    const jsonLdScripts1 = await page.locator('script[type="application/ld+json"]').all();
+    const jsonContents1 = await Promise.all(jsonLdScripts1.map((s) => s.textContent()));
+    const parsed1 = jsonContents1.map((c) => (c ? JSON.parse(c) : null)).filter(Boolean);
+
+    const creativeWork1 = parsed1.find((item) => item["@type"] === "CreativeWork");
+    expect(creativeWork1).toBeDefined();
+    expect(creativeWork1["@context"]).toBe("https://schema.org");
+    expect(creativeWork1.name).toBe("Takete-Ide Historical Community Account");
+    expect(creativeWork1.url).toBe("https://takete-ide.org/archive/takete-history-original");
+    expect(creativeWork1.publisher?.name).toBe("Takete-Ide Amuro");
+    expect(creativeWork1.image).toBeUndefined(); // no thumbnail
+
+    // Verify BreadcrumbList & Organization schemas exist without duplicates
+    const breadcrumb1 = parsed1.filter((item) => item["@type"] === "BreadcrumbList");
+    expect(breadcrumb1.length).toBe(1);
+    const organization1 = parsed1.filter((item) => item["@type"] === "Organization");
+    expect(organization1.length).toBe(1);
+
+    // 2. takete-ide-day-2025-records
+    await page.goto("/archive/takete-ide-day-2025-records");
+    const jsonLdScripts2 = await page.locator('script[type="application/ld+json"]').all();
+    const jsonContents2 = await Promise.all(jsonLdScripts2.map((s) => s.textContent()));
+    const parsed2 = jsonContents2.map((c) => (c ? JSON.parse(c) : null)).filter(Boolean);
+
+    const creativeWork2 = parsed2.find((item) => item["@type"] === "CreativeWork");
+    expect(creativeWork2).toBeDefined();
+    expect(creativeWork2.name).toBe("Takete-Ide Day 2025 Celebration & Cultural Ambassador Conferment");
+    expect(creativeWork2.url).toBe("https://takete-ide.org/archive/takete-ide-day-2025-records");
+    expect(creativeWork2.image).toContain("https://takete-ide.org/images/takete-ide/celebrations/cultural-ambassador-award-conferment-2025.jpg");
+  });
 });

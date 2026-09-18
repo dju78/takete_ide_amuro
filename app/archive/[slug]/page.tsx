@@ -16,6 +16,7 @@ import {
   RELATED_HERITAGE_LINKS,
 } from "@/content/history/web/archive-overview";
 import { MIGRATION_TIMELINE } from "@/content/history/web/migration-timeline";
+import { siteConfig } from "@/lib/site-config";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -51,8 +52,34 @@ export default async function ArchiveItemPage({ params }: Props) {
 
   const isCanonicalTaketeHistory = item.slug === "takete-history-original";
 
+  const archiveJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: item.title,
+    ...(item.description ? { description: item.description } : {}),
+    url: `${siteConfig.url}/archive/${item.slug}`,
+    mainEntityOfPage: `${siteConfig.url}/archive/${item.slug}`,
+    publisher: {
+      "@type": "Organization",
+      name: siteConfig.name,
+    },
+    ...(item.thumbnail_url
+      ? {
+          image: [
+            item.thumbnail_url.startsWith("http")
+              ? item.thumbnail_url
+              : `${siteConfig.url}${item.thumbnail_url}`,
+          ],
+        }
+      : {}),
+  };
+
   return (
     <div className="bg-ivory">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(archiveJsonLd) }}
+      />
       <Container className="py-14 sm:py-16">
         <Breadcrumb items={[{ label: "Digital Archive", href: "/archive" }, { label: item.title }]} />
 
