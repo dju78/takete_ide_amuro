@@ -3,7 +3,7 @@ import { CalendarDays, History, Info, MapPin } from "lucide-react";
 import { HeritageImage } from "@/components/ui/HeritageImage";
 import { BranchMediaPlaceholder } from "@/components/tipu/BranchMediaPlaceholder";
 import { formatDate } from "@/lib/utils";
-import { branchPlaceholderMessage, branchStatusNote } from "@/lib/media/tipu-branches";
+import { branchStatusNote } from "@/lib/media/tipu-branches";
 import type { ResolvedBranch, BranchUpdate } from "@/lib/data/tipu-branches";
 
 /**
@@ -26,9 +26,6 @@ export function BranchCard({
 }) {
   const regionLine = branch.location;
   const statusNote = branchStatusNote(branch);
-  const placeholderNote = branchPlaceholderMessage(branch);
-  // Forming branches use the same wording for both; print it once, as the pill.
-  const showPlaceholderNote = branch.needsPlaceholder && placeholderNote !== statusNote;
 
   // Editor-supplied updates win over the baseline activity recorded in the registry.
   const latestLabel = latest?.title ?? branch.latestActivity;
@@ -53,7 +50,6 @@ export function BranchCard({
             branchName={branch.name}
             region={regionLine}
             acronym={branch.acronym}
-            statusMessage={placeholderNote}
             showLabel={false}
           />
         )}
@@ -78,9 +74,6 @@ export function BranchCard({
             <MapPin className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
             {regionLine}
           </p>
-        )}
-        {showPlaceholderNote && (
-          <p className="mt-1.5 text-xs italic text-charcoal/45">{placeholderNote}</p>
         )}
         <p className="mt-3 flex-1 text-sm leading-relaxed text-charcoal/75">{branch.description}</p>
 

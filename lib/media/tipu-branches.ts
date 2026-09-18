@@ -380,7 +380,6 @@ export const tipuBranches: BranchSeed[] = [
     // placed alongside long-running branches, and no establishment date is set.
     status: "forming",
     verification: "pending-verification",
-    statusNote: "Community record — details being updated",
     sourceNote: `${SRC.chairmenOct2025}; a TIPU notice of 7 Jan 2026 stated that "Kano branch and Kabba branch will by God's grace kick-off this year", so its operational status at that date is unclear`,
     featured: false,
     sortOrder: 140,
@@ -496,11 +495,9 @@ export function findBranchSeed(slug: string): BranchSeed | undefined {
   return tipuBranches.find((b) => b.slug === slug);
 }
 
-/** Public one-liner for a branch whose record isn't settled. Empty for settled ones. */
+/** Public note for a branch where specific context is provided. */
 export function branchStatusNote(branch: Pick<BranchSeed, "status" | "verification" | "statusNote">) {
   if (branch.statusNote) return branch.statusNote;
-  if (branch.status === "forming") return FORMING_STATUS_NOTE;
-  if (branch.verification === "pending-verification") return PENDING_STATUS_NOTE;
   return null;
 }
 

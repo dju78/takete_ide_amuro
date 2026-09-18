@@ -193,11 +193,7 @@ export function OrikiDirectory({ records }: Props) {
                         </span>
                       </td>
                       <td className="py-4 pr-6 pl-4 align-top">
-                        {record.audio_url ? (
-                          <OrikiAudio record={record} />
-                        ) : (
-                          <span className="text-xs text-charcoal/30" aria-label="No audio recording">—</span>
-                        )}
+                        {record.audio_url && <OrikiAudio record={record} />}
                       </td>
                     </tr>
                   ))}

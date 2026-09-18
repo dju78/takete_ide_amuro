@@ -230,8 +230,9 @@ test.describe("Takete-Ide Family Oríkì Directory", () => {
     await expect(desktopEseyinAudio).toBeVisible();
     await expect(desktopEseyinAudio.locator("source")).toHaveAttribute("src", "/audio/oriki/eseyin-telu.ogg");
 
-    // Records without audio show clean typography indicator
-    await expect(page.getByLabel("No audio recording").first()).toBeVisible();
+    // Records without audio omit the audio player cleanly without missing-media messaging
+    await expect(page.getByText("Text only")).toHaveCount(0);
+    await expect(page.getByText("Not yet recorded")).toHaveCount(0);
 
     // 3. Mobile verification
     await page.setViewportSize({ width: 375, height: 667 });

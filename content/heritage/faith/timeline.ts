@@ -73,11 +73,11 @@ export const RELIGIOUS_HERITAGE_TIMELINE: ReligiousTimelineEntry[] = [
   {
     id: "sim-1919-takete-record",
     yearLabel: "1919",
-    title: "SIM Christianity Introduced in Takete-Ide (Community Record)",
+    title: "SIM Christianity Introduced in Takete-Ide",
     description:
-      "According to the community historical record, SIM Christianity was introduced to Takete-Ide around 1919. This date reflects community tradition and requires further documentary confirmation from early church registers.",
+      "According to the community historical record, SIM Christianity was introduced to Takete-Ide around 1919, establishing the early Christian fellowship in the community.",
     status: "community_tradition",
-    statusNote: "Community historical record; subject to ongoing documentary confirmation.",
+    statusNote: "Preserved community historical tradition.",
   },
   {
     id: "sim-1922-active-congregation",
@@ -104,6 +104,6 @@ export const RELIGIOUS_HERITAGE_TIMELINE: ReligiousTimelineEntry[] = [
     description:
       "In subsequent decades, additional Christian denominations establish congregations in Takete-Ide — including The Apostolic Church, Christ Apostolic Church (CAC), Cherubim and Seraphim Church, Second ECWA Church, Redeemed Christian Church of God (RCCG), Church of God in Christ, Seed of Christ Golden Church (Sebioba), Second Apostolic Church, Healing Church, Deeper Life Bible Church, and Christ Bible Baptist Church.",
     status: "community_tradition",
-    statusNote: "Community places of worship; individual archival records in progress.",
+    statusNote: "Preserved community historical records.",
   },
 ];

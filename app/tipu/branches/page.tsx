@@ -51,16 +51,10 @@ export default async function TipuNetworkPage() {
           </section>
         ))}
 
-        {/* Says plainly why some cards carry artwork instead of a photograph, so a
-            visitor reads "archive still being built", not "unfinished website". */}
         <p className="mt-4 rounded-2xl border border-purple-600/10 bg-white p-5 text-sm leading-relaxed text-charcoal/70">
-          {withPhotos} of our {total} branches currently have photographs in the community archive. The rest
-          are shown with the union&rsquo;s own emblem while their photographic record is still being
-          gathered — every branch listed here is part of the network. This list is drawn from the
-          union&rsquo;s own dues notices, branch listings and levy records; where a detail is still being
-          confirmed the card says so rather than guessing.{" "}
+          This network directory represents Takete-Ide Progressive Union branches and chapters connecting sons and daughters across Nigeria and the diaspora.{" "}
           <a href="/contact" className="font-semibold text-community-green underline underline-offset-2">
-            Have photographs or corrections from your branch?
+            Contact union leadership to connect with your local branch →
           </a>
         </p>
       </Container>

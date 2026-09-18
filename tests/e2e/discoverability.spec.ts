@@ -63,10 +63,10 @@ test.describe("Site-wide Public Discoverability & Navigation Pathways", () => {
   test("Oríkì directory features functional audio filter and dignified unrecorded status", async ({ page }) => {
     await page.goto("/oriki");
 
-    // Check clean unrecorded label
-    await expect(page.getByLabel("No audio recording").first()).toBeVisible();
+    // Verify no placeholder or missing-media phrases
     await expect(page.getByText("Not yet recorded")).toHaveCount(0);
     await expect(page.getByText("Text only")).toHaveCount(0);
+    await expect(page.getByText("Photographs not archived")).toHaveCount(0);
 
     // Capture initial record count badge text (dynamic based on current data source)
     const initialCountBadge = page.locator("span", { hasText: /Records?/i }).first();
@@ -80,15 +80,13 @@ test.describe("Site-wide Public Discoverability & Navigation Pathways", () => {
 
     // Filtered view shows records with playable audio (e.g. 3 approved audio recordings)
     await expect(page.locator("table audio, .space-y-3 audio").first()).toBeVisible();
-    await expect(page.getByLabel("No audio recording")).toHaveCount(0);
 
     // All records view restore
     const allFilter = page.getByRole("button", { name: /All Records/i });
     await allFilter.click();
 
-    // Verify all records view is restored matching the initial count and unrecorded indicators reappear
+    // Verify all records view is restored matching the initial count
     await expect(initialCountBadge).toHaveText(initialCountText);
-    await expect(page.getByLabel("No audio recording").first()).toBeVisible();
   });
 
   test("verified community badges render dignified archival labels rather than pending verification", async ({ page }) => {
