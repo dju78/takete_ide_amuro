@@ -1,3 +1,6 @@
 # Canonical Admin Domain Redirects
 https://takete.netlify.app/admin https://takete-ide.org/admin 308!
 https://takete.netlify.app/admin/* https://takete-ide.org/admin/:splat 308!
+
+# Historical Typo Redirects
+/heritage/land-and-landscap /heritage/land-and-landscape 308!
