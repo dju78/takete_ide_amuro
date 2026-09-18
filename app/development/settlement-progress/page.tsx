@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Building2, ArrowRight, BookOpen, Camera, ShieldAlert } from "lucide-react";
+import { Building2, ArrowRight, BookOpen } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
-import { ResearchDisclaimer } from "@/components/heritage/ResearchDisclaimer";
 import { SettlementProgressGallery, type SettlementPhoto } from "@/components/development/SettlementProgressGallery";
 import { siteConfig } from "@/lib/site-config";
 
@@ -141,25 +140,7 @@ export default function SettlementProgressPage() {
         </Container>
       </div>
 
-      <Container className="max-w-6xl py-14 sm:py-16">
-        <ResearchDisclaimer />
-
-        {/* Archival Documentation Notice */}
-        <div className="mt-8 rounded-2xl border border-purple-200/70 bg-purple-50/50 p-5 text-xs text-charcoal/75 sm:text-sm">
-          <div className="flex items-start gap-3">
-            <Camera className="mt-0.5 h-5 w-5 shrink-0 text-purple-700" aria-hidden="true" />
-            <div>
-              <h3 className="font-semibold text-purple-950">Community Documentary Record</h3>
-              <p className="mt-1 leading-relaxed">
-                This page documents the evolving physical landscape of Takete-Ide for community history
-                and archival reference. In accordance with archival principles, photographs document
-                settlement progress without recording private homeowner identities, property valuations,
-                or speculative commercial claims.
-              </p>
-            </div>
-          </div>
-        </div>
-
+      <Container className="max-w-6xl py-12 sm:py-16">
         {/* SECTION 1 & 2: Interactive Settlement Progress Gallery */}
         <SettlementProgressGallery
           editorialPhotos={editorialPhotos}

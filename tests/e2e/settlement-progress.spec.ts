@@ -25,6 +25,11 @@ test.describe("Settlement & Community Progress (/development/settlement-progress
     await expect(h2s.nth(0)).toHaveText("A Changing Built Environment");
     await expect(h2s.nth(1)).toHaveText("Contemporary Residential Development");
     await expect(h2s.nth(2)).toHaveText("Documenting Community Change");
+
+    // Research disclaimer banner and contribute link must be completely absent from this page
+    await expect(page.locator("text=Takete-Ide's history is being preserved through documentary evidence")).toHaveCount(0);
+    await expect(page.locator("text=contribute what you know")).toHaveCount(0);
+    await expect(page.locator("text=Community Documentary Record")).toHaveCount(0);
   });
 
   test("renders all 9 authentic settlement photographs with non-empty neutral alt text", async ({ page }) => {

@@ -55,7 +55,7 @@ export function SettlementProgressGallery({
   return (
     <>
       {/* SECTION 1: Editorial Layout */}
-      <section className="mt-12">
+      <section>
         <div className="border-b border-purple-100 pb-4">
           <p className="text-xs font-bold uppercase tracking-wider text-gold-700">Section 01</p>
           <h2 className="mt-1 font-serif text-2xl font-bold text-purple-950 sm:text-3xl">
