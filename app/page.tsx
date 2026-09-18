@@ -412,6 +412,8 @@ export default async function HomePage() {
               href="/heritage/agado"
               title="Agado Festival"
               description="Community video footage from the Agado Festival."
+              image="/images/takete-ide/agado-festival.jpg"
+              imageAlt="Participants and masquerade in traditional costume at the Agado Festival in Takete-Ide"
               isVideo
             />
             <LivingHeritageCard

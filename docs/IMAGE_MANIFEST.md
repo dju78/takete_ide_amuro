@@ -16,6 +16,7 @@ and after Vercel deployment.
 | `ate-egungun.jpg` | Homepage, `/heritage/ate` | Ate, one of the Egungun (masquerade) traditions of Takete-Ide |
 | `marriage-celebration-1.jpg`, `marriage-celebration-2.jpg` | Homepage, `/heritage/traditional-marriage` | Ceremonial items and a gathering associated with marriage celebrations |
 | `tipu-emblem.png` | Site logo (header/footer/mobile nav/admin), `/tipu` | Official TIPU emblem, motto "Faith, Unity and Progress" |
+| `agado-festival.jpg` | Homepage Living Heritage, `/heritage`, `/heritage/agado` video poster | Authentic extracted video frame of Agado Festival participants and masquerade |
 | `agado-festival.mp4` (video) | `/heritage/agado`, homepage Living Heritage preview | Community video footage of the Agado Festival |
 
 ## Imported Community Archive (August 2026)

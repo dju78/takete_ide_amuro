@@ -29,6 +29,7 @@ export default function AgadoFestivalPage() {
         <div className="mt-10 overflow-hidden rounded-3xl bg-black shadow-lg">
           <HeritageVideo
             src="/videos/takete-ide/agado-festival.mp4"
+            poster="/images/takete-ide/agado-festival.jpg"
             label="Agado Festival footage"
             className="aspect-video w-full"
           />
