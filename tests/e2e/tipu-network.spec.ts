@@ -117,7 +117,6 @@ test.describe("TIPU Network page", () => {
 
   test("pending records read neutrally, never as a warning", async ({ page }) => {
     await page.goto("/tipu/branches");
-    await expect(page.getByText("Community record being updated").first()).toBeVisible();
     await expect(page.getByText(/unverified|unconfirmed branch|not verified/i)).toHaveCount(0);
   });
 

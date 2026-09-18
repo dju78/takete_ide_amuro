@@ -85,10 +85,10 @@ export function GalleryLightbox({
               className={isLead ? "col-span-2 row-span-2" : undefined}
               sizes={
                 isLead
-                  ? "(min-width: 1024px) 50vw, 100vw"
+                  ? "(min-width: 1280px) 580px, (min-width: 1024px) 50vw, (min-width: 640px) 66vw, 100vw"
                   : columns === 4
-                    ? "(min-width: 1024px) 25vw, 50vw"
-                    : "(min-width: 640px) 33vw, 50vw"
+                    ? "(min-width: 1280px) 280px, (min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
+                    : "(min-width: 1280px) 380px, (min-width: 640px) 33vw, 50vw"
               }
             />
           );

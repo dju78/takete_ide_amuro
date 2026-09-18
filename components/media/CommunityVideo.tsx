@@ -64,7 +64,7 @@ export function CommunityVideo({
           <video
             controls
             playsInline
-            preload="metadata"
+            preload="none"
             poster={poster}
             aria-label={title}
             onError={() => setFailed(true)}

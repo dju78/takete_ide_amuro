@@ -142,7 +142,7 @@ export default function LandLandscapePage() {
                     src={landmark.src}
                     alt={landmark.alt}
                     fill
-                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                    sizes="(min-width: 1280px) 360px, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                     className="object-cover transition-transform duration-300 hover:scale-105"
                   />
                 </div>

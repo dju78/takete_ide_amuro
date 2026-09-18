@@ -31,7 +31,7 @@ export function GalleryCard({
   item,
   onSelect,
   className,
-  sizes = "(min-width: 1024px) 25vw, 50vw",
+  sizes = "(min-width: 1280px) 280px, (min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw",
 }: {
   item: GalleryItem;
   onSelect?: () => void;

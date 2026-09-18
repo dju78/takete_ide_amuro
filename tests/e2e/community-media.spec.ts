@@ -194,14 +194,14 @@ test.describe("Video delivery and accessibility", () => {
 
     expect(attrs.controls).toBe(true);
     expect(attrs.playsInline).toBe(true);
-    expect(attrs.preload).toBe("metadata");
+    expect(attrs.preload).toBe("none");
     expect(attrs.autoplay).toBe(false);
 
     // No placeholder, temporary media, or broken video message
     await expect(page.getByText(/video unavailable|coming soon|placeholder|temporary/i)).toHaveCount(0);
   });
 
-  test("players are labelled, controllable and set to preload metadata", async ({ page }) => {
+  test("players are labelled, controllable and set to preload none for bandwidth preservation", async ({ page }) => {
     await page.goto("/development/community-at-work");
     const videos = page.locator("video");
     await expect(videos).toHaveCount(2);
@@ -219,7 +219,7 @@ test.describe("Video delivery and accessibility", () => {
       }),
     );
     for (const v of state) {
-      expect(v.preload).toBe("metadata");
+      expect(v.preload).toBe("none");
       expect(v.hasPoster).toBe(true);
       expect(v.controls).toBe(true);
       expect(v.playsInline).toBe(true);

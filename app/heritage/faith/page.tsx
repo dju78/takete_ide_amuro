@@ -226,7 +226,9 @@ export default function FaithHeritagePage() {
               <div className="relative mx-auto max-w-3xl overflow-hidden rounded-2xl bg-black shadow-md">
                 <video
                   controls
-                  preload="metadata"
+                  playsInline
+                  preload="none"
+                  poster="/images/takete-ide/video-posters/egungun-festival.jpg"
                   className="aspect-video w-full"
                   aria-label="Egungun Festival cultural video recording from Takete-Ide"
                 >
