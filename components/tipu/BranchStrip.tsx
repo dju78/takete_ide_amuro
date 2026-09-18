@@ -27,6 +27,7 @@ export function BranchStrip({ branches }: { branches: ResolvedBranch[] }) {
                 <HeritageImage
                   src={branch.image}
                   alt=""
+                  aria-hidden="true"
                   label={branch.name}
                   fill
                   sizes="(min-width: 1024px) 25vw, 50vw"

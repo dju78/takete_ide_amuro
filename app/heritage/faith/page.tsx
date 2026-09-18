@@ -316,9 +316,9 @@ export default function FaithHeritagePage() {
                 <div className="flex items-start gap-3">
                   <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-gold-700" aria-hidden="true" />
                   <div>
-                    <h4 className="font-serif text-base font-bold text-purple-950">
+                    <h3 className="font-serif text-base font-bold text-purple-950">
                       1919 Introduction Reference in Community Records
-                    </h4>
+                    </h3>
                     <p className="mt-1 text-xs leading-relaxed text-charcoal/80">
                       The Takete-Ide community historical record preserves a traditional reference to{" "}
                       <strong>1919</strong> as the year SIM Christianity was first introduced into Takete-Ide. In

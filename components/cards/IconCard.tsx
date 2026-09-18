@@ -8,6 +8,7 @@ interface IconCardProps {
   href?: string;
   tone?: "purple" | "gold" | "green";
   className?: string;
+  headingLevel?: "h2" | "h3";
 }
 
 const toneClasses = {
@@ -16,7 +17,16 @@ const toneClasses = {
   green: "bg-green-600/10 text-green-700",
 };
 
-export function IconCard({ icon: Icon, title, description, href, tone = "purple", className }: IconCardProps) {
+export function IconCard({
+  icon: Icon,
+  title,
+  description,
+  href,
+  tone = "purple",
+  className,
+  headingLevel = "h3",
+}: IconCardProps) {
+  const HeadingTag = headingLevel;
   const content = (
     <div
       className={cn(
@@ -28,7 +38,7 @@ export function IconCard({ icon: Icon, title, description, href, tone = "purple"
       <span className={cn("flex h-11 w-11 items-center justify-center rounded-xl", toneClasses[tone])}>
         <Icon className="h-5 w-5" aria-hidden="true" />
       </span>
-      <h3 className="mt-4 font-serif text-lg font-bold text-purple-600 sm:text-xl">{title}</h3>
+      <HeadingTag className="mt-4 font-serif text-lg font-bold text-purple-600 sm:text-xl">{title}</HeadingTag>
       <p className="mt-3 text-base leading-relaxed text-charcoal/70">{description}</p>
       {href && <span className="mt-4 text-sm font-semibold text-community-green">Learn more →</span>}
     </div>

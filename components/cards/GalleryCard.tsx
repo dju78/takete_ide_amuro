@@ -20,6 +20,7 @@ function PlaceholderIcon({ category }: { category?: string }) {
     <Image
       src="/images/takete-ide/tipu-emblem.png"
       alt=""
+      aria-hidden="true"
       fill
       sizes="(min-width: 640px) 32px, 24px"
       className="object-contain p-0.5"

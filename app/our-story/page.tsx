@@ -206,7 +206,7 @@ export default function OurStoryPage() {
               </p>
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="rounded-2xl border border-purple-600/10 bg-white p-5 shadow-sm">
-                  <h4 className="font-serif font-bold text-purple-900">The Ile-Ife Tradition</h4>
+                  <h3 className="font-serif font-bold text-purple-900">The Ile-Ife Tradition</h3>
                   <p className="mt-2 text-xs leading-relaxed text-charcoal/75">
                     One widely cherished tradition associates the patriarchal ancestor with an expedition from
                     Ile-Ife, where a late return and lost territory prompted the reflective phrase{" "}
@@ -215,7 +215,7 @@ export default function OurStoryPage() {
                   </p>
                 </div>
                 <div className="rounded-2xl border border-purple-600/10 bg-white p-5 shadow-sm">
-                  <h4 className="font-serif font-bold text-purple-900">The Old-Oyo Tradition</h4>
+                  <h3 className="font-serif font-bold text-purple-900">The Old-Oyo Tradition</h3>
                   <p className="mt-2 text-xs leading-relaxed text-charcoal/75">
                     A second tradition links the name to an esteemed princess from Oyo-Ile (<em>Iya-agba</em>,
                     meaning an elder woman) who led a migration in search of peace and established settlements
@@ -360,7 +360,7 @@ export default function OurStoryPage() {
               <div className="mt-4 grid gap-6 sm:grid-cols-3">
                 <div className="rounded-2xl border border-purple-600/10 bg-white p-5 shadow-sm">
                   <Church className="h-6 w-6 text-purple-600" aria-hidden="true" />
-                  <h4 className="mt-3 font-serif font-bold text-purple-900">Christian Faith (c.1919)</h4>
+                  <h3 className="mt-3 font-serif font-bold text-purple-900">Christian Faith (c.1919)</h3>
                   <p className="mt-1 text-xs leading-relaxed text-charcoal/75">
                     SIM Christianity was introduced according to the community historical record around 1919, followed
                     by the establishment of First Baptist Church in 1922 and the arrival of the church bell in May 1939.
@@ -368,7 +368,7 @@ export default function OurStoryPage() {
                 </div>
                 <div className="rounded-2xl border border-purple-600/10 bg-white p-5 shadow-sm">
                   <GraduationCap className="h-6 w-6 text-community-green" aria-hidden="true" />
-                  <h4 className="mt-3 font-serif font-bold text-purple-900">Education (1975)</h4>
+                  <h3 className="mt-3 font-serif font-bold text-purple-900">Education (1975)</h3>
                   <p className="mt-1 text-xs leading-relaxed text-charcoal/75">
                     On 26 December 1975, the community resolved to establish its own secondary school,
                     empowering generations of scholars and professionals.
@@ -376,7 +376,7 @@ export default function OurStoryPage() {
                 </div>
                 <div className="rounded-2xl border border-purple-600/10 bg-white p-5 shadow-sm">
                   <Users2 className="h-6 w-6 text-gold-700" aria-hidden="true" />
-                  <h4 className="mt-3 font-serif font-bold text-purple-900">TIPU Civic Union</h4>
+                  <h3 className="mt-3 font-serif font-bold text-purple-900">TIPU Civic Union</h3>
                   <p className="mt-1 text-xs leading-relaxed text-charcoal/75">
                     The Takete-Ide Progressive Union unites branches across Nigeria and the diaspora to build
                     roads, security, and civic infrastructure.

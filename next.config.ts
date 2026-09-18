@@ -14,6 +14,11 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: "/heritage/land-and-landscap",
+        destination: "/heritage/land-and-landscape",
+        permanent: true,
+      },
+      {
         source: "/admin",
         has: [{ type: "host", value: "takete.netlify.app" }],
         destination: "https://takete-ide.org/admin",

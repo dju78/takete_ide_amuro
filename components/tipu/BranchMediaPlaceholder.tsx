@@ -106,6 +106,7 @@ export function BranchMediaPlaceholder({
           <Image
             src="/images/takete-ide/tipu-emblem.png"
             alt=""
+            aria-hidden="true"
             fill
             sizes={compact ? "28px" : "44px"}
             className="object-contain p-0.5"

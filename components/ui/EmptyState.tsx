@@ -7,6 +7,7 @@ interface EmptyStateProps {
   icon?: React.ComponentType<{ className?: string }>;
   className?: string;
   children?: React.ReactNode;
+  headingLevel?: "h2" | "h3";
 }
 
 export function EmptyState({
@@ -15,7 +16,9 @@ export function EmptyState({
   icon: Icon = Archive,
   className,
   children,
+  headingLevel = "h2",
 }: EmptyStateProps) {
+  const HeadingTag = headingLevel;
   return (
     <div
       className={cn(
@@ -24,7 +27,7 @@ export function EmptyState({
       )}
     >
       <Icon className="mb-4 h-10 w-10 text-purple-600/40" aria-hidden="true" />
-      <h3 className="font-serif text-xl font-semibold text-purple-600">{title}</h3>
+      <HeadingTag className="font-serif text-xl font-semibold text-purple-600">{title}</HeadingTag>
       <p className="mt-2 max-w-md text-sm text-charcoal/70">{message}</p>
       {children}
     </div>
