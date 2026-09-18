@@ -17,7 +17,7 @@ const staticRoutes = [
   "/archive/from-hilltops-to-the-valley", "/archive/oral-history", "/tipu", "/tipu/branches", "/tipu/branches/lokoja",
   "/tipu/branches/ilorin", "/diaspora/uk-europe", "/takete-ide-day/cultural-attire", "/centenary", "/support",
   "/education", "/kogi-quest",
-  "/development/community-at-work", "/families", "/families/compounds", "/families/contribute",
+  "/development/community-at-work", "/development/settlement-progress", "/families", "/families/compounds", "/families/contribute",
   "/oriki", "/oriki/contribute", "/get-involved", "/contact", "/privacy", "/terms",
   "/accessibility", "/cookies",
 ];

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Route, GraduationCap, HeartPulse, Droplet, Zap, Building2, Cpu, Sprout, ShieldCheck, Landmark, Lightbulb, Crown, Trees, BookOpen } from "lucide-react";
+import { Route, GraduationCap, HeartPulse, Droplet, Zap, Building2, Cpu, Sprout, ShieldCheck, Landmark, Lightbulb, Crown, Trees, BookOpen, ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -111,6 +111,43 @@ export default async function DevelopmentPage({ searchParams }: Props) {
           <p className="border-t border-purple-100 px-6 py-4 text-xs italic leading-relaxed text-charcoal/60 sm:px-8">
             Source: {BOOK_SOURCE_TITLE}. {BOOK_SOURCE_NOTE}
           </p>
+        </section>
+
+        {/* Settlement & Community Progress Documentary Feature */}
+        <section className="mb-14 overflow-hidden rounded-3xl border border-purple-600/10 bg-white shadow-sm">
+          <div className="grid gap-6 p-6 sm:p-8 lg:grid-cols-[1.2fr_1fr] lg:items-center">
+            <div>
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-gold-100 px-3 py-0.5 text-xs font-semibold text-gold-800">
+                <Building2 className="h-3.5 w-3.5" aria-hidden="true" />
+                Physical Growth &amp; Housing
+              </span>
+              <h2 className="mt-3 font-serif text-2xl font-bold text-purple-950 sm:text-3xl">
+                Settlement &amp; Community Progress
+              </h2>
+              <p className="mt-3 text-sm leading-relaxed text-charcoal/80 sm:text-base">
+                A photographic record of contemporary residential development and the changing built
+                environment of Takete-Ide, documenting the physical growth of the community across different areas.
+              </p>
+              <div className="mt-5">
+                <Link
+                  href="/development/settlement-progress"
+                  className="inline-flex min-h-10 items-center gap-2 rounded-xl bg-purple-700 px-5 py-2 text-xs font-semibold text-white shadow-xs transition hover:bg-purple-800"
+                >
+                  Explore Settlement Progress <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </Link>
+              </div>
+            </div>
+            <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl bg-purple-50 shadow-inner">
+              <HeritageImage
+                src="/images/takete-ide/development/settlement-progress/settlement-progress-01.jpg"
+                alt="Contemporary residential development in Takete-Ide"
+                label="Contemporary Residential Growth"
+                fill
+                sizes="(min-width: 1024px) 40vw, 100vw"
+                className="object-cover"
+              />
+            </div>
+          </div>
         </section>
 
         <div className="flex flex-wrap gap-2">

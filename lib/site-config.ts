@@ -149,6 +149,7 @@ export const navGroups: NavGroup[] = [
       { label: "The TIPU Network", href: "/tipu/branches", description: "Every branch, at home and abroad", featured: true },
       { label: "Diaspora", href: "/diaspora", description: "Takete-Ide people around the world" },
       { label: "Development", href: "/development", description: "Roads, security, education and more" },
+      { label: "Settlement & Community Progress", href: "/development/settlement-progress", description: "Photographic record of contemporary residential development" },
       { label: "Get Involved", href: "/get-involved", description: "Volunteer, contribute, partner" },
     ],
   },
@@ -208,6 +209,7 @@ export const footerGroups: { heading: string; items: NavItem[] }[] = [
       { label: "Diaspora", href: "/diaspora" },
       { label: "Community Organisations", href: "/heritage/community-organisations" },
       { label: "Development", href: "/development" },
+      { label: "Settlement & Progress", href: "/development/settlement-progress" },
     ],
   },
   {
