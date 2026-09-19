@@ -1,4 +1,5 @@
 import http from "node:http";
+import https from "node:https";
 
 const BASE_URL = process.env.TARGET_URL || "http://localhost:3000";
 
@@ -77,7 +78,8 @@ const SEED_ROUTES = [
 function fetchUrl(urlPath) {
   return new Promise((resolve) => {
     const fullUrl = new URL(urlPath, BASE_URL);
-    const req = http.get(fullUrl, (res) => {
+    const client = fullUrl.protocol === "https:" ? https : http;
+    const req = client.get(fullUrl, (res) => {
       let data = "";
       res.on("data", (chunk) => (data += chunk));
       res.on("end", () => {
