@@ -7,7 +7,6 @@ import {
   calculateTimeRemaining,
   getLagosTimestamp,
   getNextCentenaryProgramme,
-  getProgrammeCountdown,
 } from "@/lib/utils/centenary-countdown";
 import { CENTENARY_PROGRAMME, type CentenaryProgrammeItem } from "@/lib/media/community-programme";
 import { Sparkles, Radio, Calendar, Clock } from "lucide-react";

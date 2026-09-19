@@ -222,29 +222,44 @@ export default async function TipuPage() {
         </section>
 
         <section className="mt-16">
-          <SectionHeading eyebrow="Leadership" title="Union Leadership" align="left" className="mx-0" />
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <SectionHeading eyebrow="National Executive" title="Union Leadership" align="left" className="mx-0" />
+            <ButtonLink href="/contact" variant="outline" size="sm">
+              Contact Secretariat
+            </ButtonLink>
+          </div>
           <div className="mt-6">
             {leadership.length > 0 ? (
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {leadership.map((l) => (
-                  <div key={l.id} className="rounded-2xl border border-purple-600/10 bg-white p-5">
-                    <p className="font-semibold text-purple-600">{l.full_name}</p>
-                    <p className="text-sm text-charcoal/60">{l.position}</p>
-                    {l.branch && <p className="text-xs text-charcoal/50">{l.branch}</p>}
+                  <div key={l.id} className="rounded-2xl border border-purple-600/10 bg-white p-5 shadow-xs">
+                    <p className="font-serif font-bold text-purple-950">{l.full_name}</p>
+                    <p className="text-sm font-medium text-gold-800">{l.position}</p>
+                    {l.branch && <p className="mt-1 text-xs text-charcoal/60">{l.branch}</p>}
+                    {l.term && <p className="text-2xs text-charcoal/50">Term: {l.term}</p>}
                   </div>
                 ))}
               </div>
             ) : (
               <EmptyState
-                title="Leadership list not yet published"
-                message="TIPU's national and branch officers will be listed here once confirmed by union leadership."
+                title="National Executive &amp; Officer Roster"
+                message="Official TIPU National Executive records and branch executive rosters are currently being compiled and verified in accordance with union secretariat documentation."
+                action={{
+                  label: "Contact TIPU Secretariat",
+                  href: "/contact",
+                  variant: "outline",
+                }}
+                secondaryAction={{
+                  label: "Explore TIPU Branches",
+                  href: "/tipu/branches",
+                }}
               />
             )}
           </div>
         </section>
 
         <section className="mt-16">
-          <SectionHeading eyebrow="Newsroom" title="Latest TIPU News" align="left" className="mx-0" />
+          <SectionHeading eyebrow="Newsroom" title="Latest TIPU News &amp; Bulletins" align="left" className="mx-0" />
           <div className="mt-6">
             {news.length > 0 ? (
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -254,30 +269,40 @@ export default async function TipuPage() {
               </div>
             ) : (
               <EmptyState
-                title="No union news published yet"
-                message="Curated summaries of union announcements will appear here as the newsroom is populated."
+                title="Union Bulletins &amp; Updates"
+                message="Curated summaries of union announcements and official press statements will appear here as they are published."
+                action={{
+                  label: "View General News",
+                  href: "/news",
+                  variant: "primary",
+                }}
               />
             )}
           </div>
         </section>
 
         <section className="mt-16">
-          <SectionHeading eyebrow="Projects" title="TIPU Projects" align="left" className="mx-0" />
+          <SectionHeading eyebrow="Projects" title="TIPU Projects &amp; Initiatives" align="left" className="mx-0" />
           <div className="mt-6">
             {projects.length > 0 ? (
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {projects.map((p) => (
-                  <div key={p.id} className="rounded-2xl border border-purple-600/10 bg-white p-5">
+                  <div key={p.id} className="rounded-2xl border border-purple-600/10 bg-white p-5 shadow-xs">
                     <ProjectStatusBadge status={p.status} />
-                    <p className="mt-2 font-semibold text-purple-600">{p.title}</p>
-                    {p.description && <p className="mt-1 text-sm text-charcoal/70">{p.description}</p>}
+                    <p className="mt-2 font-serif font-bold text-purple-950">{p.title}</p>
+                    {p.description && <p className="mt-1 text-sm leading-relaxed text-charcoal/70">{p.description}</p>}
                   </div>
                 ))}
               </div>
             ) : (
               <EmptyState
-                title="No TIPU projects published yet"
-                message="Union-led projects will be listed here as they are announced. Community development projects are tracked separately."
+                title="Union Development Initiatives"
+                message="Union-led community initiatives and welfare schemes will be published here as they are officially ratified. Community infrastructure projects are tracked on the Development register."
+                action={{
+                  label: "Explore Community Development",
+                  href: "/development",
+                  variant: "secondary",
+                }}
               />
             )}
           </div>
@@ -285,40 +310,45 @@ export default async function TipuPage() {
 
         <section className="mt-16 grid gap-10 lg:grid-cols-2">
           <div>
-            <SectionHeading eyebrow="Updates" title="Announcements" align="left" className="mx-0" />
+            <SectionHeading eyebrow="Updates" title="Union Notices &amp; Announcements" align="left" className="mx-0" />
             <div className="mt-6 space-y-4">
               {announcements.length > 0 ? (
                 announcements.map((a) => (
-                  <div key={a.id} className="rounded-2xl border border-purple-600/10 bg-white p-5">
-                    <p className="font-semibold text-purple-600">{a.title}</p>
+                  <div key={a.id} className="rounded-2xl border border-purple-600/10 bg-white p-5 shadow-xs">
+                    <p className="font-serif font-bold text-purple-950">{a.title}</p>
                     {a.published_at && (
                       <p className="text-xs text-charcoal/50">{formatDate(a.published_at)}</p>
                     )}
-                    {a.body && <p className="mt-1 text-sm text-charcoal/70">{a.body}</p>}
+                    {a.body && <p className="mt-2 text-sm leading-relaxed text-charcoal/75">{a.body}</p>}
                   </div>
                 ))
               ) : (
-                <EmptyState title="No announcements yet" message="Union announcements will appear here." />
+                <EmptyState
+                  title="Official Notices"
+                  message="Meeting notices, communique resolutions, and union circulars will appear here as they are released."
+                  compact
+                />
               )}
             </div>
           </div>
           <div>
-            <SectionHeading eyebrow="Records" title="Documents & Reports" align="left" className="mx-0" />
+            <SectionHeading eyebrow="Records" title="Constitutions, Documents &amp; Reports" align="left" className="mx-0" />
             <div className="mt-6 space-y-2">
               {documents.length > 0 ? (
                 documents.map((d) => (
                   <a
                     key={d.id}
                     href={d.document_url}
-                    className="flex items-center gap-2 rounded-xl border border-purple-600/10 bg-white p-4 text-sm font-medium text-community-green hover:underline"
+                    className="flex items-center gap-2 rounded-xl border border-purple-600/10 bg-white p-4 text-sm font-medium text-purple-900 shadow-2xs hover:bg-purple-50"
                   >
-                    <FileText className="h-4 w-4" aria-hidden="true" /> {d.title}
+                    <FileText className="h-4 w-4 text-purple-700" aria-hidden="true" /> {d.title}
                   </a>
                 ))
               ) : (
                 <EmptyState
-                  title="No documents published yet"
-                  message="Constitutions, reports and meeting documents will be listed here."
+                  title="Official Publications Archive"
+                  message="Constitutions, annual general meeting reports, and union resolutions will be accessible here."
+                  compact
                 />
               )}
             </div>
@@ -340,3 +370,4 @@ function Stat({ value, label }: { value: number; label: string }) {
     </div>
   );
 }
+

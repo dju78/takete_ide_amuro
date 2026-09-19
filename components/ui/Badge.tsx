@@ -1,31 +1,34 @@
 import { cn } from "@/lib/utils";
 import type { ContentStatus, ProjectStatus, VerificationStatus } from "@/types/content";
 import type { FamilyVerificationStatus } from "@/types/family";
-import { CheckCircle2, HelpCircle, BookOpen, FileText, Clock } from "lucide-react";
+import { CheckCircle2, HelpCircle, BookOpen, FileText, Clock, Mic2 } from "lucide-react";
 
 const verificationConfig: Record<
   string,
   { label: string; className: string; icon: React.ComponentType<{ className?: string }> }
 > = {
-  unverified: { label: "Community Record", className: "bg-purple-50 text-purple-700 ring-1 ring-purple-600/20", icon: BookOpen },
-  pending_verification: { label: "Historical Profile", className: "bg-purple-50 text-purple-700 ring-1 ring-purple-600/20", icon: BookOpen },
-  draft: { label: "Draft Record", className: "bg-charcoal/5 text-charcoal/60 ring-1 ring-charcoal/10", icon: Clock },
-  family_submitted: { label: "Family Contributed", className: "bg-purple-50 text-purple-700 ring-1 ring-purple-600/20", icon: FileText },
-  oral_history: { label: "Oral History", className: "bg-gold-100/70 text-gold-900 ring-1 ring-gold-600/25", icon: BookOpen },
+  verified: { label: "Verified", className: "bg-emerald-50 text-emerald-800 ring-1 ring-emerald-600/25", icon: CheckCircle2 },
   community_record: { label: "Community Record", className: "bg-purple-50 text-purple-700 ring-1 ring-purple-600/20", icon: BookOpen },
+  historical_source: { label: "Historical Source", className: "bg-blue-50 text-blue-800 ring-1 ring-blue-600/25", icon: FileText },
+  oral_testimony: { label: "Oral Testimony", className: "bg-gold-100 text-gold-900 ring-1 ring-gold-600/30", icon: Mic2 },
+  awaiting_verification: { label: "Awaiting Verification", className: "bg-amber-50 text-amber-800 ring-1 ring-amber-600/25", icon: Clock },
+  // Semantic fallbacks and aliases:
+  documentary_evidence: { label: "Documentary Evidence", className: "bg-blue-50 text-blue-800 ring-1 ring-blue-600/25", icon: FileText },
+  oral_history: { label: "Oral Testimony", className: "bg-gold-100 text-gold-900 ring-1 ring-gold-600/30", icon: Mic2 },
   community_tradition: { label: "Community Tradition", className: "bg-purple-50 text-purple-700 ring-1 ring-purple-600/20", icon: BookOpen },
-  historical_archive: { label: "Historical Archive", className: "bg-blue-50 text-blue-800 ring-1 ring-blue-600/20", icon: FileText },
-  documentary_evidence: { label: "Documentary Evidence", className: "bg-blue-50 text-blue-800 ring-1 ring-blue-600/20", icon: FileText },
-  community_reviewed: { label: "Community Reviewed", className: "bg-emerald-50 text-emerald-800 ring-1 ring-emerald-600/20", icon: CheckCircle2 },
-  verified: { label: "Verified Record", className: "bg-emerald-50 text-emerald-800 ring-1 ring-emerald-600/20", icon: CheckCircle2 },
-  disputed: { label: "Under Review", className: "bg-amber-50 text-amber-800 ring-1 ring-amber-600/20", icon: HelpCircle },
+  community_reviewed: { label: "Verified", className: "bg-emerald-50 text-emerald-800 ring-1 ring-emerald-600/25", icon: CheckCircle2 },
+  family_submitted: { label: "Community Record", className: "bg-purple-50 text-purple-700 ring-1 ring-purple-600/20", icon: BookOpen },
+  pending_verification: { label: "Awaiting Verification", className: "bg-amber-50 text-amber-800 ring-1 ring-amber-600/25", icon: Clock },
+  draft: { label: "Draft", className: "bg-charcoal/5 text-charcoal/60 ring-1 ring-charcoal/10", icon: Clock },
+  unverified: { label: "Awaiting Verification", className: "bg-amber-50 text-amber-800 ring-1 ring-amber-600/25", icon: HelpCircle },
+  disputed: { label: "Under Review", className: "bg-rose-50 text-rose-800 ring-1 ring-rose-600/25", icon: HelpCircle },
 };
 
 export function VerificationBadge({
   status,
   className,
 }: {
-  status: VerificationStatus | FamilyVerificationStatus;
+  status: VerificationStatus | FamilyVerificationStatus | string;
   className?: string;
 }) {
   const config = verificationConfig[status] ?? verificationConfig.unverified;
@@ -33,7 +36,7 @@ export function VerificationBadge({
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold",
+        "inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-semibold tracking-tight shadow-2xs",
         config.className,
         className,
       )}
@@ -46,35 +49,36 @@ export function VerificationBadge({
 
 const statusConfig: Record<ContentStatus, { label: string; className: string }> = {
   draft: { label: "Draft", className: "bg-charcoal/10 text-charcoal" },
-  pending_review: { label: "Pending Review", className: "bg-gold-100 text-gold-700" },
-  verified: { label: "Verified", className: "bg-green-600/10 text-green-700" },
-  published: { label: "Published", className: "bg-green-600/10 text-green-700" },
-  archived: { label: "Archived", className: "bg-charcoal/10 text-charcoal" },
+  pending_review: { label: "Pending Review", className: "bg-gold-100 text-gold-700 ring-1 ring-gold-600/20" },
+  verified: { label: "Verified", className: "bg-emerald-50 text-emerald-700 ring-1 ring-emerald-600/20" },
+  published: { label: "Published", className: "bg-emerald-50 text-emerald-700 ring-1 ring-emerald-600/20" },
+  archived: { label: "Archived", className: "bg-charcoal/10 text-charcoal/70" },
 };
 
 export function StatusBadge({ status, className }: { status: ContentStatus; className?: string }) {
-  const config = statusConfig[status];
+  const config = statusConfig[status] ?? statusConfig.draft;
   return (
-    <span className={cn("inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold", config.className, className)}>
+    <span className={cn("inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold", config.className, className)}>
       {config.label}
     </span>
   );
 }
 
 const projectStatusConfig: Record<ProjectStatus, { label: string; className: string }> = {
-  proposed: { label: "Proposed", className: "bg-charcoal/10 text-charcoal" },
-  planning: { label: "Planning", className: "bg-purple-50 text-purple-600" },
-  fundraising: { label: "Fundraising", className: "bg-gold-100 text-gold-700" },
-  in_progress: { label: "In Progress", className: "bg-blue-100 text-blue-700" },
-  completed: { label: "Completed", className: "bg-green-600/10 text-green-700" },
-  on_hold: { label: "On Hold", className: "bg-red-100 text-red-700" },
+  proposed: { label: "Proposed", className: "bg-charcoal/10 text-charcoal ring-1 ring-charcoal/15" },
+  planning: { label: "Planning", className: "bg-purple-50 text-purple-700 ring-1 ring-purple-600/20" },
+  fundraising: { label: "Fundraising", className: "bg-gold-100 text-gold-900 ring-1 ring-gold-600/25" },
+  in_progress: { label: "In Progress", className: "bg-blue-50 text-blue-800 ring-1 ring-blue-600/25" },
+  completed: { label: "Completed", className: "bg-emerald-50 text-emerald-800 ring-1 ring-emerald-600/25" },
+  on_hold: { label: "Paused", className: "bg-amber-50 text-amber-800 ring-1 ring-amber-600/25" },
 };
 
 export function ProjectStatusBadge({ status, className }: { status: ProjectStatus; className?: string }) {
-  const config = projectStatusConfig[status];
+  const config = projectStatusConfig[status] ?? projectStatusConfig.proposed;
   return (
-    <span className={cn("inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold", config.className, className)}>
+    <span className={cn("inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold", config.className, className)}>
       {config.label}
     </span>
   );
 }
+

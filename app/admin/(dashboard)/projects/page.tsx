@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Plus } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
-import { ProjectStatusBadge } from "@/components/ui/Badge";
+import { ProjectStatusBadge, StatusBadge } from "@/components/ui/Badge";
 import { DeleteButton } from "@/components/admin/DeleteButton";
 import { deleteProjectAction } from "@/lib/actions/admin-projects";
 
@@ -10,7 +10,7 @@ export const metadata = { title: "Development Projects — Admin" };
 export default async function AdminProjectsPage() {
   const supabase = await createClient();
   const { data } = supabase
-    ? await supabase.from("projects").select("id, title, category, status").order("created_at", { ascending: false })
+    ? await supabase.from("projects").select("id, title, category, status, publication_status").order("created_at", { ascending: false })
     : { data: [] };
 
   return (
@@ -28,7 +28,8 @@ export default async function AdminProjectsPage() {
             <tr>
               <th className="px-4 py-3">Title</th>
               <th className="px-4 py-3">Category</th>
-              <th className="px-4 py-3">Status</th>
+              <th className="px-4 py-3">Execution Status</th>
+              <th className="px-4 py-3">Publication</th>
               <th className="px-4 py-3" />
             </tr>
           </thead>
@@ -38,6 +39,7 @@ export default async function AdminProjectsPage() {
                 <td className="px-4 py-3 font-medium text-charcoal">{r.title}</td>
                 <td className="px-4 py-3">{String(r.category).replace(/_/g, " ")}</td>
                 <td className="px-4 py-3"><ProjectStatusBadge status={r.status} /></td>
+                <td className="px-4 py-3"><StatusBadge status={r.publication_status ?? "draft"} /></td>
                 <td className="px-4 py-3 text-right">
                   <Link href={`/admin/projects/${r.id}/edit`} className="mr-3 font-medium text-purple-600 hover:underline">Edit</Link>
                   <DeleteButton action={deleteProjectAction.bind(null, r.id)} label="project" />
@@ -45,7 +47,7 @@ export default async function AdminProjectsPage() {
               </tr>
             ))}
             {(!data || data.length === 0) && (
-              <tr><td colSpan={4} className="px-4 py-10 text-center text-charcoal/50">No projects yet.</td></tr>
+              <tr><td colSpan={5} className="px-4 py-10 text-center text-charcoal/50">No projects yet.</td></tr>
             )}
           </tbody>
         </table>

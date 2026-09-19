@@ -6,8 +6,6 @@ import { SourcedSection } from "@/components/heritage/SourcedSection";
 import { siteConfig } from "@/lib/site-config";
 import {
   BOOK_COMMUNITY_ORGANISATIONS,
-  BOOK_SOURCE_NOTE,
-  BOOK_SOURCE_TITLE,
 } from "@/content/history/web/from-hilltops-to-valley";
 import { BOOK_COMMUNITY_ORGANISATION_DETAILS } from "@/content/history/web/from-hilltops-to-valley-expanded";
 

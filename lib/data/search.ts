@@ -1,6 +1,8 @@
 import { getPublicSupabase } from "@/lib/supabase/server";
 import { getBranchNetwork } from "@/lib/data/tipu-branches";
 import { getCommunityMedia } from "@/lib/data/community-media";
+import { getSchools } from "@/lib/data/schools";
+import { getOralHistories } from "@/lib/data/archive";
 import { branchLocation } from "@/lib/media/tipu-branches";
 import { CENTENARY } from "@/lib/media/community-programme";
 
@@ -14,6 +16,8 @@ export type SearchType =
   | "archive"
   | "project"
   | "place"
+  | "school"
+  | "oral_history"
   | "page";
 
 export interface SearchResult {
@@ -36,6 +40,8 @@ export const typeLabels: Record<SearchType, string> = {
   archive: "Digital Archive",
   project: "Development",
   place: "Places & Landmarks",
+  school: "Schools & Education",
+  oral_history: "Oral Histories",
   page: "Pages",
 };
 
@@ -46,11 +52,13 @@ export const TYPE_ORDER: SearchType[] = [
   "news",
   "event",
   "people",
+  "school",
   "family",
   "oriki",
   "place",
   "project",
   "archive",
+  "oral_history",
 ];
 
 /**
@@ -241,9 +249,11 @@ export async function siteSearch(query: string): Promise<SearchResult[]> {
     }
   }
 
-  const [branches, media] = await Promise.all([
+  const [branches, media, schools, oralHistories] = await Promise.all([
     getBranchNetwork(),
     getCommunityMedia({ mediaType: "image" }),
+    getSchools(),
+    getOralHistories(),
   ]);
 
   for (const b of branches) {
@@ -269,6 +279,45 @@ export async function siteSearch(query: string): Promise<SearchResult[]> {
         excerpt: m.description,
         href: `/gallery?category=${encodeURIComponent(m.category)}`,
         meta: m.location ?? m.category,
+      });
+    }
+  }
+
+  for (const s of schools) {
+    if (
+      matches(s.name, raw) ||
+      matches(s.historical_description ?? "", raw) ||
+      matches(s.school_type, raw) ||
+      matches(s.level, raw)
+    ) {
+      results.push({
+        id: `school-${s.slug}`,
+        type: "school",
+        title: s.name,
+        excerpt: s.historical_description,
+        href: `/education#${s.slug}`,
+        meta: s.year_established ? `Est. ${s.year_established}` : s.level ? s.level.replace(/_/g, " ") : null,
+      });
+    }
+  }
+
+  for (const o of oralHistories) {
+    const oTitle = o.title || `Oral History: ${o.interviewee}`;
+    const oExcerpt = o.summary ?? o.historical_notes ?? `Oral testimony by ${o.interviewee}`;
+    if (
+      matches(oTitle, raw) ||
+      matches(o.interviewee, raw) ||
+      (o.speaker && matches(o.speaker, raw)) ||
+      (o.historical_notes && matches(o.historical_notes, raw)) ||
+      (o.topics && o.topics.some((t: string) => matches(t, raw)))
+    ) {
+      results.push({
+        id: `oral-${o.id}`,
+        type: "oral_history",
+        title: oTitle,
+        excerpt: oExcerpt,
+        href: "/archive/oral-history",
+        meta: o.interview_date ? `Recorded ${o.interview_date}` : "Oral History Archive",
       });
     }
   }
@@ -306,6 +355,8 @@ export async function siteSearch(query: string): Promise<SearchResult[]> {
     supabase
       .from("projects")
       .select("id, title, description, slug, category")
+      .eq("publication_status", "published")
+      .neq("verification_status", "disputed")
       .or(`title.ilike.%${orTerm}%,description.ilike.%${orTerm}%`)
       .limit(10),
     supabase

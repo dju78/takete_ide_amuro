@@ -7,6 +7,7 @@ import remarkGfm from "remark-gfm";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { NewsCard } from "@/components/cards/NewsCard";
+import { VerificationBadge } from "@/components/ui/Badge";
 import { formatDate } from "@/lib/utils";
 import { getAllNews, getNewsBySlug, getRelatedNews } from "@/lib/data/news";
 import { siteConfig } from "@/lib/site-config";
@@ -79,25 +80,41 @@ export default async function NewsArticlePage({ params }: Props) {
         />
 
         <article className="mx-auto mt-8 max-w-3xl">
-          {article.category && (
-            <span className="text-xs font-semibold uppercase tracking-wide text-gold-700">{article.category.name}</span>
-          )}
-          <h1 className="mt-2 font-serif text-3xl font-bold text-purple-600 sm:text-4xl">{article.title}</h1>
-          {article.published_at && (
-            <time dateTime={article.published_at} className="mt-3 block text-sm text-charcoal/50">
-              {formatDate(article.published_at)}
-            </time>
-          )}
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            {article.category && (
+              <span className="text-xs font-semibold uppercase tracking-wide text-gold-700">{article.category.name}</span>
+            )}
+            {article.verification_status && (
+              <VerificationBadge status={article.verification_status} />
+            )}
+          </div>
+          <h1 className="mt-2 font-serif text-3xl font-bold text-purple-950 sm:text-4xl">{article.title}</h1>
+          <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-charcoal/60">
+            {article.author_name && <span>By <strong className="text-charcoal/80">{article.author_name}</strong></span>}
+            {article.published_at && (
+              <time dateTime={article.published_at} className="block">
+                {formatDate(article.published_at)}
+              </time>
+            )}
+          </div>
 
           {article.featured_image && (
-            <div className="relative mt-8 aspect-[16/9] overflow-hidden rounded-2xl">
-              <Image src={article.featured_image} alt={article.featured_image_alt ?? ""} fill sizes="(min-width: 768px) 768px, 100vw" className="object-cover" priority />
+            <div className="mt-8 overflow-hidden rounded-3xl bg-purple-50 shadow-sm">
+              <div className="relative aspect-[16/9] w-full">
+                <Image src={article.featured_image} alt={article.featured_image_alt ?? article.title} fill sizes="(min-width: 768px) 768px, 100vw" className="object-cover" priority />
+              </div>
+              {article.image_caption && (
+                <p className="bg-purple-50/70 px-4 py-2 text-xs text-charcoal/70 italic border-t border-purple-100">
+                  {article.image_caption}
+                </p>
+              )}
             </div>
           )}
 
           <div className="prose-heritage mt-10">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>{article.body}</ReactMarkdown>
           </div>
+
 
           {/* Attribution only where an external source was recorded; community
               articles are attributed to the union by the publisher field above. */}

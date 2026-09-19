@@ -16,6 +16,14 @@ const statusOptions = ["proposed", "planning", "fundraising", "in_progress", "co
   label: s.replace(/_/g, " "),
 }));
 
+const publicationOptions = [
+  { value: "draft", label: "Draft (Private)" },
+  { value: "pending_review", label: "Pending Review" },
+  { value: "verified", label: "Verified (Internal)" },
+  { value: "published", label: "Published (Public)" },
+  { value: "archived", label: "Archived (Private)" },
+];
+
 const verificationOptions = [
   { value: "unverified", label: "Unverified" },
   { value: "oral_history", label: "Oral History" },
@@ -45,9 +53,10 @@ export function ProjectForm({ action, defaultValues, defaultImageUrl }: Props) {
         <TextField label="Title" name="title" required defaultValue={dv.title as string} error={state.fieldErrors?.title} />
         <TextField label="Slug" name="slug" hint="Leave blank to auto-generate" defaultValue={dv.slug as string} />
       </div>
-      <div className="grid gap-5 sm:grid-cols-2">
+      <div className="grid gap-5 sm:grid-cols-3">
         <SelectField label="Category" name="category" required options={categoryOptions} defaultValue={dv.category as string} />
-        <SelectField label="Status" name="status" required options={statusOptions} defaultValue={dv.status as string} />
+        <SelectField label="Execution Status" name="status" required options={statusOptions} defaultValue={dv.status as string} />
+        <SelectField label="Publication Status" name="publication_status" required options={publicationOptions} defaultValue={(dv.publication_status as string) ?? "draft"} />
       </div>
 
       <TextAreaField label="Description" name="description" rows={4} defaultValue={dv.description as string} />
@@ -61,20 +70,39 @@ export function ProjectForm({ action, defaultValues, defaultImageUrl }: Props) {
         <TextField label="Expected Completion" name="expected_completion" type="date" defaultValue={dv.expected_completion as string} />
       </div>
 
-      <div className="grid gap-5 sm:grid-cols-4">
+      <div className="grid gap-5 sm:grid-cols-5">
         <TextField label="Budget" name="budget" type="number" defaultValue={dv.budget != null ? String(dv.budget) : ""} />
         <TextField label="Amount Raised" name="amount_raised" type="number" defaultValue={dv.amount_raised != null ? String(dv.amount_raised) : ""} />
+        <TextField label="Amount Spent" name="amount_spent" type="number" defaultValue={dv.amount_spent != null ? String(dv.amount_spent) : ""} />
         <TextField label="Funding Target" name="funding_target" type="number" defaultValue={dv.funding_target != null ? String(dv.funding_target) : ""} />
-        <TextField label="Currency" name="currency" defaultValue={(dv.currency as string) ?? "NGN"} />
+        <TextField label="Progress (%)" name="progress_percentage" type="number" defaultValue={dv.progress_percentage != null ? String(dv.progress_percentage) : ""} hint="0-100" />
       </div>
-      <p className="text-xs text-charcoal/50">Only show financial figures when supplied by administrators — leave blank rather than estimating.</p>
+      <p className="text-xs text-charcoal/50">Only show financial figures when verified by project committees — unverified amounts will not be shown to public visitors.</p>
+
+      <div className="grid gap-5 sm:grid-cols-2">
+        <TextField label="Currency" name="currency" defaultValue={(dv.currency as string) ?? "NGN"} />
+        <TextField label="Last Financial Update" name="last_financial_update" type="date" defaultValue={dv.last_financial_update as string} />
+      </div>
+
+      <TextAreaField label="Expenditure Notes" name="expenditure_notes" rows={2} defaultValue={dv.expenditure_notes as string} hint="Brief breakdown of how funds were disbursed" />
 
       <div className="grid gap-5 sm:grid-cols-2">
         <TextField label="Funding Source" name="funding_source" defaultValue={dv.funding_source as string} />
         <TextField label="Responsible Organisation" name="responsible_organisation" defaultValue={dv.responsible_organisation as string} />
       </div>
 
-      <SelectField label="Verification Status" name="verification_status" required options={verificationOptions} defaultValue={dv.verification_status as string} />
+      <div className="border-t border-purple-600/10 pt-5">
+        <h3 className="font-serif text-base font-bold text-purple-900 mb-4">Provenance &amp; Verification</h3>
+        <div className="grid gap-5 sm:grid-cols-2">
+          <TextField label="Source / Reference Document" name="source_name" defaultValue={dv.source_name as string} />
+          <TextField label="Source URL / Ref Link" name="source_url" defaultValue={dv.source_url as string} />
+        </div>
+        <div className="grid gap-5 sm:grid-cols-3 mt-4">
+          <SelectField label="Verification Status" name="verification_status" required options={verificationOptions} defaultValue={dv.verification_status as string} />
+          <TextField label="Verified By" name="verified_by" defaultValue={dv.verified_by as string} />
+          <TextField label="Last Verified Date" name="last_verified_at" type="date" defaultValue={dv.last_verified_at as string} />
+        </div>
+      </div>
 
       <SubmitButton>Save Project</SubmitButton>
     </form>

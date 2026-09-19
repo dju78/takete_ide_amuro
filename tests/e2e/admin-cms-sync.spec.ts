@@ -1,9 +1,7 @@
 import { test, expect } from "@playwright/test";
-import { getCentenary, getCentenaryProgramme, getSupportAccount } from "@/lib/data/community-programme";
-import { getAllNews } from "@/lib/data/news";
+import { getCentenary, getSupportAccount } from "@/lib/data/community-programme";
 import { getGalleryItems } from "@/lib/data/gallery";
 import { getBranchNetwork } from "@/lib/data/tipu-branches";
-import { getTraditionalRulers } from "@/lib/data/people";
 
 test.describe("Canonical Data to Public Website Rendering", () => {
   test("public centenary page reflects canonical centenary data", async ({ page }) => {

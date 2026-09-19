@@ -131,9 +131,24 @@ export async function getNewsForBranch(branchSlug: string, limit = 3): Promise<N
   return data.map(mapArticle);
 }
 
-export async function getNewsCategories() {
+const STANDARD_NEWS_CATEGORIES = [
+  { name: "Community", slug: "community" },
+  { name: "TIPU", slug: "tipu" },
+  { name: "Development", slug: "development" },
+  { name: "Culture", slug: "culture" },
+  { name: "Education", slug: "education" },
+  { name: "Diaspora", slug: "diaspora" },
+  { name: "Centenary", slug: "centenary" },
+  { name: "Heritage", slug: "heritage" },
+  { name: "Announcement", slug: "announcement" },
+];
+
+export async function getNewsCategories(): Promise<{ name: string; slug: string }[]> {
   const supabase = getPublicSupabase();
-  if (!supabase) return [];
-  const { data } = await supabase.from("news_categories").select("name, slug").order("name");
-  return data ?? [];
+  if (supabase) {
+    const { data } = await supabase.from("news_categories").select("name, slug").order("name");
+    if (data && data.length > 0) return data;
+  }
+  return STANDARD_NEWS_CATEGORIES;
 }
+

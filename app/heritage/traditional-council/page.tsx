@@ -12,10 +12,7 @@ import {
   BOOK_COUNCIL_HIERARCHY,
   BOOK_WARDS,
 } from "@/content/history/web/from-hilltops-to-valley-expanded";
-import {
-  BOOK_SOURCE_NOTE,
-  BOOK_SOURCE_TITLE,
-} from "@/content/history/web/from-hilltops-to-valley";
+
 
 export const metadata: Metadata = {
   title: "Traditional Council & Chieftaincy",

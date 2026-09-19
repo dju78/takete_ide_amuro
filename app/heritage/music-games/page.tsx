@@ -10,10 +10,7 @@ import {
   BOOK_MUSIC_TRADITIONS,
   BOOK_TRADITIONAL_INSTRUMENTS,
 } from "@/content/history/web/from-hilltops-to-valley-expanded";
-import {
-  BOOK_SOURCE_NOTE,
-  BOOK_SOURCE_TITLE,
-} from "@/content/history/web/from-hilltops-to-valley";
+
 
 export const metadata: Metadata = {
   title: "Music, Games & Everyday Heritage",

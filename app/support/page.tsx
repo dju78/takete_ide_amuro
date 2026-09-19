@@ -36,9 +36,16 @@ export const metadata: Metadata = {
   },
 };
 
+interface Props {
+  searchParams?: Promise<{ project?: string; purpose?: string }>;
+}
+
 export const revalidate = 3600;
 
-export default async function SupportPage() {
+export default async function SupportPage({ searchParams }: Props) {
+  const resolvedParams = searchParams ? await searchParams : {};
+  const targetProject = resolvedParams.project;
+  const targetPurpose = resolvedParams.purpose;
   const account = await getSupportAccount();
 
   return (
@@ -55,6 +62,17 @@ export default async function SupportPage() {
       </div>
 
       <Container className="py-14 sm:py-16">
+        {(targetProject || targetPurpose) && (
+          <div className="mb-10 rounded-2xl border border-gold-500/40 bg-gold-50 p-6 text-purple-950">
+            <span className="text-xs font-bold uppercase tracking-wider text-gold-700">Project-Linked Giving</span>
+            <h2 className="mt-1 font-serif text-xl font-bold">
+              Supporting: {targetProject ? targetProject.replace(/-/g, " ") : targetPurpose}
+            </h2>
+            <p className="mt-2 text-sm text-charcoal/80">
+              When making a bank transfer, you may include <strong>&ldquo;{targetProject ? targetProject.replace(/-/g, " ") : targetPurpose}&rdquo;</strong> in your transfer narration so the union secretariat is aware of your intended focus area.
+            </p>
+          </div>
+        )}
         <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
           <div>
             <h2 className="mb-4 font-serif text-2xl font-bold text-purple-600">Direct Bank Transfer</h2>

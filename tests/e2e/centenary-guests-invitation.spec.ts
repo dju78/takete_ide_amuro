@@ -1,7 +1,6 @@
 import { test, expect } from "@playwright/test";
 import {
   CENTENARY_GUESTS,
-  CENTENARY_RSVP_CONTACTS,
   INDIVIDUAL_GUEST_COUNT,
   GROUP_ENTITY_COUNT,
   TOTAL_RECORD_COUNT,

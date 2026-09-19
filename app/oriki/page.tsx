@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { Sparkles, Music4, ScrollText, HeartHandshake } from "lucide-react";
+import { ScrollText } from "lucide-react";
+
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { OrikiDirectory } from "@/components/oriki/OrikiDirectory";

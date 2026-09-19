@@ -1,7 +1,6 @@
 import { Droplets, Wind, Sun } from "lucide-react";
 import { getCurrentWeather, getForecast } from "@/lib/weather/service";
 import { accuweatherIconUrl, weatherBackgroundMood, weatherMoodClasses } from "@/lib/weather/icon";
-import { WeatherUnavailable } from "@/components/weather/WeatherUnavailable";
 import { ButtonLink } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Container } from "@/components/ui/Container";

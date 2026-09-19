@@ -7,22 +7,40 @@ import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ButtonLink } from "@/components/ui/Button";
 import { SourcedSection } from "@/components/heritage/SourcedSection";
+import { SchoolCard } from "@/components/education/SchoolCard";
+import { getSchools } from "@/lib/data/schools";
 import {
   BOOK_EDUCATION_MILESTONES,
-  BOOK_HEALTH_MILESTONES,
-  BOOK_SOURCE_NOTE,
-  BOOK_SOURCE_TITLE,
 } from "@/content/history/web/from-hilltops-to-valley";
 import {
   BOOK_1943_PIONEER_PUPILS,
   BOOK_1953_PIONEER_PUPILS,
   BOOK_1963_FIRST_GRADUATES,
 } from "@/content/history/web/from-hilltops-to-valley-expanded";
+import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
-  title: "Education in Takete-Ide",
+  title: "Education & Schools Directory",
   description:
-    "Schooling in Takete-Ide — from early primary classes to the founding of the community secondary school, told from the community's own historical accounts.",
+    "Schooling in Takete-Ide — structured schools directory, educational facilities, and historical milestones from early primary classes to secondary education.",
+  alternates: {
+    canonical: `${siteConfig.url}/education`,
+  },
+  openGraph: {
+    title: "Education & Schools Directory | Takete-Ide",
+    description:
+      "Schooling in Takete-Ide — structured schools directory, educational facilities, and historical milestones from early primary classes to secondary education.",
+    url: `${siteConfig.url}/education`,
+    siteName: siteConfig.name,
+    locale: "en_GB",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Education & Schools Directory | Takete-Ide",
+    description:
+      "Schooling in Takete-Ide — structured schools directory, educational facilities, and historical milestones from early primary classes to secondary education.",
+  },
 };
 
 const educationalFacilities = [
@@ -94,20 +112,22 @@ function NamesCard({ title, period, names }: { title: string; period: string; na
   );
 }
 
-export default function EducationPage() {
+export default async function EducationPage() {
+  const schools = await getSchools();
+
   return (
     <div className="bg-ivory">
       <div className="bg-purple-700 py-14 text-white">
         <Container>
           <Breadcrumb items={[{ label: "Education" }]} />
           <h1 className="mt-4 font-serif text-4xl font-bold sm:text-5xl">Education in Takete-Ide</h1>
-          <p className="mt-3 max-w-2xl text-white/85">
-            How the community built its own schooling — and the school it handed on.
+          <p className="mt-3 max-w-2xl text-white/85 leading-relaxed">
+            How the community built its own schooling — foundational institutions, pioneer rolls, and modern digital learning.
           </p>
         </Container>
       </div>
 
-      <Container className="max-w-4xl py-14 sm:py-16">
+      <Container className="max-w-5xl py-14 sm:py-16">
         <div className="prose-heritage">
           <h2 className="mt-0">A community that schooled itself</h2>
           <p>
@@ -122,7 +142,24 @@ export default function EducationPage() {
           </p>
         </div>
 
-        <section className="mt-14">
+        {/* Structured Schools Directory */}
+        <section className="mt-16">
+          <SectionHeading
+            eyebrow="Directory"
+            title="Schools &amp; Learning Institutions"
+            align="left"
+            className="mx-0"
+            description="Verified educational institutions serving Takete-Ide children and youth."
+          />
+          <div className="mt-8 grid gap-6 sm:grid-cols-2">
+            {schools.map((school) => (
+              <SchoolCard key={school.id} school={school} />
+            ))}
+          </div>
+        </section>
+
+        {/* Foundation Milestones */}
+        <section className="mt-16">
           <SectionHeading
             eyebrow="Community History"
             title="School Foundation Milestones"
@@ -146,7 +183,7 @@ export default function EducationPage() {
 
         <div className="mt-14">
           <SourcedSection
-            title="Government Day Secondary School, Takete-Ide"
+            title="Historical Background — Government Day Secondary School"
           >
             <p>
               The community&rsquo;s secondary school began as a self-funded Community Secondary School,
@@ -311,3 +348,4 @@ export default function EducationPage() {
     </div>
   );
 }
+

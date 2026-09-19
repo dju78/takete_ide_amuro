@@ -92,12 +92,12 @@ test.describe("Production SEO & Canonical Domain Verification (https://takete-id
 
     // Parse all JSON-LD script blocks
     const scriptRegex = /<script\s+type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/gi;
-    const jsonLdBlocks: any[] = [];
+    const jsonLdBlocks: Record<string, unknown>[] = [];
     let match: RegExpExecArray | null;
     while ((match = scriptRegex.exec(html)) !== null) {
       try {
         jsonLdBlocks.push(JSON.parse(match[1]));
-      } catch (e) {
+      } catch {
         // Skip invalid JSON if any
       }
     }
@@ -125,6 +125,7 @@ test.describe("Production SEO & Canonical Domain Verification (https://takete-id
     );
     expect(org.url).toBe("https://takete-ide.org/");
     expect(org.logo).toBe("https://takete-ide.org/images/takete-ide/tipu-emblem.png");
-    expect(org.address?.addressCountry).toBe("NG");
+    const address = org.address as { addressCountry?: string } | undefined;
+    expect(address?.addressCountry).toBe("NG");
   });
 });

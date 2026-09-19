@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { getOrikiRecords, APPROVED_ORIKI_RECORDS } from "@/lib/data/oriki-records";
+import { getOrikiRecords } from "@/lib/data/oriki-records";
 
 test.describe("Takete-Ide Family Oríkì Directory", () => {
   test("renders authoritative heading and full cultural introduction", async ({ page }) => {

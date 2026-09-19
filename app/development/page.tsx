@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Route, GraduationCap, HeartPulse, Droplet, Zap, Building2, Cpu, Sprout, ShieldCheck, Landmark, Lightbulb, Crown, Trees, BookOpen, ArrowRight } from "lucide-react";
+import { Route, GraduationCap, HeartPulse, Droplet, Zap, Building2, Cpu, Sprout, ShieldCheck, Landmark, Lightbulb, Crown, Trees, BookOpen, ArrowRight, Filter } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -13,18 +13,18 @@ import { getCommunityMedia } from "@/lib/data/community-media";
 import {
   BOOK_DEVELOPMENT_INTERVENTIONS,
 } from "@/content/history/web/from-hilltops-to-valley";
-
 import { siteConfig } from "@/lib/site-config";
+import type { ProjectStatus } from "@/types/content";
 
 export const metadata: Metadata = {
-  title: "Development",
-  description: "Community development projects across roads, education, healthcare, water, electricity and more.",
+  title: "Development & Transparency",
+  description: "Community development projects and financial transparency across roads, education, healthcare, water, electricity and civic infrastructure.",
   alternates: {
     canonical: `${siteConfig.url}/development`,
   },
   openGraph: {
-    title: "Development | Takete-Ide",
-    description: "Community development projects across roads, education, healthcare, water, electricity and more.",
+    title: "Development & Transparency | Takete-Ide",
+    description: "Community development projects and financial transparency across roads, education, healthcare, water, electricity and civic infrastructure.",
     url: `${siteConfig.url}/development`,
     siteName: siteConfig.name,
     locale: "en_GB",
@@ -32,8 +32,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Development | Takete-Ide",
-    description: "Community development projects across roads, education, healthcare, water, electricity and more.",
+    title: "Development & Transparency | Takete-Ide",
+    description: "Community development projects and financial transparency across roads, education, healthcare, water, electricity and civic infrastructure.",
   },
 };
 
@@ -55,17 +55,28 @@ const categories: { key: string; label: string; icon: React.ComponentType<{ clas
   { key: "youth_development", label: "Youth Development", icon: Sprout },
 ];
 
+const statuses: { key: ProjectStatus; label: string }[] = [
+  { key: "proposed", label: "Proposed" },
+  { key: "planning", label: "Planning" },
+  { key: "fundraising", label: "Fundraising" },
+  { key: "in_progress", label: "In Progress" },
+  { key: "completed", label: "Completed" },
+  { key: "on_hold", label: "Paused" },
+];
+
 interface Props {
-  searchParams: Promise<{ category?: string }>;
+  searchParams: Promise<{ category?: string; status?: string; year?: string }>;
 }
 
 export default async function DevelopmentPage({ searchParams }: Props) {
-  const { category } = await searchParams;
+  const { category, status, year } = await searchParams;
   const [projects, footage, facilities] = await Promise.all([
-    getProjects(category),
+    getProjects({ category, status, year }),
     getCommunityMedia({ category: "Development", mediaType: "video" }),
     getCommunityMedia({ category: "Development", mediaType: "image" }),
   ]);
+
+  const hasFilter = Boolean(category || status || year);
 
   return (
     <div className="bg-ivory">
@@ -73,14 +84,15 @@ export default async function DevelopmentPage({ searchParams }: Props) {
         <Container>
           <Breadcrumb items={[{ label: "Development" }]} />
           <h1 className="mt-4 font-serif text-4xl font-bold sm:text-5xl">Building Takete-Ide Together</h1>
-          <p className="mt-3 max-w-2xl text-white/85">
-            Community-led projects building the infrastructure Takete-Ide needs — tracked openly from
-            proposal through completion.
+          <p className="mt-3 max-w-2xl text-white/85 leading-relaxed">
+            Community-led infrastructure and civic initiatives — tracked openly with verifiable progress,
+            accountability, and milestone reporting.
           </p>
         </Container>
       </div>
 
-      <Container className="py-16">
+      <Container className="py-14 sm:py-16">
+        {/* Historical Development Milestones */}
         <section className="mb-14 overflow-hidden rounded-3xl border border-purple-600/10 bg-white shadow-sm">
           <div className="border-b border-purple-100 bg-purple-50/60 p-6 sm:p-8">
             <div className="flex items-start gap-4">
@@ -88,7 +100,7 @@ export default async function DevelopmentPage({ searchParams }: Props) {
                 <BookOpen className="h-5 w-5" aria-hidden="true" />
               </span>
               <div>
-                <p className="text-xs font-bold uppercase tracking-[0.18em] text-gold-700">Historical Development</p>
+                <p className="text-xs font-bold uppercase tracking-[0.18em] text-gold-700">Historical Foundations</p>
                 <h2 className="mt-1 font-serif text-2xl font-bold text-purple-950">Historical Development Milestones</h2>
                 <p className="mt-2 max-w-3xl text-sm leading-relaxed text-charcoal/75">
                   Historical community infrastructure initiatives that laid the groundwork for modern civic and social development in Takete-Ide.
@@ -106,7 +118,7 @@ export default async function DevelopmentPage({ searchParams }: Props) {
             ))}
           </div>
           <p className="border-t border-purple-100 px-6 py-4 text-xs font-medium leading-relaxed text-charcoal/60 sm:px-8">
-            Takete-Ide Historical Development Archive
+            Source: Takete-Ide Historical Development Archive
           </p>
         </section>
 
@@ -147,23 +159,75 @@ export default async function DevelopmentPage({ searchParams }: Props) {
           </div>
         </section>
 
-        <div className="flex flex-wrap gap-2">
-          <Link href="/development" className="rounded-full bg-purple-600 px-4 py-2 text-sm font-medium text-white">
-            All Categories
-          </Link>
-          {categories.map((c) => (
+        {/* Filter Controls */}
+        <div className="space-y-4">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-xs font-bold uppercase tracking-wider text-charcoal/60 mr-2 flex items-center gap-1">
+              <Filter className="h-3.5 w-3.5" /> Category:
+            </span>
             <Link
-              key={c.key}
-              href={`/development?category=${c.key}`}
-              className="flex items-center gap-1.5 rounded-full bg-white px-4 py-2 text-sm font-medium text-charcoal/70 hover:bg-purple-50"
+              href={status ? `/development?status=${status}` : "/development"}
+              className={`rounded-full px-3.5 py-1.5 text-xs font-semibold transition ${
+                !category ? "bg-purple-700 text-white" : "bg-white text-charcoal/70 hover:bg-purple-50"
+              }`}
             >
-              <c.icon className="h-4 w-4" aria-hidden="true" />
-              {c.label}
+              All Categories
             </Link>
-          ))}
+            {categories.map((c) => {
+              const isActive = category === c.key;
+              const href = status ? `/development?category=${c.key}&status=${status}` : `/development?category=${c.key}`;
+              return (
+                <Link
+                  key={c.key}
+                  href={href}
+                  className={`flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-semibold transition ${
+                    isActive ? "bg-purple-700 text-white" : "bg-white text-charcoal/70 hover:bg-purple-50"
+                  }`}
+                >
+                  <c.icon className="h-3.5 w-3.5" aria-hidden="true" />
+                  {c.label}
+                </Link>
+              );
+            })}
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2 pt-1">
+            <span className="text-xs font-bold uppercase tracking-wider text-charcoal/60 mr-2">Status:</span>
+            <Link
+              href={category ? `/development?category=${category}` : "/development"}
+              className={`rounded-full px-3 py-1 text-xs font-medium transition ${
+                !status ? "bg-gold-500 text-purple-950 font-bold" : "bg-white text-charcoal/70 hover:bg-purple-50"
+              }`}
+            >
+              All Statuses
+            </Link>
+            {statuses.map((s) => {
+              const isActive = status === s.key;
+              const href = category ? `/development?category=${category}&status=${s.key}` : `/development?status=${s.key}`;
+              return (
+                <Link
+                  key={s.key}
+                  href={href}
+                  className={`rounded-full px-3 py-1 text-xs font-medium transition ${
+                    isActive ? "bg-purple-700 text-white font-bold" : "bg-white text-charcoal/70 hover:bg-purple-50"
+                  }`}
+                >
+                  {s.label}
+                </Link>
+              );
+            })}
+          </div>
         </div>
 
-        <SectionHeading eyebrow="Projects" title="Community Development Projects" align="left" className="mx-0 mt-12" />
+        {/* Project Listings */}
+        <SectionHeading
+          eyebrow="Register"
+          title="Community Development Projects"
+          align="left"
+          className="mx-0 mt-12"
+          description="Verified projects initiated by the community, TIPU, and development partners."
+        />
+
         <div className="mt-8">
           {projects.length > 0 ? (
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -173,8 +237,22 @@ export default async function DevelopmentPage({ searchParams }: Props) {
             </div>
           ) : (
             <EmptyState
-              title="Community Development Projects"
-              message="Verified community development project records and progress updates will be published here as the project register is populated."
+              title={hasFilter ? "No projects match the selected filters" : "Community Development Projects Register"}
+              message={
+                hasFilter
+                  ? "Try selecting a different category or status, or view all recorded projects."
+                  : "Community development project records and verified progress updates are currently being compiled and reviewed by project coordinators."
+              }
+              action={{
+                label: "Submit a Project Update",
+                href: "/contact",
+                variant: "primary",
+              }}
+              secondaryAction={
+                hasFilter
+                  ? { label: "Reset Filters", href: "/development" }
+                  : { label: "Support Development", href: "/support" }
+              }
             />
           )}
         </div>
@@ -242,3 +320,4 @@ export default async function DevelopmentPage({ searchParams }: Props) {
     </div>
   );
 }
+

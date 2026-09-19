@@ -128,11 +128,21 @@ export default async function NewsPage({ searchParams }: Props) {
           ) : lead ? null : (
             <EmptyState
               icon={Newspaper}
-              title={q || category ? "No articles match that filter" : "No news published yet"}
+              title={q || category ? "No articles match that filter" : "Community Newsroom"}
               message={
                 q || category
-                  ? "Try a different category or search term, or browse all news."
-                  : "Community news and verified announcements will be published here as they become available. Nothing is drafted automatically — every article is written and approved by the community."
+                  ? "Try a different category or search term, or browse all community news."
+                  : "Community news and verified updates will appear here as they are published."
+              }
+              action={{
+                label: "Explore Heritage",
+                href: "/heritage",
+                variant: "primary",
+              }}
+              secondaryAction={
+                q || category
+                  ? { label: "View All News", href: "/news" }
+                  : { label: "Centenary 2026", href: "/centenary" }
               }
             />
           )}
@@ -141,3 +151,4 @@ export default async function NewsPage({ searchParams }: Props) {
     </div>
   );
 }
+

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { CalendarDays, MapPin, Info, Globe2, Sparkles, Clock, Landmark } from "lucide-react";
+import { CalendarDays, MapPin, Info, Globe2, Sparkles, Clock } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -16,6 +16,7 @@ import { CentenaryHighlightsSection } from "@/components/centenary/CentenaryHigh
 import { CentenaryGuestsSection } from "@/components/centenary/CentenaryGuestsSection";
 import { CentenaryInvitationSection } from "@/components/centenary/CentenaryInvitationSection";
 import { CentenaryRSVPSection } from "@/components/centenary/CentenaryRSVPSection";
+import { CentenaryCelebrationArchive } from "@/components/centenary/CentenaryCelebrationArchive";
 import { getCentenary, getCentenaryProgramme, getCentenaryHighlights } from "@/lib/data/community-programme";
 import { getCentenaryGuestGroups, getCentenaryRSVP } from "@/lib/data/centenary-guests";
 import { getFeaturedBranches } from "@/lib/data/tipu-branches";
@@ -23,17 +24,21 @@ import { getCommunityMedia } from "@/lib/data/community-media";
 import { getLatestNews } from "@/lib/data/news";
 import { siteConfig } from "@/lib/site-config";
 
+interface Props {
+  searchParams?: Promise<{ view?: string }>;
+}
+
 export const metadata: Metadata = {
   title: "Takete-Ide Day & Centenary Celebration 2026",
   description:
-    "Official Takete-Ide Centenary 2026 Celebration (29–31 October 2026) — programme schedule, official invitation, dignitaries, guests & hosts, event highlights, venue and RSVP information.",
+    "Official Takete-Ide Centenary 2026 Celebration (29–31 October 2026) — programme schedule, official invitation, dignitaries, guests & hosts, event highlights, venue, celebration archive and RSVP information.",
   alternates: {
     canonical: `${siteConfig.url}/centenary`,
   },
   openGraph: {
     title: "Takete-Ide Day & Centenary Celebration 2026",
     description:
-      "Official Takete-Ide Centenary 2026 Celebration (29–31 October 2026) — programme schedule, official invitation, dignitaries, guests & hosts, event highlights, venue and RSVP information.",
+      "Official Takete-Ide Centenary 2026 Celebration (29–31 October 2026) — programme schedule, official invitation, dignitaries, guests & hosts, event highlights, venue, celebration archive and RSVP information.",
     url: `${siteConfig.url}/centenary`,
     siteName: siteConfig.name,
     locale: "en_GB",
@@ -43,13 +48,17 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Takete-Ide Day & Centenary Celebration 2026",
     description:
-      "Official Takete-Ide Centenary 2026 Celebration (29–31 October 2026) — programme schedule, official invitation, dignitaries, guests & hosts, event highlights, venue and RSVP information.",
+      "Official Takete-Ide Centenary 2026 Celebration (29–31 October 2026) — programme schedule, official invitation, dignitaries, guests & hosts, event highlights, venue, celebration archive and RSVP information.",
   },
 };
 
 export const revalidate = 3600;
 
-export default async function CentenaryPage() {
+export default async function CentenaryPage({ searchParams }: Props) {
+  const resolvedParams = searchParams ? await searchParams : {};
+  const isPostEvent = new Date() >= new Date("2026-11-01T00:00:00+01:00");
+  const viewMode = resolvedParams.view || (isPostEvent ? "archive" : "celebration");
+
   const [centenary, programmes, guestGroups, rsvpContacts, branches, attire, news] = await Promise.all([
     getCentenary(),
     getCentenaryProgramme(),
@@ -146,48 +155,86 @@ export default async function CentenaryPage() {
       </div>
 
       <Container className="py-10 sm:py-14">
-        {/* Quick In-Page Navigation */}
-        <CentenaryNav className="mb-12" />
-
-        {/* Overview Banner */}
-        <section id="overview" className="scroll-mt-24 mb-16 rounded-3xl border border-purple-600/10 bg-white p-8 shadow-sm sm:p-10 lg:p-12">
-          <div className="max-w-3xl">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-purple-50 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-purple-700 ring-1 ring-inset ring-purple-600/15">
-              A Century of Heritage · A Future of Greater Glory
+        {/* Phase / View Mode Toggle */}
+        <div className="mb-10 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-purple-600/10 bg-white p-4 shadow-sm">
+          <div className="text-sm">
+            <span className="font-semibold text-purple-900">Centenary Portal Mode:</span>{" "}
+            <span className="text-charcoal/70">
+              {viewMode === "archive" ? "Post-Celebration Historical Archive" : "Celebration Programme & Invitation"}
             </span>
-            <h2 className="mt-4 font-serif text-2xl font-bold text-purple-600 sm:text-3xl">
-              Special Invitation to the 2026 Takete-Ide Day Centenary Celebration
-            </h2>
-            <p className="mt-4 text-base leading-relaxed text-charcoal/80">
-              The Takete-Ide Progressive Union cordially invites sons, daughters, in-laws, friends and well-wishers
-              across Nigeria and the global diaspora to the historic <strong>2026 Takete-Ide Day &amp; Centenary Celebration</strong>.
-            </p>
-            <p className="mt-3 text-sm leading-relaxed text-charcoal/70">
-              Join us as we celebrate 100 remarkable years of rich heritage, culture, unity and progress. Together,
-              let us honour our past, celebrate our present and build a greater future for Takete-Ide.
-            </p>
           </div>
-        </section>
-
-        {/* Programme Section */}
-        <div className="mb-16">
-          <CentenaryProgrammeSection programmes={programmes} />
+          <div className="flex gap-2">
+            <Link
+              href="/centenary?view=celebration"
+              className={`rounded-xl px-4 py-2 text-xs font-bold transition-colors ${
+                viewMode !== "archive"
+                  ? "bg-purple-600 text-white shadow-sm"
+                  : "bg-purple-50 text-purple-700 hover:bg-purple-100"
+              }`}
+            >
+              Event Mode
+            </Link>
+            <Link
+              href="/centenary?view=archive"
+              className={`rounded-xl px-4 py-2 text-xs font-bold transition-colors ${
+                viewMode === "archive"
+                  ? "bg-purple-600 text-white shadow-sm"
+                  : "bg-purple-50 text-purple-700 hover:bg-purple-100"
+              }`}
+            >
+              Archive Mode
+            </Link>
+          </div>
         </div>
 
-        {/* Official Guests & Hosts Section */}
-        <div className="mb-16">
-          <CentenaryGuestsSection groups={guestGroups} />
-        </div>
+        {viewMode === "archive" ? (
+          <CentenaryCelebrationArchive className="mb-16" />
+        ) : (
+          <>
+            {/* Quick In-Page Navigation */}
+            <CentenaryNav className="mb-12" />
 
-        {/* Event Highlights Section */}
-        <div className="mb-16">
-          <CentenaryHighlightsSection highlights={highlights} />
-        </div>
+            {/* Overview Banner */}
+            <section id="overview" className="scroll-mt-24 mb-16 rounded-3xl border border-purple-600/10 bg-white p-8 shadow-sm sm:p-10 lg:p-12">
+              <div className="max-w-3xl">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-purple-50 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-purple-700 ring-1 ring-inset ring-purple-600/15">
+                  A Century of Heritage · A Future of Greater Glory
+                </span>
+                <h2 className="mt-4 font-serif text-2xl font-bold text-purple-600 sm:text-3xl">
+                  Special Invitation to the 2026 Takete-Ide Day Centenary Celebration
+                </h2>
+                <p className="mt-4 text-base leading-relaxed text-charcoal/80">
+                  The Takete-Ide Progressive Union cordially invites sons, daughters, in-laws, friends and well-wishers
+                  across Nigeria and the global diaspora to the historic <strong>2026 Takete-Ide Day &amp; Centenary Celebration</strong>.
+                </p>
+                <p className="mt-3 text-sm leading-relaxed text-charcoal/70">
+                  Join us as we celebrate 100 remarkable years of rich heritage, culture, unity and progress. Together,
+                  let us honour our past, celebrate our present and build a greater future for Takete-Ide.
+                </p>
+              </div>
+            </section>
 
-        {/* Official Invitation Section */}
-        <div className="mb-16">
-          <CentenaryInvitationSection />
-        </div>
+            {/* Programme Section */}
+            <div className="mb-16">
+              <CentenaryProgrammeSection programmes={programmes} />
+            </div>
+
+            {/* Official Guests & Hosts Section */}
+            <div className="mb-16">
+              <CentenaryGuestsSection groups={guestGroups} />
+            </div>
+
+            {/* Event Highlights Section */}
+            <div className="mb-16">
+              <CentenaryHighlightsSection highlights={highlights} />
+            </div>
+
+            {/* Official Invitation Section */}
+            <div className="mb-16">
+              <CentenaryInvitationSection />
+            </div>
+          </>
+        )}
 
         {/* Why 2026 Matters — A Century at the Present Settlement */}
         <section id="history" className="scroll-mt-24 mb-16 rounded-3xl border border-purple-600/10 bg-white p-8 shadow-sm sm:p-10 lg:p-12">

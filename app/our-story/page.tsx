@@ -6,7 +6,6 @@ import {
   Church,
   GraduationCap,
   Users2,
-  Mountain,
   BookOpen,
 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
@@ -24,17 +23,6 @@ export const metadata: Metadata = {
     canonical: `${siteConfig.url}/our-story`,
   },
 };
-
-const navigationItems = [
-  { id: "a-place-of-comfort", label: "A Place of Comfort" },
-  { id: "takete-within-amuro", label: "Takete within Amuro" },
-  { id: "earlier-roots", label: "Earlier Roots & Ancestry" },
-  { id: "agbagba-ide", label: "Agbagba Ide & Refuge" },
-  { id: "the-migration-stages", label: "The Migration Stages" },
-  { id: "home-at-last", label: "Home at Last (c.1926)" },
-  { id: "related-communities", label: "Related Communities" },
-  { id: "faith-and-development", label: "Faith & Progress" },
-];
 
 export default function OurStoryPage() {
   return (

@@ -1,6 +1,5 @@
 import { test, expect } from "@playwright/test";
 
-const BASE_URL = process.env.TARGET_URL || "https://takete-ide.org";
 
 test.describe("Production Smoke Test", () => {
   test("Homepage loads with branding, headings, and authentic imagery", async ({ page }) => {

@@ -4,7 +4,6 @@ import {
   Crown,
   Landmark,
   Mic2,
-  Image as ImageIcon,
   Music4,
   Sparkles,
   Shirt,

@@ -1,6 +1,6 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import Link from "next/link";
-import { Plus, Music4, ExternalLink } from "lucide-react";
+import { Plus, ExternalLink } from "lucide-react";
 import { OrikiRecordTable } from "@/components/admin/OrikiRecordTable";
 import { getOrikiRecords } from "@/lib/data/oriki-records";
 

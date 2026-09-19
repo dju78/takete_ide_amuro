@@ -3,7 +3,7 @@ import {
   LayoutDashboard, Newspaper, Calendar, Images, Building2, Archive, Mic2,
   Crown, Users, Globe2, Mail, FileText, FolderKanban, Users2, Shield,
   Settings, ClipboardList, HeartHandshake, Landmark, ImagePlay, Network,
-  Sparkles, ShieldCheck, BookOpen, Banknote, ReceiptText, Music4,
+  Sparkles, ShieldCheck, BookOpen, Banknote, ReceiptText, Music4, GraduationCap,
 } from "lucide-react";
 
 /**
@@ -49,6 +49,7 @@ const sections: { heading: string; items: { label: string; href: string; icon: R
     heading: "Development",
     items: [
       { label: "Projects", href: "/admin/projects", icon: Building2 },
+      { label: "Schools Directory", href: "/admin/schools", icon: GraduationCap },
       { label: "Security Trust Fund", href: "/admin/centenary", icon: ShieldCheck },
     ],
   },

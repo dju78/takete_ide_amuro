@@ -1,11 +1,15 @@
 export type ContentStatus = "draft" | "pending_review" | "verified" | "published" | "archived";
 
 export type VerificationStatus =
-  | "unverified"
+  | "verified"
+  | "community_record"
+  | "historical_source"
+  | "oral_testimony"
+  | "awaiting_verification"
+  | "documentary_evidence"
   | "oral_history"
   | "community_tradition"
-  | "documentary_evidence"
-  | "verified"
+  | "unverified"
   | "disputed";
 
 export type UserRole =
@@ -22,6 +26,18 @@ export type ProjectStatus = "proposed" | "planning" | "fundraising" | "in_progre
 
 export type AccessLevel = "public" | "community" | "admin_only";
 
+export interface ProvenanceRecord {
+  source_title?: string | null;
+  source_author?: string | null;
+  source_type?: string | null;
+  source_date?: string | null;
+  page_reference?: string | null;
+  submitted_by?: string | null;
+  verified_by?: string | null;
+  last_verified_at?: string | null;
+  verification_status: VerificationStatus;
+}
+
 export interface NewsArticle {
   id: string;
   title: string;
@@ -35,6 +51,8 @@ export interface NewsArticle {
   published_at: string | null;
   tags: string[];
   is_featured: boolean;
+  author_name?: string | null;
+  image_caption?: string | null;
   /** External attribution, where a story is reproduced with permission. */
   source_name: string | null;
   source_url: string | null;
@@ -42,6 +60,8 @@ export interface NewsArticle {
   related_project: { title: string; slug: string } | null;
   related_branch_slug: string | null;
   related_event_year: number | null;
+  last_verified_at?: string | null;
+  verification_status?: VerificationStatus;
 }
 
 export interface TaketeIdeEvent {
@@ -88,12 +108,21 @@ export interface DevelopmentProject {
   expected_completion: string | null;
   budget: number | null;
   amount_raised: number | null;
+  amount_spent?: number | null;
   funding_target: number | null;
+  progress_percentage?: number | null;
   currency: string;
   funding_source: string | null;
   responsible_organisation: string | null;
+  publication_status?: ContentStatus;
   verification_status: VerificationStatus;
-  images: { image_url: string; caption: string | null }[];
+  source_name?: string | null;
+  source_url?: string | null;
+  last_financial_update?: string | null;
+  expenditure_notes?: string | null;
+  last_verified_at?: string | null;
+  verified_by?: string | null;
+  images: { image_url: string; caption: string | null; stage?: "before" | "progress" | "completion" | "general" }[];
   updates: { title: string; body: string | null; update_date: string }[];
   documents: { title: string; document_url: string; document_type: string | null }[];
   timeline: { milestone: string; event_date: string | null; notes: string | null }[];
@@ -107,8 +136,14 @@ export interface HistoricalPerson {
   photo_url: string | null;
   biography: string | null;
   achievements: string | null;
+  contribution?: string | null;
+  period?: string | null;
+  source_name?: string | null;
+  source_url?: string | null;
+  consent_status?: "consented" | "public_record" | "family_nominated" | "pending";
   external_links: { label: string; url: string }[];
   verification_status: VerificationStatus;
+  last_verified_at?: string | null;
 }
 
 export interface TraditionalRuler {
@@ -121,6 +156,7 @@ export interface TraditionalRuler {
   biography: string | null;
   photo_url: string | null;
   verification_status: VerificationStatus;
+  last_verified_at?: string | null;
 }
 
 export interface ArchiveItem {
@@ -138,11 +174,14 @@ export interface ArchiveItem {
   file_url: string | null;
   thumbnail_url: string | null;
   access_level: AccessLevel;
+  last_verified_at?: string | null;
 }
 
 export interface OralHistory {
   id: string;
+  title?: string | null;
   interviewee: string;
+  speaker?: string | null;
   interviewer: string | null;
   interview_date: string | null;
   photo_url: string | null;
@@ -150,6 +189,45 @@ export interface OralHistory {
   video_url: string | null;
   transcript: string | null;
   summary: string | null;
+  family_compound?: string | null;
+  language?: string | null;
+  recording_location?: string | null;
+  recorded_by?: string | null;
+  duration?: string | null;
+  english_translation?: string | null;
+  historical_notes?: string | null;
+  source?: string | null;
+  consent_status?: "consented" | "oral_tradition" | "family_authorized" | "pending";
   topics: string[];
   verification_status: VerificationStatus;
+  related_family_slug?: string | null;
+  related_person_slug?: string | null;
+  last_verified_at?: string | null;
 }
+
+export interface School {
+  id: string;
+  name: string;
+  slug: string;
+  school_type: "public" | "community" | "mission" | "private";
+  level: "nursery_primary" | "primary" | "secondary" | "vocational" | "tertiary";
+  location: string;
+  year_established: number | null;
+  establishment_milestones?: { label: string; year: string | number }[];
+  historical_description: string | null;
+  current_head: string | null;
+  approximate_enrolment: number | null;
+  facilities: string[];
+  community_needs: string[];
+  current_projects: string[];
+  photographs: string[];
+  source_title: string | null;
+  source_author: string | null;
+  source_date: string | null;
+  verified_by: string | null;
+  last_verified_at: string | null;
+  verification_status: VerificationStatus;
+  status: ContentStatus;
+  display_order: number;
+}
+

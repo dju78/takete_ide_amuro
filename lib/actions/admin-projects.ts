@@ -15,6 +15,7 @@ const categories = [
   "civic_infrastructure", "ict_digital", "youth_development",
 ] as const;
 const projectStatuses = ["proposed", "planning", "fundraising", "in_progress", "completed", "on_hold"] as const;
+const publicationStatuses = ["draft", "pending_review", "verified", "published", "archived"] as const;
 const verificationStatuses = ["unverified", "oral_history", "community_tradition", "documentary_evidence", "verified", "disputed"] as const;
 
 const schema = z.object({
@@ -24,15 +25,24 @@ const schema = z.object({
   description: z.string().trim().optional(),
   objective: z.string().trim().optional(),
   status: z.enum(projectStatuses),
+  publication_status: z.enum(publicationStatuses).default("draft"),
   location: z.string().trim().optional(),
   start_date: z.string().trim().optional(),
   expected_completion: z.string().trim().optional(),
   budget: z.string().trim().optional(),
   amount_raised: z.string().trim().optional(),
+  amount_spent: z.string().trim().optional(),
   funding_target: z.string().trim().optional(),
+  progress_percentage: z.string().trim().optional(),
   currency: z.string().trim().default("NGN"),
   funding_source: z.string().trim().optional(),
   responsible_organisation: z.string().trim().optional(),
+  expenditure_notes: z.string().trim().optional(),
+  last_financial_update: z.string().trim().optional(),
+  source_name: z.string().trim().optional(),
+  source_url: z.string().trim().optional(),
+  verified_by: z.string().trim().optional(),
+  last_verified_at: z.string().trim().optional(),
   verification_status: z.enum(verificationStatuses),
   image_url: z.string().trim().optional(),
 });
@@ -51,15 +61,24 @@ function toRow(data: z.infer<typeof schema>) {
     description: data.description || null,
     objective: data.objective || null,
     status: data.status,
+    publication_status: data.publication_status,
     location: data.location || null,
     start_date: data.start_date || null,
     expected_completion: data.expected_completion || null,
     budget: numOrNull(data.budget),
     amount_raised: numOrNull(data.amount_raised),
+    amount_spent: numOrNull(data.amount_spent),
     funding_target: numOrNull(data.funding_target),
+    progress_percentage: numOrNull(data.progress_percentage),
     currency: data.currency || "NGN",
     funding_source: data.funding_source || null,
     responsible_organisation: data.responsible_organisation || null,
+    expenditure_notes: data.expenditure_notes || null,
+    last_financial_update: data.last_financial_update || null,
+    source_name: data.source_name || null,
+    source_url: data.source_url || null,
+    verified_by: data.verified_by || null,
+    last_verified_at: data.last_verified_at || null,
     verification_status: data.verification_status,
   };
 }

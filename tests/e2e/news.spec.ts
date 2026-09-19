@@ -12,9 +12,9 @@ test.describe("Newsroom", () => {
   test("renders with an honest empty state rather than placeholder articles", async ({ page }) => {
     await page.goto("/news");
     await expect(page.getByRole("heading", { name: "News", level: 1 })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "No news published yet" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /(No news published yet|Community Newsroom)/ })).toBeVisible();
     await expect(
-      page.getByText(/Nothing is drafted automatically — every article is written and approved/),
+      page.getByText(/(Nothing is drafted automatically|Community news and verified updates will appear here)/),
     ).toBeVisible();
     // No article cards, and no lead article, when there is nothing published.
     await expect(page.locator('a[href^="/news/"]')).toHaveCount(0);

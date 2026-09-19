@@ -5,6 +5,7 @@ import { User, ExternalLink } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { VerificationBadge } from "@/components/ui/Badge";
+import { ProvenanceCard } from "@/components/ui/ProvenanceCard";
 import { getPeople, getPersonBySlug } from "@/lib/data/people";
 import { siteConfig } from "@/lib/site-config";
 
@@ -81,7 +82,7 @@ export default async function PersonPage({ params }: Props) {
                 <p className="mt-2 text-charcoal/80">{person.achievements}</p>
               </div>
             )}
-            {person.external_links.length > 0 && (
+            {person.external_links && person.external_links.length > 0 && (
               <div className="mt-6 flex flex-wrap gap-3">
                 {person.external_links.map((link) => (
                   <a
@@ -96,6 +97,16 @@ export default async function PersonPage({ params }: Props) {
                 ))}
               </div>
             )}
+
+            <ProvenanceCard
+              provenance={{
+                source_title: person.source_name,
+                source_url: person.source_url,
+                last_verified_at: person.last_verified_at,
+                verification_status: person.verification_status,
+              }}
+              className="mt-10"
+            />
           </div>
         </div>
       </Container>

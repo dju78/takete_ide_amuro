@@ -29,7 +29,6 @@ import { getLatestNews } from "@/lib/data/news";
 import { getHomepageGallery, getHomepagePlaceMedia } from "@/lib/data/gallery";
 import { getFeaturedBranches } from "@/lib/data/tipu-branches";
 import type { Metadata } from "next";
-import { siteConfig } from "@/lib/site-config";
 import { getCentenary, getCentenaryProgramme, getSupportAccount } from "@/lib/data/community-programme";
 import { getGroupedEvents } from "@/lib/data/community-events";
 import { formatDate } from "@/lib/utils";
@@ -101,15 +100,6 @@ const homepagePeoplePhoto = {
 /** Short label under each place photograph, keyed by its media id. */
 const placeCaptions: Record<string, string> = {
   "obasoro-hill": "Natural heritage",
-  "eba-river-bank": "Omi Ebba",
-  "first-baptist-church": "Built heritage",
-  "okuta-gboro": "Natural heritage",
-  "okuta-gbooro": "Natural heritage",
-};
-
-/** Category badge label shown on each featured place image. */
-const placeCategoryLabels: Record<string, string> = {
-  "obasoro-hill": "Natural landmark",
   "eba-river-bank": "Omi Ebba",
   "first-baptist-church": "Built heritage",
   "okuta-gboro": "Natural heritage",

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { X, ChevronLeft, ChevronRight, Eye, Mountain, Users, Camera, ArrowRight } from "lucide-react";
@@ -29,29 +29,33 @@ export function SettlementProgressGallery({
   residentialPhotosRow2,
 }: SettlementProgressGalleryProps) {
   // Ordered list of all unique photos for the lightbox
-  const allPhotos: SettlementPhoto[] = [
-    heroPhoto,
-    ...changingEnvironmentPhotos,
-    ...residentialPhotosRow1,
-    ...residentialPhotosRow2,
-  ];
+  const allPhotos = useMemo<SettlementPhoto[]>(
+    () => [
+      heroPhoto,
+      ...changingEnvironmentPhotos,
+      ...residentialPhotosRow1,
+      ...residentialPhotosRow2,
+    ],
+    [heroPhoto, changingEnvironmentPhotos, residentialPhotosRow1, residentialPhotosRow2],
+  );
 
   const [activeId, setActiveId] = useState<string | null>(null);
 
   const activeIndex = activeId !== null ? allPhotos.findIndex((p) => p.id === activeId) : -1;
   const active = activeIndex !== -1 ? allPhotos[activeIndex] : null;
 
-  const close = () => setActiveId(null);
-  const showPrev = () => {
+  const close = useCallback(() => setActiveId(null), []);
+  const showPrev = useCallback(() => {
     if (activeIndex === -1 || allPhotos.length === 0) return;
     const prevIdx = (activeIndex - 1 + allPhotos.length) % allPhotos.length;
     setActiveId(allPhotos[prevIdx].id);
-  };
-  const showNext = () => {
+  }, [activeIndex, allPhotos]);
+
+  const showNext = useCallback(() => {
     if (activeIndex === -1 || allPhotos.length === 0) return;
     const nextIdx = (activeIndex + 1) % allPhotos.length;
     setActiveId(allPhotos[nextIdx].id);
-  };
+  }, [activeIndex, allPhotos]);
 
   useEffect(() => {
     if (active === null) return;
@@ -66,7 +70,7 @@ export function SettlementProgressGallery({
       document.body.style.overflow = "";
       window.removeEventListener("keydown", onKey);
     };
-  }, [active, activeIndex, allPhotos]);
+  }, [active, close, showPrev, showNext]);
 
   return (
     <div className="bg-[#FCFBF8] text-charcoal">

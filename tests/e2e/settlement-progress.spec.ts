@@ -35,7 +35,6 @@ test.describe("Settlement & Community Progress (/development/settlement-progress
   test("renders all 9 authentic settlement photographs with non-empty neutral alt text", async ({ page }) => {
     await page.goto("/development/settlement-progress");
 
-    const images = page.locator("main img, .bg-ivory img");
     // Ensure all 9 settlement progress images exist
     for (let i = 1; i <= 9; i++) {
       const filename = `settlement-progress-0${i}.jpg`;

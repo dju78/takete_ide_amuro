@@ -17,7 +17,7 @@ export const revalidate = 3600;
 export default async function TipuNetworkPage() {
   const [groups, updates] = await Promise.all([getBranchNetworkByGroup(), getBranchUpdates()]);
   const total = groups.reduce((n, g) => n + g.branches.length, 0);
-  const withPhotos = groups.reduce((n, g) => n + g.branches.filter((b) => !b.needsPlaceholder).length, 0);
+
 
   return (
     <div className="bg-ivory">
