@@ -32,12 +32,12 @@ test.describe("Settlement & Community Progress (/development/settlement-progress
     await expect(page.locator("text=Community Documentary Record")).toHaveCount(0);
   });
 
-  test("renders all 9 authentic settlement photographs with non-empty neutral alt text", async ({ page }) => {
+  test("renders all 10 authentic settlement photographs with non-empty neutral alt text", async ({ page }) => {
     await page.goto("/development/settlement-progress");
 
-    // Ensure all 9 settlement progress images exist
-    for (let i = 1; i <= 9; i++) {
-      const filename = `settlement-progress-0${i}.jpg`;
+    // Ensure all 10 settlement progress images exist
+    for (let i = 1; i <= 10; i++) {
+      const filename = i < 10 ? `settlement-progress-0${i}.jpg` : `settlement-progress-${i}.jpg`;
       const img = page.locator(`img[src*="${filename}"]`).first();
       await expect(img).toBeAttached();
       const alt = await img.getAttribute("alt");
@@ -58,19 +58,19 @@ test.describe("Settlement & Community Progress (/development/settlement-progress
     // Modal dialog opens
     const dialog = page.getByRole("dialog");
     await expect(dialog).toBeVisible();
-    await expect(dialog).toContainText("1 of 9");
+    await expect(dialog).toContainText("1 of 10");
 
     // Click Next
     const nextButton = page.getByRole("button", { name: "Next photograph" });
     await expect(nextButton).toBeVisible();
     await nextButton.click();
-    await expect(dialog).toContainText("2 of 9");
+    await expect(dialog).toContainText("2 of 10");
 
     // Click Prev
     const prevButton = page.getByRole("button", { name: "Previous photograph" });
     await expect(prevButton).toBeVisible();
     await prevButton.click();
-    await expect(dialog).toContainText("1 of 9");
+    await expect(dialog).toContainText("1 of 10");
 
     // Close via Escape key
     await page.keyboard.press("Escape");

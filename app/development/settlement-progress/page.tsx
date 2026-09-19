@@ -103,6 +103,13 @@ const residentialPhotosRow2: SettlementPhoto[] = [
     alt: "Modern multi-room residential home in Takete-Ide",
     caption: "Contemporary residential development in Takete-Ide",
   },
+  {
+    id: "sp-10",
+    src: "/images/takete-ide/development/settlement-progress/settlement-progress-10.jpg",
+    title: "Modern Building Development in Takete-Ide",
+    alt: "Modern multi-storey building within Takete-Ide community",
+    caption: "A modern building reflecting continuing physical development within Takete-Ide community",
+  },
 ];
 
 export default function SettlementProgressPage() {

@@ -203,38 +203,9 @@ export function SettlementProgressGallery({
             residential development within the community.
           </p>
 
-          {/* Row 1: 3 equal images */}
+          {/* Residential Photographs Grid */}
           <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-            {residentialPhotosRow1.map((photo) => (
-              <button
-                key={photo.id}
-                type="button"
-                onClick={() => setActiveId(photo.id)}
-                className="group flex flex-col overflow-hidden rounded-xl border border-purple-900/10 bg-white text-left shadow-xs transition hover:shadow-md"
-                aria-label={`View ${photo.title}`}
-              >
-                <div className="relative aspect-[16/11] w-full overflow-hidden bg-purple-50">
-                  <Image
-                    src={photo.src}
-                    alt={photo.alt}
-                    fill
-                    loading="lazy"
-                    sizes="(min-width: 1280px) 360px, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                    className="object-cover transition-transform duration-300 group-hover:scale-103"
-                  />
-                </div>
-                <div className="p-3.5 bg-white border-t border-purple-900/5">
-                  <p className="text-xs sm:text-sm font-medium text-charcoal/85 leading-snug">
-                    {photo.caption}
-                  </p>
-                </div>
-              </button>
-            ))}
-          </div>
-
-          {/* Row 2: 3 images / 2 wide + 1 */}
-          <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-            {residentialPhotosRow2.map((photo) => (
+            {[...residentialPhotosRow1, ...residentialPhotosRow2].map((photo) => (
               <button
                 key={photo.id}
                 type="button"
