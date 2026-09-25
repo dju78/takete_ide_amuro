@@ -822,68 +822,62 @@ function drawGrandFoundationRibbons(
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
 
-  // 1. Curved Gold & Green Ceremonial Ribbon with Local Expression / Motto
-  const expression =
+  // 1. Curved Gold Ceremonial Ribbon with Editable Local Expression / Motto
+  const expression = (
     personalisation.localExpression ||
     personalisation.signOff ||
     template.defaultLocalExpression ||
-    "AGBAGBA IDE AGBE WA O";
+    ""
+  ).trim();
 
-  const ribbonW = width - Math.round(120 * scale);
-  const ribbonH = Math.round(36 * scale);
+  if (expression) {
+    const ribbonW = width - Math.round(120 * scale);
+    const ribbonH = Math.round(36 * scale);
 
-  const ribbonGrad = ctx.createLinearGradient(centerX - ribbonW / 2, 0, centerX + ribbonW / 2, 0);
-  ribbonGrad.addColorStop(0, "rgba(212, 167, 44, 0.15)");
-  ribbonGrad.addColorStop(0.2, "#d4a72c");
-  ribbonGrad.addColorStop(0.5, "#fae39b");
-  ribbonGrad.addColorStop(0.8, "#d4a72c");
-  ribbonGrad.addColorStop(1, "rgba(212, 167, 44, 0.15)");
+    const ribbonGrad = ctx.createLinearGradient(centerX - ribbonW / 2, 0, centerX + ribbonW / 2, 0);
+    ribbonGrad.addColorStop(0, "rgba(212, 167, 44, 0.15)");
+    ribbonGrad.addColorStop(0.2, "#d4a72c");
+    ribbonGrad.addColorStop(0.5, "#fae39b");
+    ribbonGrad.addColorStop(0.8, "#d4a72c");
+    ribbonGrad.addColorStop(1, "rgba(212, 167, 44, 0.15)");
 
-  ctx.fillStyle = ribbonGrad;
-  roundRect(ctx, centerX - ribbonW / 2, currentY, ribbonW, ribbonH, 6 * scale);
-  ctx.fill();
+    ctx.fillStyle = ribbonGrad;
+    roundRect(ctx, centerX - ribbonW / 2, currentY, ribbonW, ribbonH, 6 * scale);
+    ctx.fill();
 
-  ctx.font = `900 ${Math.round(15 * scale)}px "Playfair Display", Georgia, serif`;
-  ctx.fillStyle = "#18062b";
-  ctx.letterSpacing = `${Math.round(2 * scale)}px`;
-  ctx.fillText(expression.toUpperCase(), centerX, currentY + ribbonH / 2);
+    ctx.font = `900 ${Math.round(15 * scale)}px "Playfair Display", Georgia, serif`;
+    ctx.fillStyle = "#18062b";
+    ctx.letterSpacing = `${Math.round(2 * scale)}px`;
+    ctx.fillText(expression.toUpperCase(), centerX, currentY + ribbonH / 2);
 
-  currentY += ribbonH + Math.round(16 * scale);
+    currentY += ribbonH + Math.round(18 * scale);
+  } else {
+    currentY += Math.round(10 * scale);
+  }
 
-  // 2. Grand Finale & Event Date
-  ctx.font = `bold ${Math.round(13.5 * scale)}px Inter, -apple-system, sans-serif`;
+  // 2. Confirmed Event Date: "29–31 OCTOBER 2026"
+  ctx.font = `bold ${Math.round(15 * scale)}px Inter, -apple-system, sans-serif`;
   ctx.fillStyle = "#ffffff";
-  ctx.shadowColor = "rgba(0, 0, 0, 0.8)";
+  ctx.shadowColor = "rgba(0, 0, 0, 0.85)";
   ctx.shadowBlur = 4 * scale;
-  ctx.fillText("GRAND FINALE: SATURDAY, 31 OCTOBER 2026", centerX, currentY);
+  ctx.fillText("29–31 OCTOBER 2026", centerX, currentY);
   ctx.shadowBlur = 0;
-
-  currentY += Math.round(20 * scale);
-
-  // 3. Theme Banner: "THEME: FAITH, UNITY AND PROGRESS"
-  ctx.font = `bold ${Math.round(12.5 * scale)}px Inter, -apple-system, sans-serif`;
-  ctx.fillStyle = "#e8c766";
-  ctx.fillText(`THEME: ${campaign.theme}`, centerX, currentY);
 
   currentY += Math.round(22 * scale);
 
-  // 4. Motto Tagline: "HERITAGE • UNITY • PROGRESS"
-  ctx.font = `900 ${Math.round(12 * scale)}px Inter, -apple-system, sans-serif`;
-  ctx.fillStyle = "#d4a72c";
+  // 3. Motto: "HERITAGE • UNITY • PROGRESS"
+  ctx.font = `900 ${Math.round(14 * scale)}px Inter, -apple-system, sans-serif`;
+  ctx.fillStyle = "#e8c766";
   ctx.letterSpacing = `${Math.round(3 * scale)}px`;
   ctx.fillText("HERITAGE  •  UNITY  •  PROGRESS", centerX, currentY);
 
-  currentY += Math.round(18 * scale);
+  currentY += Math.round(20 * scale);
 
-  // 5. Official Verification Citation
-  ctx.font = `500 ${Math.round(10.5 * scale)}px Inter, -apple-system, sans-serif`;
-  ctx.fillStyle = "rgba(255, 255, 255, 0.7)";
-  ctx.letterSpacing = "0.5px";
-  ctx.fillText(
-    "Takete-Ide Progressive Union (TIPU) · Official Centenary Archive · takete-ide.org",
-    centerX,
-    currentY
-  );
+  // 4. Community Portal Link
+  ctx.font = `500 ${Math.round(11 * scale)}px Inter, -apple-system, sans-serif`;
+  ctx.fillStyle = "rgba(255, 255, 255, 0.75)";
+  ctx.letterSpacing = "1px";
+  ctx.fillText("takete-ide.org", centerX, currentY);
 
   ctx.restore();
 }
