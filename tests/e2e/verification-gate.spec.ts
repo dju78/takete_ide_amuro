@@ -139,7 +139,26 @@ test.describe("Celebration Studio Full Verification Gate & Asset Generation", ()
       fullPage: false,
     });
 
-    // 5. Generate Sample Poster Canvases for all 5 templates
+    // 5. Generate Revised 1200x1600 Printable Poster & All Format Variations for Personal Celebration
+    await page.goto("/centenary/celebration-studio");
+    await page.click("button:has-text('Continue to Upload Photo')");
+    await page.click("button:has-text('Community Celebrant (Demo)')");
+    await page.click("button:has-text('Continue to Personalise')");
+    await page.locator("#fullName").fill("Chief Daramola Omoyele");
+    await page.locator("#messageInput").fill("Celebrating 100 years of heritage, unity and progress. Long live Takete-Ide!");
+    await page.locator("#expressionInput").fill("Agbagba Ide Agbe Wa O");
+    await page.click("button:has-text('Continue to Preview')");
+    await page.waitForTimeout(1000);
+
+    // Switch to Printable Portrait (1200x1600)
+    await page.click("button:has-text('Printable Portrait')");
+    await page.waitForTimeout(1000);
+    const printableCanvas = page.locator("canvas").first();
+    await printableCanvas.screenshot({
+      path: path.join(ARTIFACTS_DIR, "sample-poster-personal-celebration-1200x1600.png"),
+    });
+
+    // 6. Generate Sample Poster Canvases for all 5 templates
     const templateIds = [
       "personal-celebration",
       "family-felicitation",

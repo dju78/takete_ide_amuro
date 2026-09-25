@@ -21,7 +21,9 @@ export interface RenderPosterOptions {
 
 /**
  * Master High-Resolution 2D Canvas Poster Rendering Engine.
- * Generates rich, culturally authentic, celebratory centenary posters with strong visual density.
+ * Features a powerful split composition for Personal Celebration,
+ * enlarged photo frames (50-60% height), bold centenary monument graphics,
+ * structured nameplates, and full-canvas ceremonial density.
  */
 export async function renderCelebrationPoster({
   canvas,
@@ -45,42 +47,56 @@ export async function renderCelebrationPoster({
   canvas.width = width;
   canvas.height = height;
 
-  // Normalize scale factors relative to 1080x1350 standard
   const scale = width / 1080;
-  const aspect = height / width; // 1.0 (square), 1.25 (portrait), 1.33 (print), 1.77 (story)
+  const aspect = height / width; // 1.0 (square), 1.25 (portrait), 1.33 (print 1200x1600), 1.77 (story)
 
-  // 1. Draw Multi-Layer Background (Gradients, Textures, Sunrays, Heritage Backdrop)
+  // 1. Draw Multi-Layer Background (Gradients, Sunrays, Landscape Silhouette, Textile Borders)
   drawRichBackground(ctx, width, height, template, backgroundImage, personalisation, scale);
 
   // 2. Draw Multi-Tier Ceremonial Borders & Corner Embellishments
   drawGrandCeremonialBorders(ctx, width, height, scale, template);
 
-  // 3. Calculate Cohesive Visual Zones (Header, Photo, Nameplate, Message, Foundation Footer)
-  const zones = calculateBalancedZones(width, height, scale, aspect, template);
+  // 3. Render Template-Specific High-Density Layout
+  if (template.id === "personal-celebration" || template.id === "leadership-celebration") {
+    // Strong Split Composition (55% photo on left/off-center, 20% 100-year monument, 15% name/message, 10% foundation)
+    drawSplitCelebrationLayout(
+      ctx,
+      width,
+      height,
+      scale,
+      aspect,
+      campaign,
+      template,
+      personalisation,
+      photoImage,
+      photoAdjustments,
+      logoImage
+    );
+  } else {
+    // Centered / Wide Full-Canvas Composition (for Family, Heritage & Custom)
+    drawBalancedFullCanvasLayout(
+      ctx,
+      width,
+      height,
+      scale,
+      aspect,
+      campaign,
+      template,
+      personalisation,
+      photoImage,
+      photoAdjustments,
+      logoImage
+    );
+  }
 
-  // 4. Draw Header Section: 100-Year Milestone Crown, Emblem, and Event Dates
-  drawGrandHeader(ctx, zones.header, scale, campaign, template, logoImage);
-
-  // 5. Draw Enlarged Framed Photograph (30–45% larger)
-  drawGrandPhoto(ctx, zones.photo, template, photoImage, photoAdjustments, scale, personalisation);
-
-  // 6. Draw Ceremonial Nameplate Plaque & Optional Role
-  drawStructuredNameplate(ctx, zones.nameplate, scale, template, personalisation);
-
-  // 7. Draw Congratulatory Message & Quotations
-  drawCongratulatoryMessage(ctx, zones.message, scale, template, personalisation);
-
-  // 8. Draw Grand Ceremonial Foundation Ribbon & Footer
-  drawCeremonialFoundation(ctx, zones.foundation, scale, campaign, template, personalisation);
-
-  // 9. Safe Area Guides (Optional visual aid)
+  // 4. Safe Area Guides (Optional visual aid)
   if (showSafeAreas) {
     drawSafeAreaOverlay(ctx, width, height, scale);
   }
 }
 
 /**
- * Rich multi-layered background with sunrays, textile motifs, and authentic heritage images.
+ * Rich multi-layered background with sunrays, textile motifs, and authentic heritage hill silhouette.
  */
 function drawRichBackground(
   ctx: CanvasRenderingContext2D,
@@ -114,25 +130,25 @@ function drawRichBackground(
 
     // Deep ceremonial vignette overlay for legibility while keeping scenery visible
     const overlay = ctx.createLinearGradient(0, 0, 0, height);
-    overlay.addColorStop(0, "rgba(22, 8, 38, 0.90)");
-    overlay.addColorStop(0.3, "rgba(35, 14, 60, 0.76)");
-    overlay.addColorStop(0.65, "rgba(22, 8, 38, 0.85)");
-    overlay.addColorStop(1, "rgba(14, 5, 25, 0.96)");
+    overlay.addColorStop(0, "rgba(22, 8, 38, 0.92)");
+    overlay.addColorStop(0.3, "rgba(35, 14, 60, 0.78)");
+    overlay.addColorStop(0.65, "rgba(22, 8, 38, 0.88)");
+    overlay.addColorStop(1, "rgba(14, 5, 25, 0.97)");
 
     ctx.fillStyle = overlay;
     ctx.fillRect(0, 0, width, height);
     return;
   }
 
-  // Pure Procedural Ceremonial Gradient
+  // Procedural Ceremonial Gradient
   const bgStyle = template.backgroundStyle;
   const bgGradient = ctx.createRadialGradient(
     width / 2,
-    height * 0.35,
+    height * 0.32,
     width * 0.05,
     width / 2,
     height * 0.5,
-    width * 0.85
+    width * 0.88
   );
 
   if (bgStyle === "heritage-green") {
@@ -141,14 +157,14 @@ function drawRichBackground(
     bgGradient.addColorStop(0.8, "#0e2d1b");
     bgGradient.addColorStop(1, "#07190e");
   } else if (bgStyle === "royal-gold") {
-    bgGradient.addColorStop(0, "#481b7a");
+    bgGradient.addColorStop(0, "#4a1c7c");
     bgGradient.addColorStop(0.4, "#2a0f4a");
     bgGradient.addColorStop(0.8, "#17082a");
     bgGradient.addColorStop(1, "#0c0417");
   } else {
     // Default Ceremonial Deep Purple
-    bgGradient.addColorStop(0, "#421674");
-    bgGradient.addColorStop(0.4, "#2c0e4f");
+    bgGradient.addColorStop(0, "#431776");
+    bgGradient.addColorStop(0.4, "#2d0f50");
     bgGradient.addColorStop(0.8, "#1a0730");
     bgGradient.addColorStop(1, "#0e031c");
   }
@@ -156,38 +172,87 @@ function drawRichBackground(
   ctx.fillStyle = bgGradient;
   ctx.fillRect(0, 0, width, height);
 
-  // Ceremonial Golden Sunburst / Ambient Rays
+  // Ceremonial Golden Sunburst Rays from Top Emblem
   ctx.save();
-  ctx.translate(width / 2, height * 0.16);
-  const rayCount = 28;
-  const rayRadius = Math.max(width, height);
+  ctx.translate(width / 2, height * 0.12);
+  const rayCount = 32;
+  const rayRadius = Math.max(width, height) * 1.2;
   for (let i = 0; i < rayCount; i++) {
     const angle = (i * 2 * Math.PI) / rayCount;
     ctx.beginPath();
     ctx.moveTo(0, 0);
-    ctx.arc(0, 0, rayRadius, angle, angle + Math.PI / rayCount / 2);
-    ctx.fillStyle = i % 2 === 0 ? "rgba(212, 167, 44, 0.035)" : "rgba(255, 255, 255, 0.015)";
+    ctx.arc(0, 0, rayRadius, angle, angle + Math.PI / rayCount / 2.2);
+    ctx.fillStyle = i % 2 === 0 ? "rgba(212, 167, 44, 0.04)" : "rgba(255, 255, 255, 0.018)";
     ctx.fill();
   }
   ctx.restore();
 
-  // Subtle Geometric Textile Watermark (Cultural Diamonds)
+  // Subtle Takete-Ide Hill & Landscape Silhouette along Lower 25% of Poster
   ctx.save();
-  ctx.strokeStyle = "rgba(232, 199, 102, 0.04)";
-  ctx.lineWidth = 1;
-  const step = Math.round(48 * scale);
-  for (let x = 0; x < width; x += step) {
-    for (let y = 0; y < height; y += step) {
-      ctx.beginPath();
-      ctx.moveTo(x + step / 2, y);
-      ctx.lineTo(x + step, y + step / 2);
-      ctx.lineTo(x + step / 2, y + step);
-      ctx.lineTo(x, y + step / 2);
-      ctx.closePath();
-      ctx.stroke();
-    }
+  ctx.beginPath();
+  const hillBaseY = height - Math.round(180 * scale);
+  ctx.moveTo(0, height);
+  ctx.lineTo(0, hillBaseY);
+  ctx.bezierCurveTo(
+    width * 0.2,
+    hillBaseY - 60 * scale,
+    width * 0.35,
+    hillBaseY + 20 * scale,
+    width * 0.5,
+    hillBaseY - 40 * scale
+  );
+  ctx.bezierCurveTo(
+    width * 0.65,
+    hillBaseY - 90 * scale,
+    width * 0.85,
+    hillBaseY - 10 * scale,
+    width,
+    hillBaseY - 50 * scale
+  );
+  ctx.lineTo(width, height);
+  ctx.closePath();
+
+  const hillGrad = ctx.createLinearGradient(0, hillBaseY - 90 * scale, 0, height);
+  hillGrad.addColorStop(0, "rgba(212, 167, 44, 0.09)");
+  hillGrad.addColorStop(0.5, "rgba(36, 92, 58, 0.18)");
+  hillGrad.addColorStop(1, "rgba(14, 5, 25, 0.35)");
+  ctx.fillStyle = hillGrad;
+  ctx.fill();
+  ctx.restore();
+
+  // Restrained Traditional Textile Diamond Pattern Borders along Sides
+  ctx.save();
+  ctx.strokeStyle = "rgba(232, 199, 102, 0.06)";
+  ctx.lineWidth = 1.5;
+  const diamondStep = Math.round(36 * scale);
+  // Left border strip
+  for (let y = Math.round(60 * scale); y < height - Math.round(60 * scale); y += diamondStep) {
+    drawTextileDiamond(ctx, Math.round(48 * scale), y, Math.round(14 * scale));
+  }
+  // Right border strip
+  for (let y = Math.round(60 * scale); y < height - Math.round(60 * scale); y += diamondStep) {
+    drawTextileDiamond(ctx, width - Math.round(48 * scale), y, Math.round(14 * scale));
   }
   ctx.restore();
+}
+
+/**
+ * Draws a subtle traditional textile diamond motif.
+ */
+function drawTextileDiamond(ctx: CanvasRenderingContext2D, x: number, y: number, size: number) {
+  ctx.beginPath();
+  ctx.moveTo(x, y - size);
+  ctx.lineTo(x + size, y);
+  ctx.lineTo(x, y + size);
+  ctx.lineTo(x - size, y);
+  ctx.closePath();
+  ctx.stroke();
+
+  // Inner dot
+  ctx.beginPath();
+  ctx.arc(x, y, 1.5, 0, Math.PI * 2);
+  ctx.fillStyle = "rgba(232, 199, 102, 0.08)";
+  ctx.fill();
 }
 
 /**
@@ -200,9 +265,9 @@ function drawGrandCeremonialBorders(
   scale: number,
   template: CelebrationTemplate
 ) {
-  const outerMargin = Math.round(24 * scale);
-  const middleMargin = Math.round(34 * scale);
-  const innerMargin = Math.round(42 * scale);
+  const outerMargin = Math.round(22 * scale);
+  const middleMargin = Math.round(32 * scale);
+  const innerMargin = Math.round(40 * scale);
   const accentGold = template.accentColor || "#d4a72c";
 
   ctx.save();
@@ -223,7 +288,7 @@ function drawGrandCeremonialBorders(
   ctx.strokeRect(innerMargin, innerMargin, width - innerMargin * 2, height - innerMargin * 2);
 
   // 4. Ornate Corner Medallions & Acanthus Brackets
-  const bracketSize = Math.round(44 * scale);
+  const bracketSize = Math.round(46 * scale);
   const corners = [
     { x: innerMargin, y: innerMargin, dx: 1, dy: 1 },
     { x: width - innerMargin, y: innerMargin, dx: -1, dy: 1 },
@@ -233,7 +298,6 @@ function drawGrandCeremonialBorders(
 
   ctx.fillStyle = accentGold;
   corners.forEach(({ x, y, dx, dy }) => {
-    // Corner L-Bracket
     ctx.beginPath();
     ctx.moveTo(x, y);
     ctx.lineTo(x + bracketSize * dx, y);
@@ -244,7 +308,7 @@ function drawGrandCeremonialBorders(
     ctx.closePath();
     ctx.fill();
 
-    // Corner Gold Diamond Stud
+    // Corner Diamond
     ctx.beginPath();
     const cx = x + 14 * dx * scale;
     const cy = y + 14 * dy * scale;
@@ -261,201 +325,598 @@ function drawGrandCeremonialBorders(
 }
 
 /**
- * Calculates responsive, balanced visual zones for any aspect ratio (Square, Portrait, Story, Print).
- * Eliminates the empty lower space and ensures high visual balance.
+ * Powerful Split Composition for Personal Celebration & Leadership:
+ * Left side: ~55% height photo.
+ * Right side: Massive "100" centenary graphic monument + structured nameplate + felicitation scroll.
+ * Bottom 20-25%: Curved ceremonial foundation ribbons, event date, and "Heritage • Unity • Progress".
  */
-function calculateBalancedZones(
+function drawSplitCelebrationLayout(
+  ctx: CanvasRenderingContext2D,
   width: number,
   height: number,
   scale: number,
   aspect: number,
-  template: CelebrationTemplate
-) {
-  const isSquare = aspect <= 1.05;
-  const isStory = aspect >= 1.6;
-
-  // Header Zone
-  const headerY = Math.round(52 * scale);
-  const headerHeight = isSquare ? Math.round(180 * scale) : Math.round(220 * scale);
-
-  // Photo Zone (Enlarged by 30–45%)
-  let photoWidth = Math.round((isSquare ? 420 : isStory ? 560 : 540) * scale);
-  let photoHeight = photoWidth;
-
-  if (template.category === "family") {
-    photoWidth = Math.round((isSquare ? 520 : isStory ? 680 : 660) * scale);
-    photoHeight = Math.round(photoWidth * 0.75);
-  } else if (template.photoConfig.shape === "arch") {
-    photoHeight = Math.round(photoWidth * 1.15);
-  }
-
-  const photoY = headerY + headerHeight + (isSquare ? 6 * scale : 16 * scale);
-
-  // Nameplate Zone
-  const nameplateY = photoY + photoHeight + Math.round(14 * scale);
-  const nameplateHeight = Math.round((isSquare ? 110 : 130) * scale);
-
-  // Message Zone
-  const messageY = nameplateY + nameplateHeight + Math.round(10 * scale);
-  const messageHeight = Math.round((isSquare ? 110 : isStory ? 180 : 140) * scale);
-
-  // Foundation Footer Zone
-  const foundationY = height - Math.round((isSquare ? 140 : 165) * scale);
-  const foundationHeight = Math.round((isSquare ? 120 : 140) * scale);
-
-  return {
-    header: { y: headerY, height: headerHeight, width, centerX: width / 2 },
-    photo: {
-      x: width / 2 - photoWidth / 2,
-      y: photoY,
-      width: photoWidth,
-      height: photoHeight,
-      centerX: width / 2,
-      centerY: photoY + photoHeight / 2,
-    },
-    nameplate: { y: nameplateY, height: nameplateHeight, width: width - Math.round(120 * scale), centerX: width / 2 },
-    message: { y: messageY, height: messageHeight, width: width - Math.round(140 * scale), centerX: width / 2 },
-    foundation: { y: foundationY, height: foundationHeight, width, centerX: width / 2 },
-  };
-}
-
-/**
- * Grand Header: 100-Year Milestone Crown, TIPU Emblem, and Centenary Heading.
- */
-function drawGrandHeader(
-  ctx: CanvasRenderingContext2D,
-  headerZone: { y: number; height: number; width: number; centerX: number },
-  scale: number,
   campaign: CampaignConfig,
   template: CelebrationTemplate,
+  personalisation: PersonalisationData,
+  photoImage: HTMLImageElement | null,
+  photoAdjustments: PhotoAdjustments,
   logoImage: HTMLImageElement | null
 ) {
-  const { centerX, y } = headerZone;
-  let currentY = y;
+  const isSquare = aspect <= 1.05;
 
-  ctx.save();
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
+  // ── 1. Top Header (Y: 48px to ~190px) ─────────────────────────────────────
+  let currentY = Math.round(50 * scale);
+  const centerX = width / 2;
 
-  // 1. Official Logo Emblem in Gold Filigree Roundel
-  const logoSize = Math.round(68 * scale);
+  // Logo in gold filigree roundel
+  const logoSize = Math.round((isSquare ? 56 : 64) * scale);
   if (logoImage) {
     ctx.save();
-    // Glowing Outer Halo
-    ctx.shadowColor = "rgba(212, 167, 44, 0.8)";
-    ctx.shadowBlur = 14 * scale;
-
+    ctx.shadowColor = "rgba(212, 167, 44, 0.85)";
+    ctx.shadowBlur = 12 * scale;
     ctx.beginPath();
-    ctx.arc(centerX, currentY + logoSize / 2, logoSize / 2 + 5 * scale, 0, Math.PI * 2);
+    ctx.arc(centerX, currentY + logoSize / 2, logoSize / 2 + 4 * scale, 0, Math.PI * 2);
     ctx.fillStyle = "#ffffff";
     ctx.fill();
-
-    ctx.lineWidth = Math.max(2, Math.round(3.5 * scale));
+    ctx.lineWidth = 3 * scale;
     ctx.strokeStyle = "#d4a72c";
     ctx.stroke();
-
     ctx.shadowBlur = 0;
     ctx.clip();
     ctx.drawImage(logoImage, centerX - logoSize / 2, currentY, logoSize, logoSize);
     ctx.restore();
   }
 
-  currentY += logoSize + Math.round(18 * scale);
+  currentY += logoSize + Math.round(14 * scale);
 
-  // 2. 100-YEAR CENTENARY CROWN BANNER (Major Visual Element)
-  const ribbonWidth = Math.round(480 * scale);
-  const ribbonHeight = Math.round(32 * scale);
-  const ribbonY = currentY - ribbonHeight / 2;
-
-  // Gold Ribbon Background
-  const ribbonGrad = ctx.createLinearGradient(centerX - ribbonWidth / 2, 0, centerX + ribbonWidth / 2, 0);
-  ribbonGrad.addColorStop(0, "rgba(212, 167, 44, 0)");
-  ribbonGrad.addColorStop(0.2, "#d4a72c");
-  ribbonGrad.addColorStop(0.5, "#fae39b");
-  ribbonGrad.addColorStop(0.8, "#d4a72c");
-  ribbonGrad.addColorStop(1, "rgba(212, 167, 44, 0)");
-
-  ctx.fillStyle = ribbonGrad;
-  ctx.fillRect(centerX - ribbonWidth / 2, ribbonY, ribbonWidth, ribbonHeight);
-
-  // Centennial Ribbon Text
-  ctx.font = `900 ${Math.round(16 * scale)}px "Playfair Display", Georgia, serif`;
-  ctx.fillStyle = "#1b0730";
-  ctx.letterSpacing = `${Math.round(3 * scale)}px`;
-  ctx.fillText("★  100TH CENTENARY ANNIVERSARY (1926 – 2026)  ★", centerX, currentY);
-
-  currentY += Math.round(26 * scale);
-
-  // 3. Main Centenary Title (Commanding & Prominent)
-  ctx.font = `900 ${Math.round(26 * scale)}px "Playfair Display", Georgia, serif`;
-  ctx.fillStyle = "#ffffff";
-  ctx.shadowColor = "rgba(0, 0, 0, 0.85)";
-  ctx.shadowBlur = 10 * scale;
-  ctx.letterSpacing = `${Math.round(1.5 * scale)}px`;
-  ctx.fillText("TAKETE-IDE DAY & CENTENARY CELEBRATION", centerX, currentY);
-  ctx.shadowBlur = 0;
+  // Top Tracking Header: "TAKETE-IDE CENTENARY 1926–2026"
+  ctx.save();
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.font = `bold ${Math.round(14 * scale)}px Inter, sans-serif`;
+  ctx.fillStyle = "#e8c766";
+  ctx.letterSpacing = `${Math.round(2.5 * scale)}px`;
+  ctx.fillText("TAKETE-IDE CENTENARY 1926–2026", centerX, currentY);
 
   currentY += Math.round(22 * scale);
 
-  // 4. Event Dates & Venue Badge
+  // Main Centenary Title
+  ctx.font = `900 ${Math.round((isSquare ? 22 : 25) * scale)}px "Playfair Display", Georgia, serif`;
+  ctx.fillStyle = "#ffffff";
+  ctx.shadowColor = "rgba(0, 0, 0, 0.8)";
+  ctx.shadowBlur = 8 * scale;
+  ctx.fillText("TAKETE-IDE DAY & CENTENARY CELEBRATION", centerX, currentY);
+  ctx.shadowBlur = 0;
+
+  currentY += Math.round(20 * scale);
+
+  // Header Sub-Pill
   const dateText = `${campaign.eventDates} · TAKETE-IDE, KOGI STATE`;
-  ctx.font = `bold ${Math.round(12.5 * scale)}px Inter, -apple-system, sans-serif`;
-
-  const dateWidth = ctx.measureText(dateText).width;
-  const pillPadding = 18 * scale;
-  const pillHeight = 24 * scale;
-
-  ctx.fillStyle = "rgba(36, 92, 58, 0.7)"; // Community Green
+  ctx.font = `bold ${Math.round(12 * scale)}px Inter, sans-serif`;
+  const dateW = ctx.measureText(dateText).width;
+  const pillPadding = 16 * scale;
+  const pillH = 22 * scale;
+  ctx.fillStyle = "rgba(36, 92, 58, 0.75)";
   ctx.strokeStyle = "#e8c766";
   ctx.lineWidth = 1.5 * scale;
-  roundRect(
+  roundRect(ctx, centerX - dateW / 2 - pillPadding, currentY - pillH / 2, dateW + pillPadding * 2, pillH, 11 * scale);
+  ctx.fill();
+  ctx.stroke();
+  ctx.fillStyle = "#fff9ef";
+  ctx.fillText(dateText, centerX, currentY);
+  ctx.restore();
+
+  // ── 2. Mid Section Split Composition (Y: ~190px to ~1200px) ─────────────────
+  const midTopY = currentY + Math.round(20 * scale);
+  const midBottomY = height - Math.round(270 * scale);
+  const midHeight = midBottomY - midTopY;
+
+  // Left Column (Photograph occupying ~55% of height and ~48% of width)
+  const photoW = Math.round(width * 0.48);
+  const photoH = Math.min(midHeight, Math.round(photoW * 1.38));
+  const photoX = Math.round(56 * scale);
+  const photoY = midTopY + Math.round((midHeight - photoH) / 2);
+
+  // Draw Grand Framed Portrait on Left
+  drawFramedPhotoBox(
     ctx,
-    centerX - dateWidth / 2 - pillPadding,
-    currentY - pillHeight / 2,
-    dateWidth + pillPadding * 2,
-    pillHeight,
-    12 * scale
+    photoX,
+    photoY,
+    photoW,
+    photoH,
+    template.photoConfig.shape,
+    photoImage,
+    photoAdjustments,
+    scale,
+    template.accentColor || "#d4a72c"
   );
+
+  // Right Column (X: 55% to 95% of width)
+  const rightX = photoX + photoW + Math.round(32 * scale);
+  const rightW = width - rightX - Math.round(52 * scale);
+  const rightCenterX = rightX + rightW / 2;
+  let rightY = photoY;
+
+  ctx.save();
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+
+  // A. Giant Gold "100" Monumental Graphic (Major Centenary Element)
+  const numFontSize = Math.round((isSquare ? 76 : 104) * scale);
+  ctx.font = `900 ${numFontSize}px "Playfair Display", "Georgia", serif`;
+  const numGrad = ctx.createLinearGradient(0, rightY, 0, rightY + numFontSize);
+  numGrad.addColorStop(0, "#fff2b8");
+  numGrad.addColorStop(0.3, "#f0cb64");
+  numGrad.addColorStop(0.65, "#d4a72c");
+  numGrad.addColorStop(1, "#8f6706");
+
+  ctx.fillStyle = numGrad;
+  ctx.shadowColor = "rgba(0, 0, 0, 0.9)";
+  ctx.shadowBlur = 14 * scale;
+  ctx.shadowOffsetY = 4 * scale;
+  ctx.fillText("100", rightCenterX, rightY + numFontSize * 0.38);
+  ctx.shadowBlur = 0;
+
+  rightY += numFontSize * 0.72 + Math.round(4 * scale);
+
+  // Ribbon under "100": "CELEBRATING 100 YEARS"
+  const tagH = Math.round(28 * scale);
+  const tagW = rightW - Math.round(16 * scale);
+  const tagGrad = ctx.createLinearGradient(rightCenterX - tagW / 2, 0, rightCenterX + tagW / 2, 0);
+  tagGrad.addColorStop(0, "rgba(212, 167, 44, 0.3)");
+  tagGrad.addColorStop(0.25, "#d4a72c");
+  tagGrad.addColorStop(0.5, "#fae39b");
+  tagGrad.addColorStop(0.75, "#d4a72c");
+  tagGrad.addColorStop(1, "rgba(212, 167, 44, 0.3)");
+
+  ctx.fillStyle = tagGrad;
+  roundRect(ctx, rightCenterX - tagW / 2, rightY, tagW, tagH, 6 * scale);
+  ctx.fill();
+
+  ctx.font = `900 ${Math.round(14 * scale)}px "Playfair Display", "Georgia", serif`;
+  ctx.fillStyle = "#18062b";
+  ctx.letterSpacing = `${Math.round(1.5 * scale)}px`;
+  ctx.fillText("CELEBRATING 100 YEARS", rightCenterX, rightY + tagH / 2);
+
+  rightY += tagH + Math.round(16 * scale);
+
+  // Salutation Header: "HAPPY CENTENARY CELEBRATION!"
+  const salutation = personalisation.greeting || template.defaultSalutation || "HAPPY CENTENARY CELEBRATION!";
+  ctx.font = `italic 700 ${Math.round(14 * scale)}px "Playfair Display", "Georgia", serif`;
+  ctx.fillStyle = "#fae39b";
+  ctx.letterSpacing = `${Math.round(1 * scale)}px`;
+  ctx.fillText(salutation.toUpperCase(), rightCenterX, rightY);
+
+  rightY += Math.round(20 * scale);
+
+  // B. Structured Nameplate Plaque (Royal Velvet Card with Gold Bevel)
+  const displayName = (personalisation.name || "Chief Daramola Omoyele").trim();
+  const roleTitle = (personalisation.title || "").trim();
+
+  let nameFontSize = Math.round(28 * scale);
+  ctx.font = `900 ${nameFontSize}px "Playfair Display", "Georgia", serif`;
+  let nameMetrics = ctx.measureText(displayName).width;
+  while (nameMetrics > rightW - 24 * scale && nameFontSize > 16 * scale) {
+    nameFontSize -= 2;
+    ctx.font = `900 ${nameFontSize}px "Playfair Display", "Georgia", serif`;
+    nameMetrics = ctx.measureText(displayName).width;
+  }
+
+  const nameplateH = Math.round((roleTitle ? 64 : 50) * scale);
+  const nameplateW = rightW;
+  const nameplateGrad = ctx.createLinearGradient(rightCenterX - nameplateW / 2, 0, rightCenterX + nameplateW / 2, 0);
+  nameplateGrad.addColorStop(0, "rgba(42, 16, 73, 0.95)");
+  nameplateGrad.addColorStop(0.5, "rgba(65, 25, 115, 0.98)");
+  nameplateGrad.addColorStop(1, "rgba(42, 16, 73, 0.95)");
+
+  ctx.fillStyle = nameplateGrad;
+  ctx.strokeStyle = "#d4a72c";
+  ctx.lineWidth = 2.5 * scale;
+  roundRect(ctx, rightCenterX - nameplateW / 2, rightY, nameplateW, nameplateH, 8 * scale);
   ctx.fill();
   ctx.stroke();
 
+  // Nameplate Corner Diamond Accents
+  ctx.fillStyle = "#fae39b";
+  ctx.fillRect(rightCenterX - nameplateW / 2 + 5 * scale, rightY + 5 * scale, 3 * scale, 3 * scale);
+  ctx.fillRect(rightCenterX + nameplateW / 2 - 8 * scale, rightY + 5 * scale, 3 * scale, 3 * scale);
+  ctx.fillRect(rightCenterX - nameplateW / 2 + 5 * scale, rightY + nameplateH - 8 * scale, 3 * scale, 3 * scale);
+  ctx.fillRect(rightCenterX + nameplateW / 2 - 8 * scale, rightY + nameplateH - 8 * scale, 3 * scale, 3 * scale);
+
+  if (roleTitle) {
+    // Title inside nameplate top
+    ctx.font = `bold ${Math.round(11.5 * scale)}px Inter, -apple-system, sans-serif`;
+    ctx.fillStyle = "#e8c766";
+    ctx.letterSpacing = `${Math.round(1.5 * scale)}px`;
+    ctx.fillText(roleTitle.toUpperCase(), rightCenterX, rightY + Math.round(16 * scale));
+
+    // Full Name
+    ctx.font = `900 ${nameFontSize}px "Playfair Display", "Georgia", serif`;
+    ctx.fillStyle = "#ffffff";
+    ctx.shadowColor = "rgba(0, 0, 0, 0.9)";
+    ctx.shadowBlur = 6 * scale;
+    ctx.fillText(displayName, rightCenterX, rightY + Math.round(42 * scale));
+    ctx.shadowBlur = 0;
+  } else {
+    // Name centered in plaque
+    ctx.font = `900 ${nameFontSize}px "Playfair Display", "Georgia", serif`;
+    ctx.fillStyle = "#ffffff";
+    ctx.shadowColor = "rgba(0, 0, 0, 0.9)";
+    ctx.shadowBlur = 6 * scale;
+    ctx.fillText(displayName, rightCenterX, rightY + nameplateH / 2);
+    ctx.shadowBlur = 0;
+  }
+
+  rightY += nameplateH + Math.round(16 * scale);
+
+  // C. Felicitation Message Scroll Plaque
+  const scrollW = rightW;
+  const scrollH = photoY + photoH - rightY;
+  if (scrollH > 80 * scale) {
+    const scrollGrad = ctx.createLinearGradient(0, rightY, 0, rightY + scrollH);
+    scrollGrad.addColorStop(0, "rgba(28, 10, 48, 0.82)");
+    scrollGrad.addColorStop(1, "rgba(18, 6, 32, 0.92)");
+
+    ctx.fillStyle = scrollGrad;
+    ctx.strokeStyle = "rgba(212, 167, 44, 0.45)";
+    ctx.lineWidth = 1.5 * scale;
+    roundRect(ctx, rightCenterX - scrollW / 2, rightY, scrollW, scrollH, 8 * scale);
+    ctx.fill();
+    ctx.stroke();
+
+    // Inner fine gold border
+    ctx.strokeStyle = "rgba(250, 227, 155, 0.15)";
+    ctx.lineWidth = 1;
+    roundRect(ctx, rightCenterX - scrollW / 2 + 5 * scale, rightY + 5 * scale, scrollW - 10 * scale, scrollH - 10 * scale, 5 * scale);
+    ctx.stroke();
+
+    const message = (personalisation.message || template.defaultMessage).trim();
+    const msgFontSize = Math.round(22 * scale);
+    ctx.font = `italic 600 ${msgFontSize}px "Playfair Display", Georgia, serif`;
+    ctx.fillStyle = "#fffbf2";
+    ctx.shadowColor = "rgba(0, 0, 0, 0.75)";
+    ctx.shadowBlur = 4 * scale;
+
+    const lines = wrapText(ctx, `“${message}”`, scrollW - 32 * scale);
+    const lineHeight = Math.round(32 * scale);
+    const totalTextH = lines.length * lineHeight;
+    const textStartY = rightY + Math.round((scrollH - totalTextH) / 2) + Math.round(lineHeight * 0.35);
+
+    lines.slice(0, 5).forEach((line, idx) => {
+      ctx.fillText(line, rightCenterX, textStartY + idx * lineHeight);
+    });
+    ctx.shadowBlur = 0;
+
+    // Celebratory emblem below text if space permits
+    if (scrollH - totalTextH > 50 * scale) {
+      ctx.font = `bold ${Math.round(12 * scale)}px Inter, sans-serif`;
+      ctx.fillStyle = "#e8c766";
+      ctx.letterSpacing = `${Math.round(2 * scale)}px`;
+      ctx.fillText("★  1926 — CENTENARY — 2026  ★", rightCenterX, rightY + scrollH - Math.round(20 * scale));
+    }
+  }
+
+  ctx.restore();
+
+  // ── 3. Lower Section - Ceremonial Foundation (Bottom 20–25%) ─────────────────
+  const foundationY = height - Math.round((isSquare ? 220 : 260) * scale);
+  drawGrandFoundationRibbons(
+    ctx,
+    centerX,
+    foundationY,
+    width,
+    height,
+    scale,
+    campaign,
+    template,
+    personalisation
+  );
+}
+
+/**
+ * Balanced Full-Canvas Composition for Family, Heritage, and Custom templates.
+ */
+function drawBalancedFullCanvasLayout(
+  ctx: CanvasRenderingContext2D,
+  width: number,
+  height: number,
+  scale: number,
+  aspect: number,
+  campaign: CampaignConfig,
+  template: CelebrationTemplate,
+  personalisation: PersonalisationData,
+  photoImage: HTMLImageElement | null,
+  photoAdjustments: PhotoAdjustments,
+  logoImage: HTMLImageElement | null
+) {
+  const isSquare = aspect <= 1.05;
+  const centerX = width / 2;
+  let currentY = Math.round(50 * scale);
+
+  // Top Header with Logo
+  const logoSize = Math.round((isSquare ? 56 : 64) * scale);
+  if (logoImage) {
+    ctx.save();
+    ctx.shadowColor = "rgba(212, 167, 44, 0.85)";
+    ctx.shadowBlur = 12 * scale;
+    ctx.beginPath();
+    ctx.arc(centerX, currentY + logoSize / 2, logoSize / 2 + 4 * scale, 0, Math.PI * 2);
+    ctx.fillStyle = "#ffffff";
+    ctx.fill();
+    ctx.lineWidth = 3 * scale;
+    ctx.strokeStyle = "#d4a72c";
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+    ctx.clip();
+    ctx.drawImage(logoImage, centerX - logoSize / 2, currentY, logoSize, logoSize);
+    ctx.restore();
+  }
+
+  currentY += logoSize + Math.round(14 * scale);
+
+  // Centenary Title Banner
+  ctx.save();
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.font = `bold ${Math.round(14 * scale)}px Inter, sans-serif`;
+  ctx.fillStyle = "#e8c766";
+  ctx.letterSpacing = `${Math.round(2.5 * scale)}px`;
+  ctx.fillText("TAKETE-IDE CENTENARY 1926–2026", centerX, currentY);
+
+  currentY += Math.round(22 * scale);
+
+  ctx.font = `900 ${Math.round((isSquare ? 22 : 25) * scale)}px "Playfair Display", Georgia, serif`;
+  ctx.fillStyle = "#ffffff";
+  ctx.shadowColor = "rgba(0, 0, 0, 0.8)";
+  ctx.shadowBlur = 8 * scale;
+  ctx.fillText("TAKETE-IDE DAY & CENTENARY CELEBRATION", centerX, currentY);
+  ctx.shadowBlur = 0;
+
+  currentY += Math.round(20 * scale);
+
+  const dateText = `${campaign.eventDates} · TAKETE-IDE, KOGI STATE`;
+  ctx.font = `bold ${Math.round(12 * scale)}px Inter, sans-serif`;
+  const dateW = ctx.measureText(dateText).width;
+  const pillPadding = 16 * scale;
+  const pillH = 22 * scale;
+  ctx.fillStyle = "rgba(36, 92, 58, 0.75)";
+  ctx.strokeStyle = "#e8c766";
+  ctx.lineWidth = 1.5 * scale;
+  roundRect(ctx, centerX - dateW / 2 - pillPadding, currentY - pillH / 2, dateW + pillPadding * 2, pillH, 11 * scale);
+  ctx.fill();
+  ctx.stroke();
   ctx.fillStyle = "#fff9ef";
   ctx.fillText(dateText, centerX, currentY);
+  ctx.restore();
+
+  // Grand Photo Box (Wide Panoramic for Family, Arched for Heritage)
+  const photoY = currentY + Math.round(16 * scale);
+  const photoW =
+    template.category === "family"
+      ? Math.round(width * 0.78)
+      : Math.round(width * 0.58);
+  const photoH =
+    template.category === "family"
+      ? Math.round(photoW * 0.68)
+      : Math.round(photoW * 1.15);
+  const photoX = centerX - photoW / 2;
+
+  drawFramedPhotoBox(
+    ctx,
+    photoX,
+    photoY,
+    photoW,
+    photoH,
+    template.photoConfig.shape,
+    photoImage,
+    photoAdjustments,
+    scale,
+    template.accentColor || "#d4a72c"
+  );
+
+  // Nameplate & Message Plaque
+  const nameplateY = photoY + photoH + Math.round(16 * scale);
+  const nameplateW = Math.round(width * 0.84);
+
+  ctx.save();
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+
+  const salutation = personalisation.greeting || template.defaultSalutation || "HAPPY CENTENARY CELEBRATION!";
+  ctx.font = `italic 700 ${Math.round(14 * scale)}px "Playfair Display", Georgia, serif`;
+  ctx.fillStyle = "#e8c766";
+  ctx.fillText(salutation.toUpperCase(), centerX, nameplateY);
+
+  const displayName =
+    template.category === "family"
+      ? (personalisation.familyName || "The Daramola Family").trim()
+      : (personalisation.name || "Chief Daramola Omoyele").trim();
+
+  let nameFontSize = Math.round(28 * scale);
+  ctx.font = `900 ${nameFontSize}px "Playfair Display", Georgia, serif`;
+  let nameMetrics = ctx.measureText(displayName).width;
+  while (nameMetrics > nameplateW - 40 * scale && nameFontSize > 16 * scale) {
+    nameFontSize -= 2;
+    ctx.font = `900 ${nameFontSize}px "Playfair Display", Georgia, serif`;
+    nameMetrics = ctx.measureText(displayName).width;
+  }
+
+  const plaqueH = Math.round(44 * scale);
+  const plaqueY = nameplateY + Math.round(14 * scale);
+  const plaqueGrad = ctx.createLinearGradient(centerX - nameplateW / 2, 0, centerX + nameplateW / 2, 0);
+  plaqueGrad.addColorStop(0, "rgba(35, 14, 60, 0.95)");
+  plaqueGrad.addColorStop(0.5, "rgba(50, 19, 87, 0.98)");
+  plaqueGrad.addColorStop(1, "rgba(35, 14, 60, 0.95)");
+
+  ctx.fillStyle = plaqueGrad;
+  ctx.strokeStyle = "#d4a72c";
+  ctx.lineWidth = 2 * scale;
+  roundRect(ctx, centerX - nameplateW / 2, plaqueY, nameplateW, plaqueH, 8 * scale);
+  ctx.fill();
+  ctx.stroke();
+
+  ctx.fillStyle = "#ffffff";
+  ctx.shadowColor = "rgba(0, 0, 0, 0.9)";
+  ctx.shadowBlur = 6 * scale;
+  ctx.fillText(displayName, centerX, plaqueY + plaqueH / 2);
+  ctx.shadowBlur = 0;
+
+  // Role/Title if entered
+  let nextMsgY = plaqueY + plaqueH + Math.round(14 * scale);
+  const roleTitle = (personalisation.title || "").trim();
+  if (roleTitle && template.category !== "family") {
+    ctx.font = `bold ${Math.round(12.5 * scale)}px Inter, sans-serif`;
+    ctx.fillStyle = "#e8c766";
+    ctx.fillText(`◆  ${roleTitle.toUpperCase()}  ◆`, centerX, nextMsgY);
+    nextMsgY += Math.round(18 * scale);
+  }
+
+  // Felicitation Message
+  const message = (personalisation.message || template.defaultMessage).trim();
+  ctx.font = `500 ${Math.round(14 * scale)}px "Playfair Display", Georgia, serif`;
+  ctx.fillStyle = "#fff9ef";
+  const lines = wrapText(ctx, `“${message}”`, nameplateW - 40 * scale);
+  const lineHeight = Math.round(21 * scale);
+  lines.slice(0, 3).forEach((line, idx) => {
+    ctx.fillText(line, centerX, nextMsgY + idx * lineHeight);
+  });
+
+  ctx.restore();
+
+  // Foundation Ribbons
+  const foundationY = height - Math.round((isSquare ? 200 : 240) * scale);
+  drawGrandFoundationRibbons(
+    ctx,
+    centerX,
+    foundationY,
+    width,
+    height,
+    scale,
+    campaign,
+    template,
+    personalisation
+  );
+}
+
+/**
+ * Draws the lower ceremonial foundation ribbons, event date, and "Heritage • Unity • Progress".
+ */
+function drawGrandFoundationRibbons(
+  ctx: CanvasRenderingContext2D,
+  centerX: number,
+  startY: number,
+  width: number,
+  height: number,
+  scale: number,
+  campaign: CampaignConfig,
+  template: CelebrationTemplate,
+  personalisation: PersonalisationData
+) {
+  let currentY = startY;
+
+  ctx.save();
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+
+  // 1. Curved Gold & Green Ceremonial Ribbon with Local Expression / Motto
+  const expression =
+    personalisation.localExpression ||
+    personalisation.signOff ||
+    template.defaultLocalExpression ||
+    "AGBAGBA IDE AGBE WA O";
+
+  const ribbonW = width - Math.round(120 * scale);
+  const ribbonH = Math.round(36 * scale);
+
+  const ribbonGrad = ctx.createLinearGradient(centerX - ribbonW / 2, 0, centerX + ribbonW / 2, 0);
+  ribbonGrad.addColorStop(0, "rgba(212, 167, 44, 0.15)");
+  ribbonGrad.addColorStop(0.2, "#d4a72c");
+  ribbonGrad.addColorStop(0.5, "#fae39b");
+  ribbonGrad.addColorStop(0.8, "#d4a72c");
+  ribbonGrad.addColorStop(1, "rgba(212, 167, 44, 0.15)");
+
+  ctx.fillStyle = ribbonGrad;
+  roundRect(ctx, centerX - ribbonW / 2, currentY, ribbonW, ribbonH, 6 * scale);
+  ctx.fill();
+
+  ctx.font = `900 ${Math.round(15 * scale)}px "Playfair Display", Georgia, serif`;
+  ctx.fillStyle = "#18062b";
+  ctx.letterSpacing = `${Math.round(2 * scale)}px`;
+  ctx.fillText(expression.toUpperCase(), centerX, currentY + ribbonH / 2);
+
+  currentY += ribbonH + Math.round(16 * scale);
+
+  // 2. Grand Finale & Event Date
+  ctx.font = `bold ${Math.round(13.5 * scale)}px Inter, -apple-system, sans-serif`;
+  ctx.fillStyle = "#ffffff";
+  ctx.shadowColor = "rgba(0, 0, 0, 0.8)";
+  ctx.shadowBlur = 4 * scale;
+  ctx.fillText("GRAND FINALE: SATURDAY, 31 OCTOBER 2026", centerX, currentY);
+  ctx.shadowBlur = 0;
+
+  currentY += Math.round(20 * scale);
+
+  // 3. Theme Banner: "THEME: FAITH, UNITY AND PROGRESS"
+  ctx.font = `bold ${Math.round(12.5 * scale)}px Inter, -apple-system, sans-serif`;
+  ctx.fillStyle = "#e8c766";
+  ctx.fillText(`THEME: ${campaign.theme}`, centerX, currentY);
+
+  currentY += Math.round(22 * scale);
+
+  // 4. Motto Tagline: "HERITAGE • UNITY • PROGRESS"
+  ctx.font = `900 ${Math.round(12 * scale)}px Inter, -apple-system, sans-serif`;
+  ctx.fillStyle = "#d4a72c";
+  ctx.letterSpacing = `${Math.round(3 * scale)}px`;
+  ctx.fillText("HERITAGE  •  UNITY  •  PROGRESS", centerX, currentY);
+
+  currentY += Math.round(18 * scale);
+
+  // 5. Official Verification Citation
+  ctx.font = `500 ${Math.round(10.5 * scale)}px Inter, -apple-system, sans-serif`;
+  ctx.fillStyle = "rgba(255, 255, 255, 0.7)";
+  ctx.letterSpacing = "0.5px";
+  ctx.fillText(
+    "Takete-Ide Progressive Union (TIPU) · Official Centenary Archive · takete-ide.org",
+    centerX,
+    currentY
+  );
 
   ctx.restore();
 }
 
 /**
- * Grand Framed Photograph (Enlarged 30–45% with Gold Bevels and Ornaments).
+ * Draws an enlarged, high-contrast framed photograph box with gold bevels and drop shadows.
  */
-function drawGrandPhoto(
+function drawFramedPhotoBox(
   ctx: CanvasRenderingContext2D,
-  photoArea: { x: number; y: number; width: number; height: number; centerX: number; centerY: number },
-  template: CelebrationTemplate,
+  x: number,
+  y: number,
+  width: number,
+  height: number,
+  shape: "circle" | "arch" | "rounded-rect" | "oval" | "full-bleed",
   photoImage: HTMLImageElement | null,
   photoAdjustments: PhotoAdjustments,
   scale: number,
-  personalisation: PersonalisationData
+  accentGold: string
 ) {
-  const { x, y, width, height, centerX, centerY } = photoArea;
-  const shape = template.photoConfig.shape;
+  const centerX = x + width / 2;
+  const centerY = y + height / 2;
   const goldBorderWidth = Math.round(8 * scale);
-  const accentGold = template.accentColor || "#d4a72c";
 
   ctx.save();
 
-  // 1. Deep Radial Drop Shadow Behind Frame
-  ctx.shadowColor = "rgba(0, 0, 0, 0.8)";
-  ctx.shadowBlur = Math.round(24 * scale);
-  ctx.shadowOffsetY = Math.round(8 * scale);
+  // 1. Deep Shadow Behind Photo Frame
+  ctx.shadowColor = "rgba(0, 0, 0, 0.85)";
+  ctx.shadowBlur = Math.round(26 * scale);
+  ctx.shadowOffsetY = Math.round(10 * scale);
 
-  // Dark Velvet Canvas Base
   ctx.fillStyle = "#170827";
   clipPhotoShape(ctx, shape, x, y, width, height);
   ctx.fill();
   ctx.restore();
 
-  // 2. Render Uploaded Photo (Clipped with Pan/Zoom/Rotate/Filter)
+  // 2. Render Photo Content (Clipped)
   ctx.save();
   clipPhotoShape(ctx, shape, x, y, width, height);
   ctx.clip();
@@ -464,18 +925,13 @@ function drawGrandPhoto(
     ctx.save();
     ctx.translate(centerX, centerY);
 
-    // Apply Pan Offsets
     const panOffsetX = (photoAdjustments.panX / 100) * (width * 0.5);
     const panOffsetY = (photoAdjustments.panY / 100) * (height * 0.5);
     ctx.translate(panOffsetX, panOffsetY);
 
-    // Apply Rotation
     ctx.rotate((photoAdjustments.rotation * Math.PI) / 180);
 
-    // Apply Zoom
     const zoom = Math.max(1, photoAdjustments.zoom);
-
-    // Calculate Aspect Cover
     const imgRatio = photoImage.width / photoImage.height;
     const targetRatio = width / height;
     let drawW = width * zoom;
@@ -489,7 +945,6 @@ function drawGrandPhoto(
       drawH = drawW / imgRatio;
     }
 
-    // Apply Filters
     if (photoAdjustments.filter === "warm") {
       ctx.filter = "sepia(0.2) contrast(1.05) saturate(1.15)";
     } else if (photoAdjustments.filter === "vibrant") {
@@ -501,16 +956,15 @@ function drawGrandPhoto(
     ctx.drawImage(photoImage, -drawW / 2, -drawH / 2, drawW, drawH);
     ctx.restore();
   } else {
-    // High-Fidelity Dignified Placeholder
     const phGrad = ctx.createLinearGradient(x, y, x, y + height);
-    phGrad.addColorStop(0, "rgba(50, 19, 87, 0.8)");
-    phGrad.addColorStop(1, "rgba(23, 10, 41, 0.95)");
+    phGrad.addColorStop(0, "rgba(50, 19, 87, 0.85)");
+    phGrad.addColorStop(1, "rgba(23, 10, 41, 0.98)");
     ctx.fillStyle = phGrad;
     ctx.fillRect(x, y, width, height);
 
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-    ctx.font = `900 ${Math.round(18 * scale)}px "Playfair Display", Georgia, serif`;
+    ctx.font = `900 ${Math.round(20 * scale)}px "Playfair Display", Georgia, serif`;
     ctx.fillStyle = "#e8c766";
     ctx.fillText("YOUR PHOTOGRAPH HERE", centerX, centerY - 14 * scale);
 
@@ -521,238 +975,27 @@ function drawGrandPhoto(
 
   ctx.restore();
 
-  // 3. Ornate Double Gold Foil Frame with Beveled Highlight
+  // 3. Double Gold Foil Frame with Beveled Highlight
   ctx.save();
   ctx.lineWidth = goldBorderWidth;
   ctx.strokeStyle = accentGold;
   clipPhotoShape(ctx, shape, x, y, width, height);
   ctx.stroke();
 
-  // Inner Thin Light Highlight
   ctx.lineWidth = Math.max(1, Math.round(2 * scale));
   ctx.strokeStyle = "rgba(255, 255, 255, 0.6)";
   clipPhotoShape(ctx, shape, x + 3 * scale, y + 3 * scale, width - 6 * scale, height - 6 * scale);
   ctx.stroke();
 
-  // Outer Filigree Corner Clips (for rectangular frames)
-  if (shape === "rounded-rect") {
-    const cSize = Math.round(22 * scale);
+  // Corner filigree accents on frame
+  if (shape === "rounded-rect" || shape === "arch") {
+    const cSize = Math.round(24 * scale);
     ctx.fillStyle = accentGold;
-    // Top-left
-    ctx.fillRect(x - 2 * scale, y - 2 * scale, cSize, 4 * scale);
-    ctx.fillRect(x - 2 * scale, y - 2 * scale, 4 * scale, cSize);
-    // Top-right
-    ctx.fillRect(x + width - cSize + 2 * scale, y - 2 * scale, cSize, 4 * scale);
-    ctx.fillRect(x + width - 2 * scale, y - 2 * scale, 4 * scale, cSize);
-    // Bottom-left
     ctx.fillRect(x - 2 * scale, y + height - 2 * scale, cSize, 4 * scale);
     ctx.fillRect(x - 2 * scale, y + height - cSize + 2 * scale, 4 * scale, cSize);
-    // Bottom-right
     ctx.fillRect(x + width - cSize + 2 * scale, y + height - 2 * scale, cSize, 4 * scale);
     ctx.fillRect(x + width - 2 * scale, y + height - cSize + 2 * scale, 4 * scale, cSize);
   }
-
-  // Heritage Landmark Plaque (if Heritage Template)
-  if (template.category === "heritage" || personalisation.customOptions?.backgroundPhoto) {
-    const tagText = "TAKETE-IDE HERITAGE SCENERY";
-    ctx.font = `bold ${Math.round(11 * scale)}px Inter, sans-serif`;
-    const tagW = ctx.measureText(tagText).width + 16 * scale;
-    ctx.fillStyle = "rgba(14, 5, 25, 0.85)";
-    ctx.strokeStyle = "#d4a72c";
-    ctx.lineWidth = 1;
-    roundRect(ctx, centerX - tagW / 2, y + height - 16 * scale, tagW, 22 * scale, 6 * scale);
-    ctx.fill();
-    ctx.stroke();
-    ctx.fillStyle = "#e8c766";
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.fillText(tagText, centerX, y + height - 5 * scale);
-  }
-
-  ctx.restore();
-}
-
-/**
- * Structured Ceremonial Nameplate Plaque: Celebrant Name & Optional Title (Empty by Default).
- */
-function drawStructuredNameplate(
-  ctx: CanvasRenderingContext2D,
-  nameplateZone: { y: number; height: number; width: number; centerX: number },
-  scale: number,
-  template: CelebrationTemplate,
-  personalisation: PersonalisationData
-) {
-  const { centerX, y, width } = nameplateZone;
-  let currentY = y;
-
-  ctx.save();
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-
-  // 1. Salutation Banner
-  const salutation = personalisation.greeting || template.defaultSalutation || "HAPPY CENTENARY CELEBRATION!";
-  ctx.font = `italic 700 ${Math.round(15 * scale)}px "Playfair Display", Georgia, serif`;
-  ctx.fillStyle = "#e8c766";
-  ctx.shadowColor = "rgba(0, 0, 0, 0.7)";
-  ctx.shadowBlur = 4 * scale;
-  ctx.fillText(salutation.toUpperCase(), centerX, currentY + 10 * scale);
-  ctx.shadowBlur = 0;
-
-  currentY += Math.round(28 * scale);
-
-  // 2. Structured Nameplate Plaque (Velvet Dark with Gold Border)
-  const displayName =
-    template.category === "family"
-      ? (personalisation.familyName || "The Daramola Family").trim()
-      : (personalisation.name || "Chief Daramola Omoyele").trim();
-
-  // Dynamic Font Size Clamping for Long Names
-  let nameFontSize = Math.round(30 * scale);
-  ctx.font = `900 ${nameFontSize}px "Playfair Display", Georgia, serif`;
-  let nameMetrics = ctx.measureText(displayName).width;
-  while (nameMetrics > width - 60 * scale && nameFontSize > 18 * scale) {
-    nameFontSize -= 2;
-    ctx.font = `900 ${nameFontSize}px "Playfair Display", Georgia, serif`;
-    nameMetrics = ctx.measureText(displayName).width;
-  }
-
-  const plaqueW = Math.min(width, Math.max(nameMetrics + 60 * scale, 480 * scale));
-  const plaqueH = Math.round(44 * scale);
-  const plaqueY = currentY - plaqueH / 2;
-
-  // Draw Plaque Card
-  const plaqueGrad = ctx.createLinearGradient(centerX - plaqueW / 2, 0, centerX + plaqueW / 2, 0);
-  plaqueGrad.addColorStop(0, "rgba(212, 167, 44, 0.1)");
-  plaqueGrad.addColorStop(0.2, "rgba(35, 14, 60, 0.95)");
-  plaqueGrad.addColorStop(0.5, "rgba(50, 19, 87, 0.98)");
-  plaqueGrad.addColorStop(0.8, "rgba(35, 14, 60, 0.95)");
-  plaqueGrad.addColorStop(1, "rgba(212, 167, 44, 0.1)");
-
-  ctx.fillStyle = plaqueGrad;
-  ctx.strokeStyle = "#d4a72c";
-  ctx.lineWidth = 2 * scale;
-  roundRect(ctx, centerX - plaqueW / 2, plaqueY, plaqueW, plaqueH, 8 * scale);
-  ctx.fill();
-  ctx.stroke();
-
-  // Render Name
-  ctx.fillStyle = "#ffffff";
-  ctx.shadowColor = "rgba(0, 0, 0, 0.9)";
-  ctx.shadowBlur = 8 * scale;
-  ctx.fillText(displayName, centerX, currentY);
-  ctx.shadowBlur = 0;
-
-  currentY += Math.round(28 * scale);
-
-  // 3. User-Entered Title / Role (DISPLAY ONLY IF ENTERED BY USER)
-  const roleTitle = (personalisation.title || "").trim();
-  if (roleTitle && template.category !== "family") {
-    ctx.font = `bold ${Math.round(13 * scale)}px Inter, -apple-system, sans-serif`;
-    ctx.fillStyle = "#e8c766";
-    ctx.letterSpacing = `${Math.round(1.5 * scale)}px`;
-    ctx.fillText(`◆  ${roleTitle.toUpperCase()}  ◆`, centerX, currentY);
-    currentY += Math.round(18 * scale);
-  }
-
-  ctx.restore();
-}
-
-/**
- * Congratulatory Felicitation Message in an Ornamental Scroll Container.
- */
-function drawCongratulatoryMessage(
-  ctx: CanvasRenderingContext2D,
-  messageZone: { y: number; height: number; width: number; centerX: number },
-  scale: number,
-  template: CelebrationTemplate,
-  personalisation: PersonalisationData
-) {
-  const { centerX, y, width } = messageZone;
-  const message = (personalisation.message || template.defaultMessage).trim();
-
-  ctx.save();
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-
-  const msgFontSize = Math.round(15 * scale);
-  ctx.font = `500 ${msgFontSize}px "Playfair Display", Georgia, serif`;
-  ctx.fillStyle = "#fff9ef";
-
-  const maxLineWidth = width - 40 * scale;
-  const lineHeight = Math.round(23 * scale);
-  const lines = wrapText(ctx, `“${message}”`, maxLineWidth);
-
-  const startY = y + 10 * scale;
-  lines.slice(0, 4).forEach((line, idx) => {
-    ctx.fillText(line, centerX, startY + idx * lineHeight);
-  });
-
-  ctx.restore();
-}
-
-/**
- * Grand Ceremonial Foundation Ribbon & Footer:
- * Replaces previous empty space with rich cultural mottos, event theme, and official credentials.
- */
-function drawCeremonialFoundation(
-  ctx: CanvasRenderingContext2D,
-  foundationZone: { y: number; height: number; width: number; centerX: number },
-  scale: number,
-  campaign: CampaignConfig,
-  template: CelebrationTemplate,
-  personalisation: PersonalisationData
-) {
-  const { centerX, y, width } = foundationZone;
-  let currentY = y;
-
-  ctx.save();
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-
-  // 1. Cultural Expression / Motto Ribbon
-  const expression =
-    personalisation.localExpression ||
-    personalisation.signOff ||
-    template.defaultLocalExpression ||
-    campaign.motto;
-
-  const ribbonW = width - Math.round(160 * scale);
-  const ribbonH = Math.round(34 * scale);
-
-  const ribbonGrad = ctx.createLinearGradient(centerX - ribbonW / 2, 0, centerX + ribbonW / 2, 0);
-  ribbonGrad.addColorStop(0, "rgba(212, 167, 44, 0.15)");
-  ribbonGrad.addColorStop(0.25, "#d4a72c");
-  ribbonGrad.addColorStop(0.5, "#fae39b");
-  ribbonGrad.addColorStop(0.75, "#d4a72c");
-  ribbonGrad.addColorStop(1, "rgba(212, 167, 44, 0.15)");
-
-  ctx.fillStyle = ribbonGrad;
-  roundRect(ctx, centerX - ribbonW / 2, currentY, ribbonW, ribbonH, 6 * scale);
-  ctx.fill();
-
-  ctx.font = `900 ${Math.round(14.5 * scale)}px "Playfair Display", Georgia, serif`;
-  ctx.fillStyle = "#1b0730";
-  ctx.letterSpacing = `${Math.round(2 * scale)}px`;
-  ctx.fillText(expression.toUpperCase(), centerX, currentY + ribbonH / 2);
-
-  currentY += ribbonH + Math.round(16 * scale);
-
-  // 2. Official Centenary Theme Pill
-  const themeText = `THEME: ${campaign.theme}`;
-  ctx.font = `bold ${Math.round(12 * scale)}px Inter, -apple-system, sans-serif`;
-  ctx.fillStyle = "#e8c766";
-  ctx.fillText(themeText, centerX, currentY);
-
-  currentY += Math.round(20 * scale);
-
-  // 3. Official Civic Footer Credential
-  ctx.font = `500 ${Math.round(11 * scale)}px Inter, -apple-system, sans-serif`;
-  ctx.fillStyle = "rgba(255, 255, 255, 0.75)";
-  ctx.fillText(
-    `Takete-Ide Progressive Union (TIPU) · Centenary Celebration 2026 · takete-ide.org`,
-    centerX,
-    currentY
-  );
 
   ctx.restore();
 }
