@@ -774,13 +774,16 @@ function drawBalancedFullCanvasLayout(
 
   // Felicitation Message
   const message = (personalisation.message || template.defaultMessage).trim();
-  ctx.font = `500 ${Math.round(14 * scale)}px "Playfair Display", Georgia, serif`;
-  ctx.fillStyle = "#fff9ef";
+  ctx.font = `italic 600 ${Math.round(18 * scale)}px "Playfair Display", Georgia, serif`;
+  ctx.fillStyle = "#fffbf2";
+  ctx.shadowColor = "rgba(0, 0, 0, 0.7)";
+  ctx.shadowBlur = 4 * scale;
   const lines = wrapText(ctx, `“${message}”`, nameplateW - 40 * scale);
-  const lineHeight = Math.round(21 * scale);
+  const lineHeight = Math.round(26 * scale);
   lines.slice(0, 3).forEach((line, idx) => {
     ctx.fillText(line, centerX, nextMsgY + idx * lineHeight);
   });
+  ctx.shadowBlur = 0;
 
   ctx.restore();
 
