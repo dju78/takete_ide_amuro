@@ -169,6 +169,7 @@ export const navGroups: NavGroup[] = [
     href: "/centenary",
     items: [
       { label: "Centenary 2026", href: "/centenary", description: "31 October 2026 — celebrating 100 years of heritage", featured: true },
+      { label: "Celebration Studio", href: "/centenary/celebration-studio", description: "Create and download personalised centenary posters", featured: true },
       { label: "Cultural Attire", href: "/takete-ide-day/cultural-attire", description: "The community's striped cloth" },
       { label: "Takete-Ide Day Archive", href: "/takete-ide-day", description: "Past celebrations" },
     ],
@@ -216,6 +217,7 @@ export const footerGroups: { heading: string; items: NavItem[] }[] = [
     heading: "Centenary",
     items: [
       { label: "Centenary 2026", href: "/centenary" },
+      { label: "Celebration Studio", href: "/centenary/celebration-studio" },
       { label: "Events", href: "/events" },
       { label: "Support Takete-Ide", href: "/support" },
     ],
