@@ -70,25 +70,25 @@ test.describe("Takete-Ide Celebration Studio", () => {
     await expect(page.locator("text=never uploaded to our servers or permanently stored")).toBeVisible();
 
     // Test with Community Demo sample photo
-    const samplePhotoBtn = page.locator("button", { hasText: "Community Celebrant (Demo)" });
+    const samplePhotoBtn = page.locator("button:has-text('Community Celebrant'), button:has-text('Daramola Joseph Omoyele')").first();
     await expect(samplePhotoBtn).toBeVisible();
     await samplePhotoBtn.click();
 
     // Should now transition to Photo Adjustments editor
     await expect(page.locator("#main-content h2").first()).toContainText("Fine-tune Photo Placement");
-    await expect(page.locator("text=Zoom Scale:")).toBeVisible();
+    await expect(page.locator("text=Zoom Scale")).toBeVisible();
     await expect(page.locator("text=Reposition Horizontal")).toBeVisible();
     await expect(page.locator("text=Rotate 90°")).toBeVisible();
   });
 
   test("5. Photo editor allows zoom, rotation, filter adjustments and photo removal", async ({ page }) => {
     await page.click("button:has-text('Continue to Upload Photo')");
-    await page.click("button:has-text('Community Celebrant (Demo)')");
+    await page.locator("button:has-text('Community Celebrant'), button:has-text('Daramola Joseph Omoyele')").first().click();
 
     // Test Zoom adjustment
     const zoomInBtn = page.locator("button[aria-label='Zoom in']");
     await zoomInBtn.click();
-    await expect(page.locator("text=1.1x")).toBeVisible();
+    await expect(page.getByText(/1\.1(0)?x/)).toBeVisible();
 
     // Test Rotate
     const rotateBtn = page.locator("button:has-text('Rotate 90°')");
@@ -97,7 +97,7 @@ test.describe("Takete-Ide Celebration Studio", () => {
 
     // Test Reset
     await page.click("button:has-text('Reset to default')");
-    await expect(page.locator("text=1.0x")).toBeVisible();
+    await expect(page.getByText(/1\.0(0)?x/)).toBeVisible();
     await expect(page.locator("text=(0°)")).toBeVisible();
 
     // Test Remove
@@ -133,7 +133,7 @@ test.describe("Takete-Ide Celebration Studio", () => {
   test("7. State is preserved when navigating backwards and forwards between steps", async ({ page }) => {
     // Step 1 -> Step 2
     await page.click("button:has-text('Continue to Upload Photo')");
-    await page.click("button:has-text('Community Celebrant (Demo)')");
+    await page.locator("button:has-text('Community Celebrant'), button:has-text('Daramola Joseph Omoyele')").first().click();
 
     // Step 2 -> Step 3
     await page.click("button:has-text('Continue to Personalise')");
@@ -230,7 +230,7 @@ test.describe("Takete-Ide Celebration Studio", () => {
 
     // Run through full wizard flow
     await page.click("button:has-text('Continue to Upload Photo')");
-    await page.click("button:has-text('Community Celebrant (Demo)')");
+    await page.locator("button:has-text('Community Celebrant'), button:has-text('Daramola Joseph Omoyele')").first().click();
     await page.click("button:has-text('Continue to Personalise')");
     await page.locator("#fullName").fill("Ayodele Balogun");
     await page.click("button:has-text('Continue to Preview')");

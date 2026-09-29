@@ -11,7 +11,11 @@ interface PhotoUploaderProps {
 
 const SAMPLE_COMMUNITY_PHOTOS = [
   {
-    label: "Daramola Joseph Omoyele (Celebrant)",
+    label: "Community Celebrant (Demo)",
+    src: "/images/celebration-studio/samples/sample-daramola-joseph-omoyele-cutout.png",
+  },
+  {
+    label: "Daramola Joseph Omoyele (Studio Photo)",
     src: "/images/celebration-studio/samples/sample-daramola-joseph-omoyele.jpg",
   },
   {
@@ -25,10 +29,6 @@ const SAMPLE_COMMUNITY_PHOTOS = [
   {
     label: "Elder Elewa Dare (Leadership Demo)",
     src: "/images/celebration-studio/samples/sample-elder-elewa-dare.jpg",
-  },
-  {
-    label: "Community Celebrant (Demo)",
-    src: "/images/takete-ide/children-traditional-attire.jpg",
   },
 ];
 

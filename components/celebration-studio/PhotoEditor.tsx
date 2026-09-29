@@ -35,8 +35,14 @@ export function PhotoEditor({
   onBack,
 }: PhotoEditorProps) {
   const updateZoom = (delta: number) => {
-    const newZoom = Math.min(3.0, Math.max(1.0, Number((adjustments.zoom + delta).toFixed(2))));
+    const newZoom = Math.min(3.0, Math.max(0.6, Number((adjustments.zoom + delta).toFixed(2))));
     onChangeAdjustments({ ...adjustments, zoom: newZoom });
+  };
+
+  const updatePan = (axis: "panX" | "panY", delta: number) => {
+    const current = adjustments[axis];
+    const newVal = Math.min(100, Math.max(-100, current + delta));
+    onChangeAdjustments({ ...adjustments, [axis]: newVal });
   };
 
   const handleRotate = () => {
@@ -149,25 +155,25 @@ export function PhotoEditor({
             <div className="flex items-center justify-between text-xs font-semibold text-charcoal">
               <span className="flex items-center gap-1.5">
                 <ZoomIn className="h-4 w-4 text-purple-700" aria-hidden="true" />
-                Zoom Scale:
+                Zoom Scale (0.6x – 3.0x):
               </span>
               <span className="rounded-md bg-purple-50 px-2 py-0.5 text-purple-900 font-mono">
                 {adjustments.zoom.toFixed(1)}x
               </span>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
               <button
                 type="button"
                 onClick={() => updateZoom(-0.1)}
-                disabled={adjustments.zoom <= 1.0}
+                disabled={adjustments.zoom <= 0.6}
                 aria-label="Zoom out"
-                className="flex h-8 w-8 items-center justify-center rounded-lg border border-purple-200 bg-purple-50 text-purple-900 hover:bg-purple-100 disabled:opacity-40 cursor-pointer"
+                className="flex h-8 w-8 items-center justify-center rounded-lg border border-purple-200 bg-purple-50 text-purple-900 hover:bg-purple-100 disabled:opacity-40 cursor-pointer text-sm font-bold"
               >
                 <ZoomOut className="h-4 w-4" aria-hidden="true" />
               </button>
               <input
                 type="range"
-                min="1.0"
+                min="0.6"
                 max="3.0"
                 step="0.05"
                 value={adjustments.zoom}
@@ -182,7 +188,7 @@ export function PhotoEditor({
                 onClick={() => updateZoom(0.1)}
                 disabled={adjustments.zoom >= 3.0}
                 aria-label="Zoom in"
-                className="flex h-8 w-8 items-center justify-center rounded-lg border border-purple-200 bg-purple-50 text-purple-900 hover:bg-purple-100 disabled:opacity-40 cursor-pointer"
+                className="flex h-8 w-8 items-center justify-center rounded-lg border border-purple-200 bg-purple-50 text-purple-900 hover:bg-purple-100 disabled:opacity-40 cursor-pointer text-sm font-bold"
               >
                 <ZoomIn className="h-4 w-4" aria-hidden="true" />
               </button>
@@ -196,20 +202,40 @@ export function PhotoEditor({
                 <Move className="h-4 w-4 text-purple-700" aria-hidden="true" />
                 Reposition Horizontal (Left / Right):
               </span>
-              <span className="text-[11px] text-charcoal/60">{adjustments.panX}%</span>
+              <span className="text-[11px] text-charcoal/60 font-mono">{adjustments.panX}%</span>
             </div>
-            <input
-              type="range"
-              min="-40"
-              max="40"
-              step="1"
-              value={adjustments.panX}
-              onChange={(e) =>
-                onChangeAdjustments({ ...adjustments, panX: parseInt(e.target.value, 10) })
-              }
-              className="h-2 w-full accent-purple-700 bg-purple-100 rounded-lg cursor-pointer"
-              aria-label="Horizontal position"
-            />
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => updatePan("panX", -5)}
+                disabled={adjustments.panX <= -100}
+                aria-label="Nudge left"
+                className="flex h-8 px-2 items-center justify-center rounded-lg border border-purple-200 bg-purple-50 text-purple-900 hover:bg-purple-100 disabled:opacity-40 cursor-pointer text-xs font-semibold"
+              >
+                ← Left
+              </button>
+              <input
+                type="range"
+                min="-100"
+                max="100"
+                step="1"
+                value={adjustments.panX}
+                onChange={(e) =>
+                  onChangeAdjustments({ ...adjustments, panX: parseInt(e.target.value, 10) })
+                }
+                className="h-2 w-full accent-purple-700 bg-purple-100 rounded-lg cursor-pointer"
+                aria-label="Horizontal position"
+              />
+              <button
+                type="button"
+                onClick={() => updatePan("panX", 5)}
+                disabled={adjustments.panX >= 100}
+                aria-label="Nudge right"
+                className="flex h-8 px-2 items-center justify-center rounded-lg border border-purple-200 bg-purple-50 text-purple-900 hover:bg-purple-100 disabled:opacity-40 cursor-pointer text-xs font-semibold"
+              >
+                Right →
+              </button>
+            </div>
           </div>
 
           {/* Pan Vertical (Y) */}
@@ -219,20 +245,63 @@ export function PhotoEditor({
                 <Move className="h-4 w-4 text-purple-700" aria-hidden="true" />
                 Reposition Vertical (Up / Down):
               </span>
-              <span className="text-[11px] text-charcoal/60">{adjustments.panY}%</span>
+              <span className="text-[11px] text-charcoal/60 font-mono">{adjustments.panY}%</span>
             </div>
-            <input
-              type="range"
-              min="-40"
-              max="40"
-              step="1"
-              value={adjustments.panY}
-              onChange={(e) =>
-                onChangeAdjustments({ ...adjustments, panY: parseInt(e.target.value, 10) })
-              }
-              className="h-2 w-full accent-purple-700 bg-purple-100 rounded-lg cursor-pointer"
-              aria-label="Vertical position"
-            />
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => updatePan("panY", -5)}
+                disabled={adjustments.panY <= -100}
+                aria-label="Nudge up"
+                className="flex h-8 px-2 items-center justify-center rounded-lg border border-purple-200 bg-purple-50 text-purple-900 hover:bg-purple-100 disabled:opacity-40 cursor-pointer text-xs font-semibold"
+              >
+                ↑ Up
+              </button>
+              <input
+                type="range"
+                min="-100"
+                max="100"
+                step="1"
+                value={adjustments.panY}
+                onChange={(e) =>
+                  onChangeAdjustments({ ...adjustments, panY: parseInt(e.target.value, 10) })
+                }
+                className="h-2 w-full accent-purple-700 bg-purple-100 rounded-lg cursor-pointer"
+                aria-label="Vertical position"
+              />
+              <button
+                type="button"
+                onClick={() => updatePan("panY", 5)}
+                disabled={adjustments.panY >= 100}
+                aria-label="Nudge down"
+                className="flex h-8 px-2 items-center justify-center rounded-lg border border-purple-200 bg-purple-50 text-purple-900 hover:bg-purple-100 disabled:opacity-40 cursor-pointer text-xs font-semibold"
+              >
+                Down ↓
+              </button>
+            </div>
+          </div>
+
+          {/* Background Cutout Blending Mode */}
+          <div className="rounded-xl border border-gold-300/60 bg-gold-50/40 p-3">
+            <label className="flex items-center justify-between cursor-pointer">
+              <div className="space-y-0.5 pr-2">
+                <div className="text-xs font-bold text-purple-950 flex items-center gap-1.5">
+                  <Sparkles className="h-3.5 w-3.5 text-gold-700" />
+                  Cutout Blending &amp; Transparent Backdrop
+                </div>
+                <div className="text-[11px] text-charcoal/70">
+                  Seamlessly blends transparent portrait cutouts into the Takete-Ide scenery without borders.
+                </div>
+              </div>
+              <input
+                type="checkbox"
+                checked={adjustments.removeBackground}
+                onChange={(e) =>
+                  onChangeAdjustments({ ...adjustments, removeBackground: e.target.checked })
+                }
+                className="h-4 w-4 rounded accent-purple-700 cursor-pointer"
+              />
+            </label>
           </div>
 
           {/* Rotate & Filter Options */}
