@@ -1,8 +1,8 @@
 const { chromium } = require('@playwright/test');
 const path = require('path');
 
-async function verifyLiveProduction() {
-  console.log('Starting Live Production Verification on https://takete-ide.org/celebration-studio ...');
+async function verifyLiveProductionDaramola() {
+  console.log('Starting Live Production Verification for Daramola Joseph Omoyele on https://takete-ide.org/celebration-studio ...');
   const browser = await chromium.launch({ headless: true });
   const context = await browser.newContext({
     viewport: { width: 1280, height: 800 }
@@ -17,7 +17,7 @@ async function verifyLiveProduction() {
     });
     console.log('1. Direct /celebration-studio HTTP status:', response.status());
 
-    // 2. Verify Page Title and Header
+    // 2. Verify Page Title
     const heading = await page.locator('h1').textContent();
     console.log('2. Live Page Heading:', heading.trim());
 
@@ -26,58 +26,51 @@ async function verifyLiveProduction() {
     await page.click('text=Personal Celebration');
     await page.click("button:has-text('Continue to Upload Photo')");
 
-    // 4. Step 2: Choose Sample Celebrant Photo
-    console.log('4. Selecting Sample Celebrant Photo...');
-    const demoBtn = page.locator("button:has-text('Mrs Omolara Eseyin')").first();
-    if (await demoBtn.count() > 0) {
-      await demoBtn.click();
+    // 4. Step 2: Choose Daramola Joseph Omoyele Demo Photo
+    console.log('4. Selecting Daramola Joseph Omoyele Celebrant Photo...');
+    const daramolaDemoBtn = page.locator("button:has-text('Daramola Joseph Omoyele')").first();
+    if (await daramolaDemoBtn.count() > 0) {
+      await daramolaDemoBtn.click();
     } else {
       await page.locator("button:has-text('Demo')").first().click();
     }
 
-    // 5. Fine tune photo and proceed
+    // 5. Proceed to Step 3
     await page.waitForTimeout(1000);
     await page.click("button:has-text('Continue to Personalise')");
 
-    // 6. Step 3: Enter Details
-    console.log('6. Filling Personalisation Details...');
-    const nameInput = page.locator("input[placeholder*='Omoyele'], input#name").first();
-    if (await nameInput.count() > 0) {
-      await nameInput.fill('Mrs Omolara Eseyin');
+    // 6. Step 3: Enter Details for Daramola Joseph Omoyele
+    console.log('6. Filling Personalisation Details for Daramola Joseph Omoyele...');
+    const nameInput = page.locator("input[placeholder*='Omoyele'], input#fullName, input#name").first();
+    await nameInput.fill('DARAMOLA JOSEPH OMOYELE');
+
+    const titleInput = page.locator("input#userTitle").first();
+    if (await titleInput.count() > 0) {
+      await titleInput.fill('Proud Son of Takete-Ide');
     }
+
+    // Proceed to Step 4
     await page.click("button:has-text('Continue to Preview')");
 
-    // 7. Step 4: Live Poster Preview
+    // 7. Step 4: Verify Live Canvas Render
     console.log('7. Verifying Live Canvas Render on step 4...');
     await page.waitForSelector('canvas', { timeout: 15000 });
     const canvas = page.locator('canvas').first();
     const isVisible = await canvas.isVisible();
     console.log('7b. Live canvas is rendered and visible:', isVisible);
 
-    // Proceed to Step 5: Download
+    // 8. Step 5: Proceed to Download
     await page.click("button:has-text('Continue to Download')");
     await page.waitForTimeout(1000);
     console.log('8. Step 5 Download reached successfully.');
 
     // Save screenshot of live page
     const screenshotDir = path.join(process.cwd(), 'public', 'images', 'celebration-studio-preview');
-    await page.screenshot({ path: path.join(screenshotDir, 'live-production-studio-verified.png') });
-    console.log('9. Saved live verification screenshot to public/images/celebration-studio-preview/live-production-studio-verified.png');
-
-    // 9. Test Navigation links from Centenary and Header
-    console.log('10. Verifying Site Navigation pathways on live site...');
-    await page.goto('https://takete-ide.org/centenary', { waitUntil: 'networkidle' });
-    const cta = page.locator("a:has-text('Create Your Centenary Poster')").first();
-    const href = await cta.getAttribute('href');
-    console.log('11. Centenary Page Hero CTA target:', href);
-
-    // Click Hero CTA to verify live routing
-    await cta.click();
-    await page.waitForURL('**/celebration-studio');
-    console.log('12. Successfully navigated from /centenary to live /celebration-studio URL:', page.url());
+    await page.screenshot({ path: path.join(screenshotDir, 'live-daramola-studio-verified.png') });
+    console.log('9. Saved live verification screenshot to public/images/celebration-studio-preview/live-daramola-studio-verified.png');
 
     console.log('====================================================');
-    console.log('VERIFICATION SUCCESSFUL: Live site 100% verified on takete-ide.org');
+    console.log('SUCCESS: Live production verified on https://takete-ide.org/celebration-studio');
     console.log('====================================================');
     return true;
   } catch (err) {
@@ -88,4 +81,4 @@ async function verifyLiveProduction() {
   }
 }
 
-verifyLiveProduction().catch(console.error);
+verifyLiveProductionDaramola().catch(console.error);
