@@ -133,11 +133,20 @@ export default async function CentenaryPage({ searchParams }: Props) {
           </div>
 
           <div className="mt-8 flex flex-wrap gap-3">
-            <ButtonLink href="/support">Support the Centenary</ButtonLink>
+            <ButtonLink
+              href="/centenary/celebration-studio"
+              className="bg-gold-500 font-bold text-purple-950 shadow-xs hover:bg-gold-400"
+            >
+              <Sparkles className="h-4 w-4 text-purple-950" aria-hidden="true" />
+              Create Your Centenary Poster
+            </ButtonLink>
+            <ButtonLink href="/support" variant="outline" className="border-white text-white hover:bg-white hover:text-purple-700">
+              Support the Centenary
+            </ButtonLink>
             <a
               href="/centenary/calendar.ics"
               download="takete-ide-centenary-2026.ics"
-              className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-gold-500 px-5 py-2.5 text-sm font-bold text-purple-950 shadow-xs transition hover:bg-gold-400"
+              className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-white/10 px-5 py-2.5 text-sm font-semibold text-white ring-1 ring-inset ring-white/20 hover:bg-white/20 transition"
             >
               <CalendarDays className="h-4 w-4" aria-hidden="true" />
               Add to Calendar (.ics)
@@ -211,6 +220,45 @@ export default async function CentenaryPage({ searchParams }: Props) {
                   Join us as we celebrate 100 remarkable years of rich heritage, culture, unity and progress. Together,
                   let us honour our past, celebrate our present and build a greater future for Takete-Ide.
                 </p>
+              </div>
+            </section>
+
+            {/* Celebration Studio Feature Spotlight */}
+            <section className="mb-16 rounded-3xl border-2 border-gold-500/40 bg-gradient-to-br from-purple-900 via-purple-800 to-purple-950 p-8 text-white shadow-md sm:p-10 lg:p-12">
+              <div className="grid gap-8 lg:grid-cols-[1.3fr_1fr] lg:items-center">
+                <div>
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-gold-500/20 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-gold-300 ring-1 ring-inset ring-gold-400/30">
+                    <Sparkles className="h-3.5 w-3.5 text-gold-300" aria-hidden="true" />
+                    Interactive Feature
+                  </span>
+                  <h2 className="mt-4 font-serif text-2xl font-bold text-white sm:text-3xl lg:text-4xl">
+                    Takete-Ide Celebration Studio
+                  </h2>
+                  <p className="mt-3 text-base leading-relaxed text-white/90">
+                    Upload your photograph, choose a ceremonial template, personalise your felicitation message, and download a high-resolution centenary poster formatted for WhatsApp, Facebook, Instagram or printing.
+                  </p>
+                  <p className="mt-2 text-xs text-gold-200/80">
+                    100% private — your photo is processed in your browser and never uploaded to external servers.
+                  </p>
+                  <div className="mt-6 flex flex-wrap items-center gap-3">
+                    <ButtonLink
+                      href="/centenary/celebration-studio"
+                      className="bg-gold-500 font-bold text-purple-950 shadow-sm hover:bg-gold-400"
+                    >
+                      Create Your Centenary Poster →
+                    </ButtonLink>
+                  </div>
+                </div>
+
+                <div className="flex flex-col items-center justify-center rounded-2xl border border-gold-500/30 bg-purple-950/60 p-6 text-center backdrop-blur-xs">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gold-500/20 text-gold-300 ring-2 ring-gold-400/40">
+                    <Sparkles className="h-7 w-7 text-gold-300" aria-hidden="true" />
+                  </div>
+                  <h3 className="mt-3 font-serif text-lg font-bold text-white">5 Ceremonial Templates</h3>
+                  <p className="mt-1 text-xs text-white/75">
+                    Personal Portraits · Family Felicitations · Leadership Tributes · Takete-Ide Heritage Landscapes · Custom Layouts
+                  </p>
+                </div>
               </div>
             </section>
 

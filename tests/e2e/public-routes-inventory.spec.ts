@@ -1,4 +1,4 @@
-﻿import { test, expect } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 
 const PUBLIC_ROUTES_INVENTORY = [
   "/",
@@ -16,6 +16,7 @@ const PUBLIC_ROUTES_INVENTORY = [
   "/news",
   "/events",
   "/centenary",
+  "/centenary/celebration-studio",
   "/diaspora",
   "/diaspora/uk-europe",
   "/support",
