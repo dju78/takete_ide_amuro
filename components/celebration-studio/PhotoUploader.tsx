@@ -11,14 +11,6 @@ interface PhotoUploaderProps {
 
 const SAMPLE_COMMUNITY_PHOTOS = [
   {
-    label: "Community Celebrant (Demo)",
-    src: "/images/celebration-studio/samples/sample-daramola-joseph-omoyele-cutout.png",
-  },
-  {
-    label: "Daramola Joseph Omoyele (Studio Photo)",
-    src: "/images/celebration-studio/samples/sample-daramola-joseph-omoyele.jpg",
-  },
-  {
     label: "Mrs Omolara Eseyin (Personal Demo)",
     src: "/images/celebration-studio/samples/sample-mrs-omolara-eseyin.jpg",
   },
@@ -121,8 +113,11 @@ export function PhotoUploader({
           Tap or drag and drop your photo here. Supported formats:{" "}
           <strong className="text-purple-900">JPG, JPEG, PNG, WebP</strong> (Max 10 MB).
         </p>
+        <p className="mt-2 text-[11px] text-purple-900/80 max-w-sm bg-purple-50 px-3 py-1.5 rounded-lg border border-purple-100">
+          <strong>Tip:</strong> Upload a transparent PNG (e.g. from your phone&apos;s cutout tool or background remover) for a seamless borderless look, or any standard photo to position inside the framed safe zone.
+        </p>
 
-        <div className="mt-5 inline-flex min-h-10 items-center justify-center rounded-xl bg-purple-700 px-5 py-2 text-xs font-bold text-white shadow-xs transition group-hover:bg-purple-800">
+        <div className="mt-4 inline-flex min-h-10 items-center justify-center rounded-xl bg-purple-700 px-5 py-2 text-xs font-bold text-white shadow-xs transition group-hover:bg-purple-800">
           Browse Files
         </div>
       </div>

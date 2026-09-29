@@ -70,7 +70,7 @@ test.describe("Takete-Ide Celebration Studio", () => {
     await expect(page.locator("text=never uploaded to our servers or permanently stored")).toBeVisible();
 
     // Test with Community Demo sample photo
-    const samplePhotoBtn = page.locator("button:has-text('Community Celebrant'), button:has-text('Daramola Joseph Omoyele')").first();
+    const samplePhotoBtn = page.locator("button:has-text('Mrs Omolara Eseyin'), button:has-text('Elder Elewa Dare')").first();
     await expect(samplePhotoBtn).toBeVisible();
     await samplePhotoBtn.click();
 
@@ -83,7 +83,7 @@ test.describe("Takete-Ide Celebration Studio", () => {
 
   test("5. Photo editor allows zoom, rotation, filter adjustments and photo removal", async ({ page }) => {
     await page.click("button:has-text('Continue to Upload Photo')");
-    await page.locator("button:has-text('Community Celebrant'), button:has-text('Daramola Joseph Omoyele')").first().click();
+    await page.locator("button:has-text('Mrs Omolara Eseyin'), button:has-text('Elder Elewa Dare')").first().click();
 
     // Test Zoom adjustment
     const zoomInBtn = page.locator("button[aria-label='Zoom in']");
@@ -133,7 +133,7 @@ test.describe("Takete-Ide Celebration Studio", () => {
   test("7. State is preserved when navigating backwards and forwards between steps", async ({ page }) => {
     // Step 1 -> Step 2
     await page.click("button:has-text('Continue to Upload Photo')");
-    await page.locator("button:has-text('Community Celebrant'), button:has-text('Daramola Joseph Omoyele')").first().click();
+    await page.locator("button:has-text('Mrs Omolara Eseyin'), button:has-text('Elder Elewa Dare')").first().click();
 
     // Step 2 -> Step 3
     await page.click("button:has-text('Continue to Personalise')");
@@ -230,7 +230,7 @@ test.describe("Takete-Ide Celebration Studio", () => {
 
     // Run through full wizard flow
     await page.click("button:has-text('Continue to Upload Photo')");
-    await page.locator("button:has-text('Community Celebrant'), button:has-text('Daramola Joseph Omoyele')").first().click();
+    await page.locator("button:has-text('Mrs Omolara Eseyin'), button:has-text('Elder Elewa Dare')").first().click();
     await page.click("button:has-text('Continue to Personalise')");
     await page.locator("#fullName").fill("Ayodele Balogun");
     await page.click("button:has-text('Continue to Preview')");
