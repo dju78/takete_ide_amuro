@@ -66,8 +66,13 @@ async function verifyLiveProductionDaramola() {
 
     // Save screenshot of live page
     const screenshotDir = path.join(process.cwd(), 'public', 'images', 'celebration-studio-preview');
-    await page.screenshot({ path: path.join(screenshotDir, 'live-daramola-studio-verified.png') });
-    console.log('9. Saved live verification screenshot to public/images/celebration-studio-preview/live-daramola-studio-verified.png');
+    await page.screenshot({ path: path.join(screenshotDir, 'live-daramola-studio-verified.png'), fullPage: true });
+    
+    // Copy to artifact directory
+    const artDir = 'C:/Users/Inspiron/.gemini/antigravity/brain/11ce0e0f-16e5-4a79-af3f-858cd34088a6';
+    const fs = require('fs');
+    fs.copyFileSync(path.join(screenshotDir, 'live-daramola-studio-verified.png'), path.join(artDir, 'live-daramola-studio-verified.png'));
+    console.log('9. Saved live verification screenshot to live-daramola-studio-verified.png');
 
     console.log('====================================================');
     console.log('SUCCESS: Live production verified on https://takete-ide.org/celebration-studio');
