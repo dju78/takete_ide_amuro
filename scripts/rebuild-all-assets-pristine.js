@@ -11,15 +11,63 @@ async function rebuildAllPristineAssets() {
     fs.mkdirSync(outDir, { recursive: true });
   }
 
-  // 1. Top Header Bar (0, 0, 682, 195)
-  await sharp(ref2Path)
-    .extract({ left: 0, top: 0, width: 682, height: 195 })
+  // 1. Top Header Bar (height 142px, with clean sky gradient at bottom)
+  const rawHeader = await sharp(ref2Path)
+    .extract({ left: 0, top: 0, width: 682, height: 142 })
+    .png()
+    .toBuffer();
+
+  const cleanHeaderBottomSvg = Buffer.from(`
+    <svg width="682" height="155" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#ffffff" stop-opacity="0" />
+          <stop offset="70%" stop-color="#ffffff" stop-opacity="0" />
+          <stop offset="100%" stop-color="#ffffff" stop-opacity="1" />
+        </linearGradient>
+      </defs>
+      <rect x="0" y="130" width="682" height="25" fill="url(#skyGrad)" />
+    </svg>
+  `);
+
+  await sharp({
+    create: {
+      width: 682,
+      height: 155,
+      channels: 4,
+      background: { r: 255, g: 255, b: 255, alpha: 0 }
+    }
+  })
+    .composite([
+      { input: rawHeader, top: 0, left: 0 }
+    ])
     .png()
     .toFile(path.join(outDir, 'header-bar.png'));
 
-  // 2. Right Monument & Message Panel from ref3 (clean ivory backdrop with ZERO Ankara dress!)
-  await sharp(ref3Path)
-    .extract({ left: 370, top: 190, width: 312, height: 570 })
+  // 2. Right Monument & Message Panel from ref3 (clean ivory backdrop with ZERO Ankara dress, ZERO suit, and ZERO box artifacts)
+  const rawRight = await sharp(ref3Path)
+    .extract({ left: 375, top: 190, width: 307, height: 570 })
+    .png()
+    .toBuffer();
+
+  const cleanRightMaskSvg = Buffer.from(`
+    <svg width="307" height="570" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="ivoryFade" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#ffffff" stop-opacity="1" />
+          <stop offset="15%" stop-color="#fffef7" stop-opacity="0.95" />
+          <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+        </linearGradient>
+      </defs>
+      <!-- Overwrite any suit/box/collar remnant on the extreme left edge of the right panel from y=250 to 570 -->
+      <rect x="0" y="250" width="48" height="320" fill="url(#ivoryFade)" />
+    </svg>
+  `);
+
+  await sharp(rawRight)
+    .composite([
+      { input: cleanRightMaskSvg, top: 0, left: 0, blend: 'over' }
+    ])
     .png()
     .toFile(path.join(outDir, 'right-monument-and-message.png'));
 
@@ -36,10 +84,33 @@ async function rebuildAllPristineAssets() {
     .toFile(path.join(outDir, 'cultural-artefacts.png'));
 
   // 5. Clean Background Backdrop (682 x 1024)
-  // Extracted landscape from top of ref3 (clear mountain and sky) blended smoothly across the entire height:
-  const landscapeTop = await sharp(ref3Path)
-    .extract({ left: 0, top: 0, width: 682, height: 480 })
+  // Use pure authentic Obasoro Hill scenery of Takete-Ide - 100% free of any reference persons!
+  const obasoroPath = path.join(process.cwd(), 'public', 'images', 'takete-ide', 'places', 'obasoro-hill.jpg');
+  const sceneryBuffer = await sharp(obasoroPath)
+    .resize(682, 480, { fit: 'cover', position: 'top' })
     .toBuffer();
+
+  const cleanBackdropSvg = Buffer.from(`
+    <svg width="682" height="1024" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="sceneryFade" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#ffffff" stop-opacity="0" />
+          <stop offset="35%" stop-color="#ffffff" stop-opacity="0.2" />
+          <stop offset="55%" stop-color="#f8faf5" stop-opacity="0.85" />
+          <stop offset="75%" stop-color="#eef5eb" stop-opacity="0.98" />
+          <stop offset="100%" stop-color="#e5f0e1" stop-opacity="1" />
+        </linearGradient>
+        <radialGradient id="rightGlow" cx="80%" cy="45%" r="55%">
+          <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95" />
+          <stop offset="50%" stop-color="#ffffff" stop-opacity="0.75" />
+          <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+        </radialGradient>
+      </defs>
+      <rect x="0" y="0" width="682" height="1024" fill="#f6f9f3" />
+      <rect x="0" y="0" width="682" height="1024" fill="url(#sceneryFade)" />
+      <rect x="0" y="0" width="682" height="1024" fill="url(#rightGlow)" />
+    </svg>
+  `);
 
   await sharp({
     create: {
@@ -50,32 +121,8 @@ async function rebuildAllPristineAssets() {
     }
   })
     .composite([
-      { input: landscapeTop, top: 0, left: 0 },
-      {
-        input: Buffer.from(`
-          <svg width="682" height="1024" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="sceneryFade" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#ffffff" stop-opacity="0" />
-                <stop offset="35%" stop-color="#ffffff" stop-opacity="0" />
-                <stop offset="55%" stop-color="#f8faf5" stop-opacity="0.8" />
-                <stop offset="75%" stop-color="#eef5eb" stop-opacity="0.95" />
-                <stop offset="100%" stop-color="#e5f0e1" stop-opacity="1" />
-              </linearGradient>
-              <radialGradient id="rightGlow" cx="82%" cy="40%" r="55%">
-                <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95" />
-                <stop offset="60%" stop-color="#ffffff" stop-opacity="0.75" />
-                <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
-              </radialGradient>
-            </defs>
-            <rect x="0" y="0" width="682" height="1024" fill="url(#sceneryFade)" />
-            <rect x="0" y="0" width="682" height="1024" fill="url(#rightGlow)" />
-          </svg>
-        `),
-        top: 0,
-        left: 0,
-        blend: 'over'
-      }
+      { input: sceneryBuffer, top: 0, left: 0 },
+      { input: cleanBackdropSvg, top: 0, left: 0, blend: 'over' }
     ])
     .png()
     .toFile(path.join(outDir, 'poster-clean-background.png'));

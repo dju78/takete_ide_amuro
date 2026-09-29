@@ -177,7 +177,7 @@ export async function renderCelebrationPoster({
 
   // 3. Draw Top Header Bar
   if (headerAsset) {
-    ctx.drawImage(headerAsset, 0, 0, width, 195 * scaleY);
+    ctx.drawImage(headerAsset, 0, 0, width, 155 * scaleY);
   }
 
   // 4. Draw Right Monument & Felicitation Panel (strictly on the right, x >= 375)
