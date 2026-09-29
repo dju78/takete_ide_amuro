@@ -11,12 +11,20 @@ interface PhotoUploaderProps {
 
 const SAMPLE_COMMUNITY_PHOTOS = [
   {
-    label: "Community Celebrant (Demo)",
-    src: "/images/takete-ide/children-traditional-attire.jpg",
+    label: "Mrs Omolara Eseyin (Personal Demo)",
+    src: "/images/celebration-studio/samples/sample-mrs-omolara-eseyin.jpg",
   },
   {
-    label: "Cultural Gathering (Demo)",
-    src: "/images/takete-ide/cultural-procession.jpg",
+    label: "Atteh Titilayo & Engr Funsho (Couple Demo)",
+    src: "/images/celebration-studio/samples/sample-couple-atteh-funsho.jpg",
+  },
+  {
+    label: "Elder Elewa Dare (Leadership Demo)",
+    src: "/images/celebration-studio/samples/sample-elder-elewa-dare.jpg",
+  },
+  {
+    label: "Community Celebrant (Demo)",
+    src: "/images/takete-ide/children-traditional-attire.jpg",
   },
 ];
 

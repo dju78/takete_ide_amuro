@@ -134,7 +134,7 @@ export default async function CentenaryPage({ searchParams }: Props) {
 
           <div className="mt-8 flex flex-wrap gap-3">
             <ButtonLink
-              href="/centenary/celebration-studio"
+              href="/celebration-studio"
               className="bg-gold-500 font-bold text-purple-950 shadow-xs hover:bg-gold-400"
             >
               <Sparkles className="h-4 w-4 text-purple-950" aria-hidden="true" />
@@ -242,7 +242,7 @@ export default async function CentenaryPage({ searchParams }: Props) {
                   </p>
                   <div className="mt-6 flex flex-wrap items-center gap-3">
                     <ButtonLink
-                      href="/centenary/celebration-studio"
+                      href="/celebration-studio"
                       className="bg-gold-500 font-bold text-purple-950 shadow-sm hover:bg-gold-400"
                     >
                       Create Your Centenary Poster →
