@@ -142,7 +142,7 @@ test.describe("Celebration Studio Full Verification Gate & Asset Generation", ()
     // 5. Generate Revised 1200x1600 Printable Poster & All Format Variations for Personal Celebration
     await page.goto("/centenary/celebration-studio");
     await page.click("button:has-text('Continue to Upload Photo')");
-    await page.click("button:has-text('Community Celebrant (Demo)')");
+    await page.click("button:has-text('Personal Demo')");
     await page.click("button:has-text('Continue to Personalise')");
     await page.locator("#fullName").fill("Chief Daramola Omoyele");
     await page.locator("#messageInput").fill("Celebrating 100 years of heritage, unity and progress. Long live Takete-Ide!");
@@ -171,7 +171,7 @@ test.describe("Celebration Studio Full Verification Gate & Asset Generation", ()
       await page.goto("/centenary/celebration-studio");
       await page.click(`div[role='button']:has(h3:text("${tplId === "personal-celebration" ? "Personal Celebration" : tplId === "family-felicitation" ? "Family Felicitation" : tplId === "leadership-celebration" ? "Leadership & Civic Celebration" : tplId === "heritage-nature" ? "Heritage & Natural Wonders" : "Create Your Own Style"}"))`);
       await page.click("button:has-text('Continue to Upload Photo')");
-      await page.click("button:has-text('Community Celebrant (Demo)')");
+      await page.click("button:has-text('Personal Demo')");
       await page.click("button:has-text('Continue to Personalise')");
       await page.click("button:has-text('Continue to Preview')");
       await page.waitForTimeout(800);

@@ -19,16 +19,23 @@ export const FIELD_LIMITS = {
 } as const;
 
 /**
- * Strips HTML tags and unsafe script injections, trimming whitespace.
+ * Strips HTML tags and unsafe script injections, preserving user whitespace and spaces during active typing.
  */
-export function sanitizeTextInput(input: string): string {
+export function sanitizeLiveInput(input: string): string {
   if (!input) return "";
   return input
     .replace(/<[^>]*>?/gm, "") // Strip HTML tags
     .replace(/javascript:/gi, "")
     .replace(/on\w+=/gi, "")
-    .replace(/[\u0000-\u001F\u007F-\u009F]/g, "") // Strip control characters
-    .trim();
+    .replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F-\u009F]/g, ""); // Strip unsafe control characters, preserving spaces, tabs, and newlines
+}
+
+/**
+ * Strips HTML tags, unsafe script injections, and trims surrounding whitespace for final submission/schema validation.
+ */
+export function sanitizeTextInput(input: string): string {
+  if (!input) return "";
+  return sanitizeLiveInput(input).trim();
 }
 
 /**

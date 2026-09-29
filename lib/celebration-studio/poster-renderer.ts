@@ -136,9 +136,9 @@ export async function renderCelebrationPoster({
   // 2. Draw Celebrant Photo in portrait position (left half, unobstructed)
   if (photoImage) {
     const photoBoxX = 0;
-    const photoBoxY = 155 * scaleY;
+    const photoBoxY = 175 * scaleY;
     const photoBoxW = 390 * scaleX;
-    const photoBoxH = 585 * scaleY;
+    const photoBoxH = 565 * scaleY;
 
     ctx.save();
     ctx.beginPath();
@@ -175,9 +175,9 @@ export async function renderCelebrationPoster({
     ctx.restore();
   }
 
-  // 3. Draw Top Header Bar
+  // 3. Draw Top Header Bar with complete, uncropped circular TIPU logo
   if (headerAsset) {
-    ctx.drawImage(headerAsset, 0, 0, width, 155 * scaleY);
+    ctx.drawImage(headerAsset, 0, 0, width, 195 * scaleY);
   }
 
   // 4. Draw Right Monument & Felicitation Panel (strictly on the right, x >= 375)
@@ -226,18 +226,28 @@ export async function renderCelebrationPoster({
   const rawTitle = (personalisation.title || "").trim();
   const rawRole = (personalisation.signOff || "").trim();
 
-  // Determine if title is an affiliation like "Proud Son of Takete-Ide"
-  const isAffiliation = rawTitle.toLowerCase().includes("proud") || rawTitle.toLowerCase().includes("celebrant") || rawTitle.toLowerCase().includes("indigene");
+  // Determine if title is a formal single title prefix or an affiliation / role phrase
+  const isFormalTitle = /^(CHIEF|DR|DR\.|ELDER|BARRISTER|BARR\.|ENGR|ENGR\.|PASTOR|PST\.|REV|REV\.|PROF|PROF\.|HON|HON\.|PRINCE|PRINCESS|OBA|HRH|ALHAJI|HAJIA|MR|MRS|MS|MISS)$/i.test(rawTitle);
+  const isAffiliation = !isFormalTitle && rawTitle.length > 0;
 
   if (isAffiliation && rawTitle) {
-    // 1. Affiliation Badge at top of plaque (e.g. "PROUD SON OF TAKETE-IDE")
+    // 1. Affiliation Badge at top of plaque (e.g. "HAPPY TO BE MARRIED TO TAKETE-IDE", "PROUD SON OF TAKETE-IDE")
+    let badgeSize = Math.round(15 * scale);
+    ctx.font = `800 ${badgeSize}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
+    ctx.letterSpacing = `${Math.max(0.5, Math.round(1.2 * scale))}px`;
+    while (ctx.measureText(rawTitle.toUpperCase()).width > plaqueW * 0.86 && badgeSize > 10) {
+      badgeSize -= 0.5;
+      ctx.font = `800 ${badgeSize}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
+    }
     ctx.fillStyle = "#f5cf47";
-    ctx.font = `800 ${Math.round(15 * scale)}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
-    ctx.letterSpacing = `${Math.round(1.5 * scale)}px`;
-    ctx.fillText(rawTitle.toUpperCase(), plaqueCenterX, plaqueY + 58 * scaleY);
+    ctx.shadowColor = "rgba(0, 30, 10, 0.95)";
+    ctx.shadowBlur = 3 * scale;
+    ctx.shadowOffsetY = 1 * scale;
+    ctx.fillText(rawTitle.toUpperCase(), plaqueCenterX, plaqueY + 56 * scaleY);
+    ctx.shadowBlur = 0;
 
     // 2. Name in center
-    let nameSize = Math.round(27 * scale);
+    let nameSize = Math.round(28 * scale);
     ctx.font = `900 ${nameSize}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
     ctx.fillStyle = "#ffffff";
     ctx.shadowColor = "rgba(0, 30, 10, 0.95)";

@@ -15,64 +15,9 @@ async function generateFinalSamples() {
   const plaqueLeadPath = path.join(templatesDir, 'clean-plaque-leadership.png');
   const scriptMowaPath = path.join(templatesDir, 'script-mowa-gbogbo.png');
 
-  // 1. Daramola Joseph Omoyele Sample (1200x1600 & 682x1024)
-  // Face unobstructed, zero white greeting box, zero pre-baked roles/branches!
-  const daramolaPortrait = await sharp(path.join(samplesDir, 'sample-daramola-joseph-omoyele.jpg'))
-    .resize(390, 580, { fit: 'cover', position: 'top' })
-    .png()
-    .toBuffer();
-
-  const daramolaPlaqueSvg = Buffer.from(`
-    <svg width="460" height="185" xmlns="http://www.w3.org/2000/svg">
-      <style>
-        .badge {
-          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-          font-weight: 800;
-          font-size: 15px;
-          fill: #f5cf47;
-          text-anchor: middle;
-          letter-spacing: 1.5px;
-        }
-        .name {
-          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-          font-weight: 900;
-          font-size: 26px;
-          fill: #ffffff;
-          text-anchor: middle;
-          letter-spacing: 1px;
-          filter: drop-shadow(0px 2px 4px rgba(0, 30, 10, 0.95));
-        }
-      </style>
-      <text x="230" y="62" class="badge">PROUD SON OF TAKETE-IDE</text>
-      <text x="230" y="104" class="name">DARAMOLA JOSEPH OMOYELE</text>
-    </svg>
-  `);
-
-  const daramolaPlaque = await sharp(plaqueStdPath)
-    .composite([{ input: daramolaPlaqueSvg, blend: 'over' }])
-    .png()
-    .toBuffer();
-
-  const daramolaPoster = await sharp(bgPath)
-    .composite([
-      { input: daramolaPortrait, left: 0, top: 165, blend: 'over' },
-      { input: headerPath, left: 0, top: 0, blend: 'over' },
-      { input: rightPanelPath, left: 375, top: 190, blend: 'over' },
-      { input: bottomWavePath, left: 0, top: 724, blend: 'over' },
-      { input: daramolaPlaque, left: 10, top: 730, blend: 'over' },
-      { input: scriptMowaPath, left: 475, top: 780, blend: 'over' }
-    ])
-    .png()
-    .toBuffer();
-
-  await sharp(daramolaPoster).toFile(path.join(outDir, 'sample-poster-daramola.png'));
-  await sharp(daramolaPoster).resize(1200, 1600, { fit: 'cover' }).toFile(path.join(outDir, 'sample-poster-daramola-1200x1600.png'));
-  await sharp(daramolaPoster).resize(1200, 1600, { fit: 'cover' }).toFile(path.join(outDir, 'sample-poster-personal-celebration-1200x1600.png'));
-  await sharp(daramolaPoster).toFile(path.join(outDir, 'sample-poster-personal-celebration.png'));
-
-  // 2. Mrs Omolara Eseyin Sample
+  // 1. Mrs Omolara Eseyin Sample
   const omolaraPortrait = await sharp(path.join(samplesDir, 'sample-mrs-omolara-eseyin.jpg'))
-    .resize(390, 580, { fit: 'cover' })
+    .resize(390, 565, { fit: 'cover', position: 'top' })
     .png()
     .toBuffer();
 
@@ -110,7 +55,7 @@ async function generateFinalSamples() {
 
   const omolaraPoster = await sharp(bgPath)
     .composite([
-      { input: omolaraPortrait, left: 0, top: 165, blend: 'over' },
+      { input: omolaraPortrait, left: 0, top: 175, blend: 'over' },
       { input: headerPath, left: 0, top: 0, blend: 'over' },
       { input: rightPanelPath, left: 375, top: 190, blend: 'over' },
       { input: bottomWavePath, left: 0, top: 724, blend: 'over' },
@@ -121,8 +66,10 @@ async function generateFinalSamples() {
     .toBuffer();
 
   await sharp(omolaraPoster).toFile(path.join(outDir, 'sample-poster-mrs-omolara.png'));
+  await sharp(omolaraPoster).toFile(path.join(outDir, 'sample-poster-personal-celebration.png'));
+  await sharp(omolaraPoster).resize(1200, 1600, { fit: 'cover' }).toFile(path.join(outDir, 'sample-poster-personal-celebration-1200x1600.png'));
 
-  // 3. Couple Sample (Atteh Titilayo & Engr Funsho)
+  // 2. Couple Sample (Atteh Titilayo & Engr Funsho)
   const couplePortrait = await sharp(path.join(samplesDir, 'sample-couple-atteh-funsho.jpg'))
     .resize(390, 580, { fit: 'cover' })
     .png()
@@ -235,9 +182,67 @@ async function generateFinalSamples() {
 
   await sharp(elderPoster).toFile(path.join(outDir, 'sample-poster-leadership-celebration.png'));
 
-  // Also copy Daramola sample to artifact directory
-  fs.copyFileSync(path.join(outDir, 'sample-poster-daramola-1200x1600.png'), 'C:/Users/Inspiron/.gemini/antigravity/brain/11ce0e0f-16e5-4a79-af3f-858cd34088a6/sample-poster-daramola-1200x1600.png');
-  fs.copyFileSync(path.join(outDir, 'sample-poster-daramola.png'), 'C:/Users/Inspiron/.gemini/antigravity/brain/11ce0e0f-16e5-4a79-af3f-858cd34088a6/sample-poster-daramola.png');
+  // 5. Bidemi Omoyele Sample
+  const bidemiPortrait = await sharp(path.join(process.cwd(), 'test_bidemi_portrait.png'))
+    .resize(390, 565, { fit: 'cover', position: 'top' })
+    .png()
+    .toBuffer();
+
+  const bidemiPlaqueSvg = Buffer.from(`
+    <svg width="460" height="185" xmlns="http://www.w3.org/2000/svg">
+      <style>
+        .badge {
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+          font-weight: 800;
+          font-size: 13.5px;
+          fill: #f5cf47;
+          text-anchor: middle;
+          letter-spacing: 1px;
+          filter: drop-shadow(0px 1px 3px rgba(0, 30, 10, 0.95));
+        }
+        .name {
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+          font-weight: 900;
+          font-size: 28px;
+          fill: #ffffff;
+          text-anchor: middle;
+          letter-spacing: 1px;
+          filter: drop-shadow(0px 2px 4px rgba(0, 30, 10, 0.95));
+        }
+      </style>
+      <text x="230" y="58" class="badge">HAPPY TO BE MARRIED TO TAKETE-IDE</text>
+      <text x="230" y="102" class="name">BIDEMI OMOYELE</text>
+    </svg>
+  `);
+
+  const bidemiPlaque = await sharp(plaqueStdPath)
+    .composite([{ input: bidemiPlaqueSvg, blend: 'over' }])
+    .png()
+    .toBuffer();
+
+  const bidemiPoster = await sharp(bgPath)
+    .composite([
+      { input: bidemiPortrait, left: 0, top: 175, blend: 'over' },
+      { input: headerPath, left: 0, top: 0, blend: 'over' },
+      { input: rightPanelPath, left: 375, top: 190, blend: 'over' },
+      { input: bottomWavePath, left: 0, top: 724, blend: 'over' },
+      { input: bidemiPlaque, left: 10, top: 730, blend: 'over' },
+      { input: scriptMowaPath, left: 475, top: 780, blend: 'over' }
+    ])
+    .png()
+    .toBuffer();
+
+  const bidemiPosterPath = path.join(outDir, 'sample-poster-bidemi-omoyele.png');
+  await sharp(bidemiPoster).toFile(bidemiPosterPath);
+  await sharp(bidemiPoster).resize(1080, 1350, { fit: 'cover' }).toFile(path.join(outDir, 'sample-poster-bidemi-omoyele-portrait.png'));
+  await sharp(bidemiPoster).resize(1200, 1600, { fit: 'cover' }).toFile(path.join(outDir, 'sample-poster-bidemi-omoyele-1200x1600.png'));
+
+  // Copy sample posters to current artifact directory
+  const artifactDir = 'C:/Users/Inspiron/.gemini/antigravity/brain/54ce8c40-6ff3-4523-af7a-cbaa2019717c';
+  if (fs.existsSync(artifactDir)) {
+    fs.copyFileSync(bidemiPosterPath, path.join(artifactDir, 'sample-poster-bidemi-omoyele.png'));
+    fs.copyFileSync(path.join(outDir, 'sample-poster-bidemi-omoyele-portrait.png'), path.join(artifactDir, 'sample-poster-bidemi-omoyele-portrait.png'));
+  }
 
   console.log('All final sample posters generated and copied to artifact directory!');
 }

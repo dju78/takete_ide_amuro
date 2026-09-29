@@ -12,7 +12,7 @@ import {
   APPROVED_LOCAL_EXPRESSIONS,
 } from "@/lib/celebration-studio/messages";
 import { APPROVED_HERITAGE_BACKGROUNDS } from "@/lib/celebration-studio/heritage-backgrounds";
-import { FIELD_LIMITS, sanitizeTextInput } from "@/lib/celebration-studio/validation";
+import { FIELD_LIMITS, sanitizeLiveInput, sanitizeTextInput } from "@/lib/celebration-studio/validation";
 import { cn } from "@/lib/utils";
 
 interface PersonalisationFormProps {
@@ -32,12 +32,27 @@ export function PersonalisationForm({
 }: PersonalisationFormProps) {
   const [activeTab, setActiveTab] = useState<"fields" | "backgrounds">("fields");
 
+  // Live typing handler: preserves spaces, typing composition, and cursor position
   const handleChange = (field: keyof PersonalisationData, value: string) => {
-    const clean = sanitizeTextInput(value);
+    const clean = sanitizeLiveInput(value);
     onChangePersonalisation({
       ...personalisation,
       [field]: clean,
     });
+  };
+
+  // Blur handler: safely trims outer whitespace only when user finishes editing the field
+  const handleBlur = (field: keyof PersonalisationData) => {
+    const currentVal = personalisation[field];
+    if (typeof currentVal === "string") {
+      const trimmed = sanitizeTextInput(currentVal);
+      if (trimmed !== currentVal) {
+        onChangePersonalisation({
+          ...personalisation,
+          [field]: trimmed,
+        });
+      }
+    }
   };
 
   const handleSelectBackground = (bgId: string) => {
@@ -173,6 +188,7 @@ export function PersonalisationForm({
                 maxLength={FIELD_LIMITS.familyName.max}
                 value={personalisation.familyName}
                 onChange={(e) => handleChange("familyName", e.target.value)}
+                onBlur={() => handleBlur("familyName")}
                 placeholder="e.g. The Daramola Family, Mr & Mrs Omoyele"
                 className="w-full rounded-xl border border-purple-200/90 bg-purple-50/20 px-4 py-2.5 text-sm text-charcoal focus:border-purple-600 focus:bg-white focus:outline-none focus:ring-2 focus:ring-purple-600/20"
               />
@@ -197,6 +213,7 @@ export function PersonalisationForm({
                 maxLength={FIELD_LIMITS.name.max}
                 value={personalisation.name}
                 onChange={(e) => handleChange("name", e.target.value)}
+                onBlur={() => handleBlur("name")}
                 placeholder="e.g. Chief Daramola Omoyele, Dr. Adebayo Kolade"
                 className="w-full rounded-xl border border-purple-200/90 bg-purple-50/20 px-4 py-2.5 text-sm text-charcoal focus:border-purple-600 focus:bg-white focus:outline-none focus:ring-2 focus:ring-purple-600/20"
               />
@@ -224,6 +241,7 @@ export function PersonalisationForm({
                 maxLength={FIELD_LIMITS.title.max}
                 value={personalisation.title}
                 onChange={(e) => handleChange("title", e.target.value)}
+                onBlur={() => handleBlur("title")}
                 placeholder="e.g. Proud Son of Takete-Ide, Community Contributor, Patron"
                 className="w-full rounded-xl border border-purple-200/90 bg-purple-50/20 px-4 py-2.5 text-sm text-charcoal focus:border-purple-600 focus:bg-white focus:outline-none focus:ring-2 focus:ring-purple-600/20"
               />
@@ -249,6 +267,7 @@ export function PersonalisationForm({
               maxLength={FIELD_LIMITS.greeting.max}
               value={personalisation.greeting}
               onChange={(e) => handleChange("greeting", e.target.value)}
+              onBlur={() => handleBlur("greeting")}
               placeholder="e.g. Happy Centenary Celebration!"
               className="w-full rounded-xl border border-purple-200/90 bg-purple-50/20 px-4 py-2 text-sm text-charcoal focus:border-purple-600 focus:bg-white focus:outline-none focus:ring-2 focus:ring-purple-600/20"
             />
@@ -287,6 +306,7 @@ export function PersonalisationForm({
               maxLength={FIELD_LIMITS.message.max}
               value={personalisation.message}
               onChange={(e) => handleChange("message", e.target.value)}
+              onBlur={() => handleBlur("message")}
               placeholder="Enter your message or select an approved quote below..."
               className="w-full rounded-xl border border-purple-200/90 bg-purple-50/20 p-3 text-sm text-charcoal focus:border-purple-600 focus:bg-white focus:outline-none focus:ring-2 focus:ring-purple-600/20"
             />
@@ -331,6 +351,7 @@ export function PersonalisationForm({
               maxLength={FIELD_LIMITS.localExpression.max}
               value={personalisation.localExpression}
               onChange={(e) => handleChange("localExpression", e.target.value)}
+              onBlur={() => handleBlur("localExpression")}
               placeholder="e.g. Agbagba Ide Agbe Wa O"
               className="w-full rounded-xl border border-purple-200/90 bg-purple-50/20 px-4 py-2 text-sm text-charcoal focus:border-purple-600 focus:bg-white focus:outline-none focus:ring-2 focus:ring-purple-600/20"
             />
