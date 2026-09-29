@@ -11,6 +11,10 @@ interface PhotoUploaderProps {
 
 const SAMPLE_COMMUNITY_PHOTOS = [
   {
+    label: "Daramola Joseph Omoyele (Celebrant)",
+    src: "/images/celebration-studio/samples/sample-daramola-joseph-omoyele.jpg",
+  },
+  {
     label: "Mrs Omolara Eseyin (Personal Demo)",
     src: "/images/celebration-studio/samples/sample-mrs-omolara-eseyin.jpg",
   },
