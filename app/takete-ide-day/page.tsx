@@ -90,6 +90,31 @@ export default async function TaketeIdeDayPage() {
           </div>
         </section>
 
+        {/* Celebration Studio Poster Generator Banner */}
+        <section className="mt-16 overflow-hidden rounded-3xl bg-gradient-to-br from-purple-900 via-purple-800 to-purple-950 p-8 text-white shadow-xl lg:p-12">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+            <div className="max-w-2xl">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-gold-500/20 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-gold-300 ring-1 ring-inset ring-gold-400/30">
+                Celebration Studio
+              </span>
+              <h2 className="mt-4 font-serif text-2xl font-bold sm:text-3xl lg:text-4xl text-white">
+                Create Your Commemorative Celebration Poster
+              </h2>
+              <p className="mt-3 text-sm leading-relaxed text-white/85 sm:text-base">
+                Design and download your high-resolution Takete-Ide Centenary celebration poster with your portrait or family photograph, authentic ceremonial insignias, and custom felicitations.
+              </p>
+            </div>
+            <div>
+              <Link
+                href="/celebration-studio"
+                className="inline-flex min-h-12 items-center justify-center rounded-xl bg-gold-500 px-6 py-3 text-sm font-bold text-purple-950 shadow-md transition hover:bg-gold-400"
+              >
+                Launch Celebration Studio →
+              </Link>
+            </div>
+          </div>
+        </section>
+
         <section className="mt-16">
           <SectionHeading eyebrow="Archive" title="Celebration Archive" align="left" className="mx-0" />
           <div className="mt-8">

@@ -2,10 +2,10 @@ import { test, expect } from "@playwright/test";
 
 test.describe("Takete-Ide Celebration Studio", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/centenary/celebration-studio");
+    await page.goto("/celebration-studio");
   });
 
-  test("1. Route loads successfully with status 200, breadcrumbs and canonical metadata", async ({ page }) => {
+  test("1. Route /celebration-studio loads successfully with status 200, breadcrumbs and canonical metadata", async ({ page }) => {
     const heading = page.locator("#main-content h1");
     await expect(heading).toBeVisible();
     await expect(heading).toContainText("Takete-Ide Centenary Celebration Studio");
@@ -13,12 +13,18 @@ test.describe("Takete-Ide Celebration Studio", () => {
     // Breadcrumbs
     const breadcrumb = page.locator("nav[aria-label='Breadcrumb']");
     await expect(breadcrumb).toBeVisible();
-    await expect(breadcrumb).toContainText("Centenary 2026");
     await expect(breadcrumb).toContainText("Celebration Studio");
 
     // Check step 1 is active
     const step1Title = page.locator("#main-content h2").first();
     await expect(step1Title).toContainText("Select a Commemorative Design");
+  });
+
+  test("1b. Route /centenary/celebration-studio loads successfully with status 200", async ({ page }) => {
+    await page.goto("/centenary/celebration-studio");
+    const heading = page.locator("#main-content h1");
+    await expect(heading).toBeVisible();
+    await expect(heading).toContainText("Takete-Ide Centenary Celebration Studio");
   });
 
   test("2. Call-to-action on /centenary navigates directly to Celebration Studio", async ({ page }) => {
@@ -27,10 +33,10 @@ test.describe("Takete-Ide Celebration Studio", () => {
     // Check Hero CTA button
     const heroCta = page.locator("a", { hasText: "Create Your Centenary Poster" }).first();
     await expect(heroCta).toBeVisible();
-    await expect(heroCta).toHaveAttribute("href", "/centenary/celebration-studio");
+    await expect(heroCta).toHaveAttribute("href", "/celebration-studio");
 
     await heroCta.click();
-    await expect(page).toHaveURL(/\/centenary\/celebration-studio/);
+    await expect(page).toHaveURL(/\/celebration-studio/);
     await expect(page.locator("#main-content h1")).toContainText("Celebration Studio");
   });
 
