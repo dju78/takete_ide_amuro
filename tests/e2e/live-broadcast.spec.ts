@@ -1,6 +1,7 @@
 import { test, expect, type Page } from "@playwright/test";
 import {
   chatAvailable,
+  facebookLinkKind,
   lagosLocalToInstant,
   instantToLagosLocal,
   normaliseVideoId,
@@ -22,6 +23,7 @@ import {
  */
 
 const FAKE_ID = "AbCdEfGhIjK";
+const OFFICIAL_FACEBOOK = "https://www.facebook.com/profile.php?id=61595124084233";
 
 function broadcast(overrides: Partial<PublicBroadcast> = {}): PublicBroadcast {
   return {
@@ -82,6 +84,24 @@ test.describe("Live configuration validation", () => {
     expect(safePublicUrl("https://www.facebook.com/live/producer/123", "facebook")).toBeNull();
     expect(safePublicUrl("https://www.facebook.com/x?stream_key=FB-123", "facebook")).toBeNull();
     expect(safePublicUrl("https://www.youtube.com/channel/x", "facebook")).toBeNull();
+
+    // The confirmed official profile.php?id= address is accepted with its id intact…
+    expect(safePublicUrl(OFFICIAL_FACEBOOK, "facebook")).toBe(OFFICIAL_FACEBOOK);
+    expect(new URL(safePublicUrl(OFFICIAL_FACEBOOK, "facebook")!).searchParams.get("id")).toBe("61595124084233");
+    expect(safePublicUrl("https://m.facebook.com/profile.php?id=61595124084233", "facebook")).not.toBeNull();
+    // …but look-alike hosts, credentials and management pages are not.
+    expect(safePublicUrl("https://facebook.com.evil.example/profile.php?id=61595124084233", "facebook")).toBeNull();
+    expect(safePublicUrl("https://evilfacebook.com/profile.php?id=61595124084233", "facebook")).toBeNull();
+    expect(safePublicUrl("https://user:pw@www.facebook.com/profile.php?id=1", "facebook")).toBeNull();
+    expect(safePublicUrl("https://business.facebook.com/latest/home", "facebook")).toBeNull();
+    expect(safePublicUrl("https://www.facebook.com/professional_dashboard", "facebook")).toBeNull();
+    expect(safePublicUrl("https://www.facebook.com/settings?tab=security", "facebook")).toBeNull();
+    expect(safePublicUrl("https://www.facebook.com/profile.php?id=1&access_token=abc", "facebook")).toBeNull();
+
+    // A Page/profile address is labelled as a page; only real video links say "watch".
+    expect(facebookLinkKind(OFFICIAL_FACEBOOK)).toBe("page");
+    expect(facebookLinkKind("https://www.facebook.com/somepage/videos/123")).toBe("video");
+    expect(facebookLinkKind("https://fb.watch/abc123/")).toBe("video");
     expect(safePublicUrl("javascript:alert(1)", "youtube")).toBeNull();
   });
 
@@ -154,8 +174,16 @@ test.describe("/live page — unconfigured broadcast", () => {
       "href",
       "https://www.youtube.com/channel/UCsLauLD7WlDBneUhDxl2VRw",
     );
-    await expect(page.getByTestId("facebook-pending")).toHaveText(/Facebook link to be announced/);
+    // Confirmed official Facebook page — labelled as the page, not as a stream.
+    const facebook = page.getByTestId("facebook-link");
+    await expect(facebook).toHaveAttribute("href", OFFICIAL_FACEBOOK);
+    await expect(facebook).toHaveAttribute("target", "_blank");
+    await expect(facebook).toHaveAttribute("rel", /noopener/);
+    await expect(facebook).toContainText("Takete-Ide on Facebook");
     await expect(page.getByRole("link", { name: /Watch on Facebook/ })).toHaveCount(0);
+    await expect(page.getByTestId("facebook-note")).toContainText("official Takete-Ide Facebook page");
+    // Unconfirmed destinations are hidden, never invented.
+    await expect(page.getByRole("link", { name: /Instagram|TikTok/ })).toHaveCount(0);
   });
 
   test("lists all three programme days with WAT labelling and no invented times", async ({ page }) => {
@@ -221,7 +249,35 @@ test.describe("/live page — unconfigured broadcast", () => {
     const body = await res.json();
     expect(body.status).toBe("scheduled");
     expect(body).not.toHaveProperty("source");
-    expect(JSON.stringify(body)).not.toMatch(/rtmp|stream_?key|token|password/i);
+    expect(Object.keys(body).sort()).toEqual(
+      ["chatEnabled", "links", "replays", "scheduledStart", "status", "statusMessage", "title", "updatedAt", "videoId"].sort(),
+    );
+    expect(body.links.facebook).toBe(OFFICIAL_FACEBOOK);
+    expect(JSON.stringify(body)).not.toMatch(/rtmp|stream_?key|token|password|supabase/i);
+  });
+
+  test("share metadata points at production with the invitation image", async ({ page }) => {
+    await page.goto("/live");
+    await expect(page).toHaveTitle(/Takete-Ide Centenary Celebration — Live/);
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://takete-ide.org/live");
+    await expect(page.locator('meta[property="og:url"]')).toHaveAttribute("content", "https://takete-ide.org/live");
+    await expect(page.locator('meta[name="description"]')).toHaveAttribute("content", /29–31 October 2026/);
+    const ogImage = await page.locator('meta[property="og:image"]').getAttribute("content");
+    expect(ogImage).toBe("https://takete-ide.org/images/takete-ide/centenary-invitation.jpg");
+    const img = await page.request.get("/images/takete-ide/centenary-invitation.jpg");
+    expect(img.ok()).toBe(true);
+    expect(img.headers()["content-type"]).toContain("image/jpeg");
+  });
+
+  test("header menu and footer link to /live", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 }); // desktop mega-menu breakpoint
+    await page.goto("/");
+    await expect(page.locator('footer a[href="/live"]')).toHaveText("Watch Live");
+    // Desktop menus open on hover (a click on the heading toggles it closed again).
+    await page.locator("header").getByRole("button", { name: /Centenary 2026/ }).first().hover();
+    await page.locator('header a[href="/live"]').first().click();
+    await expect(page).toHaveURL(/\/live$/);
+    await expect(page.getByRole("heading", { level: 1, name: "Takete-Ide Centenary Celebration — Live" })).toBeVisible();
   });
 
   test("is reachable from the Centenary page and navigation", async ({ page }) => {
@@ -277,6 +333,38 @@ test.describe("/live page — broadcast states (status endpoint mocked)", () => 
     await expect(page.getByText("Restoring power at the venue.")).toBeVisible();
     await expect(page.getByTestId("live-player")).toBeVisible();
     await expect(page.getByTestId("live-chat")).toBeVisible();
+  });
+
+  test("a specific Facebook video link is labelled 'Watch on Facebook'", async ({ page }) => {
+    await page.goto("/live");
+    const video = "https://www.facebook.com/somepage/videos/1234567890";
+    await pushStatus(page, broadcast({ links: { ...broadcast().links, facebook: video } }));
+    await expect(page.getByTestId("facebook-link")).toHaveAttribute("href", video);
+    await expect(page.getByTestId("facebook-link")).toContainText("Watch on Facebook");
+    await expect(page.getByTestId("facebook-note")).toHaveCount(0);
+  });
+
+  test("replays published after a session appear on open pages with working links", async ({ page }) => {
+    await page.goto("/live");
+    await expect(page.getByTestId("replays-empty")).toBeVisible();
+    const fbVideo = "https://www.facebook.com/somepage/videos/1234567890";
+    await pushStatus(
+      page,
+      broadcast({
+        status: "ended",
+        replays: [
+          { id: "r1", title: "Day 1 — Opening", dayNumber: 1, videoId: FAKE_ID, url: null },
+          { id: "r2", title: "Thanksgiving service", dayNumber: null, videoId: null, url: fbVideo },
+        ],
+      }),
+    );
+    const list = page.getByTestId("replay-list");
+    await expect(list.getByRole("heading", { name: "Day 1 — Opening" })).toBeVisible();
+    await expect(list).toContainText("29 October 2026");
+    await expect(list.getByRole("link", { name: /Watch on YouTube/ })).toHaveAttribute("href", `https://www.youtube.com/watch?v=${FAKE_ID}`);
+    await expect(list.getByRole("link", { name: /Watch on Facebook/ })).toHaveAttribute("href", fbVideo);
+    await list.getByRole("button", { name: "Play recording: Day 1 — Opening" }).click();
+    await expect(list.locator("iframe")).toHaveAttribute("src", new RegExp(`youtube-nocookie\.com/embed/${FAKE_ID}.*autoplay=1`));
   });
 
   test("ended: no chat, replay pointer shown", async ({ page }) => {

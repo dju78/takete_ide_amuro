@@ -2,12 +2,19 @@
 
 import { useState } from "react";
 import { ExternalLink, PlayCircle } from "lucide-react";
-import { youtubeEmbedUrl, youtubeWatchUrl, type LiveReplay } from "@/lib/live/broadcast";
+import { youtubeEmbedUrl, youtubeWatchUrl, type LiveReplay, type PublicBroadcast } from "@/lib/live/broadcast";
+import { useLiveStatus } from "@/components/live/live-status-store";
 
 /**
  * Replays load as a thumbnail first and only become a YouTube iframe when
  * clicked, so a page with many recordings stays light on mobile data.
  */
+/** Replays kept current by the shared status poller, so new recordings appear on open pages. */
+export function LiveReplays({ initial, dayLabels }: { initial: PublicBroadcast; dayLabels: Record<number, string> }) {
+  const { replays } = useLiveStatus(initial);
+  return <ReplayList replays={replays} dayLabels={dayLabels} />;
+}
+
 export function ReplayList({ replays, dayLabels }: { replays: LiveReplay[]; dayLabels: Record<number, string> }) {
   if (replays.length === 0) {
     return (

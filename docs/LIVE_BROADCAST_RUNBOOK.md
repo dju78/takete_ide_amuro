@@ -2,6 +2,12 @@
 
 **Event:** Takete-Ide Centenary Celebration, 29–31 October 2026 · **Times:** West Africa Time (WAT, UTC+1, Africa/Lagos)
 **Public hub:** <https://takete-ide.org/live> · **Control screen:** <https://takete-ide.org/admin/live> (editor role or higher)
+**Official channels (confirmed):** YouTube <https://www.youtube.com/channel/UCsLauLD7WlDBneUhDxl2VRw> ·
+Facebook <https://www.facebook.com/profile.php?id=61595124084233>
+
+> **Status of this setup (22 October 2026):** the website viewing hub is built and configured. **No real broadcast
+> has been tested.** The camera/audio feed, OBS, YouTube/Facebook account authorisation and the venue internet are
+> operational steps that still have to be done and rehearsed by the broadcast team (§7, §12).
 
 > **Never** put a stream key, RTMP address, password or YouTube Studio / Facebook Live Producer link into the
 > website, a GitHub issue, a pull request, WhatsApp groups or this document. Stream keys go only into OBS (or the
@@ -45,19 +51,30 @@ Both options use the same OBS settings. Decide after the venue upload test in §
 
 | Option | Cost | Upload needed at venue | When to choose |
 |---|---|---|---|
-| **A. OBS + `obs-multi-rtmp` plugin** — OBS sends one stream to YouTube and a second directly to Facebook | **₦0 / $0** (open source) | ≈ 2 × stream bitrate (≈ 9 Mbps at the settings below); measure **≥ 16 Mbps** sustained to be safe | Venue upload is strong and stable |
-| **B. Restream Standard** — OBS sends one stream to Restream, which forwards to YouTube + Facebook Page | **US$19 / month** (cancel after the event) | ≈ 1 × bitrate (≈ 4.5 Mbps); measure **≥ 8 Mbps** sustained | Venue upload is limited |
+| **A. OBS + `obs-multi-rtmp` plugin** — OBS sends one stream to YouTube and a second directly to Facebook | **₦0 / $0** (open source) | ≈ 2 × stream bitrate (≈ 8.5 Mbps at the settings below). Our rule of thumb: measure **≥ 16 Mbps** sustained (about 2× headroom) | Venue upload is strong and stable |
+| **B. Restream** — OBS sends one stream to Restream, which forwards to YouTube + Facebook | **Free** plan (2 channels, Restream branding) **or Standard US$19/month** (3 channels, no branding) — see note below | ≈ 1 × bitrate (≈ 4.3 Mbps). Rule of thumb: measure **≥ 8 Mbps** sustained | Venue upload is limited |
+| **C. YouTube only** — OBS streams to YouTube; share the YouTube link on Facebook as a post | **$0** | ≈ 1 × bitrate | Fallback if Facebook streaming is not authorised or eligible |
 
-Verified facts:
-- Restream Free allows 2 channels **but adds Restream branding** and Restream's help centre states a **paid plan is
-  needed to stream to Facebook Pages**; Standard is US$19/month with 3 channels
-  ([pricing](https://restream.io/pricing), [Facebook Page help](https://support.restream.io/en/articles/6158091-stream-to-a-facebook-page)).
+The upload figures are planning rules of thumb (stream bitrate plus headroom for mobile-network variation), not
+platform requirements.
+
+Verified facts (checked 22 October 2026):
+- Restream Free: 2 simultaneous channels, Restream branding on the stream; Standard: US$19/month, 3 channels, no
+  branding ([pricing](https://restream.io/pricing), [free plan](https://support.restream.io/en/articles/9127747-is-restream-free)).
+  **Facebook Pages on the Free plan are uncertain:** an earlier version of Restream's Facebook Page article said
+  Standard or higher was needed; the current [article](https://support.restream.io/en/articles/6158091-stream-to-a-facebook-page)
+  does not name a plan, and Facebook *Groups* are documented as paid-only. Connect the Facebook destination in the
+  Restream dashboard during the rehearsal: if it is refused on Free, either subscribe (owner decision) or use option A or C.
 - `obs-multi-rtmp` is a free OBS plugin that sends to several RTMP servers at once and can share the main encoder
   ([GitHub releases](https://github.com/sorayuki/obs-multi-rtmp/releases)).
 - YouTube Live is free; the channel must be **verified** and have **no live-streaming restriction in the last 90 days**
   ([YouTube help](https://support.google.com/youtube/answer/2474026)).
-- Facebook Live is free; Meta requires the Facebook account to be **at least 60 days old** and the **Page to have at
-  least 100 followers** to go live ([Restream, citing Meta](https://support.restream.io/en/articles/6158091-stream-to-a-facebook-page)).
+- Facebook Live is free; Meta requires the Facebook account to be **at least 60 days old** and a **Page or
+  professional-mode profile to have at least 100 followers** to go live
+  ([Restream, citing Meta](https://support.restream.io/en/articles/6158091-stream-to-a-facebook-page)). The confirmed
+  address `facebook.com/profile.php?id=61595124084233` is a public page/profile link; it does **not** by itself show that
+  the account is eligible to go live or authorised in OBS/Restream. Check eligibility in Facebook
+  (facebook.com/live/producer → "Go live") before the rehearsal.
 - **Instagram** (optional): needs a Professional account; desktop "Live Producer" gives a temporary key per session;
   9:16 vertical recommended — a separate vertical output is required. **TikTok** (optional): computer streaming (LIVE
   Studio / stream key) is not automatically available and depends on follower count and approval. Treat both as
@@ -75,8 +92,11 @@ Nothing has been purchased or activated. Choosing option B requires the owner to
 4. Copy the **share link** (`https://youtube.com/live/XXXXXXXXXXX`) — this public link is what goes on the website.
 5. Customisation → **Embedding allowed** must be on, otherwise the website player will not play.
 
-**Facebook Page:** facebook.com/live/producer → choose the Page → "Streaming software" → copy the stream key into
-OBS (option A) or connect the Page in Restream (option B). Copy the **public Page URL** for the website.
+**Facebook (the confirmed account above):** log in as an admin of that account → facebook.com/live/producer →
+choose the Takete-Ide page/profile → "Streaming software" → copy the stream key into OBS (option A) or connect it in
+Restream (option B). The website already links to the page address. Once a Facebook live video exists, you may
+optionally replace the link in `/admin/live` with that video's public URL (…/videos/…); the button then changes from
+"Takete-Ide on Facebook" to "Watch on Facebook".
 
 ## 5. OBS settings
 
@@ -114,7 +134,8 @@ are required by both ([YouTube](https://support.google.com/youtube/answer/285370
 ## 8. Updating the website
 
 **Fast path (no deploy): `/admin/live`** — requires migration `supabase/migrations/0028_live_broadcast_settings.sql`
-to have been applied once. Fields:
+to have been applied once. Until then the screen shows the current settings with **"Saving unavailable"** and the
+public page uses `lib/live/broadcast-config.ts`. Fields:
 - *YouTube video ID or public link* — paste the share link; the ID is extracted. Invalid or private links are refused.
 - *Status* — **manual**: Scheduled → Live (when OBS is streaming and YouTube shows it) → Temporarily interrupted (if
   the signal drops) → Ended. The site does not detect this automatically; the YouTube player itself shows YouTube's
@@ -151,7 +172,9 @@ The programme is edited under **Admin → Centenary 2026** (existing screen).
 ## 11. After each session: replays
 
 1. Stop streaming, then stop recording; set status **Ended** (or **Scheduled** with next day's video ID).
-2. YouTube keeps the live archive automatically (streams up to 12 hours). Once processed, add it in `/admin/live` →
+2. YouTube archives a stream automatically if it is **under 12 hours**; longer streams may not be captured
+   ([YouTube help](https://support.google.com/youtube/answer/6247592)) — so use one YouTube event per day/session.
+   Once processed, add it in `/admin/live` →
    Replays: `Day 1 — Opening ceremony | 1 | https://youtube.com/live/XXXXXXXXXXX`.
 3. Keep the local recording; if the live archive is poor or missing, upload the local file to YouTube and use that link.
 4. Back up recordings to a second drive before leaving the venue.
@@ -159,9 +182,9 @@ The programme is edited under **Admin → Centenary 2026** (existing screen).
 ## 12. Owner actions still required
 
 1. Confirm the YouTube channel is verified and live streaming is enabled (YouTube Studio → Create → Go live).
-2. Supply the official **Facebook Page public URL**; confirm the Page meets Meta's live requirements (60-day account,
-   100 followers) and who has admin access.
-3. Choose distribution option A or B after the venue upload test; subscribe to Restream Standard only if B.
+2. Facebook public address: **done** (`profile.php?id=61595124084233`, on the website). Still required: confirm the
+   account meets Meta's live requirements (60-day account, 100 followers) and who has admin access to stream.
+3. Choose distribution option A, B or C after the venue upload test; subscribe to Restream Standard only if B needs it.
 4. Apply migration `0028_live_broadcast_settings.sql` in Supabase (SQL editor) to enable `/admin/live`.
 5. Create the scheduled YouTube event(s) and paste the share link(s) into `/admin/live`.
 6. Confirm daily session start times so they can be entered in Admin → Centenary 2026.

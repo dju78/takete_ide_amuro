@@ -5,29 +5,40 @@ import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { LiveBroadcastHub } from "@/components/live/LiveBroadcastHub";
 import { ShareControls } from "@/components/live/ShareControls";
-import { ReplayList } from "@/components/live/ReplayList";
+import { LiveReplays } from "@/components/live/ReplayList";
 import { getLiveBroadcast } from "@/lib/data/live-broadcast";
 import { getCentenary, getCentenaryProgramme } from "@/lib/data/community-programme";
-import { EVENT_DATES_LABEL, EVENT_TIMEZONE_LABEL, toPublicBroadcast } from "@/lib/live/broadcast";
+import { EVENT_DATES_LABEL, EVENT_TIMEZONE_LABEL, LIVE_PAGE_URL, toPublicBroadcast } from "@/lib/live/broadcast";
 import { siteConfig } from "@/lib/site-config";
 
 const TITLE = "Takete-Ide Centenary Celebration — Live";
 const DESCRIPTION =
-  "Watch the Takete-Ide Centenary Celebration live from Takete-Ide, Kogi State, on 29–31 October 2026 — live stream, YouTube live chat, programme and replays.";
+  "Watch the Takete-Ide Centenary Celebration from anywhere, 29–31 October 2026 — YouTube broadcast, live chat, programme in Lagos time and replays.";
+
+// The official invitation artwork: an approved, landscape asset that reads well
+// as a WhatsApp/Facebook link preview.
+const SHARE_IMAGE = {
+  url: "/images/takete-ide/centenary-invitation.jpg",
+  width: 1024,
+  height: 723,
+  alt: "Official invitation to the 2026 Takete-Ide Day Centenary Celebration",
+};
 
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
-  alternates: { canonical: `${siteConfig.url}/live` },
+  // Canonical/OG URLs are always production, even on deploy previews.
+  alternates: { canonical: LIVE_PAGE_URL },
   openGraph: {
     title: TITLE,
     description: DESCRIPTION,
-    url: `${siteConfig.url}/live`,
+    url: LIVE_PAGE_URL,
     siteName: siteConfig.name,
     locale: "en_GB",
     type: "website",
+    images: [SHARE_IMAGE],
   },
-  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: [SHARE_IMAGE.url] },
 };
 
 // Short ISR window so a status change from /admin/live reaches new visitors
@@ -41,6 +52,7 @@ export default async function LivePage() {
     getCentenaryProgramme(),
   ]);
 
+  const initial = toPublicBroadcast(broadcast);
   const days = [1, 2, 3].map((dayNumber) => {
     const items = programme
       .filter((p) => p.dayNumber === dayNumber)
@@ -53,7 +65,6 @@ export default async function LivePage() {
     };
   });
   const dayLabels = Object.fromEntries(days.map((d) => [d.dayNumber, d.dateLabel ? `${d.label} · ${d.dateLabel}` : d.label]));
-  const liveUrl = `${siteConfig.url}/live`;
 
   return (
     <div className="bg-ivory">
@@ -87,7 +98,7 @@ export default async function LivePage() {
 
       <Container className="flex flex-col gap-12 py-10 sm:py-14">
         <section aria-label="Live broadcast">
-          <LiveBroadcastHub initial={toPublicBroadcast(broadcast)} />
+          <LiveBroadcastHub initial={initial} />
         </section>
 
         <section aria-labelledby="share-heading" className="rounded-2xl bg-purple-50 p-5 sm:p-6">
@@ -96,7 +107,7 @@ export default async function LivePage() {
           </h2>
           <p className="mt-1 text-sm text-charcoal/75">Send this page to family and friends at home and abroad.</p>
           <div className="mt-4">
-            <ShareControls url={liveUrl} text="Watch the Takete-Ide Centenary Celebration live (29–31 October 2026):" />
+            <ShareControls url={LIVE_PAGE_URL} text="Watch the Takete-Ide Centenary Celebration (29–31 October 2026):" />
           </div>
         </section>
 
@@ -153,7 +164,7 @@ export default async function LivePage() {
           </h2>
           <p className="mt-2 text-sm text-charcoal/75">Missed a session? Recordings are added here after each broadcast.</p>
           <div className="mt-6">
-            <ReplayList replays={broadcast.replays} dayLabels={dayLabels} />
+            <LiveReplays initial={initial} dayLabels={dayLabels} />
           </div>
         </section>
 

@@ -3,6 +3,7 @@
 import { useActionState } from "react";
 import { TextField, TextAreaField, SelectField, CheckboxField } from "@/components/forms/FormField";
 import { SubmitButton } from "@/components/forms/SubmitButton";
+import { Button } from "@/components/ui/Button";
 import { saveLiveBroadcastAction } from "@/lib/actions/admin-live-broadcast";
 import {
   BROADCAST_STATUSES,
@@ -15,7 +16,7 @@ import type { AdminFormState } from "@/lib/zod-helpers";
 
 const initialState: AdminFormState = { status: "idle" };
 
-export function LiveBroadcastForm({ broadcast }: { broadcast: LiveBroadcast }) {
+export function LiveBroadcastForm({ broadcast, canSave }: { broadcast: LiveBroadcast; canSave: boolean }) {
   const [state, formAction] = useActionState(saveLiveBroadcastAction, initialState);
 
   return (
@@ -93,9 +94,21 @@ export function LiveBroadcastForm({ broadcast }: { broadcast: LiveBroadcast }) {
         defaultValue={formatReplayLines(broadcast.replays)}
       />
 
-      <div>
-        <SubmitButton>Save live settings</SubmitButton>
-      </div>
+      {canSave ? (
+        <div>
+          <SubmitButton>Save live settings</SubmitButton>
+        </div>
+      ) : (
+        <div className="flex flex-col gap-2">
+          <Button type="button" disabled aria-describedby="live-save-unavailable" className="w-full sm:w-auto">
+            Saving unavailable
+          </Button>
+          <p id="live-save-unavailable" className="text-sm text-charcoal/70">
+            Settings cannot be saved until the database table exists (see the notice above). The public page is
+            using the checked-in configuration shown in this form.
+          </p>
+        </div>
+      )}
     </form>
   );
 }

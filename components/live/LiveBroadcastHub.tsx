@@ -1,12 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { AlertTriangle, CalendarClock, CircleStop, ExternalLink, MessageSquare, Radio, Tv } from "lucide-react";
 import { FacebookGlyph, YouTubeGlyph } from "@/components/layout/BrandGlyphs";
 import {
   EVENT_TIMEZONE,
   STATUS_LABELS,
   chatAvailable,
+  facebookLinkKind,
   youtubeChatEmbedUrl,
   youtubeChatPopoutUrl,
   youtubeEmbedUrl,
@@ -16,8 +17,7 @@ import {
 } from "@/lib/live/broadcast";
 import { cn } from "@/lib/utils";
 import { useBrowserValue, useMediaQuery } from "@/components/live/use-browser";
-
-const POLL_MS = 60_000;
+import { useLiveStatus } from "@/components/live/live-status-store";
 
 const STATUS_STYLES: Record<BroadcastStatus, string> = {
   scheduled: "bg-purple-50 text-purple-700 ring-purple-600/20",
@@ -34,7 +34,7 @@ const STATUS_ICONS: Record<BroadcastStatus, React.ComponentType<{ className?: st
 };
 
 export function LiveBroadcastHub({ initial }: { initial: PublicBroadcast }) {
-  const [latest, setLatest] = useState(initial);
+  const latest = useLiveStatus(initial);
   // The player only switches video when the viewer agrees, so a config change
   // never yanks someone out of the stream they are watching.
   const [activeVideoId, setActiveVideoId] = useState(initial.videoId);
@@ -42,28 +42,6 @@ export function LiveBroadcastHub({ initial }: { initial: PublicBroadcast }) {
   // adopted straight away; later changes wait for the viewer. Adjusting state
   // during render is React's recommended pattern for deriving from new props.
   if (!activeVideoId && latest.videoId) setActiveVideoId(latest.videoId);
-
-  useEffect(() => {
-    let cancelled = false;
-    const poll = async () => {
-      if (document.visibilityState !== "visible") return;
-      try {
-        const res = await fetch("/api/live/status", { cache: "no-store" });
-        if (!res.ok) return;
-        const next = (await res.json()) as PublicBroadcast;
-        if (!cancelled && next && typeof next.status === "string") setLatest(next);
-      } catch {
-        // Network blips are expected on event day; keep showing the last known state.
-      }
-    };
-    const timer = window.setInterval(poll, POLL_MS);
-    document.addEventListener("visibilitychange", poll);
-    return () => {
-      cancelled = true;
-      window.clearInterval(timer);
-      document.removeEventListener("visibilitychange", poll);
-    };
-  }, []);
 
   const b = { ...latest, videoId: activeVideoId };
   const newVideoPending = Boolean(latest.videoId && activeVideoId && latest.videoId !== activeVideoId);
@@ -315,13 +293,19 @@ function ChatPanel({ videoId }: { videoId: string }) {
 
 function PlatformLinks({ broadcast: b }: { broadcast: PublicBroadcast }) {
   const youtubeHref = b.videoId ? youtubeWatchUrl(b.videoId) : b.links.youtube;
+  const facebookIsVideo = b.links.facebook ? facebookLinkKind(b.links.facebook) === "video" : false;
+  const others = [
+    { label: "Instagram", href: b.links.instagram },
+    { label: "TikTok", href: b.links.tiktok },
+  ].filter((o): o is { label: string; href: string } => Boolean(o.href));
+
   return (
     <section aria-labelledby="watch-elsewhere-heading" className="rounded-2xl bg-white p-5 ring-1 ring-purple-600/10">
       <h2 id="watch-elsewhere-heading" className="font-serif text-lg font-bold text-purple-700">
-        Watch on social media
+        Official Takete-Ide channels
       </h2>
       <p className="mt-1 text-sm text-charcoal/70">
-        The same broadcast is shared on the official community pages. Each platform has its own comments.
+        The player above is the YouTube broadcast. Each platform has its own comments; they are not combined.
       </p>
       <ul className="mt-4 flex flex-wrap gap-3">
         <li>
@@ -336,45 +320,41 @@ function PlatformLinks({ broadcast: b }: { broadcast: PublicBroadcast }) {
             <span className="sr-only">(opens in a new tab)</span>
           </a>
         </li>
-        <li>
-          {b.links.facebook ? (
+        {b.links.facebook && (
+          <li>
             <a
               href={b.links.facebook}
               target="_blank"
               rel="noopener noreferrer"
+              data-testid="facebook-link"
               className="inline-flex items-center gap-2 rounded-full bg-[#1877f2] px-5 py-2.5 text-sm font-bold text-white hover:bg-[#0f5fc7] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700"
             >
               <FacebookGlyph className="h-4 w-4" />
-              Watch on Facebook
+              {facebookIsVideo ? "Watch on Facebook" : "Takete-Ide on Facebook"}
               <span className="sr-only">(opens in a new tab)</span>
             </a>
-          ) : (
-            <span
-              data-testid="facebook-pending"
-              className="inline-flex items-center gap-2 rounded-full bg-charcoal/5 px-5 py-2.5 text-sm font-semibold text-charcoal/70 ring-1 ring-inset ring-charcoal/10"
+          </li>
+        )}
+        {others.map((o) => (
+          <li key={o.label}>
+            <a
+              href={o.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full bg-charcoal/5 px-5 py-2.5 text-sm font-semibold text-charcoal ring-1 ring-inset ring-charcoal/15 hover:bg-charcoal/10"
             >
-              <FacebookGlyph className="h-4 w-4" />
-              Facebook link to be announced
-            </span>
-          )}
-        </li>
-        {b.links.instagram && (
-          <li>
-            <a href={b.links.instagram} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full bg-charcoal/5 px-5 py-2.5 text-sm font-semibold text-charcoal ring-1 ring-inset ring-charcoal/15 hover:bg-charcoal/10">
-              Instagram
+              {o.label}
               <span className="sr-only">(opens in a new tab)</span>
             </a>
           </li>
-        )}
-        {b.links.tiktok && (
-          <li>
-            <a href={b.links.tiktok} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full bg-charcoal/5 px-5 py-2.5 text-sm font-semibold text-charcoal ring-1 ring-inset ring-charcoal/15 hover:bg-charcoal/10">
-              TikTok
-              <span className="sr-only">(opens in a new tab)</span>
-            </a>
-          </li>
-        )}
+        ))}
       </ul>
+      {b.links.facebook && !facebookIsVideo && (
+        <p className="mt-3 text-xs leading-relaxed text-charcoal/70" data-testid="facebook-note">
+          Opens the official Takete-Ide Facebook page. Look there during the celebration for any Facebook broadcast or
+          updates; this website shows the YouTube broadcast.
+        </p>
+      )}
     </section>
   );
 }

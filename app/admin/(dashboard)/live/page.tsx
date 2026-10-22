@@ -47,7 +47,7 @@ export default async function AdminLivePage() {
       )}
 
       <div className="mt-6 rounded-2xl border border-purple-600/10 bg-white p-6">
-        <LiveBroadcastForm broadcast={broadcast} />
+        <LiveBroadcastForm broadcast={broadcast} canSave={databaseAvailable} />
       </div>
     </div>
   );

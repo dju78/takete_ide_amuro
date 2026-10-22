@@ -33,10 +33,16 @@ export const LIVE_BROADCAST_CONFIG: LiveBroadcastInput = {
 
   chatEnabled: true,
 
-  // Official public channel (confirmed). Facebook/Instagram/TikTok stay empty
-  // until the owner supplies the official public page addresses.
+  // Official public channel (confirmed).
   youtubeUrl: "https://www.youtube.com/channel/UCsLauLD7WlDBneUhDxl2VRw",
-  facebookUrl: "",
+  // Official public Facebook page/profile (confirmed by the owner, 2026-10-22).
+  // This is the page address, not an event-specific live video link, so the
+  // page labels it as the Facebook page rather than promising a stream there.
+  // Replace with a specific https://www.facebook.com/…/videos/… link only once
+  // a Facebook broadcast actually exists.
+  facebookUrl: "https://www.facebook.com/profile.php?id=61595124084233",
+  // Instagram/TikTok stay empty until confirmed public addresses are supplied;
+  // empty destinations are hidden on the page.
   instagramUrl: "",
   tiktokUrl: "",
 

@@ -11,6 +11,8 @@
  * even if someone pastes one into the configuration by mistake.
  */
 
+import { CANONICAL_SITE_URL } from "@/lib/site-config";
+
 export const EVENT_TIMEZONE = "Africa/Lagos";
 export const EVENT_TIMEZONE_LABEL = "West Africa Time (WAT, UTC+1) — Africa/Lagos";
 export const EVENT_DATES_LABEL = "29–31 October 2026";
@@ -84,6 +86,12 @@ export interface LiveBroadcastInput {
 }
 
 export const OFFICIAL_YOUTUBE_CHANNEL_URL = "https://www.youtube.com/channel/UCsLauLD7WlDBneUhDxl2VRw";
+
+/**
+ * The address people share. Always production — never a Netlify deploy
+ * preview or localhost — so forwarded links keep working after the event.
+ */
+export const LIVE_PAGE_URL = `${CANONICAL_SITE_URL}/live`;
 export const DEFAULT_BROADCAST_TITLE = "Takete-Ide Centenary Celebration — Live";
 
 const VIDEO_ID = /^[A-Za-z0-9_-]{11}$/;
@@ -102,6 +110,13 @@ const FORBIDDEN_FRAGMENTS = [
   "live/producer",
   "business.facebook.com",
   "/live_dashboard",
+  "/settings",
+  "/login",
+  "/dialog/",
+  "/adsmanager",
+  "/ads/manager",
+  "/creatorstudio",
+  "/professional_dashboard",
 ];
 
 function looksSecret(value: string) {
@@ -149,6 +164,23 @@ const PLATFORM_HOSTS: Record<Platform, string[]> = {
   instagram: ["instagram.com", "www.instagram.com"],
   tiktok: ["tiktok.com", "www.tiktok.com"],
 };
+
+/**
+ * Classifies a validated Facebook link so the page can label it honestly:
+ * a specific video/live link can say "Watch on Facebook"; a Page or profile
+ * address (e.g. https://www.facebook.com/profile.php?id=…) cannot promise a
+ * stream is running there.
+ */
+export function facebookLinkKind(url: string): "video" | "page" {
+  try {
+    const { hostname, pathname } = new URL(url);
+    if (hostname === "fb.watch") return "video";
+    if (/\/(videos|watch|live)(\/|$)/i.test(pathname)) return "video";
+  } catch {
+    // validated upstream; fall through
+  }
+  return "page";
+}
 
 /** Returns the URL only if it is an https public link on the expected platform. */
 export function safePublicUrl(input: string | null | undefined, platform: Platform): string | null {
