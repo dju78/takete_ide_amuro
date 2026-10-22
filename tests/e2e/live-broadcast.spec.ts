@@ -167,7 +167,9 @@ test.describe("/live page — unconfigured broadcast", () => {
 
     await expect(page.getByTestId("broadcast-status")).toHaveAttribute("data-status", "scheduled");
     await expect(page.getByTestId("player-fallback")).toBeVisible();
-    await expect(page.locator("iframe")).toHaveCount(0);
+    // No YouTube player is embedded until a video is configured. (Other hosts may
+    // inject their own frames, e.g. Netlify's review drawer on deploy previews.)
+    await expect(page.locator('iframe[src*="youtube"]')).toHaveCount(0);
     await expect(page.getByText(/start time will be announced/i)).toBeVisible();
 
     await expect(page.getByRole("link", { name: /Watch on YouTube/ })).toHaveAttribute(
@@ -310,9 +312,11 @@ test.describe("/live page — broadcast states (status endpoint mocked)", () => 
     await expect(player).toHaveAttribute("referrerpolicy", "strict-origin-when-cross-origin");
     await expect(player).toHaveAttribute("title", /YouTube video player/);
 
+    // embed_domain must be the page's own hostname (production, preview or localhost).
+    const hostname = new URL(page.url()).hostname;
     await expect(page.getByTestId("live-chat")).toHaveAttribute(
       "src",
-      `https://www.youtube.com/live_chat?v=${FAKE_ID}&embed_domain=localhost`,
+      `https://www.youtube.com/live_chat?v=${FAKE_ID}&embed_domain=${hostname}`,
     );
     await expect(page.getByRole("link", { name: /Open chat on YouTube/ })).toHaveAttribute(
       "href",
