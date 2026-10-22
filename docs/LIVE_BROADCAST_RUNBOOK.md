@@ -148,6 +148,14 @@ Save → visitors already on `/live` update within ~1 minute; new visitors immed
 **Fallback path:** edit `lib/live/broadcast-config.ts`, commit, push to `main` → Netlify deploy (several minutes).
 The programme is edited under **Admin → Centenary 2026** (existing screen).
 
+**Celebration audio (pre-event).** `/live` shows the centenary poster beside a "Celebration audio — listen before the
+event." player (`components/live/CelebrationAudio.tsx`). The track is a static file,
+`public/audio/centenary/takete-ide-centenary-celebration.mp3`, served by Netlify with the site — it does not use OBS,
+YouTube or the broadcast status, and never autoplays. It pauses itself when a visitor starts the embedded YouTube
+player. A poster video of the same track (1920×1080 H.264/AAC) is at
+`public/videos/takete-ide/Takete_Ide_Centenary_Celebration_Audio.mp4` and is linked for download. Replacing either
+file needs a commit and deploy; keep the same file names.
+
 ## 9. Chat moderation
 
 - Add the moderator in YouTube Studio → Settings → Community → **Moderators** (their Google account).

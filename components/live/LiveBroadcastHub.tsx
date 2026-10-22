@@ -18,7 +18,6 @@ import {
 import { cn } from "@/lib/utils";
 import { useBrowserValue, useMediaQuery } from "@/components/live/use-browser";
 import { useLiveStatus } from "@/components/live/live-status-store";
-
 const STATUS_STYLES: Record<BroadcastStatus, string> = {
   scheduled: "bg-purple-50 text-purple-700 ring-purple-600/20",
   live: "bg-red-600 text-white ring-red-700",
@@ -233,6 +232,8 @@ function Player({ broadcast: b }: { broadcast: PublicBroadcast }) {
         <iframe
           key={b.videoId}
           data-testid="live-player"
+          // Starting the broadcast pauses the celebration audio (see CelebrationAudio).
+          data-pauses-celebration-audio=""
           src={youtubeEmbedUrl(b.videoId)}
           title={`${b.title} — YouTube video player`}
           className="absolute inset-0 h-full w-full"
