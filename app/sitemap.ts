@@ -15,7 +15,7 @@ const staticRoutes = [
   "/heritage/health-history", "/takete-ide-day",
   "/development", "/our-people", "/news", "/events", "/gallery", "/weather", "/diaspora", "/archive",
   "/archive/from-hilltops-to-the-valley", "/archive/oral-history", "/tipu", "/tipu/branches", "/tipu/branches/lokoja",
-  "/tipu/branches/ilorin", "/diaspora/uk-europe", "/takete-ide-day/cultural-attire", "/centenary", "/support",
+  "/tipu/branches/ilorin", "/diaspora/uk-europe", "/takete-ide-day/cultural-attire", "/centenary", "/live", "/support",
   "/education", "/kogi-quest",
   "/development/community-at-work", "/development/settlement-progress", "/families", "/families/compounds",
   "/oriki", "/get-involved", "/contact", "/privacy", "/terms",

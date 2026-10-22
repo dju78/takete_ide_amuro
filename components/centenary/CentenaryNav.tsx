@@ -8,6 +8,7 @@ interface CentenaryNavProps {
 const NAV_LINKS = [
   { label: "Overview", href: "#overview" },
   { label: "Programme", href: "#programme" },
+  { label: "Watch Live", href: "/live" },
   { label: "Guests & Hosts", href: "#guests" },
   { label: "Highlights", href: "#highlights" },
   { label: "Official Invitation", href: "#invitation" },
