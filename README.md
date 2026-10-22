@@ -79,6 +79,7 @@ See `docs/DEPLOYMENT.md` (target: Vercel).
 | `docs/WEATHER_INTEGRATION.md` | Provider, caching, fallback, changing providers |
 | `docs/SECURITY.md` | Auth, RLS, validation, secrets, known gaps |
 | `docs/DEPLOYMENT.md` | Step-by-step Supabase + Vercel deployment |
+| `docs/LIVE_BROADCAST_RUNBOOK.md` | Centenary live broadcast: OBS, YouTube/Facebook, /live and /admin/live operation |
 
 ## Troubleshooting
 

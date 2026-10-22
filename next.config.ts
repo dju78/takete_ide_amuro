@@ -12,6 +12,33 @@ const nextConfig: NextConfig = {
       ? [{ protocol: "https" as const, hostname: supabaseHostname, pathname: "/storage/v1/object/public/**" }]
       : [],
   },
+  async headers() {
+    return [
+      {
+        // Scoped to the live hub: only YouTube may be framed here, the page may
+        // not be framed by other sites, and plugins/base-URI hijacking are off.
+        // Scripts are deliberately not restricted, so Next.js hydration and the
+        // site's existing inline JSON-LD keep working without nonces.
+        source: "/live",
+        headers: [
+          {
+            key: "Content-Security-Policy",
+            value: [
+              "frame-src 'self' https://www.youtube-nocookie.com https://www.youtube.com",
+              "child-src 'self' https://www.youtube-nocookie.com https://www.youtube.com",
+              "object-src 'none'",
+              "base-uri 'self'",
+              "form-action 'self'",
+              "frame-ancestors 'self'",
+            ].join("; "),
+          },
+          // YouTube embeds require a Referer (missing referrers cause player error 153).
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          { key: "X-Content-Type-Options", value: "nosniff" },
+        ],
+      },
+    ];
+  },
   async redirects() {
     return [
       {

@@ -3,7 +3,7 @@ import {
   LayoutDashboard, Newspaper, Calendar, Images, Building2, Archive, Mic2,
   Crown, Users, Globe2, Mail, FileText, FolderKanban, Users2, Shield,
   Settings, ClipboardList, HeartHandshake, Landmark, ImagePlay, Network,
-  Sparkles, ShieldCheck, BookOpen, Banknote, ReceiptText, Music4, GraduationCap,
+  Sparkles, ShieldCheck, Radio, BookOpen, Banknote, ReceiptText, Music4, GraduationCap,
 } from "lucide-react";
 
 /**
@@ -55,7 +55,10 @@ const sections: { heading: string; items: { label: string; href: string; icon: R
   },
   {
     heading: "Centenary",
-    items: [{ label: "Centenary 2026", href: "/admin/centenary", icon: Sparkles }],
+    items: [
+      { label: "Centenary 2026", href: "/admin/centenary", icon: Sparkles },
+      { label: "Live Broadcast", href: "/admin/live", icon: Radio },
+    ],
   },
   {
     heading: "Support",

@@ -140,6 +140,9 @@ export default async function CentenaryPage({ searchParams }: Props) {
               <Sparkles className="h-4 w-4 text-purple-950" aria-hidden="true" />
               Create Your Centenary Poster
             </ButtonLink>
+            <ButtonLink href="/live" variant="outline" className="border-white text-white hover:bg-white hover:text-purple-700">
+              Watch Live
+            </ButtonLink>
             <ButtonLink href="/support" variant="outline" className="border-white text-white hover:bg-white hover:text-purple-700">
               Support the Centenary
             </ButtonLink>
