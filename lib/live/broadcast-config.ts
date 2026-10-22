@@ -41,9 +41,11 @@ export const LIVE_BROADCAST_CONFIG: LiveBroadcastInput = {
   // Replace with a specific https://www.facebook.com/…/videos/… link only once
   // a Facebook broadcast actually exists.
   facebookUrl: "https://www.facebook.com/profile.php?id=61595124084233",
-  // Instagram/TikTok stay empty until confirmed public addresses are supplied;
-  // empty destinations are hidden on the page.
-  instagramUrl: "",
+  // Official public Instagram profile (confirmed by the owner, 2026-10-22).
+  // A profile, not a live broadcast — labelled as such on the page.
+  instagramUrl: "https://www.instagram.com/taketeideofficial/",
+  // TikTok stays empty until a confirmed public address is supplied; empty
+  // destinations are hidden on the page.
   tiktokUrl: "",
 
   // Replays: { title, dayNumber: 1 | 2 | 3, video: YouTube ID/link or public Facebook video link }

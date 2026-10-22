@@ -295,8 +295,8 @@ function PlatformLinks({ broadcast: b }: { broadcast: PublicBroadcast }) {
   const youtubeHref = b.videoId ? youtubeWatchUrl(b.videoId) : b.links.youtube;
   const facebookIsVideo = b.links.facebook ? facebookLinkKind(b.links.facebook) === "video" : false;
   const others = [
-    { label: "Instagram", href: b.links.instagram },
-    { label: "TikTok", href: b.links.tiktok },
+    { label: "Takete-Ide on Instagram", href: b.links.instagram },
+    { label: "Takete-Ide on TikTok", href: b.links.tiktok },
   ].filter((o): o is { label: string; href: string } => Boolean(o.href));
 
   return (

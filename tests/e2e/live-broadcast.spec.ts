@@ -184,8 +184,12 @@ test.describe("/live page — unconfigured broadcast", () => {
     await expect(facebook).toContainText("Takete-Ide on Facebook");
     await expect(page.getByRole("link", { name: /Watch on Facebook/ })).toHaveCount(0);
     await expect(page.getByTestId("facebook-note")).toContainText("official Takete-Ide Facebook page");
-    // Unconfirmed destinations are hidden, never invented.
-    await expect(page.getByRole("link", { name: /Instagram|TikTok/ })).toHaveCount(0);
+    // Confirmed Instagram profile is linked and labelled as a profile; unconfirmed TikTok stays hidden.
+    await expect(page.getByRole("link", { name: /Takete-Ide on Instagram/ })).toHaveAttribute(
+      "href",
+      "https://www.instagram.com/taketeideofficial/",
+    );
+    await expect(page.getByRole("link", { name: /TikTok/ })).toHaveCount(0);
   });
 
   test("lists all three programme days with WAT labelling and no invented times", async ({ page }) => {
@@ -255,6 +259,8 @@ test.describe("/live page — unconfigured broadcast", () => {
       ["chatEnabled", "links", "replays", "scheduledStart", "status", "statusMessage", "title", "updatedAt", "videoId"].sort(),
     );
     expect(body.links.facebook).toBe(OFFICIAL_FACEBOOK);
+    expect(body.links.instagram).toBe("https://www.instagram.com/taketeideofficial/");
+    expect(body.links.tiktok).toBeNull();
     expect(JSON.stringify(body)).not.toMatch(/rtmp|stream_?key|token|password|supabase/i);
   });
 

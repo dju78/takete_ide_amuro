@@ -3,7 +3,8 @@
 **Event:** Takete-Ide Centenary Celebration, 29–31 October 2026 · **Times:** West Africa Time (WAT, UTC+1, Africa/Lagos)
 **Public hub:** <https://takete-ide.org/live> · **Control screen:** <https://takete-ide.org/admin/live> (editor role or higher)
 **Official channels (confirmed):** YouTube <https://www.youtube.com/channel/UCsLauLD7WlDBneUhDxl2VRw> ·
-Facebook <https://www.facebook.com/profile.php?id=61595124084233>
+Facebook <https://www.facebook.com/profile.php?id=61595124084233> ·
+Instagram <https://www.instagram.com/taketeideofficial/> (profile link only; Instagram live streaming is optional, §3)
 
 > **Status of this setup (22 October 2026):** the website viewing hub is built and configured. **No real broadcast
 > has been tested.** The camera/audio feed, OBS, YouTube/Facebook account authorisation and the venue internet are
