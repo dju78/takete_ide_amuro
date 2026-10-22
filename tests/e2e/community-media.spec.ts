@@ -68,14 +68,19 @@ test.describe("Gallery after the archive import", () => {
       await expect(filters.getByRole("link", { name: category, exact: true })).toBeVisible();
     }
 
-    const allCount = await page.locator("main .grid button, .grid button").count();
-    await Promise.all([
-      page.waitForURL(/category=Places/),
-      filters.getByRole("link", { name: "Places of Worship", exact: true }).click(),
-    ]);
-    const filteredCount = await page.locator("main .grid button, .grid button").count();
-    expect(filteredCount).toBeGreaterThan(0);
-    expect(filteredCount).toBeLessThan(allCount);
+    const grid = page.locator("main .grid button, .grid button");
+    const allCount = await grid.count();
+    await expect(filters.getByRole("link", { name: "All", exact: true })).toHaveAttribute("aria-current", "page");
+
+    // Wait for the URL to commit rather than for the window "load" event: the
+    // "All" grid lazy-loads dozens of on-demand-optimised photographs, and on a
+    // cold CI runner "load" can outlast the test timeout even though the filter
+    // itself has already worked. The assertions below still prove the filter.
+    const placesOfWorship = filters.getByRole("link", { name: "Places of Worship", exact: true });
+    await Promise.all([page.waitForURL(/category=Places/, { waitUntil: "commit" }), placesOfWorship.click()]);
+    await expect(placesOfWorship).toHaveAttribute("aria-current", "page");
+    await expect.poll(() => grid.count()).toBeGreaterThan(0);
+    await expect.poll(() => grid.count()).toBeLessThan(allCount);
   });
 
   test("lightbox opens on a photograph and closes with Escape", async ({ page }) => {

@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { CampaignConfig, CelebrationStudioState } from "@/types/celebration-studio";
 import { getActiveCampaign } from "@/lib/celebration-studio/campaigns";
+import { getPersonalisationError } from "@/lib/celebration-studio/validation";
 import { StepIndicator } from "./StepIndicator";
 import { TemplateGallery } from "./TemplateGallery";
 import { PhotoUploader } from "./PhotoUploader";
@@ -51,6 +52,7 @@ export function CelebrationStudio({ campaignId = "centenary-2026" }: Celebration
     isRendering: false,
   });
 
+  const [validationError, setValidationError] = useState<string | null>(null);
   const [showStartAgainModal, setShowStartAgainModal] = useState(false);
   const activeObjectUrlRef = useRef<string | null>(null);
 
@@ -139,6 +141,7 @@ export function CelebrationStudio({ campaignId = "centenary-2026" }: Celebration
   };
 
   const handleStartAgain = () => {
+    setValidationError(null);
     if (activeObjectUrlRef.current && activeObjectUrlRef.current.startsWith("blob:")) {
       URL.revokeObjectURL(activeObjectUrlRef.current);
       activeObjectUrlRef.current = null;
@@ -175,13 +178,19 @@ export function CelebrationStudio({ campaignId = "centenary-2026" }: Celebration
     setShowStartAgainModal(false);
   };
 
-  const canNavigateToStep = (targetStep: 1 | 2 | 3 | 4 | 5) => {
-    if (targetStep === 1) return true;
-    if (targetStep === 2) return true;
-    if (targetStep === 3) return Boolean(state.selectedTemplateId);
-    if (targetStep === 4) return Boolean(state.selectedTemplateId);
-    if (targetStep === 5) return Boolean(state.selectedTemplateId);
-    return false;
+  const personalisationError = getPersonalisationError(activeTemplate, state.personalisation);
+
+  const canNavigateToStep = (targetStep: 1 | 2 | 3 | 4 | 5) =>
+    targetStep < 4 || personalisationError === null;
+
+  const navigateToStep = (step: 1 | 2 | 3 | 4 | 5) => {
+    if (step >= 4 && personalisationError) {
+      setValidationError(personalisationError);
+      setState((prev) => ({ ...prev, step: 3 }));
+      return;
+    }
+    setValidationError(null);
+    setState((prev) => ({ ...prev, step }));
   };
 
   return (
@@ -205,7 +214,7 @@ export function CelebrationStudio({ campaignId = "centenary-2026" }: Celebration
         </div>
         <StepIndicator
           currentStep={state.step}
-          onStepClick={(s) => setState((prev) => ({ ...prev, step: s }))}
+          onStepClick={navigateToStep}
           canNavigateToStep={canNavigateToStep}
         />
       </div>
@@ -279,15 +288,22 @@ export function CelebrationStudio({ campaignId = "centenary-2026" }: Celebration
 
       {state.step === 3 && (
         <div className="grid gap-8 lg:grid-cols-[1.1fr_1fr] items-start">
-          <PersonalisationForm
-            template={activeTemplate}
-            personalisation={state.personalisation}
-            onChangePersonalisation={(pers) =>
-              setState((prev) => ({ ...prev, personalisation: pers }))
-            }
-            onNext={() => setState((prev) => ({ ...prev, step: 4 }))}
-            onBack={() => setState((prev) => ({ ...prev, step: 2 }))}
-          />
+          <div className="space-y-4">
+            {validationError && personalisationError && (
+              <p role="alert" className="rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-800">
+                {personalisationError}
+              </p>
+            )}
+            <PersonalisationForm
+              template={activeTemplate}
+              personalisation={state.personalisation}
+              onChangePersonalisation={(pers) =>
+                setState((prev) => ({ ...prev, personalisation: pers }))
+              }
+              onNext={() => navigateToStep(4)}
+              onBack={() => setState((prev) => ({ ...prev, step: 2 }))}
+            />
+          </div>
 
           {/* Desktop Real-time Side Preview */}
           <div className="hidden lg:block sticky top-24">
@@ -314,7 +330,7 @@ export function CelebrationStudio({ campaignId = "centenary-2026" }: Celebration
           photoAdjustments={state.photoAdjustments}
           selectedFormat={state.selectedFormat}
           onSelectFormat={(fmt) => setState((prev) => ({ ...prev, selectedFormat: fmt }))}
-          onNext={() => setState((prev) => ({ ...prev, step: 5 }))}
+          onNext={() => navigateToStep(5)}
           onBack={() => setState((prev) => ({ ...prev, step: 3 }))}
           onStartAgain={() => setShowStartAgainModal(true)}
           isStandalonePreview={true}

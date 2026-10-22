@@ -27,22 +27,28 @@ export function Breadcrumb({ items }: { items: Crumb[] }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       {/* min-h-6 on each link: breadcrumbs are standalone navigation, not links
-          inside a sentence, so they are not exempt from the minimum target size. */}
-      <ol className="flex flex-wrap items-center gap-1.5 text-charcoal/60">
+          inside a sentence, so they are not exempt from the minimum target size.
+
+          Colour is inherited from the surrounding text rather than fixed, so the
+          trail stays legible both on the ivory page background (charcoal text)
+          and inside the purple hero banners (white text) — most pages place it
+          in a hero. Muting uses opacity, which keeps AA contrast in both
+          contexts; see tests/e2e/breadcrumb-contrast.spec.ts. */}
+      <ol className="flex flex-wrap items-center gap-1.5">
         <li>
-          <Link href="/" className="inline-flex min-h-6 items-center py-0.5 hover:text-purple-600">
+          <Link href="/" className="inline-flex min-h-6 items-center py-0.5 opacity-80 underline-offset-4 transition-opacity hover:underline hover:opacity-100">
             Home
           </Link>
         </li>
         {items.map((item, i) => (
           <li key={item.label} className="flex items-center gap-1.5">
-            <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
+            <ChevronRight className="h-3.5 w-3.5 opacity-60" aria-hidden="true" />
             {item.href && i !== items.length - 1 ? (
-              <Link href={item.href} className="inline-flex min-h-6 items-center py-0.5 hover:text-purple-600">
+              <Link href={item.href} className="inline-flex min-h-6 items-center py-0.5 opacity-80 underline-offset-4 transition-opacity hover:underline hover:opacity-100">
                 {item.label}
               </Link>
             ) : (
-              <span aria-current="page" className="font-medium text-purple-600">
+              <span aria-current="page" className="font-semibold">
                 {item.label}
               </span>
             )}

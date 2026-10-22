@@ -5,6 +5,48 @@ test.describe("Takete-Ide Celebration Studio", () => {
     await page.goto("/celebration-studio");
   });
 
+  test("required details gate direct steps and export while photos remain optional", async ({ page }) => {
+    const steps = page.getByRole("navigation", { name: "Celebration Studio Steps" });
+    const preview = steps.getByRole("button", { name: /Step 4/ });
+    const download = steps.getByRole("button", { name: /Step 5/ });
+    await expect(preview).toBeDisabled();
+    await expect(download).toBeDisabled();
+    await steps.getByRole("button", { name: /Step 3/ }).click();
+    await page.locator("#fullName").fill("   ");
+    await page.getByRole("button", { name: "Continue to Preview →", exact: true }).click();
+    await expect(page.getByRole("alert").filter({ hasText: "Celebrant full name" })).toBeVisible();
+    await expect(download).toBeDisabled();
+    await page.locator("#fullName").fill("Launch Check");
+    await page.locator("#messageInput").fill("   ");
+    await page.getByRole("button", { name: "Continue to Preview →", exact: true }).click();
+    await expect(page.getByRole("alert").filter({ hasText: "Congratulatory message" })).toBeVisible();
+    await page.locator("#messageInput").fill("Happy centenary to Takete-Ide!");
+    await expect(download).toBeEnabled();
+    await download.click();
+    await expect(page.getByRole("heading", { name: "Your Poster is Ready!" })).toBeVisible();
+    const exported = page.waitForEvent("download");
+    await page.getByRole("button", { name: "Download High-Res PNG", exact: true }).click();
+    expect((await exported).suggestedFilename()).toBe("takete-ide-centenary-launch-check.png");
+    await page.getByRole("button", { name: "Create Another Poster", exact: true }).click();
+    await expect(download).toBeDisabled();
+  });
+
+  test("family template requires its own family name after a valid personal poster", async ({ page }) => {
+    const steps = page.getByRole("navigation", { name: "Celebration Studio Steps" });
+    await steps.getByRole("button", { name: /Step 3/ }).click();
+    await page.locator("#fullName").fill("Personal Celebrant");
+    await expect(steps.getByRole("button", { name: /Step 5/ })).toBeEnabled();
+    await steps.getByRole("button", { name: /Step 1/ }).click();
+    await page.getByRole("button", { name: /Family Tribute CENTENARY/ }).click();
+    await expect(steps.getByRole("button", { name: /Step 5/ })).toBeDisabled();
+    await steps.getByRole("button", { name: /Step 3/ }).click();
+    await page.getByRole("button", { name: "Continue to Preview →", exact: true }).click();
+    await expect(page.getByRole("alert").filter({ hasText: "Family name" })).toBeVisible();
+    await page.locator("#familyName").fill("The Celebrant Family");
+    await page.getByRole("button", { name: "Continue to Preview →", exact: true }).click();
+    await expect(page.getByRole("heading", { name: "Review Your Centenary Poster" })).toBeVisible();
+  });
+
   test("1. Route /celebration-studio loads successfully with status 200, breadcrumbs and canonical metadata", async ({ page }) => {
     const heading = page.locator("#main-content h1");
     await expect(heading).toBeVisible();
@@ -163,6 +205,7 @@ test.describe("Takete-Ide Celebration Studio", () => {
   test("8. Live poster preview supports format switcher, safe area guide and zoom toggle", async ({ page }) => {
     await page.click("button:has-text('Continue to Upload Photo')");
     await page.click("button:has-text('Skip for Now / Add Later')");
+    await page.locator("#fullName").fill("Preview Test");
     await page.click("button:has-text('Continue to Preview')");
 
     // Verify Canvas is rendered

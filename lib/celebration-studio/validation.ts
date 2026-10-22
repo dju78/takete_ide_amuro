@@ -1,4 +1,5 @@
 import { z } from "zod";
+import type { CelebrationTemplate, PersonalisationData } from "@/types/celebration-studio";
 
 export const MAX_PHOTO_SIZE_BYTES = 10 * 1024 * 1024; // 10 MB
 export const ALLOWED_IMAGE_TYPES = [
@@ -141,3 +142,25 @@ export const PersonalisationSchema = z.object({
     .optional()
     .default(""),
 });
+
+/** Validate required template fields before leaving personalisation; photos remain optional. */
+export function getPersonalisationError(
+  template: CelebrationTemplate,
+  personalisation: PersonalisationData,
+): string | null {
+  const labels = {
+    name: "Celebrant full name", familyName: "Family name", title: "Title",
+    greeting: "Greeting", message: "Congratulatory message", signOff: "Sign-off",
+    localExpression: "Local expression",
+  };
+  for (const field of template.requiredFields) {
+    const value = sanitizeTextInput(personalisation[field]);
+    const limits = FIELD_LIMITS[field];
+    const minimum = Math.max(1, limits.min);
+    if (value.length < minimum) {
+      return `${labels[field]} must contain at least ${minimum} characters.`;
+    }
+  }
+  const parsed = PersonalisationSchema.safeParse(personalisation);
+  return parsed.success ? null : parsed.error.issues[0].message;
+}
