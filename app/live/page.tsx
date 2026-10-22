@@ -6,6 +6,7 @@ import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { LiveBroadcastHub } from "@/components/live/LiveBroadcastHub";
 import { ShareControls } from "@/components/live/ShareControls";
 import { LiveReplays } from "@/components/live/ReplayList";
+import { CelebrationAudio } from "@/components/live/CelebrationAudio";
 import { getLiveBroadcast } from "@/lib/data/live-broadcast";
 import { getCentenary, getCentenaryProgramme } from "@/lib/data/community-programme";
 import { EVENT_DATES_LABEL, EVENT_TIMEZONE_LABEL, LIVE_PAGE_URL, toPublicBroadcast } from "@/lib/live/broadcast";
@@ -96,6 +97,10 @@ export default async function LivePage() {
       <Container className="flex flex-col gap-12 py-10 sm:py-14">
         <section aria-label="Live broadcast">
           <LiveBroadcastHub initial={initial} />
+        </section>
+
+        <section id="celebration-audio" aria-labelledby="celebration-audio-heading" className="scroll-mt-24">
+          <CelebrationAudio />
         </section>
 
         <section aria-labelledby="share-heading" className="rounded-2xl bg-purple-50 p-5 sm:p-6">
