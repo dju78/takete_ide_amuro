@@ -14,12 +14,12 @@ test.describe("Takete-Ide Celebration Studio", () => {
     await steps.getByRole("button", { name: /Step 3/ }).click();
     await page.locator("#fullName").fill("   ");
     await page.getByRole("button", { name: "Continue to Preview →", exact: true }).click();
-    await expect(page.getByRole("alert")).toContainText("Celebrant full name");
+    await expect(page.getByRole("alert").filter({ hasText: "Celebrant full name" })).toBeVisible();
     await expect(download).toBeDisabled();
     await page.locator("#fullName").fill("Launch Check");
     await page.locator("#messageInput").fill("   ");
     await page.getByRole("button", { name: "Continue to Preview →", exact: true }).click();
-    await expect(page.getByRole("alert")).toContainText("Congratulatory message");
+    await expect(page.getByRole("alert").filter({ hasText: "Congratulatory message" })).toBeVisible();
     await page.locator("#messageInput").fill("Happy centenary to Takete-Ide!");
     await expect(download).toBeEnabled();
     await download.click();
@@ -41,7 +41,7 @@ test.describe("Takete-Ide Celebration Studio", () => {
     await expect(steps.getByRole("button", { name: /Step 5/ })).toBeDisabled();
     await steps.getByRole("button", { name: /Step 3/ }).click();
     await page.getByRole("button", { name: "Continue to Preview →", exact: true }).click();
-    await expect(page.getByRole("alert")).toContainText("Family name");
+    await expect(page.getByRole("alert").filter({ hasText: "Family name" })).toBeVisible();
     await page.locator("#familyName").fill("The Celebrant Family");
     await page.getByRole("button", { name: "Continue to Preview →", exact: true }).click();
     await expect(page.getByRole("heading", { name: "Review Your Centenary Poster" })).toBeVisible();

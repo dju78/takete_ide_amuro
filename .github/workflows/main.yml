@@ -40,3 +40,13 @@ jobs:
         run: npx playwright test
         env:
           CI: true
+
+      # Keep traces/screenshots of failures so intermittent CI failures can be
+      # diagnosed from evidence instead of being re-run until green.
+      - name: Upload Playwright failure artifacts
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-test-results
+          path: test-results/
+          retention-days: 14

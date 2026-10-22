@@ -7,6 +7,7 @@ export function GalleryFilters({ categories, activeCategory }: { categories: str
     <div className="flex flex-wrap gap-2" role="group" aria-label="Filter gallery by category">
       <Link
         href="/gallery"
+        aria-current={!activeCategory ? "page" : undefined}
         className={cn(
           "rounded-full px-4 py-2 text-sm font-medium",
           !activeCategory ? "bg-purple-600 text-white" : "bg-white text-charcoal/70 hover:bg-purple-50",
@@ -18,6 +19,7 @@ export function GalleryFilters({ categories, activeCategory }: { categories: str
         <Link
           key={cat}
           href={`/gallery?category=${encodeURIComponent(cat)}`}
+          aria-current={activeCategory === cat ? "page" : undefined}
           className={cn(
             "rounded-full px-4 py-2 text-sm font-medium",
             activeCategory === cat ? "bg-purple-600 text-white" : "bg-white text-charcoal/70 hover:bg-purple-50",
