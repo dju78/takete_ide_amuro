@@ -173,6 +173,7 @@ test.describe("Celebration Studio Full Verification Gate & Asset Generation", ()
       await page.click("button:has-text('Continue to Upload Photo')");
       await page.click("button:has-text('Personal Demo')");
       await page.click("button:has-text('Continue to Personalise')");
+      await page.locator(tplId === "family-felicitation" ? "#familyName" : "#fullName").fill("Community Celebration");
       await page.click("button:has-text('Continue to Preview')");
       await page.waitForTimeout(800);
 
