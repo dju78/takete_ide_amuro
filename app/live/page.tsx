@@ -68,13 +68,10 @@ export default async function LivePage() {
 
   return (
     <div className="bg-ivory">
-      {/* Breadcrumb sits on the light background: its dark text is unreadable on the purple hero. */}
-      <Container className="py-3">
-        <Breadcrumb items={[{ label: "Centenary 2026", href: "/centenary" }, { label: "Live" }]} />
-      </Container>
       <div className="bg-purple-700 py-10 text-white sm:py-14">
         <Container>
-          <h1 className="font-serif text-3xl font-bold leading-tight sm:text-5xl">{TITLE}</h1>
+          <Breadcrumb items={[{ label: "Centenary 2026", href: "/centenary" }, { label: "Live" }]} />
+          <h1 className="mt-4 font-serif text-3xl font-bold leading-tight sm:text-5xl">{TITLE}</h1>
           <div className="mt-5 flex flex-wrap gap-2 text-sm">
             <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3.5 py-1.5 font-semibold ring-1 ring-inset ring-white/15">
               <CalendarDays className="h-4 w-4 text-gold-300" aria-hidden="true" />

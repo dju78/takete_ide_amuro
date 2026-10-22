@@ -20,7 +20,7 @@ const ROUTES = [
   "/heritage/festivals", "/heritage/health-history", "/heritage/land-and-landscape",
   "/heritage/music-games", "/heritage/pacesetters", "/heritage/takete-ide-anthem",
   "/heritage/traditional-council", "/heritage/traditional-institution", "/heritage/traditional-marriage",
-  "/kogi-quest", "/news", "/oriki", "/our-people", "/our-story", "/our-story/takete-tedo",
+  "/kogi-quest", "/live", "/news", "/oriki", "/our-people", "/our-story", "/our-story/takete-tedo",
   "/privacy", "/search", "/support", "/support/payment/failed", "/support/payment/pending",
   "/support/payment/success", "/takete-ide-day", "/takete-ide-day/2025", "/takete-ide-day/cultural-attire",
   "/terms", "/tipu", "/tipu/branches", "/tipu/branches/ilorin", "/tipu/branches/lokoja", "/weather",
