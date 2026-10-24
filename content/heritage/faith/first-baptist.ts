@@ -20,7 +20,7 @@ export const FIRST_BAPTIST_HISTORY = {
     { name: "Pa Luke Olorunleke", role: "Founder & Church Leader", notes: "Served as early Church Leader." },
     { name: "Pa Paul Amora", role: "Founder", notes: "Co-founded the congregation with the cooperation of his wife." },
     { name: "Pa Saul Akedi", role: "Founder (Baba Eleah)", notes: "Canonical community spelling recorded as Baba Eleah." },
-    { name: "Pa Noah Omoyele", role: "Founder", notes: "Listed among the six founders; subsequent passage mentions Noah Eseyin as Secretary." },
+    { name: "Pa Noah Eseyin Omoyele", role: "Founder & Church Secretary", notes: "Served as Church Secretary." },
     { name: "Pa Alfred Eseyin", role: "Founder (Baba Owa)", notes: "Last surviving founding member; renowned for deep spiritual devotion." },
   ],
   earlyPastors: [
@@ -50,7 +50,6 @@ export const FIRST_BAPTIST_HISTORY = {
     "Pa Mark Agunbiade",
   ],
   verificationNotes: [
-    "The founders' list names Pa Noah Omoyele, while a following paragraph identifies Noah Eseyin as Church Secretary.",
     "Confirm the spellings of Pastor Olaleken, Pa Timothy Adetimoyo and Chief Matthew Igunrin Ayedogbon.",
     "Confirm the spelling of Baba Ajayi Yeloyejo and the boundary name Pa Elehire.",
     "Record the exact date on which the original church history manuscript was compiled, particularly regarding the 'till date' reference for Rev. Agbogun.",

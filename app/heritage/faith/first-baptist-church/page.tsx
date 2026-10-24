@@ -198,10 +198,9 @@ export default function FirstBaptistChurchHistoryPage() {
 
               <div className="mt-6 rounded-2xl border border-gold-200 bg-gold-50/60 p-4 text-xs text-charcoal/80">
                 <p>
-                  <strong>Office Bearers:</strong> The source records that <strong>Pa Joash Agunbiade</strong> served
-                  as <em>Baba Egbe</em>, and <strong>Pa Luke Olorunleke</strong> served as <em>Church Leader</em>. A
-                  subsequent paragraph identifies <strong>Noah Eseyin</strong> as <em>Church Secretary</em> (see
-                  verification note regarding the relationship between the names Pa Noah Omoyele and Noah Eseyin).
+                  <strong>Office Bearers:</strong> <strong>Pa Joash Agunbiade</strong> served as <em>Baba Egbe</em>,
+                  <strong>Pa Luke Olorunleke</strong> as <em>Church Leader</em> and <strong>Pa Noah Eseyin
+                  Omoyele</strong> as <em>Church Secretary</em>.
                 </p>
               </div>
             </div>

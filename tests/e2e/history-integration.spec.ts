@@ -153,10 +153,17 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
       await expect(page.getByText("Community Anthem / Preserved Oral Heritage")).toBeVisible();
 
       // Verbatim Anthem lines
-      await expect(page.getByText("Takete Ide ilu olokiki, ngha tedo h’owo oke")).toBeVisible();
+      await expect(page.getByText("Takete-Ide ilu olokiki, ngha tedo h’owo oke")).toBeVisible();
+      await expect(page.getByText("Nghun gbogbo aiye ri")).toBeVisible();
+      await expect(page.getByText("Olorun 'a ape o, ngho daa 'a hi Takete")).toBeVisible();
       await expect(page.getByText("Ile nghin san ghun wara at’oyin").first()).toBeVisible();
-      await expect(page.getByText("Solo/ T’agbe Tahete Ide ga")).toBeVisible();
-      await expect(page.getByText("All/ T.agbe Takete Ide ga")).toBeVisible();
+      await expect(page.getByText("Solo/ T’agbe Takete-Ide ga")).toBeVisible();
+      await expect(page.getByText("All/ T’agbe Takete-Ide ga")).toBeVisible();
+
+      // Corrected against the centenary publication (p14)
+      const anthemText = await page.locator("main").innerText();
+      expect(anthemText).not.toContain("gbpgbo");
+      expect(anthemText).not.toContain("Tahete");
 
       // Distinct Oríkì Agbagba Ide section
       await expect(page.getByRole("heading", { name: "Oríkì Agbagba Ide" })).toBeVisible();
@@ -231,8 +238,9 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
       // Confirmed current 13th Olu'de with authentic portrait & community confirmation
       await expect(page.getByText("Current Olu’de", { exact: true })).toBeVisible();
       await expect(page.getByText(/Traditional Stool|Community Confirmed/i)).toBeVisible();
-      await expect(page.getByRole("heading", { name: "Oba Philip Ebilakun" })).toBeVisible();
+      await expect(page.getByRole("heading", { name: "Oba Philip Omolade Aladuge Ebilakun" })).toBeVisible();
       await expect(page.getByText("The Olu’de of Takete-Ide").first()).toBeVisible();
+      await expect(page.getByText("Second Class Oba, Mopamuro LGA").first()).toBeVisible();
       await expect(page.getByText("13th Olu’de").first()).toBeVisible();
       await expect(page.getByAltText(/Portrait of Oba Philip Ebilakun in royal attire/i)).toBeVisible();
 
@@ -240,23 +248,27 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
       const pageText = await page.innerText("body");
       expect(pageText).not.toContain("Awaiting confirmation from the traditional council");
       expect(pageText).not.toContain("Current-status confirmation with the traditional institution remains pending");
+      // Unsupported claim removed during editorial review
+      expect(pageText).not.toContain("Local Government Traditional Council");
 
-      // Historical Olu'de Register (12 rulers with confirmed family & ward affiliations)
+      // Historical Olu'de Register (13 rulers in living memory, pp. 18–19 and 61–62)
       await expect(page.getByRole("heading", { name: "Historical Olu’de Register" })).toBeVisible();
-      
+      await expect(page.getByText("13 Rulers Recorded in Living Memory")).toBeVisible();
+
       const expectedRulers = [
         { name: "Olu’de Opalu", family: "Atemayi", ward: "Oke-Ako" },
-        { name: "Olu’de Ide", family: "Eseyintelu", ward: "Ile-Nla" },
-        { name: "Olu’de Oriko", family: "Oriko", ward: "Osikegun" },
-        { name: "Olu’de Atte Gbogori", family: "Atemesami", ward: "Osikegun" },
-        { name: "Olu’de Orunmbe", family: "Eseyintelu", ward: "Osikegun" },
-        { name: "Olu’de Obadofin Obere", family: "Atemeji", ward: "Oketaro" },
-        { name: "Olu’de Obaba Omologun", family: "Atemeto", ward: "Oke-Oja" },
-        { name: "Olu’de Obajemu Atepa", family: "Atemogbe", ward: "Oke-Oja" },
-        { name: "Olu’de Elewa", family: "Eseyinmeleri", ward: "Osikegun" },
-        { name: "Olu’de Obajemu Ate", family: "Atejagbo", ward: "Osikegun" },
-        { name: "Olu’de Alufa Olukotun", family: "Atejaba", ward: "Oketaro" },
-        { name: "Olu’de J.A. Fiki", family: "Atemayi", ward: "Oke-Oja" },
+        { name: "Olu’de Ide", family: "Eseyintelu", ward: "Ile-Nla, Odo-Takete" },
+        { name: "Olu’de Oriko", family: "Oriko", ward: "Osikegun, Oke-Adan" },
+        { name: "Olu’de Opaku Gogori", family: "Atemesami", ward: "Osikegun, Oke-Adan" },
+        { name: "Olu’de Orunbe", family: "Eseyintelu", ward: "Osikegun, Oke-Adan" },
+        { name: "Olu’de Obadofin Obere", family: "Atemeji", ward: "Oketaro, Odo-Takete" },
+        { name: "Olu’de Obaba Omologun", family: "Atemeto", ward: "Oke-Oja, Oke-Ako" },
+        { name: "Olu’de Obajemu Atepa", family: "Atemogbe", ward: "Oke-Oja, Oke-Ako" },
+        { name: "Olu’de Okoo Elewa", family: "Eseyinmeleri", ward: "Osikegun, Oke-Adan" },
+        { name: "Olu’de Obajemu Tolufase", family: "Atejagbo", ward: "Osikegun, Oke-Adan" },
+        { name: "Olu’de Alfa Olukotun", family: "Atejaba", ward: "Oketaro, Odo-Takete" },
+        { name: "Olu’de Joshua Alege Fiki", family: "Atemayi", ward: "Oke-Oja, Oke-Ako" },
+        { name: "Oba Philip Omolade Aladuge Ebilakun", family: "Eseyintelu", ward: "Ikoj’Agun, Oke-Adan" },
       ];
 
       for (const ruler of expectedRulers) {
@@ -264,6 +276,22 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
         await expect(page.getByText(ruler.family).first()).toBeVisible();
         await expect(page.getByText(ruler.ward).first()).toBeVisible();
       }
+
+      // Alternative names appear as notes, not brackets
+      for (const alias of [
+        "Also recorded as Olu’de Atte Gbogori.",
+        "Also recorded as Olu’de Orunmbe.",
+        "Also recorded as Olu’de Elewa.",
+        "Also recorded as Olu’de Obajemu Ate.",
+        "Also recorded as Olu’de Alufa Olukotun.",
+        "Also recorded as Olu’de J.A. Fiki.",
+      ]) {
+        await expect(page.getByText(alias).first()).toBeVisible();
+      }
+      await expect(page.getByText(/Reigned 1983–2003/).first()).toBeVisible();
+      const registerText = await page.locator("table").innerText();
+      expect(registerText).not.toMatch(/\[[^\]]*\]/);
+      await expect(page.locator("table tbody tr")).toHaveCount(13);
 
       // Cross-link to compounds & families
       await expect(page.getByRole("heading", { name: "Explore Compounds & Families" })).toBeVisible();
@@ -278,7 +306,7 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
   });
 
   test.describe("Documented Families & Compounds Integration", () => {
-    test("/families/compounds renders 5 unique documented compounds with families and Olu'des", async ({ page }) => {
+    test("/families/compounds renders 6 unique documented compounds with families and Olu'des", async ({ page }) => {
       const res = await page.goto("/families/compounds");
       expect(res?.status()).toBe(200);
 
@@ -290,13 +318,14 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
         page.getByText(/document traditional residential settlements and lineage associations/i),
       ).toBeVisible();
 
-      // All 5 unique compounds present
+      // All 6 unique compounds present
       const expectedCompounds = [
         { name: "Oke-Ako", family: "Atemayi", ruler: "Olu’de Opalu" },
         { name: "Ile-Nla", family: "Eseyintelu", ruler: "Olu’de Ide" },
-        { name: "Osikegun", family: "Oriko", ruler: "Olu’de Oriko" },
-        { name: "Oketaro", family: "Atemeji", ruler: "Olu’de Obadofin Obere" },
-        { name: "Oke-Oja", family: "Atemeto", ruler: "Olu’de Obaba Omologun" },
+        { name: "Osikegun", family: "Oriko", ruler: "Olu’de Okoo Elewa" },
+        { name: "Oketaro", family: "Atemeji", ruler: "Olu’de Alfa Olukotun" },
+        { name: "Oke-Oja", family: "Atemeto", ruler: "Olu’de Joshua Alege Fiki" },
+        { name: "Ikoj’Agun", family: "Eseyintelu", ruler: "Oba Philip Omolade Aladuge Ebilakun" },
       ];
 
       for (const comp of expectedCompounds) {
@@ -358,11 +387,60 @@ test.describe("Takete-Ide complete historical integration & depth", () => {
       await expect(atemayiCard.getByRole("link", { name: "Oke-Ako" })).toBeVisible();
       await expect(atemayiCard.getByRole("link", { name: "Oke-Oja" })).toBeVisible();
 
-      // Eseyintelu shows both Ile-Nla and Osikegun
+      // Eseyintelu shows Ile-Nla, Osikegun and Ikoj'Agun
       const eseyinteluHeading = page.getByRole("heading", { name: "Eseyintelu", level: 2 });
       const eseyinteluCard = eseyinteluHeading.locator("xpath=ancestor::div[contains(@class, 'rounded-3xl')]");
       await expect(eseyinteluCard.getByRole("link", { name: "Ile-Nla" })).toBeVisible();
       await expect(eseyinteluCard.getByRole("link", { name: "Osikegun" })).toBeVisible();
+      await expect(eseyinteluCard.getByRole("link", { name: "Ikoj’Agun" })).toBeVisible();
+      await expect(eseyinteluCard.getByText("Oba Philip Omolade Aladuge Ebilakun")).toBeVisible();
+    });
+  });
+
+  test.describe("Centenary publication corrections", () => {
+    test("faith timeline uses the documented groundbreaking and bell accounts", async ({ page }) => {
+      await page.goto("/heritage/faith");
+      const text = await page.locator("main").innerText();
+      expect(text).toContain("Mr W.S. Craig performs the groundbreaking ceremony");
+      expect(text).toContain("travel to Lokoja to seek approval");
+      expect(text).toContain("The bell arrives on 24 May 1939 and is still in use.");
+      expect(text).toContain("Healing Church International is established in Takete-Ide.");
+      expect(text).not.toContain("triumphantly");
+      // RCCG confirmed by the project owner as the "Redeemed Church of Christ 2006" entry (p58)
+      expect(text).toContain("Redeemed Christian Church of God (RCCG) Established");
+      expect(text.match(/Redeemed Christian Church of God \(RCCG\) Established/g)).toHaveLength(1);
+    });
+
+    test("pacesetters list the three pioneering nurses together and omit unconfirmed football details", async ({ page }) => {
+      await page.goto("/heritage/pacesetters");
+      const text = await page.locator("main").innerText();
+      expect(text).toContain("Mrs Sarah Moritiwon, the late Mrs Marion Ayeni and Mrs Margret Omoboni Mokunolu");
+      expect(text).not.toContain("followed by");
+      expect(text).toContain("later the first Takete-Ide indigene to be Secretary of MopAmuro LG");
+      expect(text).toContain("Capt. Gbenga Olayemi");
+      expect(text).not.toMatch(/Molde|Sivasspor/);
+    });
+
+    test("education and development pages reflect the 1983 takeover and publication-time project status", async ({ page }) => {
+      await page.goto("/education");
+      await expect(page.getByText(/renamed it Government Day Secondary School \(GDSS\)/).first()).toBeVisible();
+
+      await page.goto("/development");
+      await expect(page.getByText(/describes the Takete-Ide Ultramodern Civic Centre as almost completed/).first()).toBeVisible();
+      const text = await page.locator("main").innerText();
+      expect(text).not.toContain("the modern Olu’de Palace");
+    });
+
+    test("First Baptist page names Pa Noah Eseyin Omoyele consistently", async ({ page }) => {
+      await page.goto("/heritage/faith/first-baptist-church");
+      const text = await page.locator("main").innerText();
+      expect(text).toContain("Pa Noah Eseyin Omoyele");
+      expect(text).not.toContain("relationship between the names");
+    });
+
+    test("footer carries the production credit", async ({ page }) => {
+      await page.goto("/");
+      await expect(page.locator("footer").getByText(/Production: Fina Productions/)).toBeVisible();
     });
   });
 

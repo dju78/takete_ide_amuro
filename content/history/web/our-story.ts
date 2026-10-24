@@ -172,10 +172,10 @@ export const OUR_STORY_SECTIONS: HistoricalSection[] = [
     sourceType: "community-historical-account",
     verificationStatus: "community-account",
     summary:
-      "Around 1926, led by hunter-surveyors such as Pa Thomas Ode and affirmed by community consensus, the people descended from the hill settlements of Ilu-Oke to the fertile plain below. The quarters of Odo Takete, Oke Adan, and Oke Ako established the modern town, initially naming it Ileteju before affirming the historic name Takete-Idera.",
+      "Around 1926, led by hunter-surveyors such as Pa Thomas Ode and affirmed by community consensus, the people descended from the hill settlements of Ilu-Oke to the fertile plain below during the reign of Olu’de Okoo Elewa. The quarters of Odo Takete, Oke Adan, and Oke Ako established the modern town, initially naming it Ileteju before affirming the historic name Takete-Idera.",
     keyPoints: [
-      "The descent to the present low-plain site occurred in 1926 or thereabouts.",
-      "Community memory commemorates Pa George Fiki as the first child born in the new settlement.",
+      "The descent to the present low-plain site occurred in 1926 or thereabouts, during the reign of Olu’de Okoo Elewa.",
+      "Community memory commemorates Pa George Fiki as the first child born in the new settlement; decades later his younger brother, Oba Joshua Alege Fiki, reigned as the 12th Olu’de (1983–2003).",
       "The new site offered fertile farmland, abundant water, and enduring peace.",
     ],
     editorialNote:

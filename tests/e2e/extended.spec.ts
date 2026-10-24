@@ -143,7 +143,7 @@ test.describe("Families & Oríkì presentation", () => {
 
   test("Traditional Institution displays confirmed current Olu'de Oba Philip Ebilakun", async ({ page }) => {
     await page.goto("/heritage/traditional-institution");
-    await expect(page.getByRole("heading", { name: "Oba Philip Ebilakun" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Oba Philip Omolade Aladuge Ebilakun" })).toBeVisible();
     await expect(page.getByText("Current Olu’de", { exact: true })).toBeVisible();
     await expect(page.getByText(/Traditional Stool|Community Confirmed/i)).toBeVisible();
   });

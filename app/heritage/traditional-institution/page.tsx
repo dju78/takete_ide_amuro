@@ -11,6 +11,7 @@ import { formatDate } from "@/lib/utils";
 import { siteConfig } from "@/lib/site-config";
 import {
   CONFIRMED_OLUDE_REGISTER,
+  oludeLocationLabel,
   type HistoricalOludeEntry,
 } from "@/content/history/web/historical-family-compounds";
 
@@ -193,16 +194,18 @@ export default async function TraditionalInstitutionPage() {
                     </span>
                   </div>
                   <h3 className="mt-2 font-serif text-2xl font-bold text-purple-950">
-                    Oba Philip Ebilakun
+                    Oba Philip Omolade Aladuge Ebilakun
                   </h3>
                   <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm font-medium text-gold-800">
                     <span>The Olu’de of Takete-Ide</span>
                     <span>•</span>
+                    <span>Second Class Oba, Mopamuro LGA</span>
+                    <span>•</span>
                     <span>13th Olu’de</span>
                   </div>
                   <p className="mt-3 text-sm leading-relaxed text-charcoal/85">
-                    Oba Philip Ebilakun serves as the current Olu’de of Takete-Ide, standing as the thirteenth
-                    Olu’de in the recorded succession.
+                    Oba Philip Omolade Aladuge Ebilakun is of the Eseyintelu lineage, from the Ikoj’Agun quarter of
+                    Oke-Adan ward, and is the thirteenth Olu’de in the recorded succession.
                   </p>
                   <p className="mt-2 text-sm leading-relaxed text-charcoal/75">
                     As Olu’de, he heads the Takete-Ide Traditional Council within the community’s traditional
@@ -226,7 +229,7 @@ export default async function TraditionalInstitutionPage() {
                 Historical Olu’de Register
               </h2>
             </div>
-            <span className="text-xs text-charcoal/60">12 Rulers Recorded</span>
+            <span className="text-xs font-semibold text-purple-900/80">13 Rulers Recorded in Living Memory</span>
           </div>
 
           <p className="mt-4 text-xs leading-relaxed text-charcoal/70 sm:text-sm">
@@ -251,11 +254,16 @@ export default async function TraditionalInstitutionPage() {
                     <td className="py-3 pl-6 pr-3 font-mono text-xs font-bold text-gold-700">
                       {String(entry.number).padStart(2, "0")}
                     </td>
-                    <td className="py-3 px-3 font-serif font-bold text-purple-950">{entry.name}</td>
+                    <td className="py-3 px-3">
+                      <p className="font-serif font-bold text-purple-950">{entry.name}</p>
+                      {entry.notes && (
+                        <p className="mt-0.5 text-xs text-charcoal/70">{entry.notes}</p>
+                      )}
+                    </td>
                     <td className="py-3 px-3 font-medium text-charcoal/80">{entry.family}</td>
                     <td className="py-3 pl-3 pr-6">
-                      <span className="rounded-full bg-purple-50 px-2.5 py-0.5 text-xs font-medium text-purple-800">
-                        {entry.ward}
+                      <span className="whitespace-nowrap rounded-full bg-purple-50 px-2.5 py-0.5 text-xs font-medium text-purple-800">
+                        {oludeLocationLabel(entry)}
                       </span>
                     </td>
                   </tr>
@@ -275,13 +283,16 @@ export default async function TraditionalInstitutionPage() {
                   <span className="flex h-6 w-6 items-center justify-center rounded bg-gold-500/20 font-mono text-xs font-bold text-purple-950">
                     {String(entry.number).padStart(2, "0")}
                   </span>
-                  <span className="rounded-full bg-purple-100 px-2 py-0.5 text-[11px] font-medium text-purple-800">
-                    {entry.ward}
+                  <span className="whitespace-nowrap rounded-full bg-purple-100 px-2 py-0.5 text-[11px] font-medium text-purple-800">
+                    {oludeLocationLabel(entry)}
                   </span>
                 </div>
                 <div>
                   <h3 className="font-serif text-base font-bold text-purple-950">{entry.name}</h3>
-                  <p className="text-xs text-charcoal/70">
+                  {entry.notes && (
+                    <p className="mt-0.5 text-xs text-charcoal/70">{entry.notes}</p>
+                  )}
+                  <p className="mt-1 text-xs text-charcoal/70">
                     Family: <span className="font-medium text-purple-900">{entry.family}</span>
                   </p>
                 </div>

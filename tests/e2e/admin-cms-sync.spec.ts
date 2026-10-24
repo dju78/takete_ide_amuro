@@ -58,11 +58,11 @@ test.describe("Canonical Data to Public Website Rendering", () => {
     expect(network.length).toBeGreaterThanOrEqual(14);
   });
 
-  test("Traditional Institution page renders Oba Philip Ebilakun and confirmed 12-ruler register", async ({ page }) => {
+  test("Traditional Institution page renders Oba Philip Ebilakun and confirmed 13-ruler register", async ({ page }) => {
     await page.goto("/heritage/traditional-institution");
 
     await expect(page.getByRole("heading", { name: "Traditional Institution", level: 1 })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Oba Philip Ebilakun" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Oba Philip Omolade Aladuge Ebilakun" })).toBeVisible();
     await expect(page.getByRole("heading", { name: "Historical Olu’de Register" })).toBeVisible();
   });
 });

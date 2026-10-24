@@ -190,7 +190,7 @@ test.describe("Faith & Religious Heritage Section — Takete-Ide Archive", () =>
         "Pa Luke Olorunleke",
         "Pa Paul Amora",
         "Pa Saul Akedi",
-        "Pa Noah Omoyele",
+        "Pa Noah Eseyin Omoyele",
         "Pa Alfred Eseyin",
       ];
       for (const founder of expectedFounders) {
