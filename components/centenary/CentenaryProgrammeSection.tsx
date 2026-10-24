@@ -1,13 +1,19 @@
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ProgrammeCountdownBadge } from "@/components/centenary/ProgrammeCountdownBadge";
 import type { CentenaryProgrammeItem } from "@/lib/media/community-programme";
-import { CalendarDays, MapPin, Clock, Award, Sparkles } from "lucide-react";
+import { CalendarDays, MapPin, Clock, Award, Sparkles, Info } from "lucide-react";
+
+/** Times are always West Africa Time; append the zone unless the label already carries it. */
+function watLabel(label: string) {
+  return /WAT/i.test(label) ? label : `${label} WAT`;
+}
 
 interface CentenaryProgrammeSectionProps {
   programmes: CentenaryProgrammeItem[];
 }
 
 export function CentenaryProgrammeSection({ programmes }: CentenaryProgrammeSectionProps) {
+  const untimedDays = programmes.filter((p) => !p.timeLabel && !p.startTime);
   return (
     <section id="programme" className="scroll-mt-20">
       <SectionHeading
@@ -17,6 +23,16 @@ export function CentenaryProgrammeSection({ programmes }: CentenaryProgrammeSect
         className="mx-0"
         description="Three historic days celebrating a century of Takete-Ide's heritage, unity and progress."
       />
+
+      {untimedDays.length > 0 && (
+        <p className="mt-6 flex items-start gap-2 rounded-2xl border border-purple-600/10 bg-purple-50/60 px-4 py-3 text-sm text-charcoal/80">
+          <Info className="mt-0.5 h-4 w-4 shrink-0 text-purple-600" aria-hidden="true" />
+          <span>
+            Times for {untimedDays.map((d) => d.dateLabel.split(",")[0]).join(" and ")} have not yet been announced.
+            All times are West Africa Time (WAT).
+          </span>
+        </p>
+      )}
 
       <div className="mt-10 space-y-8">
         {programmes.map((item) => {
@@ -59,10 +75,12 @@ export function CentenaryProgrammeSection({ programmes }: CentenaryProgrammeSect
                       <span className="font-medium">{item.dateLabel}</span>
                     </div>
 
-                    <div className="flex items-center gap-2.5 text-sm text-white/90">
-                      <Clock className="h-4 w-4 shrink-0 text-gold-300" aria-hidden="true" />
-                      <span className="font-medium">{item.timeLabel ?? "Time to be confirmed"}</span>
-                    </div>
+                    {(item.timeLabel || item.startTime) && (
+                      <div className="flex items-center gap-2.5 text-sm text-white/90">
+                        <Clock className="h-4 w-4 shrink-0 text-gold-300" aria-hidden="true" />
+                        <span className="font-medium">{watLabel(item.timeLabel ?? item.startTime!)}</span>
+                      </div>
+                    )}
 
                     <div className="flex items-center gap-2.5 text-sm text-white/90 sm:col-span-2 lg:col-span-1">
                       <MapPin className="h-4 w-4 shrink-0 text-gold-300" aria-hidden="true" />
@@ -105,10 +123,12 @@ export function CentenaryProgrammeSection({ programmes }: CentenaryProgrammeSect
                     <span className="font-medium text-charcoal/90">{item.dateLabel}</span>
                   </div>
 
-                  <div className="flex items-center gap-2">
-                    <Clock className="h-4 w-4 text-purple-600" aria-hidden="true" />
-                    <span>{item.timeLabel ?? "Time to be confirmed"}</span>
-                  </div>
+                  {(item.timeLabel || item.startTime) && (
+                    <div className="flex items-center gap-2">
+                      <Clock className="h-4 w-4 text-purple-600" aria-hidden="true" />
+                      <span>{watLabel(item.timeLabel ?? item.startTime!)}</span>
+                    </div>
+                  )}
 
                   <div className="flex items-center gap-2">
                     <MapPin className="h-4 w-4 text-purple-600" aria-hidden="true" />

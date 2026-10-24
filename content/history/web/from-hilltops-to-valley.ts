@@ -81,7 +81,7 @@ export const BOOK_DEVELOPMENT_INTERVENTIONS = [
     period: "1980",
     title: "Secondary school",
     detail:
-      "The defunct Oyi Local Government established a secondary school in Takete-Ide, now known as Government Day Secondary School.",
+      "The defunct Oyi Local Government established Oyi Local Government Secondary School in Takete-Ide. The state government took it over in 1983 as Government Day Secondary School.",
   },
   {
     period: "Around the same period",

@@ -18,7 +18,7 @@ const options = [
   { icon: Users, title: "Community Projects", description: "Support ongoing development projects with time, expertise or funding." },
   { icon: Globe2, title: "Diaspora Participation", description: "Join the diaspora network to stay connected and contribute from abroad.", href: "/diaspora" },
   { icon: BookOpen, title: "Explore the Digital Archive", description: "Explore historical documents, photographs, and migration records.", href: "/archive" },
-  { icon: Mic, title: "Voices of Takete-Ide", description: "Listen to community oral testimonies, audio recordings, and ancestral recollections.", href: "/archive/oral-history" },
+  { icon: Mic, title: "Voices of Takete-Ide", description: "Recommend an elder to interview or share recollections for the oral history archive.", href: "/archive/oral-history" },
   { icon: Handshake, title: "Community Partnerships", description: "Explore institutional or organisational partnerships with Takete-Ide." },
   { icon: Sparkles, title: "Youth Engagement", description: "Get young people involved in heritage, development and leadership." },
 ];

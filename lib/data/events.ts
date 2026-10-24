@@ -23,6 +23,18 @@ function mapEvent(row: any): TaketeIdeEvent {
   };
 }
 
+/**
+ * Takete-Ide Day years whose fundraising figures have documented approval. Fundraising
+ * records for any other year are withheld from public pages, whether they come from the
+ * canonical records below or from the database. Add a year here only once its figures
+ * have been approved.
+ */
+const APPROVED_FUNDRAISING_YEARS: ReadonlySet<number> = new Set<number>();
+
+function withApprovedFundraising(event: TaketeIdeEvent): TaketeIdeEvent {
+  return APPROVED_FUNDRAISING_YEARS.has(event.year) ? event : { ...event, fundraising: [] };
+}
+
 export const CANONICAL_EVENTS: TaketeIdeEvent[] = [
   {
     id: "event-2025",
@@ -86,14 +98,8 @@ export const CANONICAL_EVENTS: TaketeIdeEvent[] = [
           "Conferred on 25th October 2025 by His Royal Highness Oba Philip Ebilakun (JP), The Olude of Takete-Ide Amuro, and Prince (Bldr) Richard Dare Fiki, National President of TIPU, in recognition and conferment of dedicated service and cultural ambassadorship.",
       },
     ],
-    fundraising: [
-      {
-        purpose: "Community Infrastructure & Centenary Heritage Projects",
-        target_amount: 50000000,
-        amount_raised: 18500000,
-        currency: "NGN",
-      },
-    ],
+    // Fundraising figures withheld pending approval evidence (see the private editorial log).
+    fundraising: [],
   },
   {
     id: "event-2024",
@@ -121,14 +127,8 @@ export const CANONICAL_EVENTS: TaketeIdeEvent[] = [
     ],
     speeches: [],
     awards: [],
-    fundraising: [
-      {
-        purpose: "Civic Centre Renovations and Community Electrification",
-        target_amount: 30000000,
-        amount_raised: 12000000,
-        currency: "NGN",
-      },
-    ],
+    // Fundraising figures withheld pending approval evidence (see the private editorial log).
+    fundraising: [],
   },
 ];
 
@@ -154,7 +154,9 @@ export async function getPublishedEvents(): Promise<TaketeIdeEvent[]> {
     map.set(event.year, event);
   }
 
-  return Array.from(map.values()).sort((a, b) => b.year - a.year);
+  return Array.from(map.values())
+    .map(withApprovedFundraising)
+    .sort((a, b) => b.year - a.year);
 }
 
 export async function getLatestEvent(): Promise<TaketeIdeEvent | null> {

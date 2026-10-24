@@ -6,6 +6,9 @@ import { accuweatherIconUrl } from "@/lib/weather/icon";
 /** For Takete-Ide Day and other event pages. Only shows real forecast data within the provider's window. */
 export async function EventWeather({ eventDateIso }: { eventDateIso: string | null }) {
   if (!eventDateIso) return null;
+  // Past events have no forecast to show.
+  const today = new Date().toLocaleDateString("en-CA", { timeZone: "Africa/Lagos" });
+  if (eventDateIso.slice(0, 10) < today) return null;
 
   const forecast = await getForecast();
   const day = forecast?.days.find((d) => d.date.slice(0, 10) === eventDateIso.slice(0, 10));

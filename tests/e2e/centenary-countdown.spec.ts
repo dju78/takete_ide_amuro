@@ -195,14 +195,15 @@ test.describe("Centenary UI & Responsive Experience", () => {
     await expect(page.getByRole("link", { name: "Programme" })).toBeVisible();
     await expect(page.getByRole("link", { name: "Highlights" })).toBeVisible();
 
-    // Programme schedule cards: Day 1 and 2 display Programme details to be confirmed
+    // Programme schedule cards: one shared notice for the untimed days, 10:00 AM WAT on the main day
     await expect(page.getByRole("heading", { name: "Centenary Programme" })).toBeVisible();
     await expect(page.locator("#programme").getByText("Thursday, 29 October 2026")).toBeVisible();
     await expect(page.locator("#programme").getByText("Friday, 30 October 2026")).toBeVisible();
     await expect(page.locator("#programme").getByText("Saturday, 31 October 2026")).toBeVisible();
 
-    const unconfirmedNotices = await page.locator("#programme").getByText("Programme details to be confirmed").count();
-    expect(unconfirmedNotices).toBe(2);
+    await expect(page.locator("#programme").getByText(/Times for Thursday and Friday have not yet been announced/)).toHaveCount(1);
+    await expect(page.locator("#programme").getByText("Programme details to be confirmed")).toHaveCount(0);
+    await expect(page.locator("#programme").getByText("10:00 AM WAT")).toBeVisible();
 
     await expect(page.locator("#programme").getByRole("heading", { name: "2026 Takete-Ide Day Centenary Celebration" })).toBeVisible();
 

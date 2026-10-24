@@ -12,7 +12,7 @@ import { getArchiveItems } from "@/lib/data/archive";
 
 export const metadata: Metadata = {
   title: "Digital Archive",
-  description: "Historical photographs, documents, records and oral histories of Takete-Ide Amuro.",
+  description: "Historical photographs, documents and records of Takete-Ide Amuro.",
 };
 
 export const revalidate = 3600;
@@ -47,7 +47,7 @@ export default async function ArchivePage({ searchParams }: Props) {
         <IconCard
           icon={Mic}
           title="Voices of Takete-Ide"
-          description="Oral history recordings from community elders and knowledge-holders."
+          description="Help record the memories of community elders and knowledge-holders."
           href="/archive/oral-history"
           tone="gold"
           className="mb-10"

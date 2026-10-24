@@ -125,7 +125,7 @@ export const navGroups: NavGroup[] = [
     href: "/heritage",
     items: [
       { label: "Culture & Heritage", href: "/heritage", description: "Festivals, dress, faith and the land", featured: true },
-      { label: "Community History Manuscript", href: "/archive/from-hilltops-to-the-valley", description: "A chapter-by-chapter guide to From the Hilltops to the Valley", featured: true },
+      { label: "Community History Overview", href: "/archive/from-hilltops-to-the-valley", description: "Takete-Ide’s history at a glance, with links to read more", featured: true },
       { label: "Amuro, Yagba & Okun Context", href: "/heritage/amuro-okun-context", description: "Wider historical setting, identity and origin traditions" },
       { label: "Land & Landscape", href: "/heritage/land-and-landscape", description: "Location, neighbouring settlements, hills, rivers and streams" },
       { label: "Music, Games & Everyday Heritage", href: "/heritage/music-games", description: "Traditional music, instruments, childhood games and older cultural practices" },
@@ -193,7 +193,7 @@ export const footerGroups: { heading: string; items: NavItem[] }[] = [
     items: [
       { label: "About", href: "/our-story" },
       { label: "History", href: "/our-story" },
-      { label: "Community History Manuscript", href: "/archive/from-hilltops-to-the-valley" },
+      { label: "Community History Overview", href: "/archive/from-hilltops-to-the-valley" },
       { label: "Faith & Religious Heritage", href: "/heritage/faith" },
       { label: "Culture", href: "/heritage" },
       { label: "Festivals", href: "/heritage/festivals" },

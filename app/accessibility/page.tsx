@@ -30,9 +30,10 @@ export default function AccessibilityPage() {
 
           <h2>Known Limitations</h2>
           <p>
-            As a actively developed platform, some pages — particularly rich media (audio/video in the
-            Oríkì and Oral History archives) — may not yet have complete captions or transcripts for every
-            item. These are added progressively as source material allows.
+            Some audio and video on this site, including Oríkì recordings, community videos and celebration
+            footage, does not yet have captions or transcripts. Where a video has no captions, this is stated
+            beside it. If you need the content of a recording in another format, please contact us using the
+            form below.
           </p>
 
           <h2>Reporting an Accessibility Problem</h2>
