@@ -295,9 +295,9 @@ export const BOOK_EARLY_FAITH_MILESTONES = [
   },
   {
     period: "2006",
-    title: "Redeemed congregation established",
+    title: "Redeemed Christian Church of God established",
     detail:
-      "The Redeemed Christian Church of God established its local parish in Takete-Ide around 2006.",
+      "The Redeemed Christian Church of God (RCCG) established its local parish in Takete-Ide in 2006.",
   },
 ] as const;
 

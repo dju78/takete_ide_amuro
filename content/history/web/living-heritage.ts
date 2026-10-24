@@ -16,20 +16,20 @@ export const TAKETE_IDE_ANTHEM = {
   title: "Takete-Ide Community Anthem",
   classification: "Community Anthem / Preserved Oral Heritage",
   sourceFraming:
-    "The following anthem is preserved verbatim in the supplied Takete-Ide historical community account. Original orthography and performance notations are retained.",
+    "The anthem has been handed down through generations. Its original orthography and performance notations are retained.",
   originalText: [
-    "Takete Ide ilu olokiki, ngha tedo h’owo oke",
-    "Nghun gbpgbo aiye ri",
-    "Olorun gha ape o, ngho daagha hi Takete",
+    "Takete-Ide ilu olokiki, ngha tedo h’owo oke",
+    "Nghun gbogbo aiye ri",
+    "Olorun 'a ape o, ngho daa 'a hi Takete",
     "",
     "Agbagba Ide gbogbo /2*",
     "O le ha h’abe re ojo a paa",
     "Ide ni unkan a mo mo /2*",
     "Ile nghin san ghun wara at’oyin",
-    "Eje a howo po t’agbe Takete Ide ga",
-    "Solo/ T’agbe Tahete Ide ga",
-    "All/ T.agbe Takete Ide ga",
-    "Eje a ho wo po t’agbe Takete Ide ga",
+    "Eje a howo po t’agbe Takete-Ide ga",
+    "Solo/ T’agbe Takete-Ide ga",
+    "All/ T’agbe Takete-Ide ga",
+    "Eje a ho wo po t’agbe Takete-Ide ga",
   ],
   performanceNotes:
     "Notations in the source: '/2*' indicates a two-fold repetition of the line; 'Solo/' and 'All/' denote the traditional call-and-response refrain.",
@@ -55,5 +55,5 @@ export const ORIKI_AGBAGBA_IDE = {
     "A mi g’orun ghanghan l’ekikan",
   ],
   editorialNote:
-    "Preserved in original form for community documentation. Authorised translations and authenticated audio recitations will be published upon confirmation with community elders and the traditional council.",
+    "Preserved in its original form.",
 };

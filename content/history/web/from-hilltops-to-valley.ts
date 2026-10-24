@@ -27,7 +27,13 @@ export const BOOK_EDUCATION_MILESTONES = [
     period: "1980",
     title: "Government secondary school",
     detail:
-      "The community secondary school was established by the defunct Oyi Local Government in 1980; it later became Government Day Secondary School, Takete-Ide.",
+      "Efforts to secure a secondary school began in the mid-1970s, led by senior civil servants including the late William Omoniwa, the late Tobi Ipinlaiye, the late Cyril Adegoke and Dr David Atte. In 1980 the defunct Oyi Local Government opened Oyi Local Government Secondary School in Takete-Ide, first on a temporary site within the primary school, with Pa J.K. Fanwo (Chief Obaholo) as its first principal.",
+  },
+  {
+    period: "1983",
+    title: "State takeover as GDSS",
+    detail:
+      "The state government took over the school in 1983, when Dr Atte was Commissioner for Education in the old Kwara State, and renamed it Government Day Secondary School (GDSS), Takete-Ide.",
   },
   {
     period: "2001–2002",
@@ -48,7 +54,7 @@ export const BOOK_HEALTH_MILESTONES = [
     period: "Early nursing history",
     title: "First nurses and midwives of Takete-Ide origin",
     detail:
-      "Mrs Sarah Moritiwon, Mrs Marion Ayeni and Mrs Margret Omoboni Mokuolu were the first three nurses/midwives of Takete-Ide origin, with the first two trained by S.I.M missionaries.",
+      "The late Mrs Sarah Moritiwon, the late Mrs Marion Ayeni and Mrs Margret Omoboni Mokuolu were the first three nurses and midwives of Takete-Ide origin. Mrs Moritiwon and Mrs Ayeni were trained by SIM missionaries.",
   },
   {
     period: "11 October 2011",
@@ -69,7 +75,7 @@ export const BOOK_DEVELOPMENT_INTERVENTIONS = [
     period: "Around 1979",
     title: "Pilot irrigation project",
     detail:
-      "A federal pilot irrigation project was established around 1979 by the Lower Niger River Basin Development Authority, comprising offices, staff quarters and a dam around Ijero, which later declined through neglect.",
+      "A federal pilot irrigation project was established around 1979 by the Lower Niger River Basin Development Authority, comprising offices, staff quarters and a dam around Ijero/Owowo River, which later declined through neglect.",
   },
   {
     period: "1980",
@@ -81,7 +87,13 @@ export const BOOK_DEVELOPMENT_INTERVENTIONS = [
     period: "Around the same period",
     title: "Postal agency",
     detail:
-      "A postal agency was established when letter writing, postal orders and money orders were important channels of communication and remittance.",
+      "A postal agency was established when letter writing, postal orders and money orders were important channels of communication and remittance. Mr John Eseyin, recently retired from the Army, was the officer in charge.",
+  },
+  {
+    period: "1991–2005",
+    title: "Electricity supply",
+    detail:
+      "Around 1991 a TIPU fundraising ceremony financed the start of a self-help power project, but the cables and poles it bought fell short of what was needed. With support from the Kogi State Government, Takete-Ide was connected in 2005, during the tenure of the late Governor Ibrahim Idris. Supply has since suffered long disruptions.",
   },
   {
     period: "2007/08–2012",
@@ -93,7 +105,13 @@ export const BOOK_DEVELOPMENT_INTERVENTIONS = [
     period: "Later interventions",
     title: "Health, ICT, water and agriculture",
     detail:
-      "Key public infrastructure developments include a local-government primary-health outlet, a donated community clinic, NCC-supported computers for the UBE/JSS school, motorised boreholes, FADAMA activity and ACReSAL seedlings for environmental restoration.",
+      "Later developments include a MopAmuro local-government primary health outlet in the Ok’Ako area, the Yahaya Bello Clinic built and donated by Hon. Kingsley Olorunfemi Fanwo, NCC-supported computers for the UBE/JSS school, motorised boreholes, FADAMA activity and ACReSAL seedlings for environmental restoration.",
+  },
+  {
+    period: "At the time of the centenary publication",
+    title: "Civic Centre and Olu’de Palace",
+    detail:
+      "The 2026 centenary history describes the Takete-Ide Ultramodern Civic Centre as almost completed and the Olu’de Palace as under construction, both largely funded through community self-help.",
   },
 ] as const;
 
@@ -164,14 +182,31 @@ export const BOOK_PACESETTERS = [
   ["First female graduate", "Mrs Ebun Obaro, English Education, University of Ilorin, 1982"],
   ["First PhD", "Dr David Atte, Geography, 1979"],
   ["First professor", "Olu Atte, 1995"],
-  ["First nurse", "Mrs Omoboni Mokunolu"],
+  ["First nurses and midwives", "The late Mrs Sarah Moritiwon, the late Mrs Marion Ayeni and Mrs Margret Omoboni Mokunolu, the first three of Takete-Ide origin"],
+  ["First woman to build a storey building", "Mrs Omoboni Mokunolu, around 1984"],
   ["First banker", "Pa Bolarin Olukomogbon"],
   ["First journalist", "Mr Dickson Adeyanju"],
   ["First chartered accountant", "Mr Henry Abimbola"],
+  ["First Senior Advocate of Nigeria (SAN)", "Barrister Samuel Agunbiade"],
+  ["First lawyer", "Barrister Dare Onietan"],
+  ["First Army Captain", "Late Capt. Noah Eseyin"],
+  ["First Army Major", "Late Maj. Monday Adegoke"],
+  ["First Lieutenant Colonel", "Lt. Col. John Kehinde Olukomogbon (serving)"],
+  ["First Legislative Council Speaker, then Yagba LGA", "Mr Abraham Oloruntoba, 1990"],
   ["First commissioner", "Dr David Atte, Kwara State, 1983"],
-  ["First House of Assembly member", "Chief Eric Olorunjuwon Fiki"],
-  ["First Local Government Vice-Chairman", "Chief Emmanuel Elesho"],
-  ["Pioneer principal of GDSS Takete-Ide", "Chief Kayode Fanwo"],
+  ["First House of Assembly member", "Chief Eric Olorunjuwon Fiki, 1999"],
+  ["First Local Government Vice-Chairman", "Chief Emmanuel Elesho, 2013"],
+  ["First Chief Press Secretary to a Governor", "Mr Richard Olaniran Elesho, June 2005"],
+  ["Pioneer principal of GDSS Takete-Ide", "Chief John Kayode Fanwo (Chief Obaholo), when it was Oyi L.G. Secondary School"],
+  ["First Senior Prefect (Head Boy) of GDSS", "Mr Bamidele Eseyin, later the first Takete-Ide indigene to be Secretary of MopAmuro LG"],
+  ["First Head Girl of GDSS", "Racheal Aina Ayeni, now Rev. Mrs Abugan Rachael"],
+  ["First beauty pageant winner", "Late Eunice Omolade Ajayi (née Aiyedogbon), Miss Takete-Ide around 1985"],
+  ["First indigenous clergyman", "Pastor Abiodun Oloja (The Apostolic Church)"],
+  ["First member of the Chartered Institute of Directors, Nigeria", "Pastor Sunday Omoniwa, admitted July 2026"],
+  ["First to play professional football abroad", "Leke James, striker"],
+  ["First television set in the community", "Chief William Omoniwa, a 14-inch black-and-white Tatung run on a Honda generator, late 1970s"],
+  ["First telecommunications base station", "Globacom, July 2021"],
+  ["First to bring photo printing technology", "Mr Dayo Samson (Maiduguri)"],
 ] as const;
 
 export const BOOK_COMMUNITY_ORGANISATIONS = [

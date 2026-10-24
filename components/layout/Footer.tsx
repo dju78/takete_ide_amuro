@@ -102,7 +102,7 @@ export function Footer() {
       <div className="border-t border-white/10 py-6">
         <Container className="flex flex-col items-center justify-between gap-3 text-xs text-white/50 sm:flex-row">
           <p>
-            &copy; {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
+            &copy; {new Date().getFullYear()} {siteConfig.name}. All rights reserved. &bull; Production: Fina Productions
           </p>
           <p className="font-medium text-gold-300/80">Heritage &bull; Unity &bull; Progress</p>
         </Container>

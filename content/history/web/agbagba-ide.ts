@@ -36,7 +36,7 @@ export const AGBAGBA_IDE_TRADITION: AgbagbaIdeTradition = {
     anthemMention: true,
     orikiMention: true,
     editorialNote:
-      "The full original Yoruba texts of the preserved Takete-Ide Community Anthem and the Oriki Agbagba Ide are retained within the source archive (takete-history-original.md). Future digital publication on public audio/archive pages will include authenticated recitations, verified transcriptions, and community-authorized contextual interpretations.",
+      "The full Yoruba texts of the Takete-Ide Community Anthem and the Oríkì Agbagba Ide are published on the anthem page as living oral heritage.",
   },
   editorialSafeguards:
     "Cultural and spiritual narratives surrounding Agbagba Ide are presented as living cultural heritage and collective memory. In accordance with editorial standards, sacred beliefs and oral traditions are treated with deep respect while maintaining a clear distinction from physical, scientific, or archival documentation.",

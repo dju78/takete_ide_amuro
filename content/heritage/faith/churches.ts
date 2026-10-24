@@ -70,7 +70,7 @@ export const CHURCHES_DIRECTORY: ChurchDirectoryItem[] = [
     imageAlt: "First Baptist Church building in Takete-Ide",
     imageCaption: "First Baptist Church, Takete-Ide — present-day church building.",
     summary:
-      "Established in November 1922 following early missionary outreach in Takete-Ide. Founded by Pa Joash Agunbiade, Pa Luke Olorunleke, Pa Paul Amora, Pa Saul Akedi, Pa Noah Omoyele and Pa Alfred Eseyin.",
+      "Established in November 1922 following early missionary outreach in Takete-Ide. Founded by Pa Joash Agunbiade, Pa Luke Olorunleke, Pa Paul Amora, Pa Saul Akedi, Pa Noah Eseyin Omoyele and Pa Alfred Eseyin.",
     historyStatus: "Documented Historical Profile",
     established: "November 1922",
     establishedQualifier: "Documented in preserved church historical account",
@@ -92,8 +92,8 @@ export const CHURCHES_DIRECTORY: ChurchDirectoryItem[] = [
     summary:
       "An established Christian congregation serving the spiritual and community life of Takete-Ide across generations.",
     historyStatus: "Community Church",
-    established: null,
-    establishedQualifier: null,
+    established: "1938",
+    establishedQualifier: "Recorded in the TIPU centenary history",
     featured: false,
     sourceStatus: "community_tradition",
     hasFullProfile: false,
@@ -168,8 +168,8 @@ export const CHURCHES_DIRECTORY: ChurchDirectoryItem[] = [
     summary:
       "A Christian parish serving the Takete-Ide community.",
     historyStatus: "Community Church",
-    established: null,
-    establishedQualifier: null,
+    established: "2006",
+    establishedQualifier: "Recorded in the TIPU centenary history",
     featured: true,
     sourceStatus: "community_tradition",
     hasFullProfile: false,
@@ -187,8 +187,8 @@ export const CHURCHES_DIRECTORY: ChurchDirectoryItem[] = [
     summary:
       "An established place of Christian worship in Takete-Ide, featuring a historic building structure of mud and timber construction.",
     historyStatus: "Community Church",
-    established: null,
-    establishedQualifier: null,
+    established: "1980",
+    establishedQualifier: "Recorded in the TIPU centenary history",
     featured: true,
     sourceStatus: "community_tradition",
     hasFullProfile: false,
@@ -244,8 +244,8 @@ export const CHURCHES_DIRECTORY: ChurchDirectoryItem[] = [
     summary:
       "A Christian place of worship serving the Takete-Ide community.",
     historyStatus: "Community Church",
-    established: null,
-    establishedQualifier: null,
+    established: "1999",
+    establishedQualifier: "Recorded in the TIPU centenary history",
     featured: false,
     sourceStatus: "community_tradition",
     hasFullProfile: false,

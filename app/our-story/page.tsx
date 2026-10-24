@@ -226,7 +226,9 @@ export default function OurStoryPage() {
               </p>
               <p>
                 Historical community memory identifies <strong>Pa George Fiki</strong> as the first child born at
-                the present settlement, marking the dawn of a century of sustained peace and communal stability.
+                the present settlement after the move of around 1926, during the reign of <strong>Olu’de Okoo Elewa</strong>.
+                Decades later, his younger brother, <strong>Oba Joshua Alege Fiki</strong>, ascended the throne as the
+                twelfth recorded Olu’de of Takete-Ide, reigning from 1983 to 2003, and later became the Alamuro.
               </p>
             </SourcedSection>
           </section>
