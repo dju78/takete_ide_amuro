@@ -66,6 +66,13 @@ export default async function LivePage() {
     };
   });
   const dayLabels = Object.fromEntries(days.map((d) => [d.dayNumber, d.dateLabel ? `${d.label} · ${d.dateLabel}` : d.label]));
+  const mainEventLabel = centenary.mainEventTime
+    ? `${centenary.eventDateLabel} at ${centenary.mainEventTime} WAT`
+    : undefined;
+  // Days with no announced time get one shared notice rather than a line each.
+  const itemTime = (i: (typeof programme)[number]) =>
+    i.timeLabel ?? i.startTime ?? (i.isGrandCelebration ? centenary.mainEventTime : undefined);
+  const untimedDays = days.filter((d) => d.items.length > 0 && d.items.every((i) => !itemTime(i)));
 
   return (
     <div className="bg-ivory">
@@ -89,14 +96,14 @@ export default async function LivePage() {
           </div>
           <p className="mt-4 max-w-3xl text-base text-white/85 sm:text-lg">
             Join the celebration from anywhere in the world. Watch the live broadcast, chat with family and friends on
-            YouTube, and catch up on recordings after each session.
+            YouTube, and watch recordings once they are published.
           </p>
         </Container>
       </div>
 
       <Container className="flex flex-col gap-12 py-10 sm:py-14">
         <section aria-label="Live broadcast">
-          <LiveBroadcastHub initial={initial} />
+          <LiveBroadcastHub initial={initial} mainEventLabel={mainEventLabel} />
         </section>
 
         <section id="celebration-audio" aria-labelledby="celebration-audio-heading" className="scroll-mt-24">
@@ -121,6 +128,12 @@ export default async function LivePage() {
             <Clock className="h-4 w-4 shrink-0" aria-hidden="true" />
             All times are {EVENT_TIMEZONE_LABEL}.
           </p>
+          {untimedDays.length > 0 && (
+            <p className="mt-1 text-sm text-charcoal/75" data-testid="untimed-days-note">
+              Times for {untimedDays.map((d) => (d.dateLabel ?? d.label).split(",")[0]).join(" and ")} have not yet
+              been announced.
+            </p>
+          )}
           <ol className="mt-6 grid gap-5 lg:grid-cols-3">
             {days.map((day) => (
               <li key={day.dayNumber} className="flex flex-col rounded-2xl bg-white p-5 ring-1 ring-purple-600/10" data-testid={`programme-day-${day.dayNumber}`}>
@@ -133,21 +146,18 @@ export default async function LivePage() {
                     {day.items.map((item) => (
                       <li key={item.id}>
                         <p className="font-semibold text-charcoal">{item.title}</p>
-                        <p className="mt-0.5 text-sm text-charcoal/75">
-                          {item.timeLabel || item.startTime
-                            ? `${item.timeLabel ?? item.startTime}${item.endTime ? `–${item.endTime}` : ""} WAT`
-                            : "Session times to be announced"}
-                        </p>
+                        {itemTime(item) && (
+                          <p className="mt-0.5 text-sm text-charcoal/75">
+                            {itemTime(item)}
+                            {item.endTime ? `–${item.endTime}` : ""} WAT
+                          </p>
+                        )}
                         {item.description && <p className="mt-1 text-sm text-charcoal/70">{item.description}</p>}
                       </li>
                     ))}
                   </ul>
                 )}
-                {day.dayNumber === 3 && centenary.mainEventTime && (
-                  <p className="mt-4 rounded-xl bg-gold-100 px-3 py-2 text-xs font-semibold text-purple-900">
-                    Official invitation time for the main celebration: {centenary.mainEventTime} WAT
-                  </p>
-                )}
+
               </li>
             ))}
           </ol>
@@ -160,15 +170,7 @@ export default async function LivePage() {
           </p>
         </section>
 
-        <section id="replays" aria-labelledby="replays-heading" className="scroll-mt-24">
-          <h2 id="replays-heading" className="font-serif text-2xl font-bold text-purple-700 sm:text-3xl">
-            Replays
-          </h2>
-          <p className="mt-2 text-sm text-charcoal/75">Missed a session? Recordings are added here after each broadcast.</p>
-          <div className="mt-6">
-            <LiveReplays initial={initial} dayLabels={dayLabels} />
-          </div>
-        </section>
+        <LiveReplays initial={initial} dayLabels={dayLabels} />
 
         <section aria-labelledby="studio-heading" className="flex flex-col items-start gap-4 rounded-2xl bg-purple-700 p-6 text-white sm:flex-row sm:items-center sm:justify-between">
           <div>

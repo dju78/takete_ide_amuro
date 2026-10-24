@@ -427,24 +427,17 @@ export default async function CentenaryPage({ searchParams }: Props) {
           <CentenaryRSVPSection contacts={rsvpContacts} />
         </div>
 
-        {/* Updates */}
-        <section className="mb-16">
-          <SectionHeading eyebrow="Updates" title="Latest Updates" align="left" className="mx-0" />
-          <div className="mt-8">
-            {news.length > 0 ? (
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {news.map((article) => (
-                  <NewsCard key={article.id} article={article} />
-                ))}
-              </div>
-            ) : (
-              <div className="rounded-3xl border border-purple-600/10 bg-white p-8 text-center sm:p-10">
-                <p className="font-serif text-lg font-bold text-purple-900">Centenary updates will appear here</p>
-                <p className="mt-2 text-sm text-charcoal/70">Announcements from the Central Planning Committee will be published here as they are released.</p>
-              </div>
-            )}
-          </div>
-        </section>
+        {/* Updates — shown once the planning committee publishes announcements */}
+        {news.length > 0 && (
+          <section className="mb-16">
+            <SectionHeading eyebrow="Updates" title="Latest Updates" align="left" className="mx-0" />
+            <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {news.map((article) => (
+                <NewsCard key={article.id} article={article} />
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* Support CTA */}
         <div id="support" className="scroll-mt-24 rounded-3xl bg-purple-700 p-8 text-white shadow-sm lg:p-10">

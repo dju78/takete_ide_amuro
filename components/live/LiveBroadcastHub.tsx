@@ -32,7 +32,8 @@ const STATUS_ICONS: Record<BroadcastStatus, React.ComponentType<{ className?: st
   ended: CircleStop,
 };
 
-export function LiveBroadcastHub({ initial }: { initial: PublicBroadcast }) {
+/** mainEventLabel: the confirmed main celebration time, e.g. "Saturday, 31 October 2026 at 10:00 AM WAT". */
+export function LiveBroadcastHub({ initial, mainEventLabel }: { initial: PublicBroadcast; mainEventLabel?: string }) {
   const latest = useLiveStatus(initial);
   // The player only switches video when the viewer agrees, so a config change
   // never yanks someone out of the stream they are watching.
@@ -45,6 +46,8 @@ export function LiveBroadcastHub({ initial }: { initial: PublicBroadcast }) {
   const b = { ...latest, videoId: activeVideoId };
   const newVideoPending = Boolean(latest.videoId && activeVideoId && latest.videoId !== activeVideoId);
   const StatusIcon = STATUS_ICONS[b.status];
+  // Nothing has been configured yet: no video, no status change by the broadcast team.
+  const awaitingSetup = b.status === "scheduled" && !b.videoId && !b.updatedAt;
   const showChat = chatAvailable(b);
 
   return (
@@ -67,20 +70,22 @@ export function LiveBroadcastHub({ initial }: { initial: PublicBroadcast }) {
             </span>
           )}
           <StatusIcon className="h-4 w-4" aria-hidden="true" />
-          {STATUS_LABELS[b.status]}
+          {awaitingSetup ? "Not yet live" : STATUS_LABELS[b.status]}
         </span>
-        <span className="text-xs text-charcoal/70">
-          Status updated manually by the broadcast team
-          {b.updatedAt && (
-            <>
-              {" · last changed "}
-              <time dateTime={b.updatedAt} suppressHydrationWarning>
-                {formatLagos(b.updatedAt)}
-              </time>{" "}
-              WAT
-            </>
-          )}
-        </span>
+        {!awaitingSetup && (
+          <span className="text-xs text-charcoal/70">
+            Status updated manually by the broadcast team
+            {b.updatedAt && (
+              <>
+                {" · last changed "}
+                <time dateTime={b.updatedAt} suppressHydrationWarning>
+                  {formatLagos(b.updatedAt)}
+                </time>{" "}
+                WAT
+              </>
+            )}
+          </span>
+        )}
       </div>
 
       {b.statusMessage && (
@@ -100,10 +105,10 @@ export function LiveBroadcastHub({ initial }: { initial: PublicBroadcast }) {
         </div>
       )}
 
-      <StatusNotice broadcast={b} />
+      <StatusNotice broadcast={b} mainEventLabel={mainEventLabel} />
 
       <div className={cn("grid min-w-0 grid-cols-1 gap-6", showChat && "lg:grid-cols-[minmax(0,1fr)_360px]")}>
-        <Player broadcast={b} />
+        <Player broadcast={b} mainEventLabel={mainEventLabel} />
         {showChat && b.videoId && <ChatPanel videoId={b.videoId} />}
       </div>
 
@@ -122,7 +127,7 @@ export function LiveBroadcastHub({ initial }: { initial: PublicBroadcast }) {
   );
 }
 
-function StatusNotice({ broadcast: b }: { broadcast: PublicBroadcast }) {
+function StatusNotice({ broadcast: b, mainEventLabel }: { broadcast: PublicBroadcast; mainEventLabel?: string }) {
   if (b.status === "interrupted") {
     return (
       <div role="alert" className="flex gap-3 rounded-2xl bg-amber-50 p-4 text-sm text-amber-950 ring-1 ring-amber-500/40">
@@ -141,7 +146,7 @@ function StatusNotice({ broadcast: b }: { broadcast: PublicBroadcast }) {
     return (
       <div className="rounded-2xl bg-white p-4 text-sm text-charcoal ring-1 ring-purple-600/10">
         <p className="font-semibold text-purple-700">The broadcast has not started yet.</p>
-        <ScheduledStart iso={b.scheduledStart} />
+        <ScheduledStart iso={b.scheduledStart} mainEventLabel={mainEventLabel} />
       </div>
     );
   }
@@ -150,8 +155,13 @@ function StatusNotice({ broadcast: b }: { broadcast: PublicBroadcast }) {
       <div className="rounded-2xl bg-white p-4 text-sm text-charcoal ring-1 ring-purple-600/10">
         <p className="font-semibold text-purple-700">This broadcast has ended. Thank you for watching.</p>
         <p className="mt-1">
-          Recordings are published in the <a href="#replays" className="font-semibold text-purple-700 underline">replays section</a> once
-          each session has been processed.
+          {b.replays.length > 0 ? (
+            <>
+              Recordings are in the <a href="#replays" className="font-semibold text-purple-700 underline">replays section</a>.
+            </>
+          ) : (
+            "Recordings will be added to this page after each session has been processed."
+          )}
         </p>
       </div>
     );
@@ -159,7 +169,7 @@ function StatusNotice({ broadcast: b }: { broadcast: PublicBroadcast }) {
   return null;
 }
 
-function ScheduledStart({ iso }: { iso: string | null }) {
+function ScheduledStart({ iso, mainEventLabel }: { iso: string | null; mainEventLabel?: string }) {
   const viewerZone = useBrowserValue(() => Intl.DateTimeFormat().resolvedOptions().timeZone);
   const local =
     iso && viewerZone && viewerZone !== EVENT_TIMEZONE
@@ -176,8 +186,9 @@ function ScheduledStart({ iso }: { iso: string | null }) {
   if (!iso) {
     return (
       <p className="mt-1">
-        The start time will be announced here once the organising committee confirms it. All event times are
-        West Africa Time (WAT, UTC+1).
+        {mainEventLabel
+          ? `The main celebration begins on ${mainEventLabel}. The broadcast start time will be announced here.`
+          : "The broadcast start time will be announced here. All event times are West Africa Time (WAT, UTC+1)."}
       </p>
     );
   }
@@ -196,7 +207,7 @@ function ScheduledStart({ iso }: { iso: string | null }) {
   );
 }
 
-function Player({ broadcast: b }: { broadcast: PublicBroadcast }) {
+function Player({ broadcast: b, mainEventLabel }: { broadcast: PublicBroadcast; mainEventLabel?: string }) {
   if (!b.videoId) {
     return (
       <div
@@ -204,13 +215,16 @@ function Player({ broadcast: b }: { broadcast: PublicBroadcast }) {
         className="flex min-h-[240px] w-full min-w-0 flex-col items-center justify-center gap-3 rounded-2xl bg-purple-900 p-6 text-center text-white sm:aspect-video sm:min-h-0"
       >
         <Tv className="h-10 w-10 text-gold-300" aria-hidden="true" />
-        <p className="max-w-md font-serif text-xl font-bold">
-          {b.status === "ended" ? "The live broadcast has ended" : "The live player will appear here"}
+        <p className="max-w-md font-serif text-xl font-bold sm:text-2xl">
+          {b.status === "ended" ? "The live broadcast has ended" : "Watch the Centenary Celebration live"}
         </p>
+        {b.status !== "ended" && mainEventLabel && (
+          <p className="text-sm font-semibold text-gold-300">{mainEventLabel}</p>
+        )}
         <p className="max-w-md text-sm text-white/80">
           {b.status === "ended"
-            ? "Recordings will be listed below as they are published."
-            : "The broadcast link has not been published yet. Follow the official Takete-Ide YouTube channel to be notified when it goes live."}
+            ? "Recordings will be added to this page as they are published."
+            : "The broadcast link has not been published yet. The player will appear on this page once it is. Subscribe to the official Takete-Ide YouTube channel to be notified when it goes live."}
         </p>
         <a
           href={b.links.youtube}

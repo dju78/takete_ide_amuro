@@ -45,28 +45,25 @@ export const metadata: Metadata = {
 
 const educationalFacilities = [
   {
-    title: "Community High School Building",
-    src: "/images/takete-ide/education/community-high-school-block.png",
-    alt: "Primary academic classroom block of Community High School Takete-Ide",
+    title: "Government Day Secondary School, Takete-Ide",
+    src: "/images/takete-ide/places/gdss-takete-ide.jpg",
+    alt: "Government Day Secondary School, Takete-Ide campus",
     badge: "Secondary Education",
-    description:
-      "The foundational secondary classroom block built through community mobilization and collective development efforts.",
+    description: "The community’s secondary school, Government Day Secondary School, Takete-Ide.",
   },
   {
-    title: "Universal Basic Education (UBE) Block",
-    src: "/images/takete-ide/education/ube-block-building.png",
-    alt: "Universal Basic Education junior secondary block in Takete-Ide",
+    title: "Universal Basic Education, Takete-Ide",
+    src: "/images/takete-ide/places/universal-basic-education-takete-ide.jpg",
+    alt: "Universal Basic Education classroom buildings and compound in Takete-Ide",
     badge: "Basic Education",
-    description:
-      "Modern junior secondary learning facility supporting basic education delivery and foundational learning for community pupils.",
+    description: "Universal Basic Education classroom facilities supporting basic education.",
   },
   {
-    title: "Digital Economy Centre",
-    src: "/images/takete-ide/education/digital-economy-centre.png",
-    alt: "Takete-Ide Digital Economy Centre building",
-    badge: "Digital Infrastructure",
-    description:
-      "Modern digital and ICT learning facility bringing computer literacy and online educational access to Takete-Ide students.",
+    title: "Takete-Ide NCC Computer Centre",
+    src: "/images/takete-ide/places/takete-ide-ncc-computer-centre.png",
+    alt: "Takete-Ide NCC Computer Centre building with solar panels",
+    badge: "Digital Learning",
+    description: "Local access to computers and digital learning facilities, supported by the Nigerian Communications Commission.",
   },
 ];
 
@@ -89,9 +86,20 @@ const milestones = [
   },
   {
     period: "After local government reform",
-    text: "Following the creation of Oyi Local Government Area, a community delegation asked the new authority to take the school over. The request was accepted and the school passed into local government administration after its first two terms.",
+    text: "Following the creation of Oyi Local Government Area in 1976, a community delegation asked the new authority to take the school over. According to Dr David Atte, who was part of the delegation, the request was accepted and the school became Oyi Local Government Secondary School after its first two terms.",
+  },
+  {
+    period: "1980",
+    text: "The TIPU centenary history records 1980 as the year Oyi Local Government Secondary School was established in Takete-Ide, with Pa J.K. Fanwo (Chief Obaholo) as its first principal.",
+  },
+  {
+    period: "1983",
+    text: "The state government took over community and local government secondary schools in the old Kwara State. The school became Government Day Secondary School (GDSS), Takete-Ide.",
   },
 ];
+
+const GDSS_DATING_NOTE =
+  "Accounts differ on when the local government took the school over. Dr David Atte’s first-hand account places the handover after the school’s first two terms; the TIPU centenary history dates the opening of Oyi Local Government Secondary School to 1980. Both sources agree that the school became Government Day Secondary School in 1983.";
 
 function NamesCard({ title, period, names }: { title: string; period: string; names: readonly string[] }) {
   return (
@@ -194,8 +202,12 @@ export default async function EducationPage() {
               Local government reform then created a new authority which announced its intention to
               establish secondary schools. A Takete-Ide delegation put the community&rsquo;s case to the
               authority and asked that the school it had already started be taken over. The request was
-              granted, and the school passed into local government administration after two terms of
-              community operation.
+              granted, and the school passed into local government administration as Oyi Local Government
+              Secondary School. In 1983 the state government took over the school, which became Government
+              Day Secondary School, Takete-Ide.
+            </p>
+            <p className="rounded-xl border border-gold-200 bg-gold-50/60 px-4 py-3 text-sm">
+              <strong>Dates differ between sources.</strong> {GDSS_DATING_NOTE}
             </p>
           </SourcedSection>
         </div>
@@ -335,12 +347,12 @@ export default async function EducationPage() {
         <div className="mt-14 rounded-3xl bg-white p-8 shadow-sm">
           <h2 className="font-serif text-xl font-bold text-purple-600">Voices of Takete-Ide</h2>
           <p className="mt-3 text-charcoal/80">
-            Explore recorded oral histories, elder recollections, and personal reflections documenting
-            education, community life, and cultural progress across generations in Takete-Ide.
+            Memories of schooling and community life belong in the community&rsquo;s oral history archive.
+            Recommend an elder to interview or share a recollection of your own.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <ButtonLink href="/archive/oral-history" variant="secondary">
-              Explore Oral History Archive →
+              Contribute to Voices of Takete-Ide →
             </ButtonLink>
           </div>
         </div>

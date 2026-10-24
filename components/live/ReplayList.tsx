@@ -10,9 +10,21 @@ import { useLiveStatus } from "@/components/live/live-status-store";
  * clicked, so a page with many recordings stays light on mobile data.
  */
 /** Replays kept current by the shared status poller, so new recordings appear on open pages. */
+/** The whole replays section, shown only once at least one recording has been published. */
 export function LiveReplays({ initial, dayLabels }: { initial: PublicBroadcast; dayLabels: Record<number, string> }) {
   const { replays } = useLiveStatus(initial);
-  return <ReplayList replays={replays} dayLabels={dayLabels} />;
+  if (replays.length === 0) return null;
+  return (
+    <section id="replays" aria-labelledby="replays-heading" className="scroll-mt-24">
+      <h2 id="replays-heading" className="font-serif text-2xl font-bold text-purple-700 sm:text-3xl">
+        Replays
+      </h2>
+      <p className="mt-2 text-sm text-charcoal/75">Missed a session? Watch the published recordings.</p>
+      <div className="mt-6">
+        <ReplayList replays={replays} dayLabels={dayLabels} />
+      </div>
+    </section>
+  );
 }
 
 export function ReplayList({ replays, dayLabels }: { replays: LiveReplay[]; dayLabels: Record<number, string> }) {

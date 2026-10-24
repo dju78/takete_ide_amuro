@@ -141,9 +141,10 @@ test.describe("Centenary 2026", () => {
     expect(text).not.toMatch(/Centenary Opening & Heritage Programme/i);
     expect(text).not.toMatch(/Centenary Cultural & Community Eve/i);
 
-    // Days without exact times show honest notice
-    await expect(page.getByText(/Programme details to be confirmed/).first()).toBeVisible();
-    await expect(page.getByText(/Schedule details to be confirmed/).first()).toBeVisible();
+    // Days without exact times share one honest notice; the confirmed main time is shown
+    await expect(page.getByText(/Times for Thursday and Friday have not yet been announced/)).toHaveCount(1);
+    await expect(page.getByText(/Schedule details to be confirmed/)).toHaveCount(0);
+    await expect(page.locator("#programme").getByText("10:00 AM WAT")).toBeVisible();
 
     // Highlights
     await expect(page.getByRole("heading", { name: "Event Highlights" })).toBeVisible();

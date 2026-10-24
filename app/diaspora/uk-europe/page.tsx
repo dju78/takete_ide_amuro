@@ -83,11 +83,9 @@ export default async function UkEuropeChapterPage() {
             another, and channelling diaspora support towards development at home through the union&rsquo;s
             existing structures rather than in parallel to them.
           </p>
-          <p className="text-sm italic text-charcoal/60">
+          <p>
             The chapter resolved at its inaugural meeting to contribute as a body towards the hosting of
-            Takete-Ide Day 2026 and the Centenary Celebration. Its officers, meeting schedule and contact
-            arrangements have not yet been supplied for publication, and will be added here as the chapter
-            confirms them.
+            Takete-Ide Day 2026 and the Centenary Celebration.
           </p>
         </div>
 
@@ -103,6 +101,9 @@ export default async function UkEuropeChapterPage() {
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <ButtonLink href="/diaspora">Join the community network</ButtonLink>
+            <ButtonLink href="/contact" variant="outline">
+              Contact the community
+            </ButtonLink>
             <ButtonLink href="/tipu/branches" variant="outline">
               See all TIPU branches
             </ButtonLink>

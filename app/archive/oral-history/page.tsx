@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Mic2, User, Calendar, MapPin, Globe, Sparkles, BookOpen, FileText } from "lucide-react";
+import { Mic2, User, Users, ScrollText, Calendar, MapPin, Globe, Sparkles, BookOpen, FileText } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { EmptyState } from "@/components/ui/EmptyState";
 import { VerificationBadge } from "@/components/ui/Badge";
 import { AudioPlayer } from "@/components/heritage/AudioPlayer";
 import { ButtonLink } from "@/components/ui/Button";
@@ -16,13 +15,13 @@ import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
   title: "Voices of Takete-Ide — Oral History & Testimony Archive",
-  description: "Digital audio recordings, oral testimonies, and historical recollections preserving the living voice of Takete-Ide Amuro elders and knowledge-holders.",
+  description: "Help preserve the memories of Takete-Ide Amuro elders and knowledge-holders: recommend someone to interview or share a recollection.",
   alternates: {
     canonical: `${siteConfig.url}/archive/oral-history`,
   },
   openGraph: {
     title: "Voices of Takete-Ide — Oral History Archive",
-    description: "Digital audio recordings, oral testimonies, and historical recollections preserving the living voice of Takete-Ide Amuro elders and knowledge-holders.",
+    description: "Help preserve the memories of Takete-Ide Amuro elders and knowledge-holders: recommend someone to interview or share a recollection.",
     url: `${siteConfig.url}/archive/oral-history`,
     siteName: siteConfig.name,
     locale: "en_GB",
@@ -31,11 +30,35 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Voices of Takete-Ide — Oral History Archive",
-    description: "Digital audio recordings, oral testimonies, and historical recollections preserving the living voice of Takete-Ide Amuro elders and knowledge-holders.",
+    description: "Help preserve the memories of Takete-Ide Amuro elders and knowledge-holders: recommend someone to interview or share a recollection.",
   },
 };
 
 export const revalidate = 3600;
+
+const contributionRoutes = [
+  {
+    icon: Mic2,
+    title: "Recommend an elder",
+    description: "Suggest someone whose memories of Takete-Ide should be recorded, with their and their family’s agreement.",
+    href: "/get-involved",
+    cta: "Recommend an elder",
+  },
+  {
+    icon: Users,
+    title: "Share a family history",
+    description: "Send a family’s story, compound history or lineage for review with the family concerned.",
+    href: "/families/contribute",
+    cta: "Share a family history",
+  },
+  {
+    icon: ScrollText,
+    title: "Contribute an Oríkì",
+    description: "Share a family praise name or recitation for the Oríkì directory.",
+    href: "/oriki/contribute",
+    cta: "Contribute an Oríkì",
+  },
+];
 
 export default async function OralHistoryPage() {
   const histories = await getOralHistories();
@@ -63,10 +86,14 @@ export default async function OralHistoryPage() {
       <Container className="py-14 sm:py-16">
         <SectionHeading
           eyebrow="Digital Heritage Archive"
-          title="Recorded Testimonies &amp; Recollections"
+          title={histories.length > 0 ? "Recorded Testimonies & Recollections" : "Help Us Record Takete-Ide’s Voices"}
           align="left"
           className="mx-0"
-          description="Oral history recordings preserved under community consent and archival documentation standards."
+          description={
+            histories.length > 0
+              ? "Oral history recordings preserved with the consent of speakers and their families."
+              : "No recordings have been published yet. Elders’ memories of migration, faith, festivals and family life are part of the community’s history, and this archive is ready to hold them."
+          }
         />
 
         <div className="mt-8 flex flex-col gap-8">
@@ -218,20 +245,18 @@ export default async function OralHistoryPage() {
               );
             })
           ) : (
-            <EmptyState
-              icon={Mic2}
-              title="Oral History &amp; Testimony Archive"
-              message="Oral history recordings and elder recollections are currently being recorded, transcribed, and verified under community consent."
-              action={{
-                label: "Recommend an Elder",
-                href: "/get-involved",
-                variant: "primary",
-              }}
-              secondaryAction={{
-                label: "Explore Heritage",
-                href: "/heritage",
-              }}
-            />
+            <div className="grid gap-5 md:grid-cols-3">
+              {contributionRoutes.map((route) => (
+                <div key={route.href} className="flex flex-col rounded-3xl border border-purple-600/10 bg-white p-6 shadow-sm">
+                  <route.icon className="h-6 w-6 text-gold-700" aria-hidden="true" />
+                  <h2 className="mt-3 font-serif text-lg font-bold text-purple-950">{route.title}</h2>
+                  <p className="mt-2 flex-1 text-sm leading-relaxed text-charcoal/75">{route.description}</p>
+                  <ButtonLink href={route.href} variant="outline" size="sm" className="mt-5 self-start">
+                    {route.cta}
+                  </ButtonLink>
+                </div>
+              ))}
+            </div>
           )}
         </div>
       </Container>

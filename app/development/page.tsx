@@ -5,6 +5,7 @@ import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { EmptyState } from "@/components/ui/EmptyState";
+import { ButtonLink } from "@/components/ui/Button";
 import { ProjectCard } from "@/components/cards/ProjectCard";
 import { VideoPosterCard } from "@/components/media/VideoPosterCard";
 import { HeritageImage } from "@/components/ui/HeritageImage";
@@ -77,6 +78,8 @@ export default async function DevelopmentPage({ searchParams }: Props) {
   ]);
 
   const hasFilter = Boolean(category || status || year);
+  // The register and its filters only appear once at least one project has been published.
+  const hasRegister = hasFilter ? (await getProjects()).length > 0 : projects.length > 0;
 
   return (
     <div className="bg-ivory">
@@ -159,103 +162,115 @@ export default async function DevelopmentPage({ searchParams }: Props) {
           </div>
         </section>
 
-        {/* Filter Controls */}
-        <div className="space-y-4">
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-charcoal/60 mr-2 flex items-center gap-1">
-              <Filter className="h-3.5 w-3.5" /> Category:
-            </span>
-            <Link
-              href={status ? `/development?status=${status}` : "/development"}
-              className={`rounded-full px-3.5 py-1.5 text-xs font-semibold transition ${
-                !category ? "bg-purple-700 text-white" : "bg-white text-charcoal/70 hover:bg-purple-50"
-              }`}
-            >
-              All Categories
-            </Link>
-            {categories.map((c) => {
-              const isActive = category === c.key;
-              const href = status ? `/development?category=${c.key}&status=${status}` : `/development?category=${c.key}`;
-              return (
-                <Link
-                  key={c.key}
-                  href={href}
-                  className={`flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-semibold transition ${
-                    isActive ? "bg-purple-700 text-white" : "bg-white text-charcoal/70 hover:bg-purple-50"
-                  }`}
-                >
-                  <c.icon className="h-3.5 w-3.5" aria-hidden="true" />
-                  {c.label}
-                </Link>
-              );
-            })}
-          </div>
-
-          <div className="flex flex-wrap items-center gap-2 pt-1">
-            <span className="text-xs font-bold uppercase tracking-wider text-charcoal/60 mr-2">Status:</span>
-            <Link
-              href={category ? `/development?category=${category}` : "/development"}
-              className={`rounded-full px-3 py-1 text-xs font-medium transition ${
-                !status ? "bg-gold-500 text-purple-950 font-bold" : "bg-white text-charcoal/70 hover:bg-purple-50"
-              }`}
-            >
-              All Statuses
-            </Link>
-            {statuses.map((s) => {
-              const isActive = status === s.key;
-              const href = category ? `/development?category=${category}&status=${s.key}` : `/development?status=${s.key}`;
-              return (
-                <Link
-                  key={s.key}
-                  href={href}
-                  className={`rounded-full px-3 py-1 text-xs font-medium transition ${
-                    isActive ? "bg-purple-700 text-white font-bold" : "bg-white text-charcoal/70 hover:bg-purple-50"
-                  }`}
-                >
-                  {s.label}
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Project Listings */}
-        <SectionHeading
-          eyebrow="Register"
-          title="Community Development Projects"
-          align="left"
-          className="mx-0 mt-12"
-          description="Verified projects initiated by the community, TIPU, and development partners."
-        />
-
-        <div className="mt-8">
-          {projects.length > 0 ? (
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {projects.map((p) => (
-                <ProjectCard key={p.id} project={p} />
-              ))}
+        {hasRegister ? (
+          <>
+          {/* Filter Controls */}
+          <div className="space-y-4">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-xs font-bold uppercase tracking-wider text-charcoal/60 mr-2 flex items-center gap-1">
+                <Filter className="h-3.5 w-3.5" /> Category:
+              </span>
+              <Link
+                href={status ? `/development?status=${status}` : "/development"}
+                className={`rounded-full px-3.5 py-1.5 text-xs font-semibold transition ${
+                  !category ? "bg-purple-700 text-white" : "bg-white text-charcoal/70 hover:bg-purple-50"
+                }`}
+              >
+                All Categories
+              </Link>
+              {categories.map((c) => {
+                const isActive = category === c.key;
+                const href = status ? `/development?category=${c.key}&status=${status}` : `/development?category=${c.key}`;
+                return (
+                  <Link
+                    key={c.key}
+                    href={href}
+                    className={`flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-semibold transition ${
+                      isActive ? "bg-purple-700 text-white" : "bg-white text-charcoal/70 hover:bg-purple-50"
+                    }`}
+                  >
+                    <c.icon className="h-3.5 w-3.5" aria-hidden="true" />
+                    {c.label}
+                  </Link>
+                );
+              })}
             </div>
-          ) : (
-            <EmptyState
-              title={hasFilter ? "No projects match the selected filters" : "Community Development Projects Register"}
-              message={
-                hasFilter
-                  ? "Try selecting a different category or status, or view all recorded projects."
-                  : "Community development project records and verified progress updates are currently being compiled and reviewed by project coordinators."
-              }
-              action={{
-                label: "Submit a Project Update",
-                href: "/contact",
-                variant: "primary",
-              }}
-              secondaryAction={
-                hasFilter
-                  ? { label: "Reset Filters", href: "/development" }
-                  : { label: "Support Development", href: "/support" }
-              }
-            />
-          )}
-        </div>
+
+            <div className="flex flex-wrap items-center gap-2 pt-1">
+              <span className="text-xs font-bold uppercase tracking-wider text-charcoal/60 mr-2">Status:</span>
+              <Link
+                href={category ? `/development?category=${category}` : "/development"}
+                className={`rounded-full px-3 py-1 text-xs font-medium transition ${
+                  !status ? "bg-gold-500 text-purple-950 font-bold" : "bg-white text-charcoal/70 hover:bg-purple-50"
+                }`}
+              >
+                All Statuses
+              </Link>
+              {statuses.map((s) => {
+                const isActive = status === s.key;
+                const href = category ? `/development?category=${category}&status=${s.key}` : `/development?status=${s.key}`;
+                return (
+                  <Link
+                    key={s.key}
+                    href={href}
+                    className={`rounded-full px-3 py-1 text-xs font-medium transition ${
+                      isActive ? "bg-purple-700 text-white font-bold" : "bg-white text-charcoal/70 hover:bg-purple-50"
+                    }`}
+                  >
+                    {s.label}
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Project Listings */}
+          <SectionHeading
+            eyebrow="Register"
+            title="Community Development Projects"
+            align="left"
+            className="mx-0 mt-12"
+            description="Verified projects initiated by the community, TIPU, and development partners."
+          />
+
+          <div className="mt-8">
+            {projects.length > 0 ? (
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {projects.map((p) => (
+                  <ProjectCard key={p.id} project={p} />
+                ))}
+              </div>
+            ) : (
+              <EmptyState
+                title="No projects match the selected filters"
+                message="Try selecting a different category or status, or view all recorded projects."
+                action={{
+                  label: "Reset Filters",
+                  href: "/development",
+                  variant: "primary",
+                }}
+              />
+            )}
+          </div>
+          </>
+        ) : (
+          <section className="flex flex-col items-start justify-between gap-4 rounded-2xl border border-purple-600/10 bg-white p-6 shadow-sm sm:flex-row sm:items-center">
+            <div>
+              <h2 className="font-serif text-xl font-bold text-purple-950">Share a project update</h2>
+              <p className="mt-1 text-sm text-charcoal/70">
+                Coordinators and partners can send verified progress on community projects to the TIPU secretariat.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <ButtonLink href="/contact" variant="outline" size="sm">
+                Submit a Project Update
+              </ButtonLink>
+              <ButtonLink href="/support" size="sm">
+                Support Development
+              </ButtonLink>
+            </div>
+          </section>
+        )}
 
         {footage.length > 0 && (
           <section className="mt-16">

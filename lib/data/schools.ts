@@ -13,10 +13,11 @@ const VERIFIED_HISTORICAL_SCHOOLS: School[] = [
     establishment_milestones: [
       { label: "Community Resolution (AGM)", year: "26 Dec 1975" },
       { label: "Teaching Commenced", year: "Jan 1977" },
-      { label: "Government Takeover (Oyi LGA)", year: "1980" },
+      { label: "Handed to Oyi LG", year: "Sources differ" },
+      { label: "Renamed GDSS (state takeover)", year: "1983" },
     ],
     historical_description:
-      "Initiated as a community self-funded secondary school by resolution at the TIPU Annual General Meeting on 26 December 1975; pioneer teaching commenced in January 1977. Officially taken over by the defunct Oyi Local Government in 1980, becoming Government Day Secondary School (GDSS), Takete-Ide. Pioneer principal: Chief Kayode Fanwo.",
+      "Initiated as a community self-funded secondary school by resolution at the TIPU Annual General Meeting on 26 December 1975; teaching began in January 1977. The school then passed to the defunct Oyi Local Government as Oyi Local Government Secondary School: Dr David Atte’s account places the handover after its first two terms, while the TIPU centenary history dates it to 1980. The state government took it over in 1983 as Government Day Secondary School (GDSS), Takete-Ide. Pioneer principal: Chief Kayode Fanwo.",
     current_head: null,
     approximate_enrolment: null,
     facilities: [
@@ -134,7 +135,7 @@ const VERIFIED_HISTORICAL_SCHOOLS: School[] = [
     ],
     current_projects: [],
     photographs: [
-      "/images/takete-ide/education/digital-economy-centre.png",
+      "/images/takete-ide/places/takete-ide-ncc-computer-centre.png",
     ],
     source_title: "From the Hilltops to the Valley: A Historical Account of Takete-Ide",
     source_author: "Community Infrastructure Records",

@@ -45,7 +45,7 @@ export const ARCHIVE_OVERVIEW_CARDS: ArchiveOverviewCard[] = [
   {
     title: "5. Traditional Institution & Confirmed Register",
     summary:
-      "Preserves the 12-ruler historical Olu’de register with confirmed family and ward/compound affiliations, the Traditional Council, and the rotating Alamuro stool structure.",
+      "Presents the register of 13 Olu’des in living memory, from Olu’de Opalu to the reigning Oba Philip Omolade Aladuge Ebilakun, with their family and ward affiliations, the Traditional Council, and the rotating Alamuro stool structure.",
     href: "/heritage/traditional-institution",
     linkLabel: "View traditional institution",
   },

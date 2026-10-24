@@ -56,6 +56,12 @@ export default async function TaketeIdeDayYearPage({ params }: Props) {
     );
   }
 
+  // Past events have no forecast, so they use a single-column layout.
+  const isPast = Boolean(
+    event.event_date &&
+      event.event_date.slice(0, 10) < new Date().toLocaleDateString("en-CA", { timeZone: "Africa/Lagos" }),
+  );
+
   const eventJsonLd = event.event_date
     ? {
         "@context": "https://schema.org",
@@ -99,7 +105,7 @@ export default async function TaketeIdeDayYearPage({ params }: Props) {
         </Container>
       </div>
 
-      <Container className="grid gap-12 py-16 lg:grid-cols-[1fr_320px]">
+      <Container className={isPast ? "max-w-5xl py-16" : "grid gap-12 py-16 lg:grid-cols-[1fr_320px]"}>
         <div className="flex flex-col gap-12">
           {event.description && (
             <section className="prose-heritage">
@@ -215,9 +221,11 @@ export default async function TaketeIdeDayYearPage({ params }: Props) {
           )}
         </div>
 
-        <aside>
-          <EventWeather eventDateIso={event.event_date} />
-        </aside>
+        {!isPast && (
+          <aside>
+            <EventWeather eventDateIso={event.event_date} />
+          </aside>
+        )}
       </Container>
     </div>
   );

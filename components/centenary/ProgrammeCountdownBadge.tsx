@@ -3,7 +3,7 @@
 import { useClockSeconds } from "@/components/community/CentenaryCountdown";
 import { getProgrammeCountdown, getLagosTimestamp } from "@/lib/utils/centenary-countdown";
 import type { CentenaryProgrammeItem } from "@/lib/media/community-programme";
-import { Clock, Radio, CheckCircle2, Calendar } from "lucide-react";
+import { Clock, Radio, CheckCircle2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface ProgrammeCountdownBadgeProps {
@@ -23,19 +23,8 @@ export function ProgrammeCountdownBadge({
 
   const countdown = getProgrammeCountdown(item, nowMs);
 
-  if (countdown.state === "unconfirmed_time") {
-    return (
-      <span
-        className={cn(
-          "inline-flex items-center gap-1.5 rounded-full bg-charcoal/5 px-3 py-1 text-xs font-medium text-charcoal/70 ring-1 ring-inset ring-charcoal/10",
-          className,
-        )}
-      >
-        <Calendar className="h-3.5 w-3.5 text-charcoal/50" aria-hidden="true" />
-        Schedule details to be confirmed
-      </span>
-    );
-  }
+  // The programme section explains untimed days once; no per-card notice.
+  if (countdown.state === "unconfirmed_time") return null;
 
   if (countdown.state === "completed") {
     return (

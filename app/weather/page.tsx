@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Sunrise, Sunset, Droplets, Wind, Gauge, Eye, CloudRain, Sprout } from "lucide-react";
+import { Sunrise, Sunset, Droplets, Wind, Gauge, Eye, CloudRain } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { getCurrentWeather, getForecast } from "@/lib/weather/service";
@@ -32,7 +32,7 @@ export default async function WeatherPage() {
         </Container>
       </div>
 
-      <Container className="grid gap-12 py-16 lg:grid-cols-[1fr_1.3fr]">
+      <Container className={current ? "grid gap-12 py-16 lg:grid-cols-[1fr_1.3fr]" : "max-w-2xl py-16"}>
         <div>
           {current ? (
             <WeatherCard current={current} highC={today?.highC} lowC={today?.lowC} precipitation={today?.precipitationProbability} />
@@ -112,23 +112,6 @@ export default async function WeatherPage() {
             </section>
           )}
 
-          <section className="rounded-2xl bg-purple-50/70 p-6">
-            <h2 className="font-serif text-xl font-bold text-purple-600">Planning Your Day in Takete-Ide</h2>
-            <p className="mt-2 text-sm text-charcoal/80">{planningContext(current?.temperatureC, today?.precipitationProbability)}</p>
-          </section>
-
-          <section className="rounded-2xl border border-community-green/20 bg-green-600/5 p-6">
-            <h2 className="flex items-center gap-2 font-serif text-xl font-bold text-green-700">
-              <Sprout className="h-5 w-5" aria-hidden="true" />
-              Farming Weather
-            </h2>
-            <p className="mt-2 text-sm text-charcoal/80">
-              Takete-Ide has a strong agrarian heritage. This section will grow into a dedicated farming
-              weather view — rainfall, temperature and humidity relevant to planting and harvest — as
-              agricultural data sources are integrated. For now, use the rainfall and temperature figures
-              above to plan farm activity.
-            </p>
-          </section>
         </div>
       </Container>
 
@@ -143,23 +126,6 @@ function formatTime(iso: string) {
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return iso;
   return d.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
-}
-
-function planningContext(tempC?: number, rainChance?: number) {
-  if (tempC === undefined) {
-    return "Weather details will appear here once conditions are available.";
-  }
-  const notes: string[] = [];
-  if (rainChance !== undefined && rainChance >= 50) {
-    notes.push("Rain is possible today. Consider checking conditions before travelling or planning outdoor activities.");
-  }
-  if (tempC >= 32) {
-    notes.push("Warm conditions are expected today. Plan outdoor activities appropriately.");
-  }
-  if (notes.length === 0) {
-    notes.push("Conditions look settled today, but always check the latest update before travelling.");
-  }
-  return notes.join(" ");
 }
 
 function DetailTile({

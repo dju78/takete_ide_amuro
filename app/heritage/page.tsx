@@ -365,7 +365,7 @@ export default async function HeritagePage() {
           <IconCard
             icon={Mic2}
             title="Voices of Takete-Ide"
-            description="Community oral history recordings from those who carry its memory."
+            description="Help record the memories of those who carry Takete-Ide’s history."
             href="/archive/oral-history"
           />
           <IconCard

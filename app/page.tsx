@@ -565,35 +565,24 @@ export default async function HomePage() {
         </Container>
       </section>
 
-      {/* Latest News */}
-      <section className="bg-ivory py-12 sm:py-16">
-        <Container>
-          <div className="flex flex-wrap items-center justify-between gap-4">
-            <SectionHeading eyebrow="Newsroom" title="Latest News" align="left" className="mx-0" />
-            {news.length > 0 && (
+      {/* Latest News — shown only once articles are published */}
+      {news.length > 0 && (
+        <section className="bg-ivory py-12 sm:py-16">
+          <Container>
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <SectionHeading eyebrow="Newsroom" title="Latest News" align="left" className="mx-0" />
               <ButtonLink href="/news" variant="outline" size="sm">
                 View All News
               </ButtonLink>
-            )}
-          </div>
-          <div className="mt-6">
-            {news.length > 0 ? (
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {news.map((article) => (
-                  <NewsCard key={article.id} article={article} />
-                ))}
-              </div>
-            ) : (
-              <p className="text-sm text-charcoal/60">
-                Community news and announcements will appear here once published.{" "}
-                <Link href="/news" className="font-semibold text-community-green hover:underline">
-                  Visit the newsroom →
-                </Link>
-              </p>
-            )}
-          </div>
-        </Container>
-      </section>
+            </div>
+            <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {news.map((article) => (
+                <NewsCard key={article.id} article={article} />
+              ))}
+            </div>
+          </Container>
+        </section>
+      )}
 
       {/* Upcoming Events — the Centenary always, plus any upcoming event records. */}
       <section className="bg-white py-12 sm:py-16">

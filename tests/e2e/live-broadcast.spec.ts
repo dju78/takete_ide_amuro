@@ -199,13 +199,21 @@ test.describe("/live page — unconfigured broadcast", () => {
     await expect(page.getByTestId("programme-day-2")).toContainText("30 October 2026");
     await expect(page.getByTestId("programme-day-3")).toContainText("31 October 2026");
     await expect(page.getByText("All times are West Africa Time (WAT, UTC+1) — Africa/Lagos.")).toBeVisible();
-    await expect(page.getByText("Session times to be announced").first()).toBeVisible();
+    await expect(page.getByTestId("untimed-days-note")).toContainText("Times for Thursday and Friday have not yet been announced.");
+    await expect(page.getByTestId("programme-day-3")).toContainText("10:00 AM WAT");
+    await expect(page.getByText("Session times to be announced")).toHaveCount(0);
   });
 
-  test("replays section shows an empty state", async ({ page }) => {
+  test("replays section is hidden until a recording is published; pre-event panel shows the main time", async ({ page }) => {
     await page.goto("/live");
-    await expect(page.getByRole("heading", { name: "Replays" })).toBeVisible();
-    await expect(page.getByTestId("replays-empty")).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Replays" })).toHaveCount(0);
+    const panel = page.getByTestId("player-fallback");
+    await expect(panel).toContainText("Watch the Centenary Celebration live");
+    await expect(panel).toContainText("Saturday, 31 October 2026 at 10:00 AM WAT");
+    await expect(panel.getByRole("link", { name: /Official YouTube channel/ })).toHaveAttribute(
+      "href",
+      "https://www.youtube.com/channel/UCsLauLD7WlDBneUhDxl2VRw",
+    );
   });
 
   test("sharing: WhatsApp link and copy link", async ({ page, context }) => {
@@ -356,7 +364,7 @@ test.describe("/live page — broadcast states (status endpoint mocked)", () => 
 
   test("replays published after a session appear on open pages with working links", async ({ page }) => {
     await page.goto("/live");
-    await expect(page.getByTestId("replays-empty")).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Replays" })).toHaveCount(0);
     const fbVideo = "https://www.facebook.com/somepage/videos/1234567890";
     await pushStatus(
       page,
@@ -375,6 +383,8 @@ test.describe("/live page — broadcast states (status endpoint mocked)", () => 
     await expect(list.getByRole("link", { name: /Watch on Facebook/ })).toHaveAttribute("href", fbVideo);
     await list.getByRole("button", { name: "Play recording: Day 1 — Opening" }).click();
     await expect(list.locator("iframe")).toHaveAttribute("src", new RegExp(`youtube-nocookie\.com/embed/${FAKE_ID}.*autoplay=1`));
+    await expect(page.getByRole("heading", { name: "Replays" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "replays section" })).toHaveAttribute("href", "#replays");
   });
 
   test("ended: no chat, replay pointer shown", async ({ page }) => {
